@@ -1,0 +1,29 @@
+# Quality gates (docs/test_strategy.md). Actions pinned to commit SHAs is a TODO before the first push:
+# resolve each tag to a SHA of a release at least 14 days old (as in porters-five-forces-rag).
+name: ci
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv python install 3.12
+      - run: tools/ci.sh
+  corpus:
+    runs-on: ubuntu-24.04
+    needs: checks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv python install 3.12
+      - name: Fetch the register PDFs (verified against data/sources.toml hashes)
+        run: uv run python -m labelclaim.build fetch
+      - run: uv run pytest -m corpus
+      - name: Build twice with different hash seeds; the build hashes must match
+        run: |
+          PYTHONHASHSEED=1 uv run python -m labelclaim.build run --offline --out build/a > a.json
+          PYTHONHASHSEED=2 uv run python -m labelclaim.build run --offline --out build/b > b.json
+          python3 -c "import json; a, b = (json.load(open(f))['build_hash'] for f in ('a.json', 'b.json')); assert a == b, (a, b); print(a)"

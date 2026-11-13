@@ -1,0 +1,16 @@
+# Reviewed anomalies (L1 §8 I8). A release build needs every anomaly listed here AND reviewed_by filled in.
+# Entries below were found and explained in the M1 audit (2026-11-13) and await the user's review.
+
+[[allow]]
+code = "UNMAPPED_TABLE"
+doc = "mup_insecticide_2026-09-30"
+page = 7
+reason = "Rodenticide and wood-preservative uses in a 3-4 column layout (Use | Method | Dosage | Dilution; Pest | Dose rate | Manner of application). Non-crop uses, outside the 6-column schema."
+reviewed_by = ""
+
+[[allow]]
+code = "DANGLING_MERGE"
+doc = "mup_fungicide_2026-09-30"
+page = 77
+reason = "Penconazole 1.1%: the Mango row has no a.i. cell drawn in the PDF (checked visually); the field is left empty, not guessed."
+reviewed_by = ""

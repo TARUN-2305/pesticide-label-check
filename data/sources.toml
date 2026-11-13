@@ -1,0 +1,29 @@
+# Official inputs, pinned by SHA-256 (L1 §5.1). Observed and downloaded on 2026-11-13.
+# Page ranges are observed (first heading page .. last page holding a row of the section, which can be the
+# page where the next section opens); the documents' own indexes are wrong (L1 §1).
+
+[[document]]
+id = "mup_insecticide_2026-09-30"
+kind = "insecticide"
+url = "https://ppqs.gov.in/sites/default/files/MUP%20%28insecticide%29%20%2030.09.2026.pdf"
+sha256 = "e0aaa0826d1134361ccba09ae649dbbda442ef8773c35af70e14282fe4d6ced1"
+register_date = "2026-09-30"
+pages = 108
+expected_sections = { agri_single = [2, 54], agri_combination = [54, 88] }
+
+[[document]]
+id = "mup_fungicide_2026-09-30"
+kind = "fungicide"
+url = "https://ppqs.gov.in/sites/default/files/Fungicide%20MUP%20%20as%20on%2030.09.2026.pdf"
+sha256 = "e6a539cfd2657c8dec752827d4da777e16ab3f4915bbbc88abed9248018136f4"
+register_date = "2026-09-30"
+pages = 91
+expected_sections = { agri_single = [2, 44], agri_combination = [45, 91] }
+
+[[document]]
+id = "restrictions_2026-10-31"
+kind = "restrictions"
+url = "https://ppqs.gov.in/sites/default/files/list_of_pesticides_which_are_banned_refused_registration_and_restricted_in_use%20%2831.10.26%29.pdf"
+sha256 = "f7e061b5fa5628eb42caf7f3180f5f86c12bd6aa295d085b81b5e5891ffa8935"
+register_date = "2026-10-31"
+pages = 6
