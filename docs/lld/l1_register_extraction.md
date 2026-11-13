@@ -361,7 +361,7 @@ Each change was forced by a page of the real register and is covered by a test f
 | Products | 655 (641 headings fully parsed = 97.9 %) |
 | Ingredients | 230 |
 | Restriction entries | 97: banned 50, banned for use 5, withdrawn 8, refused 18, restricted 16. These counts match the document's own numbering |
-| Provenance re-check (I3) | **14,130 fields** re-read from their boxes: **0 mismatches** (a mismatch aborts the build) |
+| Provenance re-check (I3) | **14,123 fields** re-read from their boxes: **0 mismatches** (a mismatch aborts the build). *Corrected 2026-11-13: first reported as 14,130, which came from an earlier build before fixes D9 and the fungicide p. 81 merge.* |
 | Anomalies | 10, all on the allow-list: 8 `UNMAPPED_TABLE` (p. 7 non-crop layout), 2 `DANGLING_MERGE` (fungicide p. 77). The allow-list itself awaits a human `reviewed_by` |
 | Build hash | `86953251…` **identical in all 5 runs** (seeds 7919 … 39595) |
 | Wall time | median **40.82 s** (38.85, 39.16, 40.82, 41.20, 41.62) |
@@ -396,3 +396,22 @@ M6 (iterating a set when assigning IDs) is covered by the 5-seed determinism che
 - **Human review** of `data/lexicon/crops.csv` (197 rows) and of the 2 allow-list entries. Until then `--release` refuses, by design.
 - A pest lexicon (D11; moved to M2).
 - CI actions pinned to SHAs; no push has been made.
+
+### 15.6 Release build after the user's review (2026-11-13)
+
+**The user's review.** The user signed every row of `data/lexicon/crops.csv` and both allow-list entries (`reviewed_by = "Tarun"`):
+- The review changed 23 canonical IDs (152 → **134** canonical crops). Examples: plurals merged; Jowar → sorghum; Bajra and Pearlmillet → pearl_millet; Corn → maize; Moong → greengram; the "Ccumber" typo → cucumber.
+- The reviewed file arrived as `crops_reviewed.csv` with Windows line endings. The assistant copied it over `crops.csv` and normalised the line endings to LF; the content is unchanged.
+
+**P4** predicted 95–120 canonical crops; the result is 134. **Wrong** (too low).
+
+**The release build.**
+- Command: `python -m labelclaim.build run --release --offline`, exit 0.
+- Build hash `672590d0…`.
+- 2,376 uses, all with a crop ID; 14,123 fields re-checked.
+- 10 anomalies, all reviewed; 0 unreviewed lexicon rows or allow-list entries.
+- 35.9 s.
+
+**Inputs for M2.** These are observations; the assistant did not change any of the user's choices.
+- **Crops and application methods mixed together.** Some register strings name several crops, or a crop plus a method, and were reviewed as one ID: "Tomato/Chilli es" → `tomato_chilli`, "Beans (Cowpea, moong, Urd)" → `cowpea_moong_urid`, "Grapes (Soil drench)" → `grapes_soil_drench`, "Tobacco (Nursery)" → `tobacco_nursery`. A lookup for "tomato" or "grape" would therefore miss those uses. M2 needs either a many-to-many use ↔ crop mapping or a split of the method into `application_note`.
+- **A leftover empty alias.** `unknown` (alias "") came from an empty crop string in an early build. No current use has an empty crop, so the row is unused.
