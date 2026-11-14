@@ -1,0 +1,32 @@
+alias,current_canonical_id,proposed_canonical_ids,reason,decision
+Brinjal Foliar application,brinjal_foliar_application,brinjal,the method stays in the raw text; the crop is the plain crop,accept
+Cabbage & Cauliflower,cabbage_cauliflower,cabbage;cauliflower,names several crops: map to each,accept
+Chillies & Okra,chillies_and_okra,chilli;okra,names several crops: map to each,accept
+Grapes (Soil drench),grapes_soil_drench,grape,the method stays in the raw text; the crop is the plain crop,accept
+Grapes – Foliar application,grapes_foliar_application,grape,the method stays in the raw text; the crop is the plain crop,accept
+Grapes –Soil drench,grapes_soil_drench,grape,the method stays in the raw text; the crop is the plain crop,accept
+"Groundnut, Sugarcane",groundnut_sugarcane,groundnut;sugarcane,names several crops: map to each,accept
+Rice (Paddy) &cotton,rice_and_cotton,rice;cotton,names several crops: map to each,accept
+Rice Nursery,rice_nursery,rice,the method stays in the raw text; the crop is the plain crop,accept
+Tobacco (Nursery),tobacco_nursery,tobacco,the method stays in the raw text; the crop is the plain crop,accept
+Tobacco Nursery,tobacco_nursery,tobacco,the method stays in the raw text; the crop is the plain crop,accept
+Tomato Foliar application,tomato_foliar_application,tomato,the method stays in the raw text; the crop is the plain crop,accept
+Tomato nursery,tomato_nursery,tomato,the method stays in the raw text; the crop is the plain crop,accept
+Tomato Soil drench,tomato_soil_drench,tomato,the method stays in the raw text; the crop is the plain crop,accept
+"Wheat , Gram",wheat_gram,wheat;chickpea,names several crops: map to each,accept
+"Beans (Cowpea, moong, Urd)",cowpea_moong_urid,bean;cow_pea;greengram;blackgram,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",cabbage_cauliflower_tomato_brinjal_chillies_beans_ornamental,cabbage;cauliflower;tomato;brinjal;chilli;bean;NEW:ornamental,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+Chilli- nursery (soil drenching),chilli_nursery,chilli,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+"Citrus, Rubber, Paddy (Rice), Tea, Vegetables",citrus_rubber_paddy_tea_vegetables,citrus;rubber;rice;tea;NEW:vegetables,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+Coconut/ Bamboo,coconut_bamboo,coconut;NEW:bamboo,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+"Cowpea, Guar, Pea",cowpea_guar_pea,cow_pea;cluster_beans;pea,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+"Cowpea, Moong/Urid",cowpea_moong_urid,cow_pea;greengram;blackgram,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+Cumin & Coriander,cumin_and_coriander,cumin;NEW:coriander,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+"Dry Fruits, Nuts Spices & Oil Seeds",dry_fruits_nuts_spices_and_oil_seeds,NEW:dry_fruits;NEW:nuts;NEW:spices;NEW:oil_seeds,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+Floricultur e (Carnation & Gerbera),floriculture,floriculture;NEW:carnation;NEW:gerbera,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+"For rodent control in field , storage and crops like rice, soybean and coconut)",for_rodent_control_in_field_storage_and_crops_like_rice_soybean_and_coconut,rice;soybean;coconut,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+"Mosquitoes (Aedes aegypti, Anopheles stephensi, Culex quinquefasciatus) Housefly (Musca domestica) Cockroaches (Periplanata americana, blatella germinica), Bed Bugs (Cimex hemipterus)",mosquitoes_housefly_cockroaches_bed_bugs,,"public-health targets (mosquitoes, housefly, cockroaches and bed bugs), not crops; classify as non_crop/public_health",reject
+Pigeon pea or Redgram (Arhar/Tur),pigeonpea,pigeonpea,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+Rapeseed/ Mustard,rapeseed_mustard,NEW:rapeseed;mustard,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+Rice-Nursery (Soil Drenching),rice_nursery,rice,"several crops, some not yet in the lexicon (NEW:) - your call",accept
+Tomato/Chilli es,tomato_chilli,tomato;chilli,"several crops, some not yet in the lexicon (NEW:) - your call",accept

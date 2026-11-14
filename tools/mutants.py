@@ -47,6 +47,34 @@ MUTANTS = [
      "        if looks_like_note(text):\n            return RowKind.NOTE",
      "        if NOTE.match(text):\n            return RowKind.NOTE",
      ["tests/test_extract.py"], "survives (no synthetic case for a colon/sentence note; see results)"),
+    # --- L2 (predictions written 2026-11-14, before running) ---
+    ("L2-M1 top fuzzy suggestion used as a match", "lookup/names.py",
+     '    return Resolution("unknown", (), tuple(ranked[:MAX_SUGGESTIONS]))',
+     '    return Resolution("exact", (ranked[0].id,), ()) if ranked else Resolution("unknown", (), ())',
+     ["tests/test_lookup.py"], "killed"),
+    ("L2-M2 APPROVED when the pest filter empties the rows", "lookup/engine.py",
+     "            if not with_pest:", "            if False:",
+     ["tests/test_lookup.py::test_not_approved_for_pest_lists_the_pests_it_is_approved_for"], "killed"),
+    ("L2-M3 restriction overlay dropped", "lookup/engine.py",
+     "        if not ingredient_keys:\n            return ()", "        if True:\n            return ()",
+     ["tests/test_lookup.py"], "killed"),
+    ("L2-M4 query text leaks into the access log", "api/app.py",
+     "        request.state.outcome = answer.outcome.value", "        request.state.outcome = body.model_dump_json()",
+     ["tests/test_api.py::test_access_log_never_contains_the_query_text"], "killed"),
+    ("L2-M5 pest phrases split on 'and' again", "normalize/pests.py",
+     'parts = re.split(r"[,;/\\n]", plain)', 'parts = re.split(r"[,;/\\n]|\\band\\b", plain)',
+     ["tests/test_pests_ingredients.py"], "killed"),
+    ("L2-M6 ingredient lists matched in order", "lookup/names.py",
+     "if {i for i, _ in ings} == wanted]", "if [i for i, _ in ings] == [self.ingredient[k][0] for k in keys]]",
+     ["tests/test_lookup.py::test_combination_matches_as_a_set"], "killed"),
+    ("L2-M7 multi-crop use linked to its first crop only", "build.py",
+     'tables["use_record_crop"] += [(uid, cid) for cid in crop_ids]',
+     'tables["use_record_crop"] += [(uid, cid) for cid in crop_ids[:1]]',
+     ["tests/test_register_validate.py"], "killed"),
+    ("L2-M8 restriction never names the crop", "lookup/engine.py",
+     "notes.append(RestrictionNote(name, status, detail, page, bool(names & words)))",
+     "notes.append(RestrictionNote(name, status, detail, page, False))",
+     ["tests/test_lookup.py::test_register_use_that_a_restriction_names_is_a_conflict"], "killed"),
 ]  # fmt: skip
 
 
@@ -58,8 +86,11 @@ def run(tests: list[str]) -> bool:
 
 
 def main() -> int:
+    only = sys.argv[1] if len(sys.argv) > 1 else ""
     rows = []
     for mid, rel, original, mutant, tests, predicted in MUTANTS:
+        if only and not mid.startswith(only):
+            continue
         path = SRC / rel
         source = path.read_text(encoding="utf-8")
         if source.count(original) != 1:

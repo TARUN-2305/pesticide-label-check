@@ -7,12 +7,16 @@ from pathlib import Path
 
 import pytest
 
+from labelclaim.build import Lexicons, build_tables
 from labelclaim.errors import ProvenanceError
 from labelclaim.extract.model import Col, Field, ProductHeading, Section, TextLine, UseRow
-from labelclaim.normalize.lexicon import key, load_crops, split_pests, suggest
+from labelclaim.normalize.ingredients import Variants
+from labelclaim.normalize.lexicon import CropEntry, CropLexicon, key, load_crops, split_pests, suggest
+from labelclaim.normalize.pests import PestEntry, PestLexicon
 from labelclaim.normalize.quantities import Quantity
 from labelclaim.register.writer import canonical_hash, open_readonly, write
 from labelclaim.restrictions import parse_restrictions
+from labelclaim.sources import SourceDocument
 from labelclaim.validate import (
     check_digits,
     check_duplicates,
@@ -159,3 +163,33 @@ def test_restrictions_sections_and_details() -> None:
     ]
     assert found[0].detail_raw == "S.O. 3951 (E), dated 08.08.2018"
     assert found[2].detail_raw.startswith("Chlorpyriphos is banned for use in Ber")
+
+
+# --- build tables (L2 §11 A1/A2) --------------------------------------------------------------------
+
+
+def test_build_tables_links_a_use_to_every_crop_and_pest_its_names_map_to(tmp_path: Path) -> None:
+    doc = SourceDocument("ins", "insecticide", "https://x/ins.pdf", "0" * 64, "2026-09-30", 1)
+    lexicons = Lexicons(
+        CropLexicon(
+            (
+                CropEntry("tomato", "tomato", "Tomato/Chilli", "en", "crop", "t"),
+                CropEntry("chilli", "chilli", "Tomato/Chilli", "en", "crop", "t"),
+            )
+        ),
+        PestLexicon(
+            (
+                PestEntry("early_blight", "early blight", "early and late blight", "en", "t"),
+                PestEntry("late_blight", "late blight", "early and late blight", "en", "t"),
+            )
+        ),
+        Variants(()),
+    )
+    tables, unknown = build_tables(
+        (doc,), [(doc, use(crop="Tomato/Chilli", pest="Early & late blight"))], [], lexicons
+    )
+    assert unknown == []
+    assert sorted(c for _, c in tables["use_record_crop"]) == ["chilli", "tomato"]
+    assert sorted(p for _, p, _ in tables["use_record_pest"]) == ["early_blight", "late_blight"]
+    _, unknown = build_tables((doc,), [(doc, use(crop="Okra", pest="Mealybug"))], [], lexicons)
+    assert sorted(a.code for a in unknown) == ["UNKNOWN_CROP", "UNKNOWN_PEST"]

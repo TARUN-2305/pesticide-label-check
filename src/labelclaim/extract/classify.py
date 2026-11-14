@@ -33,7 +33,11 @@ def looks_like_note(text: str) -> bool:
     )
 
 
-_HEADER_WORD = re.compile(r"(?i)\b(?:crop|common name|dosage|formulation|dilution|waiting|a\.\s?i\b)")
+_HEADER_WORD = re.compile(
+    r"(?i)\b(?:crop|common name|name of (?:insect )?pest|dosage|formulation|dilution|waiting|a\.\s?i\b|"
+    r"infestation|requirement|spray solution)"
+)
+_STANDALONE_NUMBER = re.compile(r"(?<![A-Za-z/])\d+(?:\.\d+)?(?![A-Za-z\d])")
 FORMULATIONS = (
     "EC|SC|WG|WP|WDG|WSG|GR|G|SL|CS|OD|FS|DP|DS|ZC|SE|EW|DC|SP|ME|SG|WS|GB|CG|DF|EO|ULV|UL|SO|ST|TB|"
     "CB|RB|BB|FU|GE|MC|PA|PC|TC|TK|SU|WT|LS|AF|AL|KN|HN|XL|P|D|DT|WDP|ES|OS|FF|RTU|L|EW/SE|"
@@ -56,10 +60,12 @@ def heading_like(text: str) -> bool:
 
 
 def is_header(texts: list[str]) -> bool:
+    """>= 2 distinct header phrases and no standalone number (units such as "m2" or "/m3" are allowed).
+    Insecticide p. 23 has a header block "Name Of Insect Pest | Infestation | Requirement mg a.i./m2 |
+    ..." that had been read as a data row (M2 audit)."""
     joined = " ".join(texts)
-    return len({m.group(0).lower() for m in _HEADER_WORD.finditer(joined)}) >= 2 and not re.search(
-        r"\d", joined
-    )
+    phrases = {m.group(0).lower() for m in _HEADER_WORD.finditer(joined)}
+    return len(phrases) >= 2 and not _STANDALONE_NUMBER.search(joined)
 
 
 def classify_row(row: BandedRow, *, continuation_allowed: bool) -> RowKind:  # noqa: PLR0911 (a rule list)

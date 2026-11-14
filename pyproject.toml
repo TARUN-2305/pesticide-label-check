@@ -56,7 +56,9 @@ max-branches = 16
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101", "PLR0913"]
+"tests/registerkit.py" = ["E501"]  # a fixture table: one row per line reads better than wrapped tuples
 "tools/mutants.py" = ["E501", "S603", "S404"]  # a table of source snippets; runs our own pytest only
+"tools/perf_lookup.py" = ["E501", "S311", "S101"]  # a measurement script: seeded sampling, asserts on our own server
 
 [tool.mypy]
 strict = true

@@ -1,9 +1,9 @@
-"""Build orchestration and CLI (L1 §4.1, §9): sources -> extract -> normalise -> validate -> register.
+"""Build orchestration and CLI (L1 §4.1, §9; L2 §11): sources -> extract -> normalise -> validate -> register.
 
 python -m labelclaim.build fetch   [--offline]
 python -m labelclaim.build run     [--release] [--offline] [--out build/]
 python -m labelclaim.build audit   [--register build/register.sqlite]
-python -m labelclaim.build lexicon-draft [--out data/lexicon/crops.draft.csv]
+python -m labelclaim.build lexicon-draft --what crops|pests|ingredients --out PATH
 """
 
 from __future__ import annotations
@@ -18,16 +18,17 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-from labelclaim import __doc__ as _pkg_doc  # noqa: F401 - keep the package importable for -m
 from labelclaim.errors import AnomalyBudgetExceeded, LabelClaimError, SourceIntegrityError
 from labelclaim.extract.assemble import assemble
 from labelclaim.extract.model import Anomaly, Col, UseRow
 from labelclaim.extract.pages import Reextractor, read_document
 from labelclaim.normalize.headings import parse_heading
-from labelclaim.normalize.lexicon import CropLexicon, key, load_crops, split_pests, write_draft
+from labelclaim.normalize.ingredients import Variants, draft_variants, load_variants, write_variants
+from labelclaim.normalize.lexicon import CropLexicon, key, load_crops, write_draft
+from labelclaim.normalize.pests import PestLexicon, draft_pests, load_pests, pest_phrases, write_pests
 from labelclaim.normalize.quantities import parse_quantity, wait_days
 from labelclaim.register.writer import open_readonly, write
-from labelclaim.restrictions import parse_restrictions
+from labelclaim.restrictions import Restriction, parse_restrictions
 from labelclaim.sources import DEFAULT_CACHE, SourceDocument, ensure_cached, load_manifest
 from labelclaim.validate import (
     check_digits,
@@ -38,7 +39,35 @@ from labelclaim.validate import (
 )
 
 REPO = Path(__file__).resolve().parents[2]
-CODE_VERSION = "0.0.1"
+CODE_VERSION = "0.1.0"  # schema v2: many-to-many crops, canonical pests, compact ingredient keys (L2 §11)
+Rows = dict[str, list[tuple[Any, ...]]]
+Extracted = tuple[
+    list[tuple[SourceDocument, UseRow]], list[Restriction], list[Anomaly], int, dict[str, dict[str, Any]]
+]
+
+
+@dataclass(frozen=True)
+class Lexicons:
+    crops: CropLexicon
+    pests: PestLexicon
+    variants: Variants
+
+    @classmethod
+    def load(cls, directory: Path) -> Lexicons:
+        crops = directory / "crops.csv"
+        pests = directory / "pests.csv"
+        return cls(
+            load_crops(crops) if crops.exists() else CropLexicon(()),
+            load_pests(pests) if pests.exists() else PestLexicon(()),
+            load_variants(directory / "ingredients.csv"),
+        )
+
+    def unreviewed(self) -> dict[str, int]:
+        return {
+            "crops": len(self.crops.unreviewed),
+            "pests": len(self.pests.unreviewed),
+            "ingredients": len(self.variants.unreviewed),
+        }
 
 
 @dataclass
@@ -49,7 +78,7 @@ class BuildResult:
     restrictions: int
     anomalies: Counter[str]
     unallowed: list[Anomaly]
-    unreviewed_lexicon: int
+    unreviewed: dict[str, int]
     unreviewed_allowlist: int
     provenance_checked: int
     seconds: float
@@ -59,8 +88,7 @@ class BuildResult:
 def _allowlist(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []
-    data = tomllib.loads(path.read_text(encoding="utf-8"))
-    entries = data.get("allow", [])
+    entries = tomllib.loads(path.read_text(encoding="utf-8")).get("allow", [])
     return [e for e in entries if isinstance(e, dict)]
 
 
@@ -70,24 +98,11 @@ def _allowed(a: Anomaly, allow: list[dict[str, Any]]) -> bool:
     )
 
 
-def run(
-    sources: Path,
-    lexicon_dir: Path,
-    out_dir: Path,
-    *,
-    release: bool = False,
-    offline: bool = False,
-    cache: Path = DEFAULT_CACHE,
-    allowlist: Path | None = None,
-) -> BuildResult:
-    started = time.perf_counter()
-    docs = load_manifest(sources)
-    crops_path = lexicon_dir / "crops.csv"
-    lexicon = load_crops(crops_path) if crops_path.exists() else CropLexicon(())
-    allow = _allowlist(allowlist or sources.parent / "anomaly_allowlist.toml")
+def extract_all(docs: tuple[SourceDocument, ...], cache: Path, *, offline: bool) -> Extracted:
+    """Extract and validate every source document (the build plane up to normalisation)."""
+    uses_all: list[tuple[SourceDocument, UseRow]] = []
+    restrictions: list[Restriction] = []
     anomalies: list[Anomaly] = []
-    all_uses: list[tuple[SourceDocument, UseRow]] = []
-    restrictions = []
     provenance = 0
     per_document: dict[str, dict[str, Any]] = {}
     for doc in docs:
@@ -103,35 +118,45 @@ def run(
         anomalies += check_sections(doc.id, doc.kind, dict(doc.expected_sections), uses)
         with Reextractor(path) as reader:
             provenance += check_provenance(uses, reader.text)
-        all_uses += [(doc, u) for u in uses]
+        uses_all += [(doc, u) for u in uses]
         per_document[doc.id] = {
             "uses": len(uses),
             "products": len(assembly.products),
             "kinds": dict(assembly.kinds),
         }
+    return uses_all, restrictions, anomalies, provenance, per_document
 
-    tables, crop_unknown = _tables(docs, all_uses, restrictions, lexicon, anomalies, allow)
-    anomalies += crop_unknown
-    for a in crop_unknown:  # crop anomalies were found while building tables; record them too
-        tables["anomaly"].append(
-            (
-                len(tables["anomaly"]) + 1,
-                a.code,
-                a.doc_id,
-                a.page,
-                a.table,
-                a.row,
-                a.detail,
-                int(_allowed(a, allow)),
-            )
-        )
-    unallowed = [a for a in anomalies if not _allowed(a, allow)]
+
+def run(
+    sources: Path,
+    lexicon_dir: Path,
+    out_dir: Path,
+    *,
+    release: bool = False,
+    offline: bool = False,
+    cache: Path = DEFAULT_CACHE,
+    allowlist: Path | None = None,
+) -> BuildResult:
+    started = time.perf_counter()
+    docs = load_manifest(sources)
+    lexicons = Lexicons.load(lexicon_dir)
+    allow = _allowlist(allowlist or sources.parent / "anomaly_allowlist.toml")
+    uses, restrictions, anomalies, provenance, per_document = extract_all(docs, cache, offline=offline)
+    tables, name_anomalies = build_tables(docs, uses, restrictions, lexicons)
+    ordered = sorted(
+        anomalies + name_anomalies, key=lambda a: (a.doc_id, a.page, a.table, a.row, a.code, a.detail)
+    )
+    tables["anomaly"] = [
+        (i, a.code, a.doc_id, a.page, a.table, a.row, a.detail, int(_allowed(a, allow)))
+        for i, a in enumerate(ordered, start=1)
+    ]
+    unallowed = [a for a in ordered if not _allowed(a, allow)]
+    unreviewed = lexicons.unreviewed()
     unreviewed_allow = sum(1 for e in allow if not str(e.get("reviewed_by", "")).strip())
-    if release and (unallowed or lexicon.unreviewed or unreviewed_allow):
+    if release and (unallowed or any(unreviewed.values()) or unreviewed_allow):
         raise AnomalyBudgetExceeded(
-            f"release build refused: {len(unallowed)} anomalies not allow-listed, "
-            f"{len(lexicon.unreviewed)} unreviewed lexicon rows, "
-            f"{unreviewed_allow} unreviewed allow-list entries"
+            f"release build refused: {len(unallowed)} anomalies not allow-listed, unreviewed lexicon rows "
+            f"{unreviewed}, {unreviewed_allow} unreviewed allow-list entries"
         )
     out_dir.mkdir(parents=True, exist_ok=True)
     info = {
@@ -142,23 +167,20 @@ def run(
     build_hash = write(out_dir / "register.sqlite", tables, info)
     result = BuildResult(
         build_hash=build_hash,
-        uses=len(all_uses),
+        uses=len(uses),
         products=len(tables["product"]),
         restrictions=len(restrictions),
-        anomalies=Counter(a.code for a in anomalies),
+        anomalies=Counter(a.code for a in ordered),
         unallowed=unallowed,
-        unreviewed_lexicon=len(lexicon.unreviewed),
+        unreviewed=unreviewed,
         unreviewed_allowlist=unreviewed_allow,
         provenance_checked=provenance,
         seconds=round(time.perf_counter() - started, 2),
         per_document=per_document,
     )
+    listing = [asdict(a) | {"allowed": _allowed(a, allow)} for a in ordered]
     (out_dir / "anomalies.json").write_text(
-        json.dumps(
-            [asdict(a) | {"allowed": _allowed(a, allow)} for a in anomalies], indent=1, ensure_ascii=False
-        )
-        + "\n",
-        encoding="utf-8",
+        json.dumps(listing, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     manifest = {k: v for k, v in asdict(result).items() if k not in ("unallowed", "seconds")}
     manifest["anomalies"] = dict(sorted(result.anomalies.items()))
@@ -168,46 +190,43 @@ def run(
     return result
 
 
-def _tables(
+def build_tables(
     docs: tuple[SourceDocument, ...],
     uses: list[tuple[SourceDocument, UseRow]],
-    restrictions: list[Any],
-    lexicon: CropLexicon,
-    anomalies: list[Anomaly],
-    allow: list[dict[str, Any]],
-) -> tuple[dict[str, list[tuple[Any, ...]]], list[Anomaly]]:
-    """Rows for every table, in canonical order with IDs assigned in that order."""
-    tables: dict[str, list[tuple[Any, ...]]] = {name: [] for name in (
-        "source_document", "ingredient", "product", "product_ingredient", "crop", "crop_alias", "use_record",
-        "use_record_pest", "restriction", "anomaly")}  # fmt: skip
+    restrictions: list[Restriction],
+    lexicons: Lexicons,
+) -> tuple[Rows, list[Anomaly]]:
+    """Rows for every table, in canonical order with IDs assigned in that order; plus name anomalies."""
+    names = (
+        "source_document", "ingredient", "ingredient_variant", "product", "product_ingredient", "crop",
+        "crop_alias", "pest", "pest_alias", "use_record", "use_record_crop", "use_record_pest", "restriction",
+        "anomaly",
+    )  # fmt: skip
+    tables: Rows = {name: [] for name in names}
     for d in sorted(docs, key=lambda d: d.id):
         tables["source_document"].append((d.id, d.kind, d.url, d.sha256, d.register_date, d.pages))
 
-    product_ids: dict[tuple[str, int, str, tuple[float, ...]], int] = {}
-    ingredients: dict[str, str] = {}
     ordered = sorted(uses, key=lambda du: (du[0].id, du[1].rows))
+    products: dict[tuple[str, int, str, tuple[float, ...]], tuple[int, UseRow]] = {}
+    displays: dict[str, str] = {}
     for doc, use in ordered:
         p = use.product
         pkey = (doc.id, p.page, p.text, p.bbox)
-        if pkey not in product_ids:
-            product_ids[pkey] = len(product_ids) + 1
-            heading = parse_heading(p.text)
-            for ing in heading.ingredients:
-                ingredients.setdefault(ing.key, ing.name)
-    ingredient_ids = {k: i for i, k in enumerate(sorted(ingredients), start=1)}
-    tables["ingredient"] = [(i, k, ingredients[k]) for k, i in ingredient_ids.items()]
-    for (doc_id, page, text, bbox), pid in product_ids.items():
+        if pkey not in products:
+            products[pkey] = (len(products) + 1, use)
+            for ing in parse_heading(p.text).ingredients:
+                displays.setdefault(lexicons.variants.canonical(ing.name), ing.name)
+    for r in restrictions:
+        displays.setdefault(lexicons.variants.canonical(r.name_raw), r.name_raw)
+    ingredient_ids = {k: i for i, k in enumerate(sorted(displays), start=1)}
+    tables["ingredient"] = [(i, k, displays[k]) for k, i in ingredient_ids.items()]
+    tables["ingredient_variant"] = sorted(
+        {(r.variant, r.canonical, r.reviewed_by) for r in lexicons.variants.rows}
+    )
+    for (doc_id, page, text, bbox), (pid, use) in products.items():
         heading = parse_heading(text)
-        section = next(
-            u.product.section.value
-            for d, u in ordered
-            if (d.id, u.product.page, u.product.text, u.product.bbox) == (doc_id, page, text, bbox)
-        )
-        notes = next(
-            u.product.notes
-            for d, u in ordered
-            if (d.id, u.product.page, u.product.text, u.product.bbox) == (doc_id, page, text, bbox)
-        )
+        notes = json.dumps(list(use.product.notes), ensure_ascii=False)
+        section = use.product.section.value
         tables["product"].append(
             (
                 pid,
@@ -216,64 +235,78 @@ def _tables(
                 text,
                 heading.formulation,
                 heading.status,
-                json.dumps(list(notes), ensure_ascii=False),
+                notes,
                 page,
                 json.dumps(list(bbox)),
             )
         )
         for pos, ing in enumerate(heading.ingredients):
-            tables["product_ingredient"].append(
-                (pid, pos, ingredient_ids[ing.key], ing.conc, ing.unit, ing.basis)
-            )
+            iid = ingredient_ids[lexicons.variants.canonical(ing.name)]
+            tables["product_ingredient"].append((pid, pos, iid, ing.conc, ing.unit, ing.basis))
 
     crops: dict[str, tuple[str, str]] = {}
-    for e in lexicon.entries:
+    for e in lexicons.crops.entries:
         crops.setdefault(e.canonical_id, (e.display_en, e.category))
         tables["crop_alias"].append((key(e.alias), e.lang, e.canonical_id, e.reviewed_by))
     tables["crop"] = [(cid, display, cat) for cid, (display, cat) in sorted(crops.items())]
     tables["crop_alias"] = sorted(set(tables["crop_alias"]))
+    pests: dict[str, str] = {}
+    for pe in lexicons.pests.entries:
+        pests.setdefault(pe.canonical_id, pe.display_en)
+        tables["pest_alias"].append((pe.alias, pe.canonical_id, pe.reviewed_by))
+    tables["pest"] = sorted(pests.items())
+    tables["pest_alias"] = sorted(set(tables["pest_alias"]))
 
     unknown: list[Anomaly] = []
     for uid, (doc, use) in enumerate(ordered, start=1):
         f = use.fields
-        matches = {e.canonical_id for e in lexicon.resolve(f[Col.CROP].text)}
-        crop_id = matches.pop() if len(matches) == 1 else None
-        if crop_id is None:
-            page, table, row = use.rows[0]
-            unknown.append(Anomaly("UNKNOWN_CROP", doc.id, page, table, row, f[Col.CROP].text))
-        quantities = {
-            c: parse_quantity(f[c].text) for c in (Col.DOSE_AI, Col.DOSE_FORM, Col.DILUTION, Col.WAIT)
-        }
-        for q in quantities.values():
-            check_digits(q)
-        days = wait_days(f[Col.WAIT].text)
-        provenance = {
-            "rows": [list(r) for r in use.rows],
-            "fields": {c.name: {"source": fl.source, "boxes": [[pg, list(b)] for pg, b in fl.bboxes],
-                                "origin": list(fl.origin) if fl.origin else None,
-                                "span_of": fl.span_of.name if fl.span_of else None} for c, fl in f.items()},
-        }  # fmt: skip
-        p = use.product
-        tables["use_record"].append((
-            uid, product_ids[(doc.id, p.page, p.text, p.bbox)], crop_id, f[Col.CROP].text, f[Col.PEST].text,
-            f[Col.DOSE_AI].text, f[Col.DOSE_FORM].text, f[Col.DILUTION].text, f[Col.WAIT].text,
-            _q(quantities[Col.DOSE_AI]), _q(quantities[Col.DOSE_FORM]), _q(quantities[Col.DILUTION]),
-            days[0] if days else None, days[1] if days else None, use.page_first, use.page_last,
-            json.dumps(provenance, ensure_ascii=False, sort_keys=True),
-            json.dumps(list(use.notes), ensure_ascii=False),
-        ))  # fmt: skip
-        for pest in split_pests(f[Col.PEST].text):
-            tables["use_record_pest"].append((uid, pest))
+        page, tbl, row = use.rows[0]
+        crop_ids = sorted({e.canonical_id for e in lexicons.crops.resolve(f[Col.CROP].text)})
+        if not crop_ids:
+            unknown.append(Anomaly("UNKNOWN_CROP", doc.id, page, tbl, row, f[Col.CROP].text))
+        tables["use_record_crop"] += [(uid, cid) for cid in crop_ids]
+        for phrase in pest_phrases(f[Col.PEST].text):
+            ids = lexicons.pests.ids(phrase)
+            if not ids:
+                unknown.append(Anomaly("UNKNOWN_PEST", doc.id, page, tbl, row, phrase))
+            tables["use_record_pest"] += [(uid, pid, phrase) for pid in ids]
+        tables["use_record"].append(_use_row(uid, products[(doc.id, *_pkey(use))][0], use))
     tables["use_record_pest"] = sorted(set(tables["use_record_pest"]))
     for rid, r in enumerate(sorted(restrictions, key=lambda r: (r.status, r.key, r.page)), start=1):
-        tables["restriction"].append((rid, r.key, r.name_raw, r.status, r.detail_raw, r.page))
-    for aid, a in enumerate(
-        sorted(anomalies, key=lambda a: (a.doc_id, a.page, a.table, a.row, a.code)), start=1
-    ):
-        tables["anomaly"].append(
-            (aid, a.code, a.doc_id, a.page, a.table, a.row, a.detail, int(_allowed(a, allow)))
-        )
+        canonical = lexicons.variants.canonical(r.name_raw)
+        tables["restriction"].append((rid, canonical, r.name_raw, r.status, r.detail_raw, r.page))
     return tables, unknown
+
+
+def _pkey(use: UseRow) -> tuple[int, str, tuple[float, ...]]:
+    return use.product.page, use.product.text, use.product.bbox
+
+
+def _use_row(uid: int, pid: int, use: UseRow) -> tuple[Any, ...]:
+    f = use.fields
+    quantities = {c: parse_quantity(f[c].text) for c in (Col.DOSE_AI, Col.DOSE_FORM, Col.DILUTION, Col.WAIT)}
+    for q in quantities.values():
+        check_digits(q)
+    days = wait_days(f[Col.WAIT].text)
+    provenance = {
+        "rows": [list(r) for r in use.rows],
+        "fields": {
+            c.name: {
+                "source": fl.source,
+                "boxes": [[pg, list(b)] for pg, b in fl.bboxes],
+                "origin": list(fl.origin) if fl.origin else None,
+                "span_of": fl.span_of.name if fl.span_of else None,
+            }
+            for c, fl in f.items()
+        },
+    }
+    return (
+        uid, pid, f[Col.CROP].text, f[Col.PEST].text, f[Col.DOSE_AI].text, f[Col.DOSE_FORM].text,
+        f[Col.DILUTION].text, f[Col.WAIT].text, _q(quantities[Col.DOSE_AI]), _q(quantities[Col.DOSE_FORM]),
+        _q(quantities[Col.DILUTION]), days[0] if days else None, days[1] if days else None, use.page_first,
+        use.page_last, json.dumps(provenance, ensure_ascii=False, sort_keys=True),
+        json.dumps(list(use.notes), ensure_ascii=False),
+    )  # fmt: skip
 
 
 def _q(q: Any) -> str:
@@ -292,11 +325,23 @@ def audit(register: Path) -> dict[str, Any]:
         return {
             "build_hash": one("SELECT value FROM build_info WHERE key='build_hash'"),
             "uses": one("SELECT count(*) FROM use_record"),
-            "uses_with_crop_id": one("SELECT count(*) FROM use_record WHERE crop_id IS NOT NULL"),
+            "uses_with_a_crop": one("SELECT count(DISTINCT use_record_id) FROM use_record_crop"),
+            "uses_with_several_crops": one(
+                "SELECT count(*) FROM (SELECT use_record_id FROM use_record_crop"
+                " GROUP BY 1 HAVING count(*) > 1)"
+            ),
+            "uses_with_a_pest": one("SELECT count(DISTINCT use_record_id) FROM use_record_pest"),
+            "crops": one("SELECT count(*) FROM crop"),
+            "pests": one("SELECT count(*) FROM pest"),
             "products": one("SELECT count(*) FROM product"),
             "products_parsed": one("SELECT count(*) FROM product WHERE parse_status='parsed'"),
             "ingredients": one("SELECT count(*) FROM ingredient"),
             "restrictions": one("SELECT count(*) FROM restriction"),
+            "restricted_ingredients_in_products": one(
+                "SELECT count(DISTINCT i.key) FROM ingredient i"
+                " JOIN restriction r ON r.ingredient_key = i.key "
+                "JOIN product_ingredient pi ON pi.ingredient_id = i.id"
+            ),
             "anomalies": dict(
                 conn.execute("SELECT code, count(*) FROM anomaly GROUP BY code ORDER BY code").fetchall()
             ),
@@ -304,6 +349,21 @@ def audit(register: Path) -> dict[str, Any]:
         }
     finally:
         conn.close()
+
+
+def draft_lexicon(what: str, sources: Path, cache: Path, out: Path, *, offline: bool) -> str:
+    uses, restrictions, _, _, _ = extract_all(load_manifest(sources), cache, offline=offline)
+    if what == "crops":
+        return f"{write_draft([u.fields[Col.CROP].text for _, u in uses], out)} crop strings -> {out}"
+    if what == "pests":
+        rows = draft_pests([u.fields[Col.PEST].text for _, u in uses])
+        write_pests(rows, out)
+        human = len({r.alias for r in rows if not r.reviewed_by})
+        return f"{len(rows)} pest rows ({human} phrases need a human) -> {out}"
+    names = [i.name for _, u in uses for i in parse_heading(u.product.text).ingredients]
+    pairs = draft_variants(names + [r.name_raw for r in restrictions])
+    write_variants(pairs, out)
+    return f"{len(pairs)} ingredient variant candidates -> {out}"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -319,7 +379,8 @@ def main(argv: list[str] | None = None) -> int:
             p.add_argument("--out", type=Path, default=REPO / "build")
             p.add_argument("--release", action="store_true")
         if name == "lexicon-draft":
-            p.add_argument("--out", type=Path, default=REPO / "data" / "lexicon" / "crops.draft.csv")
+            p.add_argument("--what", choices=("crops", "pests", "ingredients"), default="crops")
+            p.add_argument("--out", type=Path, required=True)
     a = sub.add_parser("audit")
     a.add_argument("--register", type=Path, default=REPO / "build" / "register.sqlite")
     args = parser.parse_args(argv)
@@ -337,21 +398,18 @@ def main(argv: list[str] | None = None) -> int:
                 cache=args.cache,
             )
             summary = json.loads((args.out / "build_manifest.json").read_text(encoding="utf-8"))
-            summary |= {"seconds": result.seconds, "unallowed": [asdict(a) for a in result.unallowed][:20]}
+            summary |= {"seconds": result.seconds, "unallowed": [asdict(x) for x in result.unallowed][:20]}
             print(json.dumps(summary, indent=1, ensure_ascii=False))
         elif args.cmd == "audit":
             print(json.dumps(audit(args.register), indent=1))
         elif args.cmd == "lexicon-draft":
-            crops = []
-            for doc in load_manifest(args.sources):
-                if doc.kind != "restrictions":
-                    path = ensure_cached(doc, args.cache, offline=args.offline)
-                    crops += [
-                        u.fields[Col.CROP].text for u in assemble(doc.id, read_document(path, doc.id)).uses
-                    ]
-            print(
-                f"{write_draft(crops, args.out)} distinct crop strings -> {args.out} (reviewed_by is empty)"
-            )
+            if args.out.exists():
+                print(
+                    f"refusing to overwrite {args.out}: a draft never replaces a reviewed file",
+                    file=sys.stderr,
+                )
+                return 2
+            print(draft_lexicon(args.what, args.sources, args.cache, args.out, offline=args.offline))
     except SourceIntegrityError as exc:
         print(f"integrity error: {exc}", file=sys.stderr)
         return 3

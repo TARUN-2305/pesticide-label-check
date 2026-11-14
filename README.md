@@ -10,7 +10,7 @@
 |---|---|---|
 | M0 | Requirements, architecture, ADRs, LLDs, evaluation, tests, threats | designed, approved |
 | M1 | Register extraction (L1) | implemented, tested; dev build verified; release build blocked on review |
-| M2 | Lookup engine and HTTP API (L2) | planned |
+| M2 | Lookup engine and HTTP API (L2) | implemented, tested, measured on a dev build; E3 query suite and lexicon reviews pending |
 | M3 | Tool-calling layer + number verifier | planned |
 | M4 | Evaluation on Kisan Call Centre questions | planned |
 | M5 | Kannada, speech in and out | planned |
@@ -36,6 +36,7 @@ uv run python -m labelclaim.build run          # dev build -> build/register.sql
 uv run python -m labelclaim.build run --release  # refuses until the lexicon and allow-list are reviewed
 uv run python -m labelclaim.build audit        # counts from a built register
 uv run pytest -m corpus                        # golden rows from the real register (needs the PDFs)
+uv run python -m labelclaim.api                # http://127.0.0.1:8000/docs  (POST /v1/lookup)
 ```
 
 ## Data and disclaimer

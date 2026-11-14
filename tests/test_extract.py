@@ -376,3 +376,20 @@ def test_note_like_full_width_cells_are_notes_not_products() -> None:
         kind([heading("(Streptomycin Sulphate 90% + Tetracycline Hydrochloride 10%) SP"), data], 0)
         is RowKind.PRODUCT
     )
+
+
+def test_header_block_with_unit_digits_is_a_header_not_data() -> None:
+    # insecticide p. 23: a sub-table header read as data before the M2 audit
+    row1 = ["Name Of Insect Pest", "Dosage", "", "", "", ""]
+    row2 = [
+        "Name Of Insect Pest",
+        "Infestation",
+        "Requirement mg a.i./m2",
+        "Formulation (ml)/ litre water",
+        "Spray solution (ml)/ m2",
+        "",
+    ]
+    data = ["Mosquito", "High", "25", "0.1", "50", ""]
+    assert kind([row1, data], 0) is RowKind.HEADER
+    assert kind([row2, data], 0) is RowKind.HEADER
+    assert kind([data], 0) is RowKind.DATA

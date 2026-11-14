@@ -12,8 +12,9 @@ from typing import Any
 
 Row = Sequence[Any]
 TABLES = (
-    "source_document", "ingredient", "product", "product_ingredient", "crop", "crop_alias", "use_record",
-    "use_record_pest", "restriction", "anomaly",
+    "source_document", "ingredient", "ingredient_variant", "product", "product_ingredient", "crop",
+    "crop_alias", "pest", "pest_alias", "use_record", "use_record_crop", "use_record_pest", "restriction",
+    "anomaly",
 )  # fmt: skip
 
 
@@ -61,5 +62,7 @@ def canonical_hash(conn: sqlite3.Connection) -> str:
     return digest.hexdigest()
 
 
-def open_readonly(path: Path) -> sqlite3.Connection:
-    return sqlite3.connect(f"file:{path}?mode=ro&immutable=1", uri=True, check_same_thread=True)
+def open_readonly(path: Path, *, same_thread: bool = True) -> sqlite3.Connection:
+    """Read-only, immutable. `same_thread=False` only for the API's per-thread engines, which are used by
+    one thread each and closed from the shutdown thread (L2 §12 note)."""
+    return sqlite3.connect(f"file:{path}?mode=ro&immutable=1", uri=True, check_same_thread=same_thread)
