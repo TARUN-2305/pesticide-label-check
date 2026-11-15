@@ -4,13 +4,13 @@
 
 **For:** agri-input dealers, farmers and extension workers. Kannada and English, by text and later by voice.
 
-**Status (2026-11-13):** M0 design reviewed and approved. **M1 (register extraction) is implemented and tested**; its formal evaluation (E1) is partly done, and the crop lexicon and anomaly allow-list await human review, so no *release* build exists yet. There is no lookup or app yet.
+**Status (2026-11-14):** M0 design reviewed and approved. **M1 (register extraction) and M2 (lookup engine and HTTP API) are implemented and tested.** The crop, pest and ingredient lexicons and the anomaly allow-list are human-reviewed, and the *release* build passes: 2,374 approved-use rows, each with a page citation. Not done: the E1 and E3 evaluations are incomplete, and there is no app yet.
 
 | Milestone | Scope | State |
 |---|---|---|
 | M0 | Requirements, architecture, ADRs, LLDs, evaluation, tests, threats | designed, approved |
-| M1 | Register extraction (L1) | implemented, tested; dev build verified; release build blocked on review |
-| M2 | Lookup engine and HTTP API (L2) | implemented, tested, measured on a dev build; E3 query suite and lexicon reviews pending |
+| M1 | Register extraction (L1) | implemented, tested; release build verified; E1 golden set partly done |
+| M2 | Lookup engine and HTTP API (L2) | implemented, tested, measured; release build verified ([L2 §12.5](docs/lld/l2_lookup_api.md)). E3: 122/150 on the first run (target 98 % **not met**); after the reviewed L2 §13 fixes, **58/60 on a fresh suite** with 0 false approvals ([report](reports/E3/report.md)) |
 | M3 | Tool-calling layer + number verifier | planned |
 | M4 | Evaluation on Kisan Call Centre questions | planned |
 | M5 | Kannada, speech in and out | planned |
@@ -33,7 +33,7 @@ uv sync                                        # Python 3.12; locked; releases >
 tools/ci.sh                                    # ruff, mypy --strict, pytest with branch coverage
 uv run python -m labelclaim.build fetch        # download the register PDFs, verified by SHA-256
 uv run python -m labelclaim.build run          # dev build -> build/register.sqlite (+ anomalies, manifest)
-uv run python -m labelclaim.build run --release  # refuses until the lexicon and allow-list are reviewed
+uv run python -m labelclaim.build run --release  # refuses on any unreviewed lexicon row or unallowed anomaly
 uv run python -m labelclaim.build audit        # counts from a built register
 uv run pytest -m corpus                        # golden rows from the real register (needs the PDFs)
 uv run python -m labelclaim.api                # http://127.0.0.1:8000/docs  (POST /v1/lookup)

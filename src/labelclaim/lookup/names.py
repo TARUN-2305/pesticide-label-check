@@ -10,8 +10,8 @@ from rapidfuzz import fuzz, process
 
 from labelclaim.lookup.models import Status, Suggestion
 from labelclaim.normalize.headings import parse_heading
-from labelclaim.normalize.ingredients import compact
-from labelclaim.normalize.lexicon import key
+from labelclaim.normalize.ingredients import compact, spelling_family
+from labelclaim.normalize.lexicon import key, match_key
 
 SUGGEST_CUTOFF = 85.0
 MAX_SUGGESTIONS = 5
@@ -44,10 +44,24 @@ class Names:
         self.pest_alias = _index(conn.execute("SELECT alias_key, pest_id FROM pest_alias").fetchall())
         for pid, display in self.pest_display.items():
             self.pest_alias[key(display)].add(pid)
+        # resolution goes through match_key (L2 §13.2); the key-based indexes above serve autocomplete
+        # and the restriction-text check, which need the words as written
+        self.crop_match = _rekey(self.crop_alias)
+        self.pest_match = _rekey(self.pest_alias)
+        self.generic: dict[tuple[str, str], tuple[str, ...]] = {}
+        if conn.execute("SELECT 1 FROM sqlite_master WHERE name = 'generic_member'").fetchone():
+            grouped: defaultdict[tuple[str, str], list[str]] = defaultdict(list)
+            for term, kind, member in conn.execute("SELECT term_key, kind, member_id FROM generic_member"):
+                grouped[(kind, term)].append(member)
+            self.generic = {k: tuple(sorted(v)) for k, v in grouped.items()}
         self.variant: dict[str, str] = {
             str(v): str(c) for v, c in conn.execute("SELECT variant, canonical FROM ingredient_variant")
         }
         self.ingredient = {k: (i, d) for i, k, d in conn.execute("SELECT id, key, display FROM ingredient")}
+        families: defaultdict[str, list[str]] = defaultdict(list)
+        for k in self.ingredient:
+            families[spelling_family(k)].append(k)
+        self.family = {f: tuple(ks) for f, ks in families.items()}
         products: dict[int, list[tuple[int, float | None]]] = defaultdict(list)
         for pid, iid, conc in conn.execute(
             "SELECT product_id, ingredient_id, conc_value FROM product_ingredient"
@@ -59,7 +73,10 @@ class Names:
 
     # -- crops and pests ---------------------------------------------------------------------------
     def crop(self, text: str) -> Resolution:
-        return _resolve(text, self.crop_alias, self.crop_display)
+        members = self.generic.get(("crop", match_key(text)))
+        if members:
+            return Resolution("generic", members)
+        return _resolve(text, self.crop_match, self.crop_display)
 
     def crop_words(self, crop_ids: tuple[str, ...]) -> set[str]:
         """Single-word aliases of these crops ("ber", "citrus"), to spot them in restriction text."""
@@ -71,12 +88,22 @@ class Names:
         }
 
     def pest(self, text: str) -> Resolution:
-        return _resolve(text, self.pest_alias, self.pest_display)
+        members = self.generic.get(("pest", match_key(text)))
+        if members:
+            return Resolution("generic", members)
+        return _resolve(text, self.pest_match, self.pest_display)
 
     # -- products --------------------------------------------------------------------------------------
     def ingredient_key(self, name: str) -> str:
+        """Compact key, then the reviewed variants, then the spelling fold when it has exactly one registered
+        match ("copper sulfate" -> "coppersulphate"; L2 §13.4). The fold is deterministic, not fuzzy."""
         k = compact(name)
-        return self.variant.get(k, k)
+        k = self.variant.get(k, k)
+        if k not in self.ingredient:
+            same = self.family.get(spelling_family(k), ())
+            if len(same) == 1:
+                return same[0]
+        return k
 
     def product(self, text: str, *, ingredient_level: bool) -> ProductResolution:
         """Ingredient sets match as sets (L2 §11 A4); a full heading also pins concentration and form."""
@@ -140,8 +167,15 @@ def _index(rows: list[tuple[str, str]]) -> defaultdict[str, set[str]]:
     return index
 
 
+def _rekey(aliases: dict[str, set[str]]) -> defaultdict[str, set[str]]:
+    index: defaultdict[str, set[str]] = defaultdict(set)
+    for alias, targets in aliases.items():
+        index[match_key(alias)].update(targets)
+    return index
+
+
 def _resolve(text: str, aliases: dict[str, set[str]], display: dict[str, str]) -> Resolution:
-    k = key(text)
+    k = match_key(text)
     ids = tuple(sorted(aliases.get(k, ())))
     if len(ids) == 1:
         return Resolution("exact", ids)

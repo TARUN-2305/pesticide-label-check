@@ -93,7 +93,7 @@ def create_app(settings: Settings) -> FastAPI:
 
     app = FastAPI(
         title="Pesticide label-claim check",
-        version="0.1.0",
+        version="0.2.0",
         description="Answers from India's CIB&RC register 'Major Uses of Pesticides', with page citations.",
         lifespan=lifespan,
     )

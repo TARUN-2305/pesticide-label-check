@@ -1,0 +1,24 @@
+alias,proposed_canonical_id,reason,decision
+Bhindi,okra,"Indian name; the register itself prints 'Bhindi (Okra)' (E3-005, E3-010)",accept
+Bhendi,okra,common spelling of bhindi,accept
+Ladies finger,okra,Indian-English name (E3-002),accept
+Lady's finger,okra,Indian-English name,accept
+Lady finger,okra,Indian-English name,accept
+Urad,blackgram,Indian name of black gram (E3-048),accept
+Urd,blackgram,spelling of urad,accept
+Finger millet,ragi,English name of ragi (E3-050),accept
+Eggplant,brinjal,American/English name (extra X-06),accept
+Aubergine,brinjal,British name,accept
+Baingan,brinjal,Hindi name used in Indian English,accept
+Tur,pigeonpea,Indian name of red gram / pigeon pea,accept
+Toor,pigeonpea,spelling of tur,accept
+Arhar,pigeonpea,Hindi name of red gram,accept
+Mung bean,greengram,English name of green gram (moong already resolves),accept
+Chana,chickpea,Indian name of bengal gram,accept
+Peanut,groundnut,English name,accept
+Sesame,sesamum,English name; the register prints 'Sesamum',accept
+Til,sesamum,Hindi name,accept
+Gingelly,sesamum,Indian-English name,accept
+Bell pepper,capsicum,English name,accept
+Shimla mirch,capsicum,Hindi name,accept
+Guar,cluster_beans,Indian name of cluster bean,accept

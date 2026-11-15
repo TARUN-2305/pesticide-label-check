@@ -31,7 +31,7 @@ alternaria_leaf_spot,alternaria leaf spot,alternaria leaf spot and grey mildew,e
 grey_mildew,grey mildew,alternaria leaf spot and grey mildew,en,rule:split-known
 alternaria_leaf_spot_grey_mildew,alternaria leaf spot grey mildew,alternaria leaf spot grey mildew,en,rule:identity
 alternaria_spot,alternaria spot,alternaria spot,en,rule:identity
-american_boll_worm,american boll worm,american boll worm,en,rule:identity
+american_bollworm,american bollworm,american boll worm,en,"Claude (delegated by Tarun, 2026-11-14)"
 american_boll_worm_tobacco_caterpillar,american boll worm tobacco caterpillar,american boll worm tobacco caterpillar,en,rule:identity
 american_bollworm,american bollworm,american bollworm,en,rule:identity
 american_bollworm,american bollworm,american bollworm and groundnut leaf miner,en,Tarun
@@ -40,7 +40,7 @@ angular_leaf_spot,angular leaf spot,angular leaf spot,en,rule:identity
 angular_leaf_spot,angular leaf spot,angular leaf spot and anthracnose,en,rule:split-known
 anthracnose,anthracnose,angular leaf spot and anthracnose,en,rule:split-known
 angular_leaf_spot_or_black_arm_disease,angular leaf spot or black arm disease,angular leaf spot or black arm disease,en,rule:identity
-angular_leafspot,angular leafspot,angular leafspot,en,rule:identity
+angular_leaf_spot,angular leaf spot,angular leafspot,en,"Claude (delegated by Tarun, 2026-11-14)"
 anthracnose,anthracnose,anthracnose,en,rule:identity
 anthracnose_colletotri,anthracnose (colletotri,anthracnose (colletotri,en,rule:identity
 anthracnose,anthracnose,anthracnose and downy mildew,en,rule:split-known
@@ -53,7 +53,7 @@ anthracnose_leaf_spot,anthracnose leaf spot,anthracnose fruit rot and anthracnos
 anthracnose_leaf_spot,anthracnose leaf spot,anthracnose leaf spot,en,rule:identity
 anthracnose_leaf_spot_diseases_of_rose,anthracnose leaf spot diseases of rose,anthracnose leaf spot diseases of rose,en,rule:identity
 anthracnose_powdery_mildew,"anthracnose powdery mildew ""","anthracnose powdery mildew """,en,rule:identity
-antracnose,antracnose,antracnose,en,rule:identity
+anthracnose,anthracnose,antracnose,en,"Claude (delegated by Tarun, 2026-11-14)"
 aphid,aphid,aphid,en,rule:identity
 aphid,aphid,aphid and jassids,en,rule:split-known
 jassid,jassid,aphid and jassids,en,rule:split-known
@@ -66,7 +66,7 @@ fruit_borer,fruit borer,aphids and fruit borer,en,rule:split-known
 aphid,aphid,aphids and jassids,en,rule:split-known
 jassid,jassid,aphids and jassids,en,rule:split-known
 aphid,aphid,aphids and pink boll worm,en,rule:split-known
-pink_boll_worm,pink boll worm,aphids and pink boll worm,en,rule:split-known
+pink_bollworm,pink bollworm,aphids and pink boll worm,en,"Claude (delegated by Tarun, 2026-11-14)"
 aphid,aphid,aphids and pink bollworm,en,rule:split-known
 pink_bollworm,pink bollworm,aphids and pink bollworm,en,rule:split-known
 aphid,aphid,aphids and termites,en,rule:split-known
@@ -74,38 +74,38 @@ termite,termite,aphids and termites,en,rule:split-known
 aphid,aphid,aphids and thrips,en,rule:split-known
 thrips,thrips,aphids and thrips,en,rule:split-known
 aphid,aphid,aphids and white fly,en,rule:split-known
-white_fly,white fly,aphids and white fly,en,rule:split-known
+whitefly,whitefly,aphids and white fly,en,"Claude (delegated by Tarun, 2026-11-14)"
 aphid,aphid,aphids and whitefly,en,rule:split-known
 whitefly,whitefly,aphids and whitefly,en,rule:split-known
 aphid,aphid,aphids jassids white fly and thrips,en,Tarun
 jassid,jassid,aphids jassids white fly and thrips,en,Tarun
-whitefly,whitefly,aphids jassids white fly and thrips,en,Tarun
 thrips,thrips,aphids jassids white fly and thrips,en,Tarun
+whitefly,whitefly,aphids jassids white fly and thrips,en,Tarun
 aphids_foliar_application_soil_drench,aphids: foliar application soil drench,aphids: foliar application soil drench,en,rule:identity
 aphis,aphis,aphis,en,rule:identity
 apple_blotch,apple blotch,apple blotch,en,rule:identity
-apple_scab,apple scab,apple scab and alternaria blotch,en,Tarun
 alternaria_blotch,alternaria blotch,apple scab and alternaria blotch,en,Tarun
+apple_scab,apple scab,apple scab and alternaria blotch,en,Tarun
 apple_scab_apple_scab,apple scab apple scab,apple scab apple scab,en,rule:identity
 armyworm,armyworm,armyworm,en,rule:identity
 ascochyta_foot_rot,ascochyta foot rot,ascochyta foot rot,en,rule:identity
 azhukal,azhukal,azhukal,en,rule:identity
 azukhal_disease,azukhal disease,azukhal disease and damping off,en,Tarun
 damping_off,damping off,azukhal disease and damping off,en,Tarun
-b_light,b light,b light,en,rule:identity
-bacterial_bight,bacterial bight,bacterial bight,en,rule:identity
+blight,blight,b light,en,"Claude (delegated by Tarun, 2026-11-14)"
+bacterial_blight,bacterial blight,bacterial bight,en,"Claude (delegated by Tarun, 2026-11-14)"
 bacterial_blight,bacterial blight,bacterial blight,en,rule:identity
-bacterial_blight,bacterial blight,bacterial blight alternaria and cercospora leaf spot,en,Tarun
 alternaria_leaf_spot,alternaria leaf spot,bacterial blight alternaria and cercospora leaf spot,en,Tarun
+bacterial_blight,bacterial blight,bacterial blight alternaria and cercospora leaf spot,en,Tarun
 cercospora_leaf_spot,cercospora leaf spot,bacterial blight alternaria and cercospora leaf spot,en,Tarun
 bacterial_brown_wilt_or_ring_or_the_bangle_disease_of_potato,bacterial brown wilt or ring or the bangle disease of potato,bacterial brown wilt or ring or the bangle disease of potato,en,rule:identity
-bacterial_canker,bacterial canker,bacterial canker and alternaria spot,en,Tarun
 alternaria_spot,alternaria spot,bacterial canker and alternaria spot,en,Tarun
+bacterial_canker,bacterial canker,bacterial canker and alternaria spot,en,Tarun
 bacterial_leaf_blight,bacterial leaf blight,bacterial leaf blight,en,rule:identity
 bacterial_leaf_blight,bacterial leaf blight,bacterial leaf blight and grain discoloration,en,rule:split-known
 grain_discoloration,grain discoloration,bacterial leaf blight and grain discoloration,en,rule:split-known
 bacterial_leaf_spot,bacterial leaf spot,bacterial leaf spot,en,rule:identity
-bacterial_leafspot,bacterial leafspot,bacterial leafspot,en,rule:identity
+bacterial_leaf_spot,bacterial leaf spot,bacterial leafspot,en,"Claude (delegated by Tarun, 2026-11-14)"
 bakanae,bakanae,bakanae,en,rule:identity
 bakane_gibberella,bakane (gibberella,bakane (gibberella,en,rule:identity
 banded_leaf_and_sheath_blight,banded leaf and sheath blight,banded leaf and sheath blight,en,Tarun
@@ -117,9 +117,9 @@ black_citrus,black citrus,black citrus,en,rule:identity
 black_gram_pod_borer_complex,black gram pod borer complex,black gram pod borer complex,en,rule:identity
 black_rot,black rot,black rot,en,rule:identity
 black_rust,black rust,black rust,en,rule:identity
-black_sank,black sank,black sank,en,rule:identity
-black_scruf,black scruf,black scruf,en,rule:identity
-black_scruff,black scruff,black scruff,en,rule:identity
+black_shank,black shank,black sank,en,"Claude (delegated by Tarun, 2026-11-14)"
+black_scurf,black scurf,black scruf,en,"Claude (delegated by Tarun, 2026-11-14)"
+black_scurf,black scurf,black scruff,en,"Claude (delegated by Tarun, 2026-11-14)"
 black_scurf,black scurf,black scurf,en,rule:identity
 black_scurf_disease,black scurf disease,black scurf disease,en,rule:identity
 black_shank,black shank,black shank,en,rule:identity
@@ -128,9 +128,9 @@ black_spot_disease,black spot disease,black spot disease,en,rule:identity
 black_thrips,black thrips,black thrips,en,rule:identity
 blackleg,blackleg,blackleg and soft rot,en,Tarun
 soft_rot,soft rot,blackleg and soft rot,en,Tarun
-blackspot,blackspot,blackspot,en,rule:identity
+black_spot,black spot,blackspot,en,"Claude (delegated by Tarun, 2026-11-14)"
 blast,blast,blast,en,rule:identity
-blast_pyricularia,blast (pyricularia,blast (pyricularia,en,rule:identity
+blast,blast,blast (pyricularia,en,"Claude (delegated by Tarun, 2026-11-14)"
 blast,blast,blast and brown spot,en,rule:split-known
 brown_spot,brown spot,blast and brown spot,en,rule:split-known
 blast,blast,blast and dirty panicle,en,rule:split-known
@@ -139,11 +139,11 @@ blast,blast,blast and grain discoloration,en,rule:split-known
 grain_discoloration,grain discoloration,blast and grain discoloration,en,rule:split-known
 blast,blast,blast and sheath blight,en,rule:split-known
 sheath_blight,sheath blight,blast and sheath blight,en,rule:split-known
-blast_disease,blast disease,blast disease,en,rule:identity
+blast,blast,blast disease,en,"Claude (delegated by Tarun, 2026-11-14)"
 blast_like_disease,blast like disease,blast like disease,en,rule:identity
 blight,blight,blight,en,rule:identity
 blight,blight,blight and downey mildew,en,rule:split-known
-downey_mildew,downey mildew,blight and downey mildew,en,rule:split-known
+downy_mildew,downy mildew,blight and downey mildew,en,"Claude (delegated by Tarun, 2026-11-14)"
 blight,blight,blight and powdery mildew,en,rule:split-known
 powdery_mildew,powdery mildew,blight and powdery mildew,en,rule:split-known
 blister_blight,blister blight,blister blight,en,rule:identity
@@ -152,16 +152,16 @@ blue_beetle,blue beetle,blue beetle,en,rule:identity
 blue_leaf_hopper,blue leaf hopper,blue leaf hopper,en,rule:identity
 blumeria_grami,blumeria grami,blumeria grami,en,rule:identity
 boll_rot,boll rot,boll rot,en,rule:identity
-boll_worm,boll worm,boll worm,en,rule:identity
-boll_worm,boll worm,boll worms,en,rule:plural
+bollworm,bollworm,boll worm,en,"Claude (delegated by Tarun, 2026-11-14)"
+bollworm,bollworm,boll worms,en,"Claude (delegated by Tarun, 2026-11-14)"
 bollworm,bollworm,bollworm,en,rule:identity
 bollworm_complex,bollworm complex,bollworm complex,en,rule:identity
 bollworm,bollworm,bollworms,en,rule:plural
-bollworms_complex,bollworms complex,bollworms complex,en,rule:identity
+bollworm_complex,bollworm complex,bollworms complex,en,"Claude (delegated by Tarun, 2026-11-14)"
 botryosphaeria_spp_diplodia_spp_colletotrichum_gloeosporiodes,botryosphaeria spp diplodia spp colletotrichum gloeosporiodes,botryosphaeria spp diplodia spp colletotrichum gloeosporiodes,en,rule:identity
 botrytis_cinerea,botrytis cinerea,botrytis cinerea,en,rule:identity
-brown_rust,brown rust,brown and black rust,en,Tarun
 black_rust,black rust,brown and black rust,en,Tarun
+brown_rust,brown rust,brown and black rust,en,Tarun
 brown_leaf_spot,brown leaf spot,brown leaf spot,en,rule:identity
 blast,blast,brown leaf spot and blast,en,rule:split-known
 brown_leaf_spot,brown leaf spot,brown leaf spot and blast,en,rule:split-known
@@ -175,14 +175,14 @@ brown_plant_hopper_green_leaf_folder_stem_borer_leaf_folder,brown plant hopper g
 brown_plant_hopper,brown plant hopper,brown plant hoppers,en,rule:plural
 brown_plant_hopper,brown plant hopper,brown plant hoppers and white backed plant hoppers,en,rule:split-known
 white_backed_plant_hopper,white backed plant hopper,brown plant hoppers and white backed plant hoppers,en,rule:split-known
-brown_planthopper,brown planthopper,brown planthopper,en,rule:identity
+brown_plant_hopper,brown plant hopper,brown planthopper,en,"Claude (delegated by Tarun, 2026-11-14)"
 brown_rot,brown rot,brown rot,en,rule:identity
 brown_rust,brown rust,brown rust,en,rule:identity
 brown_spot,brown spot,brown spot,en,rule:identity
 blast,blast,brown spot and blast,en,rule:split-known
 brown_spot,brown spot,brown spot and blast,en,rule:split-known
 browny_stripe_downy_mildew,browny stripe downy mildew,browny stripe downy mildew,en,rule:identity
-buck_eye_rot,buck eye rot,buck eye rot and ring rot,en,Tarun
+buckeye_rot,buckeye rot,buck eye rot and ring rot,en,"Claude (delegated by Tarun, 2026-11-14)"
 ring_rot,ring rot,buck eye rot and ring rot,en,Tarun
 buckeye_rot,buckeye rot,buckeye rot,en,rule:identity
 bud_rot,bud rot,bud rot,en,rule:identity
@@ -208,10 +208,10 @@ chenophora_blight,chenophora blight,chenophora blight,en,rule:identity
 chilli_fruit_borer,chilli fruit borer,chilli fruit borer,en,rule:identity
 chilli_thrips,chilli thrips,chilli thrips,en,rule:identity
 chilli_yellow_mite,chilli yellow mite,chilli yellow mite,en,rule:identity
-choanephora_blight,choanephora blight,choanephora blight and anthracnose fruit rot,en,Tarun
 anthracnose_fruit_rot,anthracnose fruit rot,choanephora blight and anthracnose fruit rot,en,Tarun
-choanephora_blight,choanephora blight,choanephora blight and cercospora leaf spot,en,Tarun
+choanephora_blight,choanephora blight,choanephora blight and anthracnose fruit rot,en,Tarun
 cercospora_leaf_spot,cercospora leaf spot,choanephora blight and cercospora leaf spot,en,Tarun
+choanephora_blight,choanephora blight,choanephora blight and cercospora leaf spot,en,Tarun
 chum,chum,chum,en,rule:identity
 cigar_end_rot,cigar end rot,cigar end rot,en,rule:identity
 cigarette_beetle,cigarette beetle,cigarette beetle,en,rule:identity
@@ -254,7 +254,7 @@ diamond_back_moth,diamond back moth,diamond back moth and tobacco caterpillar,en
 tobacco_caterpillar,tobacco caterpillar,diamond back moth and tobacco caterpillar,en,rule:split-known
 diamond_back_moth_fruit_borer,diamond back moth fruit borer,diamond back moth fruit borer,en,rule:identity
 diamond_black_moth_tobacco_caterpillar,diamond black moth tobacco caterpillar,diamond black moth tobacco caterpillar,en,rule:identity
-diamond_moth_back,diamond moth back,diamond moth back,en,rule:identity
+diamond_back_moth,diamond back moth,diamond moth back,en,"Claude (delegated by Tarun, 2026-11-14)"
 die_back,die back,die back,en,rule:identity
 die_back,die- back,die- back,en,rule:identity
 die_back,die- back,die- back and powdery mildew,en,rule:split-known
@@ -262,10 +262,10 @@ powdery_mildew,powdery mildew,die- back and powdery mildew,en,rule:split-known
 die_back,die-back,die-back,en,rule:identity
 die_back,die-back,die-back and fruit rot,en,rule:split-known
 fruit_rot,fruit rot,die-back and fruit rot,en,rule:split-known
-dieback,dieback,dieback,en,rule:identity
+die_back,die-back,dieback,en,"Claude (delegated by Tarun, 2026-11-14)"
+anthracnose_disease,anthracnose disease,dieback and anthracnose diseases,en,"Claude (delegated by Tarun, 2026-11-14)"
 dieback_diseases,dieback diseases,dieback and anthracnose diseases,en,Tarun
-anthracnose_diseases,anthracnose diseases,dieback and anthracnose diseases,en,Tarun
-dieback,dieback,dieback and powdery mildew,en,rule:split-known
+die_back,die-back,dieback and powdery mildew,en,"Claude (delegated by Tarun, 2026-11-14)"
 powdery_mildew,powdery mildew,dieback and powdery mildew,en,rule:split-known
 dirty,dirty,dirty,en,rule:identity
 dirty_panicle,dirty panicle,dirty panicle,en,rule:identity
@@ -275,13 +275,14 @@ dirty_panicle_complex,dirty panicle complex,dirty panicle complex,en,rule:identi
 dirty_panicle_disease,dirty panicle disease,dirty panicle disease,en,rule:identity
 discolouration,discolouration,discolouration,en,rule:identity
 disease,disease,disease,en,rule:identity
+_ignore,not a pest,diseases viz,en,Tarun (chat 2026-11-14)
 downey,downey,downey,en,rule:identity
-downey_mildew,downey mildew,downey mildew,en,rule:identity
+downy_mildew,downy mildew,downey mildew,en,"Claude (delegated by Tarun, 2026-11-14)"
 anthracnose,anthracnose,downey mildew and anthracnose,en,rule:split-known
-downey_mildew,downey mildew,downey mildew and anthracnose,en,rule:split-known
-downey_mildew,downey mildew,downey mildew and powdery mildew,en,rule:split-known
+downy_mildew,downy mildew,downey mildew and anthracnose,en,"Claude (delegated by Tarun, 2026-11-14)"
+downy_mildew,downy mildew,downey mildew and powdery mildew,en,"Claude (delegated by Tarun, 2026-11-14)"
 powdery_mildew,powdery mildew,downey mildew and powdery mildew,en,rule:split-known
-downey_mildew,downey mildew,downey mildew and white rust,en,rule:split-known
+downy_mildew,downy mildew,downey mildew and white rust,en,"Claude (delegated by Tarun, 2026-11-14)"
 white_rust,white rust,downey mildew and white rust,en,rule:split-known
 downy_leafspot,downy leafspot,downy leafspot,en,rule:identity
 downy_mildew,downy mildew,downy mildew,en,rule:identity
@@ -308,9 +309,11 @@ dry_root_rot,dry root rot,dry root rot,en,rule:identity
 eaf,eaf,eaf,en,rule:identity
 ear_cockle_nematode,ear cockle nematode,ear cockle nematode,en,rule:identity
 ear_head_caterpillar,ear head caterpillar,ear head caterpillar,en,rule:identity
-ear_head_midge,ear head midge,ear head midge,en,rule:identity
+earhead_midge,earhead midge,ear head midge,en,"Claude (delegated by Tarun, 2026-11-14)"
 earhead_midge,earhead midge,earhead midge,en,rule:identity
 earias_vitella,earias vitella,earias vitella,en,rule:identity
+early_blight,early blight,early and late,en,Tarun (chat 2026-11-14)
+late_blight,late blight,early and late,en,Tarun (chat 2026-11-14)
 early_blight,early blight,early and late blight,en,Tarun
 late_blight,late blight,early and late blight,en,Tarun
 early_blight,early blight,early blight,en,rule:identity
@@ -343,24 +346,24 @@ red_spider_mite,red spider mite,european red mite and red spider mite,en,rule:sp
 european_red_mite,european red mite,european red mite and spotted red spider mite,en,Tarun
 spotted_red_spider_mite,spotted red spider mite,european red mite and spotted red spider mite,en,Tarun
 european_red_spider_mite,european red spider mite,european red spider mite,en,rule:identity
-fall_army_worm,fall army worm,fall army worm,en,rule:identity
-fall_army_worm,fall army worm,fall army worm and stem borer,en,rule:split-known
+fall_armyworm,fall armyworm,fall army worm,en,"Claude (delegated by Tarun, 2026-11-14)"
+fall_armyworm,fall armyworm,fall army worm and stem borer,en,"Claude (delegated by Tarun, 2026-11-14)"
 stem_borer,stem borer,fall army worm and stem borer,en,rule:split-known
 fall_army_worm_spodoptera_frugiperda_stem_borer_chilo_partellus,fall army worm: spodoptera frugiperda stem borer: chilo partellus,fall army worm: spodoptera frugiperda stem borer: chilo partellus,en,rule:identity
 fall_armyworm,fall armyworm,fall armyworm,en,rule:identity
 fall_armyworm,fall armyworm,fall armyworm (spodoptera frugiperda and stem borer,en,Tarun
 stem_borer,stem borer,fall armyworm (spodoptera frugiperda and stem borer,en,Tarun
+aphid,aphid,fall armyworm stem borer and aphid,en,Tarun
 fall_armyworm,fall armyworm,fall armyworm stem borer and aphid,en,Tarun
 stem_borer,stem borer,fall armyworm stem borer and aphid,en,Tarun
-aphid,aphid,fall armyworm stem borer and aphid,en,Tarun
 fall_armyworm_stem_borer_pink_stem_borer,fall armyworm stem borer pink stem borer,fall armyworm stem borer pink stem borer,en,rule:identity
 false_smut,false smut,false smut,en,rule:identity
 bacterial_leaf_blight,bacterial leaf blight,false smut and bacterial leaf blight,en,rule:split-known
 false_smut,false smut,false smut and bacterial leaf blight,en,rule:split-known
 dirty_panicle,dirty panicle,false smut and dirty panicle,en,rule:split-known
 false_smut,false smut,false smut and dirty panicle,en,rule:split-known
-false_smut,false smut,false smut and dirty panicles- grain discoloration,en,Tarun
 dirty_panicles_grain_discoloration,dirty panicles- grain discoloration,false smut and dirty panicles- grain discoloration,en,Tarun
+false_smut,false smut,false smut and dirty panicles- grain discoloration,en,Tarun
 false_smut,false smut,false smut and grain discoloration,en,rule:split-known
 grain_discoloration,grain discoloration,false smut and grain discoloration,en,rule:split-known
 field_rat,field rat,field rat,en,rule:identity
@@ -372,8 +375,8 @@ flat_grain_beetle,flat grain beetle,flat grain beetle,en,rule:identity
 flea_beetle,flea beetle,flea beetle,en,rule:identity
 flea_beetle,flea beetle,flea beetle and thrips,en,rule:split-known
 thrips,thrips,flea beetle and thrips,en,rule:split-known
-fly_speck,fly speck,fly speck and bitter rot,en,Tarun
 bitter_rot,bitter rot,fly speck and bitter rot,en,Tarun
+fly_speck,fly speck,fly speck and bitter rot,en,Tarun
 foot_rot,foot rot,foot rot,en,rule:identity
 frog_eye_leaf,frog eye leaf,frog eye leaf,en,rule:identity
 frog_eye_leaf_spot,frog eye leaf spot,frog eye leaf spot,en,rule:identity
@@ -381,8 +384,8 @@ alternaria_leaf_spot,alternaria leaf spot,frog eye leaf spot and alternaria leaf
 frog_eye_leaf_spot,frog eye leaf spot,frog eye leaf spot and alternaria leaf spot,en,rule:split-known
 frog_eye_spot,frog eye spot,frog eye spot,en,rule:identity
 shoot_and_fruit_borer,shoot and fruit borer,fruit and shoot borer,en,Tarun
-shoot_and_fruit_borer,shoot and fruit borer,fruit and shoot borer and mites,en,Tarun
 mite,mite,fruit and shoot borer and mites,en,Tarun
+shoot_and_fruit_borer,shoot and fruit borer,fruit and shoot borer and mites,en,Tarun
 fruit_borer,fruit borer,fruit borer,en,rule:identity
 fruit_borer,fruit borer,fruit borer and leaf eating caterpillar,en,rule:split-known
 leaf_eating_caterpillar,leaf eating caterpillar,fruit borer and leaf eating caterpillar,en,rule:split-known
@@ -400,7 +403,7 @@ fruit_borer_tobacco_caterpillar_beet_armyworm,fruit borer tobacco caterpillar be
 fruit_borer_helicovepra_armigera,fruit borer- helicovepra armigera,fruit borer- helicovepra armigera,en,rule:identity
 fruit_borer_helicoverpa_armigera_leaf_miner_liriomyza_trifolii_thrips_thrips_tabaci,fruit borer: helicoverpa armigera leaf miner: liriomyza trifolii thrips: thrips tabaci,fruit borer: helicoverpa armigera leaf miner: liriomyza trifolii thrips: thrips tabaci,en,rule:identity
 fruit_borer,fruit borer,fruit borers,en,rule:plural
-fruit_borers,fruit borers,fruit borers and leaf caterpillars,en,Tarun
+fruit_borer,fruit borer,fruit borers and leaf caterpillars,en,"Claude (delegated by Tarun, 2026-11-14)"
 leaf_caterpillars,leaf caterpillars,fruit borers and leaf caterpillars,en,Tarun
 fruit_fly,fruit fly,fruit fly,en,rule:identity
 fruit_rot,fruit rot,fruit rot,en,rule:identity
@@ -413,7 +416,7 @@ powdery_mildew,powdery mildew,fruit rot and powdery mildew,en,rule:split-known
 fruit_scab,fruit scab,fruit scab and powdery mildew,en,Tarun
 powdery_mildew,powdery mildew,fruit scab and powdery mildew,en,Tarun
 fruit_spot,fruit spot,fruit spot,en,rule:identity
-fruitrot,fruitrot,fruitrot,en,rule:identity
+fruit_rot,fruit rot,fruitrot,en,"Claude (delegated by Tarun, 2026-11-14)"
 fujikoroi,fujikoroi),fujikoroi),en,rule:identity
 fungal_wilt,fungal wilt,fungal wilt,en,rule:identity
 fungal_wilt,fungal wilt,fungal wilt and root rot,en,rule:split-known
@@ -460,8 +463,8 @@ leaf_folder,leaf folder,green leaf hopper and leaf folder,en,rule:split-known
 green_leaf_hopper,green leaf hopper,green leaf hopper and white backed plant hopper,en,rule:split-known
 white_backed_plant_hopper,white backed plant hopper,green leaf hopper and white backed plant hopper,en,rule:split-known
 green_leaf_hopper_rice_leaf_hopper,green leaf hopper rice leaf hopper,green leaf hopper rice leaf hopper,en,rule:identity
-green_leafhopper,green leafhopper,green leafhopper,en,rule:identity
-green_semi_looper,green semi looper,green semi looper,en,rule:identity
+green_leaf_hopper,green leaf hopper,green leafhopper,en,"Claude (delegated by Tarun, 2026-11-14)"
+green_semilooper,green semilooper,green semi looper,en,"Claude (delegated by Tarun, 2026-11-14)"
 green_semilooper,green semilooper,green semilooper,en,rule:identity
 grey,grey,grey,en,rule:identity
 grey_weevil,grey weevil,grey and stem weevil,en,Tarun
@@ -471,9 +474,9 @@ grey_blight_disease,grey blight disease,grey blight disease,en,rule:identity
 grey_leaf_mould,grey leaf mould,grey leaf mould,en,rule:identity
 grey_mildew,grey mildew,grey mildew,en,rule:identity
 grey_weevil,grey weevil,grey weevil,en,rule:identity
-gridle_beetle,gridle beetle,gridle beetle,en,rule:identity
+girdle_beetle,girdle beetle,gridle beetle,en,"Claude (delegated by Tarun, 2026-11-14)"
 ground_beetle,ground beetle,ground beetle,en,rule:identity
-groundnut_leaf_minor,groundnut leaf minor,groundnut leaf minor,en,rule:identity
+groundnut_leaf_miner,groundnut leaf miner,groundnut leaf minor,en,"Claude (delegated by Tarun, 2026-11-14)"
 gummosis,gummosis,gummosis,en,rule:identity
 gundhi_bug,gundhi bug,gundhi bug,en,rule:identity
 halo_blight,halo blight,halo blight,en,rule:identity
@@ -481,7 +484,7 @@ helicoverpa_armigera,helicoverpa armigera,helicoverpa armigera,en,rule:identity
 helicoverpa_armigera,helicoverpa armigera,helicoverpa armigera and maruca vitrata,en,rule:split-known
 maruca_vitrata,maruca vitrata,helicoverpa armigera and maruca vitrata,en,rule:split-known
 helicoverpa_armigera,helicoverpa armigera,helicoverpa armigera and semilooper,en,rule:split-known
-semilooper,semilooper,helicoverpa armigera and semilooper,en,rule:split-known
+semi_looper,semi looper,helicoverpa armigera and semilooper,en,"Claude (delegated by Tarun, 2026-11-14)"
 helicoverpa_armigera,helicoverpa armigera,helicoverpa armigera and spodoptera litura,en,rule:split-known
 spodoptera_litura,spodoptera litura,helicoverpa armigera and spodoptera litura,en,rule:split-known
 high,high,high,en,rule:identity
@@ -490,21 +493,21 @@ hopper,hopper,hopper,en,rule:identity
 hopper_caterpillar,hopper caterpillar,hopper caterpillar,en,rule:identity
 hopper,hopper,hoppers,en,rule:plural
 house_mouse,house mouse,house mouse,en,rule:identity
-i_niveosparsus,i. niveosparsus,i. niveosparsus and i. nitidulus),en,Tarun
 i_nitidulus,i. nitidulus,i. niveosparsus and i. nitidulus),en,Tarun
+i_niveosparsus,i. niveosparsus,i. niveosparsus and i. nitidulus),en,Tarun
 indian_field_mouse,indian field mouse,indian field mouse,en,rule:identity
 indian_house_rat,indian house rat,indian house rat,en,rule:identity
 indian_meal_moth,indian meal moth,indian meal moth,en,rule:identity
 jassid,jassid,jassid,en,rule:identity
 jassid,jassid,jassid and thrips,en,rule:split-known
 thrips,thrips,jassid and thrips,en,rule:split-known
-jassid_s,jassid s,jassid s,en,rule:identity
+jassid,jassid,jassid s,en,"Claude (delegated by Tarun, 2026-11-14)"
 jassid_whitefly,jassid whitefly,jassid whitefly,en,rule:identity
 jassid,jassid,jassids,en,rule:plural
+bollworm_complex,bollworm complex,jassids and boll worm complex,en,"Claude (delegated by Tarun, 2026-11-14)"
 jassid,jassid,jassids and boll worm complex,en,Tarun
-boll_worm_complex,boll worm complex,jassids and boll worm complex,en,Tarun
-jassid,jassid,jassids and epilachana beetle,en,Tarun
 epilachna_beetle,epilachna beetle,jassids and epilachana beetle,en,Tarun
+jassid,jassid,jassids and epilachana beetle,en,Tarun
 jassid,jassid,jassids and mealy bugs,en,rule:split-known
 mealy_bug,mealy bug,jassids and mealy bugs,en,rule:split-known
 jassid,jassid,jassids and red spider mite,en,rule:split-known
@@ -512,9 +515,9 @@ red_spider_mite,red spider mite,jassids and red spider mite,en,rule:split-known
 jassid,jassid,jassids and thrips,en,rule:split-known
 thrips,thrips,jassids and thrips,en,rule:split-known
 jassid,jassid,jassids and white fly,en,rule:split-known
-white_fly,white fly,jassids and white fly,en,rule:split-known
+whitefly,whitefly,jassids and white fly,en,"Claude (delegated by Tarun, 2026-11-14)"
 jassid,jassid,jassids and whiteflies,en,rule:split-known
-whiteflies,whiteflies,jassids and whiteflies,en,rule:split-known
+whitefly,whitefly,jassids and whiteflies,en,"Claude (delegated by Tarun, 2026-11-14)"
 jassid,jassid,jassids and whitefly,en,rule:split-known
 whitefly,whitefly,jassids and whitefly,en,rule:split-known
 karnal_bunt,karnal bunt,karnal bunt,en,rule:identity
@@ -534,15 +537,15 @@ late_blight,late blight,late blight and early blight,en,rule:split-known
 late_leaf_spot,late leaf spot,late leaf spot,en,rule:identity
 late_leaf_spot,late leaf spot,late leaf spot and rust,en,rule:split-known
 rust,rust,late leaf spot and rust,en,rule:split-known
-lateleafspot,lateleafspot,lateleafspot,en,rule:identity
+late_leaf_spot,late leaf spot,lateleafspot,en,"Claude (delegated by Tarun, 2026-11-14)"
 leaf,leaf,leaf,en,rule:identity
 leaf_and_fruit_spot,leaf and fruit spot,leaf and fruit spot,en,Tarun
 leaf_and_fruit_spot,leaf and fruit spot,leaf and fruit spots,en,Tarun
 leaf_blast,leaf blast,leaf and neck blast,en,Tarun
 neck_blast,neck blast,leaf and neck blast,en,Tarun
+grain_discoloration,grain discoloration,leaf and neck blast and grain discolouration,en,"Claude (delegated by Tarun, 2026-11-14)"
 leaf_blast,leaf blast,leaf and neck blast and grain discolouration,en,Tarun
 neck_blast,neck blast,leaf and neck blast and grain discolouration,en,Tarun
-grain_discolouration,grain discolouration,leaf and neck blast and grain discolouration,en,Tarun
 leaf_blast,leaf blast,leaf and panicle blast,en,Tarun
 neck_blast,neck blast,leaf and panicle blast,en,Tarun
 leaf_beetle,leaf beetle,leaf beetle,en,rule:identity
@@ -556,8 +559,8 @@ leaf_blotch,leaf blotch,leaf blotch,en,rule:identity
 leaf_curl_aphid,leaf curl aphid,leaf curl aphid,en,rule:identity
 leaf_curl_aphid,leaf curl aphid,leaf curl aphids,en,rule:plural
 leaf_eating_caterpillar,leaf eating caterpillar,leaf eating caterpillar,en,rule:identity
-leaf_fall,leaf fall,leaf fall and brown rot,en,Tarun
 brown_rot,brown rot,leaf fall and brown rot,en,Tarun
+leaf_fall,leaf fall,leaf fall and brown rot,en,Tarun
 leaf_feeder,leaf feeder,leaf feeder,en,rule:identity
 leaf_folder,leaf folder,leaf folder,en,rule:identity
 brown_plant_hopper,brown plant hopper,leaf folder and brown plant hopper,en,rule:split-known
@@ -570,26 +573,26 @@ leaf_folder_brown_planthopper,leaf folder brown planthopper,leaf folder brown pl
 leaf_folder_diseases_sheath_blight,leaf folder diseases: sheath blight,leaf folder diseases: sheath blight,en,rule:identity
 leaf_hopper,leaf hopper,leaf hopper,en,rule:identity
 leaf_hopper,leaf hopper,leaf hopper - amrasca biguttula biguttula thrips - thrips palmi fruit and shoot borer - leucinodes orbonalis red spider mite - tetranychus urticae whitefly - bemisia tabaci,en,Tarun
-thrips,thrips,leaf hopper - amrasca biguttula biguttula thrips - thrips palmi fruit and shoot borer - leucinodes orbonalis red spider mite - tetranychus urticae whitefly - bemisia tabaci,en,Tarun
-shoot_and_fruit_borer,shoot and fruit borer,leaf hopper - amrasca biguttula biguttula thrips - thrips palmi fruit and shoot borer - leucinodes orbonalis red spider mite - tetranychus urticae whitefly - bemisia tabaci,en,Tarun
 red_spider_mite,red spider mite,leaf hopper - amrasca biguttula biguttula thrips - thrips palmi fruit and shoot borer - leucinodes orbonalis red spider mite - tetranychus urticae whitefly - bemisia tabaci,en,Tarun
+shoot_and_fruit_borer,shoot and fruit borer,leaf hopper - amrasca biguttula biguttula thrips - thrips palmi fruit and shoot borer - leucinodes orbonalis red spider mite - tetranychus urticae whitefly - bemisia tabaci,en,Tarun
+thrips,thrips,leaf hopper - amrasca biguttula biguttula thrips - thrips palmi fruit and shoot borer - leucinodes orbonalis red spider mite - tetranychus urticae whitefly - bemisia tabaci,en,Tarun
 whitefly,whitefly,leaf hopper - amrasca biguttula biguttula thrips - thrips palmi fruit and shoot borer - leucinodes orbonalis red spider mite - tetranychus urticae whitefly - bemisia tabaci,en,Tarun
 leaf_hopper,leaf hopper,leaf hoppers,en,rule:plural
 leaf_miner,leaf miner,leaf miner,en,rule:identity
 fruit_borer,fruit borer,leaf miner and fruit borer,en,rule:split-known
 leaf_miner,leaf miner,leaf miner and fruit borer,en,rule:split-known
-leaf_minor,leaf minor,leaf minor,en,rule:identity
+leaf_miner,leaf miner,leaf minor,en,"Claude (delegated by Tarun, 2026-11-14)"
 leaf_rust,leaf rust,leaf rust,en,rule:identity
 leaf_rust_powdery_mildew_karnal_bunt,leaf rust powdery mildew karnal bunt,leaf rust powdery mildew karnal bunt,en,rule:identity
-leaf_scab,leaf scab,leaf scab and fruit scab,en,Tarun
 fruit_scab,fruit scab,leaf scab and fruit scab,en,Tarun
+leaf_scab,leaf scab,leaf scab and fruit scab,en,Tarun
 leaf_spot,leaf spot,leaf spot,en,rule:identity
 anthracnose,anthracnose,leaf spot and anthracnose,en,rule:split-known
 leaf_spot,leaf spot,leaf spot and anthracnose,en,rule:split-known
 boll_rot,boll rot,leaf spot and boll rot,en,rule:split-known
 leaf_spot,leaf spot,leaf spot and boll rot,en,rule:split-known
-leaf_spot,leaf spot,leaf spot and collar rot pest: stem fly,en,Tarun
 collar_rot,collar rot,leaf spot and collar rot pest: stem fly,en,Tarun
+leaf_spot,leaf spot,leaf spot and collar rot pest: stem fly,en,Tarun
 stem_fly,stem fly,leaf spot and collar rot pest: stem fly,en,Tarun
 fruit_rot,fruit rot,leaf spot and fruit rot,en,rule:split-known
 leaf_spot,leaf spot,leaf spot and fruit rot,en,rule:split-known
@@ -612,15 +615,15 @@ leaf_stripe,leaf stripe,leaf stripe,en,rule:identity
 leaf_webber,leaf webber,leaf webber,en,rule:identity
 leaf_weevil,leaf weevil,leaf weevil,en,rule:identity
 leaf_worm,leaf worm,leaf worm,en,rule:identity
-leafhopper,leafhopper,leafhopper,en,rule:identity
-leafspot,leafspot,leafspot,en,rule:identity
+leaf_hopper,leaf hopper,leafhopper,en,"Claude (delegated by Tarun, 2026-11-14)"
+leaf_spot,leaf spot,leafspot,en,"Claude (delegated by Tarun, 2026-11-14)"
 leafspot_disease,leafspot disease,leafspot disease,en,rule:identity
-leaser_grain_borer,leaser grain borer,leaser grain borer,en,rule:identity
+lesser_grain_borer,lesser grain borer,leaser grain borer,en,"Claude (delegated by Tarun, 2026-11-14)"
 lesser_grain_air_tight_cover_borer,lesser grain air tight cover borer,lesser grain air tight cover borer,en,rule:identity
-lesser_grain_bore,lesser grain bore,lesser grain bore,en,rule:identity
+lesser_grain_borer,lesser grain borer,lesser grain bore,en,"Claude (delegated by Tarun, 2026-11-14)"
 lesser_grain_borer,lesser grain borer,lesser grain borer,en,rule:identity
 light_choanephora_cuc,light (choanephora cuc,light (choanephora cuc,en,rule:identity
-long_headed_floor_beetle,long headed floor beetle,long headed floor beetle,en,rule:identity
+long_headed_flour_beetle,long headed flour beetle,long headed floor beetle,en,"Claude (delegated by Tarun, 2026-11-14)"
 long_headed_flour_beetle,long headed flour beetle,long headed flour beetle and mites,en,Tarun
 mite,mite,long headed flour beetle and mites,en,Tarun
 looper,looper,looper,en,rule:identity
@@ -629,9 +632,9 @@ flag_smut,flag smut,loose smut and flag smut,en,rule:split-known
 loose_smut,loose smut,loose smut and flag smut,en,rule:split-known
 karnal_bunt,karnal bunt,loose smut and karnal bunt,en,rule:split-known
 loose_smut,loose smut,loose smut and karnal bunt,en,rule:split-known
+early_soil_borne_diseases,early soil borne diseases,loose smut and other seed borne and early soil borne diseases,en,Tarun
 loose_smut,loose smut,loose smut and other seed borne and early soil borne diseases,en,Tarun
 other_seed_borne,other seed borne,loose smut and other seed borne and early soil borne diseases,en,Tarun
-early_soil_borne_diseases,early soil borne diseases,loose smut and other seed borne and early soil borne diseases,en,Tarun
 lopper,lopper,lopper,en,rule:identity
 low,low,low,en,rule:identity
 mango_hopper,mango hopper,mango hopper,en,rule:identity
@@ -681,7 +684,7 @@ mus_platythrix,mus platythrix,mus platythrix,en,rule:identity
 mustard_aphid,mustard aphid,mustard aphid,en,rule:identity
 mustard_leaf_miner,mustard leaf miner,mustard leaf miner,en,rule:identity
 mustard_sawfly,mustard sawfly,mustard sawfly,en,rule:identity
-myrotheciu_m_leaf_spot,myrotheciu m leaf spot,myrotheciu m leaf spot,en,rule:identity
+myrothecium_leaf_spot,myrothecium leaf spot,myrotheciu m leaf spot,en,"Claude (delegated by Tarun, 2026-11-14)"
 myrothecium_leaf_spot,myrothecium leaf spot,myrothecium leaf spot,en,rule:identity
 alternaria_leaf_spot,alternaria leaf spot,myrothecium leaf spot and alternaria leaf spot,en,rule:split-known
 myrothecium_leaf_spot,myrothecium leaf spot,myrothecium leaf spot and alternaria leaf spot,en,rule:split-known
@@ -701,15 +704,15 @@ panicle,panicle,panicle,en,rule:identity
 panicle_and_capsule_borer,panicle and capsule borer,panicle and capsule borer,en,Tarun
 pectinophora_gossypiella,pectinophora gossypiella,pectinophora gossypiella,en,rule:identity
 penicillium_sp_alternaria_alternata_mucor_piriformis,penicillium sp alternaria alternata mucor piriformis,penicillium sp alternaria alternata mucor piriformis,en,rule:identity
-pest_aphid,pest: aphid,pest: aphid,en,rule:identity
-pests_brown_plant_hopper,pests: brown plant hopper,pests: brown plant hopper,en,rule:identity
+aphid,aphid,pest: aphid,en,"Claude (delegated by Tarun, 2026-11-14)"
+brown_plant_hopper,brown plant hopper,pests: brown plant hopper,en,"Claude (delegated by Tarun, 2026-11-14)"
 phillippine_downy_mildew,phillippine downy mildew,phillippine downy mildew,en,rule:identity
 phytophthora_foot_rot,phytophthora foot rot,phytophthora foot rot,en,rule:identity
 phytophthora_fruit_rot,phytophthora fruit rot,phytophthora fruit rot,en,rule:identity
 phytophthora_root_rot,phytophthora root rot,phytophthora root rot,en,rule:identity
 phytopthora_disease_viz,phytopthora disease viz,phytopthora disease viz,en,rule:identity
 pink_american,pink american,pink american,en,rule:identity
-pink_boll_worm,pink boll worm,pink boll worm,en,rule:identity
+pink_bollworm,pink bollworm,pink boll worm,en,"Claude (delegated by Tarun, 2026-11-14)"
 pink_boll_worm_pectinophora_gossypiella_leaf_worm_spodoptera_litura_american_bollworm_helicoverpa_armigera_thrips_thrips_tabaci,pink boll worm: pectinophora gossypiella leaf worm: spodoptera litura american bollworm: helicoverpa armigera thrips: thrips tabaci,pink boll worm: pectinophora gossypiella leaf worm: spodoptera litura american bollworm: helicoverpa armigera thrips: thrips tabaci,en,rule:identity
 pink_bollworm,pink bollworm,pink bollworm,en,rule:identity
 pink_mite,pink mite,pink mite,en,rule:identity
@@ -717,8 +720,8 @@ pink_stem_borer,pink stem borer,pink stem borer,en,rule:identity
 plant_hopper,plant hopper,plant hopper,en,rule:identity
 plant_hopper,plant hopper,plant hoppers,en,rule:plural
 pod,pod,pod,en,rule:identity
-pod_and_stem_blight,pod and stem blight,pod and stem blight and anthracnose,en,Tarun
 anthracnose,anthracnose,pod and stem blight and anthracnose,en,Tarun
+pod_and_stem_blight,pod and stem blight,pod and stem blight and anthracnose,en,Tarun
 pod_blight,pod blight,pod blight and rust,en,Tarun
 rust,rust,pod blight and rust,en,Tarun
 pod_borer,pod borer,pod borer,en,rule:identity
@@ -741,12 +744,12 @@ post_harvest_fruit_rot_complex_of_fungi_grey_mould_botrytis_cinerea_blue_mould_p
 post_harvest_diseases,post-harvest diseases,post-harvest diseases,en,rule:identity
 powdery,powdery,powdery,en,rule:identity
 powdery_mildew,powdery mildew,powdery mildew,en,rule:identity
-powdery_mildew,powdery mildew,powdery mildew and alternaria leaf spots,en,Tarun
 alternaria_leaf_spot,alternaria leaf spot,powdery mildew and alternaria leaf spots,en,Tarun
+powdery_mildew,powdery mildew,powdery mildew and alternaria leaf spots,en,Tarun
 anthracnose,anthracnose,powdery mildew and anthracnose,en,rule:split-known
 powdery_mildew,powdery mildew,powdery mildew and anthracnose,en,rule:split-known
-powdery_mildew,powdery mildew,powdery mildew and anthraconase,en,Tarun
 anthracnose,anthracnose,powdery mildew and anthraconase,en,Tarun
+powdery_mildew,powdery mildew,powdery mildew and anthraconase,en,Tarun
 bacterial_leaf_spot,bacterial leaf spot,powdery mildew and bacterial leaf spot,en,rule:split-known
 powdery_mildew,powdery mildew,powdery mildew and bacterial leaf spot,en,rule:split-known
 cercospora_leaf_spot,cercospora leaf spot,powdery mildew and cercospora leaf spot,en,rule:split-known
@@ -761,24 +764,24 @@ leaf_spot,leaf spot,powdery mildew and leaf spot,en,rule:split-known
 powdery_mildew,powdery mildew,powdery mildew and leaf spot,en,rule:split-known
 marssonina_blotch,marssonina blotch,powdery mildew and marssonina blotch,en,rule:split-known
 powdery_mildew,powdery mildew,powdery mildew and marssonina blotch,en,rule:split-known
-powdery_mildew,powdery mildew,powdery mildew and post- harvest diseases,en,Tarun
 post_harvest_diseases,post-harvest diseases,powdery mildew and post- harvest diseases,en,Tarun
+powdery_mildew,powdery mildew,powdery mildew and post- harvest diseases,en,Tarun
 powdery_mildew,powdery mildew,powdery mildew and premature leaf fall,en,rule:split-known
 premature_leaf_fall,premature leaf fall,powdery mildew and premature leaf fall,en,rule:split-known
 powdery_mildew_anthracnose_choanephora_b_light,powdery mildew anthracnose choanephora b light,powdery mildew anthracnose choanephora b light,en,rule:identity
-powdery_mildew,powdery mildew,powdery mildew disease and fruit borer pest,en,Tarun
 fruit_borer,fruit borer,powdery mildew disease and fruit borer pest,en,Tarun
+powdery_mildew,powdery mildew,powdery mildew disease and fruit borer pest,en,Tarun
 powdery_mildew_leaf_spot_fruit_rot_die_back,powdery mildew leaf spot fruit rot die back,powdery mildew leaf spot fruit rot die back,en,rule:identity
 powdery_mildew_white_root_rot,powdery mildew white root rot,powdery mildew white root rot,en,rule:identity
 powdery_mildew_blumeria_grami_nis,powdery mildew- blumeria grami nis,powdery mildew- blumeria grami nis,en,rule:identity
-pre_mature_leaf_fall,pre- mature leaf fall,pre- mature leaf fall,en,rule:identity
+premature_leaf_fall,premature leaf fall,pre- mature leaf fall,en,"Claude (delegated by Tarun, 2026-11-14)"
 premature_leaf_fall,premature leaf fall,premature leaf fall,en,rule:identity
 alternaria_leaf_spot,alternaria leaf spot,premature leaf fall and alternaria leaf spot,en,rule:split-known
 premature_leaf_fall,premature leaf fall,premature leaf fall and alternaria leaf spot,en,rule:split-known
 premature_leaf_fall,premature leaf fall,premature leaf fall and scab,en,rule:split-known
 scab,scab,premature leaf fall and scab,en,rule:split-known
-premature_leaf_fall_disease,premature leaf fall disease,premature leaf fall disease and alternaria leaf spot and blight,en,Tarun
 alternaria_leaf_spot_and_blight,alternaria leaf spot and blight,premature leaf fall disease and alternaria leaf spot and blight,en,Tarun
+premature_leaf_fall_disease,premature leaf fall disease,premature leaf fall disease and alternaria leaf spot and blight,en,Tarun
 psylla,psylla,psylla,en,rule:identity
 mite,mite,psylla and mites,en,rule:split-known
 psylla,psylla,psylla and mites,en,rule:split-known
@@ -786,8 +789,8 @@ psyllids,psyllids,psyllids,en,rule:identity
 pulse_beetle,pulse beetle,pulse beetle,en,rule:identity
 pumpkin_caterpillar,pumpkin caterpillar,pumpkin caterpillar,en,rule:identity
 purple_blotch,purple blotch,purple blotch,en,rule:identity
-purple_blotch,purple blotch,purple blotch and downey mildew purple blotch and,en,Tarun
-downy_mildew,downy mildew,purple blotch and downey mildew purple blotch and,en,Tarun
+downy_mildew,downy mildew,purple blotch and downey mildew purple blotch,en,Tarun
+purple_blotch,purple blotch,purple blotch and downey mildew purple blotch,en,Tarun
 downy_mildew,downy mildew,purple blotch and downy mildew,en,rule:split-known
 purple_blotch,purple blotch,purple blotch and downy mildew,en,rule:split-known
 purple_blotch,purple blotch,purple blotch and stemphyliu m,en,Tarun
@@ -826,7 +829,7 @@ rhizoctonia_seedling_blight,rhizoctonia seedling blight,rhizoctonia seedling bli
 rhizome_rot,rhizome rot,rhizome rot,en,rule:identity
 rhizome_weevil,rhizome weevil,rhizome weevil,en,rule:identity
 rice_38igut,rice 38igut,rice 38igut,en,rule:identity
-rice_blast,rice blast,rice blast,en,rule:identity
+blast,blast,rice blast,en,"Claude (delegated by Tarun, 2026-11-14)"
 rice_case_worm,rice case worm,rice case worm,en,rule:identity
 rice_ear_head_bug,rice ear head bug,rice ear head bug,en,rule:identity
 rice_gall_midge,rice gall midge,rice gall midge,en,rule:identity
@@ -834,8 +837,8 @@ rice_hispa,rice hispa,rice hispa,en,rule:identity
 rice_leaf_folder,rice leaf folder,rice leaf folder,en,rule:identity
 rice_leaf_hopper,rice leaf hopper,rice leaf hopper,en,rule:identity
 rice_moth,rice moth,rice moth,en,rule:identity
-rice_sheath_blight,rice sheath blight,rice sheath blight and brown spot,en,Tarun
 brown_spot,brown spot,rice sheath blight and brown spot,en,Tarun
+sheath_blight,sheath blight,rice sheath blight and brown spot,en,"Claude (delegated by Tarun, 2026-11-14)"
 rice_stem_borer,rice stem borer,rice stem borer,en,rule:identity
 rice_weevil,rice weevil,rice weevil,en,rule:identity
 rice_yellow_stem_borer,rice yellow stem borer,rice yellow stem borer,en,rule:identity
@@ -858,7 +861,7 @@ tikka_leaf_spot,tikka leaf spot,rust and tikka leaf spot,en,rule:split-known
 rust_disease,rust disease,rust disease,en,rule:identity
 rust_leaf_spot,rust leaf spot,rust leaf spot,en,rule:identity
 rust_red_flour_beetle,rust red flour beetle,rust red flour beetle,en,rule:identity
-rust_red_flower_beetle,rust red flower beetle,rust red flower beetle,en,rule:identity
+rust_red_flour_beetle,rust red flour beetle,rust red flower beetle,en,"Claude (delegated by Tarun, 2026-11-14)"
 rust_puccinia,rust-puccinia,rust-puccinia,en,rule:identity
 rust_puccinia_graminis_tritici,rust-puccinia graminis tritici,rust-puccinia graminis tritici,en,rule:identity
 sanjose_scale,sanjose scale,sanjose scale,en,rule:identity
@@ -884,8 +887,8 @@ seedling,seedling,seedling,en,rule:identity
 seedling_blight,seedling blight,seedling blight,en,rule:identity
 seedling_disease,seedling disease,seedling disease,en,rule:identity
 seedling_rot,seedling rot,seedling rot,en,rule:identity
-seedling_wilt,seedling wilt,seedling wilt and seedling blight,en,Tarun
 seedling_blight,seedling blight,seedling wilt and seedling blight,en,Tarun
+seedling_wilt,seedling wilt,seedling wilt and seedling blight,en,Tarun
 semi_looper,semi looper,semi looper,en,rule:identity
 girdle_beetle,girdle beetle,semi looper and girdle beetle,en,rule:split-known
 semi_looper,semi looper,semi looper and girdle beetle,en,rule:split-known
@@ -894,19 +897,19 @@ tobacco_caterpillar,tobacco caterpillar,semi looper and tobacco caterpillar,en,r
 semi_looper,semi-looper,semi-looper,en,rule:identity
 semi_looper,semi-looper,semi-looper and tobacco caterpillar,en,rule:split-known
 tobacco_caterpillar,tobacco caterpillar,semi-looper and tobacco caterpillar,en,rule:split-known
-semilooper,semilooper,semilooper,en,rule:identity
+semi_looper,semi looper,semilooper,en,"Claude (delegated by Tarun, 2026-11-14)"
 septoria_leaf_blight,septoria leaf blight,septoria leaf blight,en,rule:identity
 septoria_leaf_spot,septoria leaf spot,septoria leaf spot,en,rule:identity
 sesamia_inferans,sesamia inferans,sesamia inferans,en,rule:identity
 set_rot,set rot,set rot,en,rule:identity
 sheath,sheath,sheath,en,rule:identity
-sheath_bight,sheath bight,sheath bight,en,rule:identity
+sheath_blight,sheath blight,sheath bight,en,"Claude (delegated by Tarun, 2026-11-14)"
 sheath_blight,sheath blight,sheath blight,en,rule:identity
 sheath_blight_rhizoctonia_solani,sheath blight (rhizoctonia solani,sheath blight (rhizoctonia solani,en,rule:identity
 blast,blast,sheath blight and blast,en,rule:split-known
 sheath_blight,sheath blight,sheath blight and blast,en,rule:split-known
+blast,blast,sheath blight and blast of rice,en,"Claude (delegated by Tarun, 2026-11-14)"
 sheath_blight,sheath blight,sheath blight and blast of rice,en,Tarun
-blast_of_rice,blast of rice,sheath blight and blast of rice,en,Tarun
 brown_leaf_spot,brown leaf spot,sheath blight and brown leaf spot,en,rule:split-known
 sheath_blight,sheath blight,sheath blight and brown leaf spot,en,rule:split-known
 grain_discoloration,grain discoloration,sheath blight and grain discoloration,en,rule:split-known
@@ -920,15 +923,15 @@ sheath_rot,sheath rot,sheath blight and sheath rot,en,rule:split-known
 sheath_blight_leaf_blast,sheath blight leaf blast,sheath blight leaf blast,en,rule:identity
 sheath_blight_leaf_blast_brown_spot_green_leaf_hopper_thrips_whorl_maggot,sheath blight leaf blast brown spot green leaf hopper thrips whorl maggot,sheath blight leaf blast brown spot green leaf hopper thrips whorl maggot,en,rule:identity
 sheath_rot,sheath rot,sheath rot,en,rule:identity
+grain_discoloration,grain discoloration,sheath rot and grain discolouration,en,"Claude (delegated by Tarun, 2026-11-14)"
 sheath_rot,sheath rot,sheath rot and grain discolouration,en,Tarun
-grain_discolouration,grain discolouration,sheath rot and grain discolouration,en,Tarun
-shoofly,shoofly,shoofly,en,rule:identity
+shoot_fly,shoot fly,shoofly,en,"Claude (delegated by Tarun, 2026-11-14)"
 shoot,shoot,shoot,en,rule:identity
 shoot_and_capsule_borer,shoot and capsule borer,shoot and capsule borer and thrips,en,Tarun
 thrips,thrips,shoot and capsule borer and thrips,en,Tarun
 shoot_and_fruit_borer,shoot and fruit borer,shoot and fruit borer,en,Tarun
-shoot_and_fruit_borer,shoot and fruit borer,shoot and fruit borer jassids,en,Tarun
 jassid,jassid,shoot and fruit borer jassids,en,Tarun
+shoot_and_fruit_borer,shoot and fruit borer,shoot and fruit borer jassids,en,Tarun
 shoot_borer,shoot borer,shoot borer,en,rule:identity
 fruit_borer,fruit borer,shoot borer and fruit borer,en,rule:split-known
 shoot_borer,shoot borer,shoot borer and fruit borer,en,rule:split-known
@@ -941,7 +944,7 @@ sigatoka,sigatoka,sigatoka,en,rule:identity
 sigatoka_leaf,sigatoka leaf,sigatoka leaf,en,rule:identity
 sigatoka_leaf_spot,sigatoka leaf spot,sigatoka leaf spot,en,rule:identity
 sigatoka_leaf_spot_disease,sigatoka leaf spot disease,sigatoka leaf spot disease,en,rule:identity
-sigatoka_leafspot,sigatoka leafspot,sigatoka leafspot,en,rule:identity
+sigatoka_leaf_spot,sigatoka leaf spot,sigatoka leafspot,en,"Claude (delegated by Tarun, 2026-11-14)"
 slugs,slugs,slugs,en,rule:identity
 smut,smut,smut,en,rule:identity
 rust,rust,smut and rust,en,rule:split-known
@@ -965,12 +968,12 @@ spodoptera_litura_helicoverpa_armigera_early_blight_leaf_spot,spodoptera litura 
 spodoptera_spp,spodoptera spp,spodoptera spp,en,rule:identity
 spot,spot,spot,en,rule:identity
 spot,spot,spots,en,rule:plural
-spotted_bollworm,spotted bollworm,spotted and spiny,en,Tarun
 spiny_bollworm,spiny bollworm,spotted and spiny,en,Tarun
-spotted_boll_worm,spotted boll worm,spotted boll worm,en,rule:identity
+spotted_bollworm,spotted bollworm,spotted and spiny,en,Tarun
+spotted_bollworm,spotted bollworm,spotted boll worm,en,"Claude (delegated by Tarun, 2026-11-14)"
 spotted_bollworm,spotted bollworm,spotted bollworm,en,rule:identity
 spotted_pod_borer,spotted pod borer,spotted pod borer,en,rule:identity
-spotted_stem_borer,spotted stem borer,spotted stem borer,en,rule:identity
+spotted_stemborer,spotted stemborer,spotted stem borer,en,"Claude (delegated by Tarun, 2026-11-14)"
 spotted_stemborer,spotted stemborer,spotted stemborer,en,rule:identity
 stalk_borer,stalk borer,stalk borer,en,rule:identity
 stem,stem,stem,en,rule:identity
@@ -991,7 +994,7 @@ stem_rust,stem rust,stem rust,en,rule:identity
 stemphylium_blight,stemphylium blight,stemphylium blight,en,rule:identity
 downy_mildew,downy mildew,stemphylium blight and downy mildew,en,rule:split-known
 stemphylium_blight,stemphylium blight,stemphylium blight and downy mildew,en,rule:split-known
-stemphylum_blight,stemphylum blight,stemphylum blight,en,rule:identity
+stemphylium_blight,stemphylium blight,stemphylum blight,en,"Claude (delegated by Tarun, 2026-11-14)"
 stripe_rust,stripe rust,stripe rust,en,rule:identity
 stripe,stripe),stripe),en,rule:identity
 stunt_nematode,stunt nematode,stunt nematode,en,rule:identity
@@ -1006,7 +1009,7 @@ tea_mosquito_bug,tea mosquito bug,tea mosquito bug,en,rule:identity
 tea_mosquito_bug,tea mosquito bug,tea mosquito bug and thrips,en,rule:split-known
 thrips,thrips,tea mosquito bug and thrips,en,rule:split-known
 tea_thrips,tea thrips,tea thrips,en,rule:identity
-tercicum_leaf_blight,tercicum leaf blight,tercicum leaf blight,en,rule:identity
+turcicum_leaf_blight,turcicum leaf blight,tercicum leaf blight,en,"Claude (delegated by Tarun, 2026-11-14)"
 termite,termite,termite,en,rule:identity
 termite,termite,termites,en,rule:plural
 early_shoot_borer,early shoot borer,termites and early shoot borer,en,rule:split-known
@@ -1018,8 +1021,8 @@ white_grub,white grub,termites and white grub,en,rule:split-known
 thrips,thrips,thrips,en,rule:identity
 aphid,aphid,thrips and aphids,en,rule:split-known
 thrips,thrips,thrips and aphids,en,rule:split-known
-thrips,thrips,thrips and ball worm,en,Tarun
 bollworm,bollworm,thrips and ball worm,en,Tarun
+thrips,thrips,thrips and ball worm,en,Tarun
 flea_beetle,flea beetle,thrips and flea beetle,en,rule:split-known
 thrips,thrips,thrips and flea beetle,en,rule:split-known
 fruit_borer,fruit borer,thrips and fruit borer,en,rule:split-known
@@ -1028,36 +1031,36 @@ jassid,jassid,thrips and jassids,en,rule:split-known
 thrips,thrips,thrips and jassids,en,rule:split-known
 leaf_hopper,leaf hopper,thrips and leaf hoppers,en,rule:split-known
 thrips,thrips,thrips and leaf hoppers,en,rule:split-known
-thrips,thrips,thrips and leaf miner),en,Tarun
 leaf_miner,leaf miner,thrips and leaf miner),en,Tarun
-thrips,thrips,thrips and leaf roller,en,Tarun
+thrips,thrips,thrips and leaf miner),en,Tarun
 leaf_roller,leaf roller,thrips and leaf roller,en,Tarun
+thrips,thrips,thrips and leaf roller,en,Tarun
 mite,mite,thrips and mites,en,rule:split-known
 thrips,thrips,thrips and mites,en,rule:split-known
 spodoptera_litura,spodoptera litura,thrips and spodoptera litura,en,rule:split-known
 thrips,thrips,thrips and spodoptera litura,en,rule:split-known
 thrips,thrips,thrips and white flies,en,rule:split-known
-white_flies,white flies,thrips and white flies,en,rule:split-known
+whitefly,whitefly,thrips and white flies,en,"Claude (delegated by Tarun, 2026-11-14)"
 thrips,thrips,thrips and white fly,en,rule:split-known
-white_fly,white fly,thrips and white fly,en,rule:split-known
+whitefly,whitefly,thrips and white fly,en,"Claude (delegated by Tarun, 2026-11-14)"
 thrips,thrips,thrips and white grub,en,rule:split-known
 white_grub,white grub,thrips and white grub,en,rule:split-known
 thrips,thrips,thrips and whiteflies,en,rule:split-known
-whiteflies,whiteflies,thrips and whiteflies,en,rule:split-known
+whitefly,whitefly,thrips and whiteflies,en,"Claude (delegated by Tarun, 2026-11-14)"
 thrips,thrips,thrips and whitefly,en,rule:split-known
 whitefly,whitefly,thrips and whitefly,en,rule:split-known
 thrips_fruit_borers,thrips fruit borers,thrips fruit borers,en,rule:identity
-thrips,thrips,thrips mites and fruit borers,en,Tarun
-mite,mite,thrips mites and fruit borers,en,Tarun
 fruit_borer,fruit borer,thrips mites and fruit borers,en,Tarun
+mite,mite,thrips mites and fruit borers,en,Tarun
+thrips,thrips,thrips mites and fruit borers,en,Tarun
 thrips_mites_fruit_borers,thrips mites fruit borers,thrips mites fruit borers,en,rule:identity
-thrips_white_fly,thrips white fly,thrips white fly,en,rule:identity
+thrips_whitefly,thrips whitefly,thrips white fly,en,"Claude (delegated by Tarun, 2026-11-14)"
 thrips_whitefly,thrips whitefly,thrips whitefly,en,rule:identity
 thrips_scirtothrips_dorsalis,thrips- scirtothrips dorsalis,thrips- scirtothrips dorsalis,en,rule:identity
 thrips_thrips_palmi_white_fly_bemisia_tabaci_aphids_aphis_gossypii_leaf_miner_liriomyza_trifolii,thrips- thrips palmi white fly- bemisia tabaci aphids- aphis gossypii leaf miner- liriomyza trifolii,thrips- thrips palmi white fly- bemisia tabaci aphids- aphis gossypii leaf miner- liriomyza trifolii,en,rule:identity
 thrips_thrips_palmi_white_fly_bemisia_tabaci_aphids_aphis_gossypii_pumpkin_caterpillar_diaphania_indica_leaf_miner_liriomyza_trifolii,thrips- thrips palmi white fly- bemisia tabaci aphids- aphis gossypii pumpkin caterpillar- diaphania indica leaf miner- liriomyza trifolii,thrips- thrips palmi white fly- bemisia tabaci aphids- aphis gossypii pumpkin caterpillar- diaphania indica leaf miner- liriomyza trifolii,en,rule:identity
-thrips,thrips,thrips. aphid and whitefly,en,Tarun
 aphid,aphid,thrips. aphid and whitefly,en,Tarun
+thrips,thrips,thrips. aphid and whitefly,en,Tarun
 whitefly,whitefly,thrips. aphid and whitefly,en,Tarun
 tikka,tikka,tikka,en,rule:identity
 rust,rust,tikka and rust,en,rule:split-known
@@ -1070,9 +1073,9 @@ collar_rot,collar rot,tikka leaf spot and collar rot,en,rule:split-known
 tikka_leaf_spot,tikka leaf spot,tikka leaf spot and collar rot,en,rule:split-known
 rust,rust,tikka leaf spot and rust,en,rule:split-known
 tikka_leaf_spot,tikka leaf spot,tikka leaf spot and rust,en,rule:split-known
-tikka_leaf_spot,tikka leaf spot,tikka leaf spot and rust ikka leaf spot and,en,Tarun
-rust,rust,tikka leaf spot and rust ikka leaf spot and,en,Tarun
-tikka_leafspot,tikka leafspot,tikka leafspot,en,rule:identity
+rust,rust,tikka leaf spot and rust ikka leaf spot,en,Tarun
+tikka_leaf_spot,tikka leaf spot,tikka leaf spot and rust ikka leaf spot,en,Tarun
+tikka_leaf_spot,tikka leaf spot,tikka leafspot,en,"Claude (delegated by Tarun, 2026-11-14)"
 tingid_bug,tingid bug,tingid bug,en,rule:identity
 tip_rot,tip rot,tip rot,en,rule:identity
 tobacco_caterpillar,tobacco caterpillar,tobacco caterpillar,en,rule:identity
@@ -1083,7 +1086,7 @@ aphid,aphid,tobacco caterpillar and aphids,en,rule:split-known
 tobacco_caterpillar,tobacco caterpillar,tobacco caterpillar and aphids,en,rule:split-known
 fruit_borer,fruit borer,tobacco caterpillar and fruit borer,en,rule:split-known
 tobacco_caterpillar,tobacco caterpillar,tobacco caterpillar and fruit borer,en,rule:split-known
-green_semi_looper,green semi looper,tobacco caterpillar and green semi looper,en,rule:split-known
+green_semilooper,green semilooper,tobacco caterpillar and green semi looper,en,"Claude (delegated by Tarun, 2026-11-14)"
 tobacco_caterpillar,tobacco caterpillar,tobacco caterpillar and green semi looper,en,rule:split-known
 tobacco_caterpillar_fruit_borer,tobacco caterpillar fruit borer,tobacco caterpillar fruit borer,en,rule:identity
 tobacco_caterpillar_girdle_beetle_stem_fly_green_semilooper,tobacco caterpillar girdle beetle stem fly green semilooper,tobacco caterpillar girdle beetle stem fly green semilooper,en,rule:identity
@@ -1109,7 +1112,7 @@ web_blight,web blight,web blight,en,rule:identity
 wet_rot,wet rot,wet rot,en,rule:identity
 wheat_kernel_damage_in_the_field_cockroach,wheat kernel damage in the field cockroach,wheat kernel damage in the field cockroach,en,rule:identity
 white_aphid,white aphid,white aphid,en,rule:identity
-white_back_plant_hopper,white back plant hopper,white back plant hopper,en,rule:identity
+white_backed_plant_hopper,white backed plant hopper,white back plant hopper,en,"Claude (delegated by Tarun, 2026-11-14)"
 white_back_plant_hopper_leaf_folder,white back plant hopper leaf folder,white back plant hopper leaf folder,en,rule:identity
 white_backed_plant_hopper,white backed plant hopper,white backed plant hopper,en,rule:identity
 green_leaf_hopper,green leaf hopper,white backed plant hopper and green leaf hopper,en,rule:split-known
@@ -1117,12 +1120,12 @@ white_backed_plant_hopper,white backed plant hopper,white backed plant hopper an
 leaf_folder,leaf folder,white backed plant hopper and leaf folder,en,rule:split-known
 white_backed_plant_hopper,white backed plant hopper,white backed plant hopper and leaf folder,en,rule:split-known
 white_backed_plant_hopper,white backed plant hopper,white backed plant hoppers,en,rule:plural
-white_flies,white flies,white flies,en,rule:identity
-white_fly,white fly,white fly,en,rule:identity
+whitefly,whitefly,white flies,en,"Claude (delegated by Tarun, 2026-11-14)"
+whitefly,whitefly,white fly,en,"Claude (delegated by Tarun, 2026-11-14)"
 jassid,jassid,white fly and jassids,en,rule:split-known
-white_fly,white fly,white fly and jassids,en,rule:split-known
+whitefly,whitefly,white fly and jassids,en,"Claude (delegated by Tarun, 2026-11-14)"
 mite,mite,white fly and mite,en,rule:split-known
-white_fly,white fly,white fly and mite,en,rule:split-known
+whitefly,whitefly,white fly and mite,en,"Claude (delegated by Tarun, 2026-11-14)"
 white_grub,white grub,white grub,en,rule:identity
 termite,termite,white grub and termite,en,rule:split-known
 white_grub,white grub,white grub and termite,en,rule:split-known
@@ -1132,17 +1135,17 @@ white_mite,white mite,white mite,en,rule:identity
 white_rust,white rust,white rust,en,rule:identity
 alternaria_blight,alternaria blight,white rust and alternaria blight,en,rule:split-known
 white_rust,white rust,white rust and alternaria blight,en,rule:split-known
-whiteflies,whiteflies,whiteflies,en,rule:identity
+whitefly,whitefly,whiteflies,en,"Claude (delegated by Tarun, 2026-11-14)"
 fruit_borer,fruit borer,whiteflies and fruit borer,en,rule:split-known
-whiteflies,whiteflies,whiteflies and fruit borer,en,rule:split-known
+whitefly,whitefly,whiteflies and fruit borer,en,"Claude (delegated by Tarun, 2026-11-14)"
 jassid,jassid,whiteflies and jassids,en,rule:split-known
-whiteflies,whiteflies,whiteflies and jassids,en,rule:split-known
+whitefly,whitefly,whiteflies and jassids,en,"Claude (delegated by Tarun, 2026-11-14)"
 mite,mite,whiteflies and mites,en,rule:split-known
-whiteflies,whiteflies,whiteflies and mites,en,rule:split-known
+whitefly,whitefly,whiteflies and mites,en,"Claude (delegated by Tarun, 2026-11-14)"
 red_spider_mite,red spider mite,whiteflies and red spider mites,en,rule:split-known
-whiteflies,whiteflies,whiteflies and red spider mites,en,rule:split-known
+whitefly,whitefly,whiteflies and red spider mites,en,"Claude (delegated by Tarun, 2026-11-14)"
 thrips,thrips,whiteflies and thrips,en,rule:split-known
-whiteflies,whiteflies,whiteflies and thrips,en,rule:split-known
+whitefly,whitefly,whiteflies and thrips,en,"Claude (delegated by Tarun, 2026-11-14)"
 whitefly,whitefly,whitefly,en,rule:identity
 bollworm,bollworm,whitefly and bollworms,en,rule:split-known
 whitefly,whitefly,whitefly and bollworms,en,rule:split-known
@@ -1159,29 +1162,29 @@ whitefly,whitefly,whitefly and thrips,en,rule:split-known
 whitefly_aphids,whitefly aphids,whitefly aphids,en,rule:identity
 whitefly_fly,whitefly fly,whitefly fly,en,rule:identity
 whitefly_thrips,whitefly thrips,whitefly thrips,en,rule:identity
-whitefly,whitefly,whitefly- bemisia tabaci aphid- aphis gossypii shoot and fruit borer- earias vitella tobacco caterpillar- spodoptera litura fruit borer- helicoverpa armigera,en,Tarun
+american_bollworm,american bollworm,whitefly- bemisia tabaci aphid- aphis gossypii shoot and fruit borer- earias vitella tobacco caterpillar- spodoptera litura fruit borer- helicoverpa armigera,en,Tarun
 aphid,aphid,whitefly- bemisia tabaci aphid- aphis gossypii shoot and fruit borer- earias vitella tobacco caterpillar- spodoptera litura fruit borer- helicoverpa armigera,en,Tarun
 spotted_bollworm,spotted bollworm,whitefly- bemisia tabaci aphid- aphis gossypii shoot and fruit borer- earias vitella tobacco caterpillar- spodoptera litura fruit borer- helicoverpa armigera,en,Tarun
 tobacco_caterpillar,tobacco caterpillar,whitefly- bemisia tabaci aphid- aphis gossypii shoot and fruit borer- earias vitella tobacco caterpillar- spodoptera litura fruit borer- helicoverpa armigera,en,Tarun
-american_bollworm,american bollworm,whitefly- bemisia tabaci aphid- aphis gossypii shoot and fruit borer- earias vitella tobacco caterpillar- spodoptera litura fruit borer- helicoverpa armigera,en,Tarun
-whitefly,whitefly,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
+whitefly,whitefly,whitefly- bemisia tabaci aphid- aphis gossypii shoot and fruit borer- earias vitella tobacco caterpillar- spodoptera litura fruit borer- helicoverpa armigera,en,Tarun
+american_bollworm,american bollworm,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
 aphid,aphid,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
+spotted_bollworm,spotted bollworm,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
 thrips,thrips,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
 tobacco_caterpillar,tobacco caterpillar,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
-american_bollworm,american bollworm,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
-spotted_bollworm,spotted bollworm,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
-whitefly,whitefly,whitefly- bemisia tabaci shoot and fruit borer - leucinodes orbonalis aphids- aphis gossypii thrips- thrips tabaci,en,Tarun
-shoot_and_fruit_borer,shoot and fruit borer,whitefly- bemisia tabaci shoot and fruit borer - leucinodes orbonalis aphids- aphis gossypii thrips- thrips tabaci,en,Tarun
+whitefly,whitefly,whitefly- bemisia tabaci aphids- aphis gossypii thrips- thrips tabaci tobacco caterpillar- spodoptera litura bollworms- helicoverpa armigera and earias vitella,en,Tarun
 aphid,aphid,whitefly- bemisia tabaci shoot and fruit borer - leucinodes orbonalis aphids- aphis gossypii thrips- thrips tabaci,en,Tarun
+shoot_and_fruit_borer,shoot and fruit borer,whitefly- bemisia tabaci shoot and fruit borer - leucinodes orbonalis aphids- aphis gossypii thrips- thrips tabaci,en,Tarun
 thrips,thrips,whitefly- bemisia tabaci shoot and fruit borer - leucinodes orbonalis aphids- aphis gossypii thrips- thrips tabaci,en,Tarun
-whitegrub,whitegrub,whitegrub,en,rule:identity
+whitefly,whitefly,whitefly- bemisia tabaci shoot and fruit borer - leucinodes orbonalis aphids- aphis gossypii thrips- thrips tabaci,en,Tarun
+white_grub,white grub,whitegrub,en,"Claude (delegated by Tarun, 2026-11-14)"
 whorl_maggot,whorl maggot,whorl maggot,en,rule:identity
 wildfire,wildfire,wildfire,en,rule:identity
 wilt,wilt,wilt,en,rule:identity
 wilt_root_rot,wilt root rot,wilt root rot,en,rule:identity
 wolly_apple_aphid,wolly apple aphid,wolly apple aphid,en,rule:identity
 woolly_aphid,woolly aphid,woolly aphid,en,rule:identity
-wooly_aphid,wooly aphid,wooly aphid,en,rule:identity
+woolly_aphid,woolly aphid,wooly aphid,en,"Claude (delegated by Tarun, 2026-11-14)"
 yellow,yellow,yellow,en,rule:identity
 yellow_mite,yellow mite,yellow mite,en,rule:identity
 yellow_mite,yellow mite,yellow mites,en,rule:plural
@@ -1200,4 +1203,4 @@ yellow_stem_borer,yellow stem borer,yellow stem borer and sheath blight,en,rule:
 yellow_stem_borer_leaf_folder,yellow stem borer leaf folder,yellow stem borer leaf folder,en,rule:identity
 whorl_maggot,whorl maggot,yellow stem borer leaf folder and whorl maggot,en,rule:split-known
 yellow_stem_borer_leaf_folder,yellow stem borer leaf folder,yellow stem borer leaf folder and whorl maggot,en,rule:split-known
-yellow_stemborer,yellow stemborer,yellow stemborer,en,rule:identity
+yellow_stem_borer,yellow stem borer,yellow stemborer,en,"Claude (delegated by Tarun, 2026-11-14)"

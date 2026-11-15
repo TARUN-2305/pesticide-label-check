@@ -8,7 +8,10 @@ barley,barley,Barely,en,crop,Tarun
 barley,barley,Barley,en,crop,Tarun
 bean,bean,Bean,en,crop,Tarun
 bean,bean,Beans,en,crop,Tarun
-cowpea_moong_urid,cowpea moong urid,"Beans (Cowpea, moong, Urd)",en,crop,Tarun
+bean,bean,"Beans (Cowpea, moong, Urd)",en,crop,Tarun
+blackgram,blackgram,"Beans (Cowpea, moong, Urd)",en,crop,Tarun
+cow_pea,cow pea,"Beans (Cowpea, moong, Urd)",en,crop,Tarun
+greengram,greengram,"Beans (Cowpea, moong, Urd)",en,crop,Tarun
 chickpea,chickpea,Bengal gram,en,crop,Tarun
 ber,ber,Ber,en,crop,Tarun
 betel,betel,Betel,en,crop,Tarun
@@ -20,10 +23,17 @@ black_pepper,black pepper,Black pepper,en,crop,Tarun
 blackgram,blackgram,Blackgram,en,crop,Tarun
 bottle_gourd,bottle gourd,Bottle gourd,en,crop,Tarun
 brinjal,brinjal,Brinjal,en,crop,Tarun
-brinjal_foliar_application,brinjal foliar application,Brinjal Foliar application,en,crop,Tarun
+brinjal,brinjal,Brinjal Foliar application,en,crop,Tarun
 cabbage,cabbage,Cabbage,en,crop,Tarun
-cabbage_cauliflower,cabbage cauliflower,Cabbage & Cauliflower,en,crop,Tarun
-cabbage_cauliflower_tomato_brinjal_chillies_beans_ornamental,cabbage cauliflower tomato brinjal chillies beans ornamental,"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",en,crop,Tarun
+cabbage,cabbage,Cabbage & Cauliflower,en,crop,Tarun
+cauliflower,cauliflower,Cabbage & Cauliflower,en,crop,Tarun
+bean,bean,"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",en,crop,Tarun
+brinjal,brinjal,"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",en,crop,Tarun
+cabbage,cabbage,"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",en,crop,Tarun
+cauliflower,cauliflower,"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",en,crop,Tarun
+chilli,chilli,"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",en,crop,Tarun
+ornamental,ornamental,"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",en,crop,Tarun
+tomato,tomato,"Cabbage/ Cauliflower, Tomato, Brinjal, Chillies, Beans, Ornamental",en,crop,Tarun
 capsicum,capsicum,Capsicum,en,crop,Tarun
 cardamom,cardamom,Cardamom,en,crop,Tarun
 cashew,cashew,Cashew,en,crop,Tarun
@@ -37,35 +47,53 @@ chickpea,chickpea,Chickpea,en,crop,Tarun
 chilli,chilli,Chili,en,crop,Tarun
 chilli,chilli,Chilies,en,crop,Tarun
 chilli,chilli,Chilli,en,crop,Tarun
-chilli_nursery,chilli nursery,Chilli- nursery (soil drenching),en,crop,Tarun
+chilli,chilli,Chilli- nursery (soil drenching),en,crop,Tarun
 chilli,chilli,Chillies,en,crop,Tarun
+chilli,chilli,Chillies & Okra,en,crop,Tarun
+okra,okra,Chillies & Okra,en,crop,Tarun
 chilli,chilli,Chillies (soil drench),en,crop,Tarun
-chillies_and_okra,chillies and okra,Chillies & Okra,en,crop,Tarun
 chilli,chilli,Chilly,en,crop,Tarun
 citrus,citrus,Citrus,en,crop,Tarun
 citrus,citrus,Citrus (Soil drench),en,crop,Tarun
-citrus_rubber_paddy_tea_vegetables,citrus rubber paddy tea vegetables,"Citrus, Rubber, Paddy (Rice), Tea, Vegetables",en,crop,Tarun
+citrus,citrus,"Citrus, Rubber, Paddy (Rice), Tea, Vegetables",en,crop,Tarun
+rice,rice,"Citrus, Rubber, Paddy (Rice), Tea, Vegetables",en,crop,Tarun
+rubber,rubber,"Citrus, Rubber, Paddy (Rice), Tea, Vegetables",en,crop,Tarun
+tea,tea,"Citrus, Rubber, Paddy (Rice), Tea, Vegetables",en,crop,Tarun
+vegetables,vegetables,"Citrus, Rubber, Paddy (Rice), Tea, Vegetables",en,crop,Tarun
 cluster_beans,cluster beans,Cluster Beans,en,crop,Tarun
 coconut,coconut,Coconut,en,crop,Tarun
-coconut_bamboo,coconut bamboo,Coconut/ Bamboo,en,crop,Tarun
+bamboo,bamboo,Coconut/ Bamboo,en,crop,Tarun
+coconut,coconut,Coconut/ Bamboo,en,crop,Tarun
 coffee,coffee,Coffee,en,crop,Tarun
 maize,maize,Corn,en,crop,Tarun
 cotton,cotton,Cotton,en,crop,Tarun
 cotton,cotton,Cotton (Soil drench),en,crop,Tarun
 cow_pea,cow pea,Cow Pea,en,crop,Tarun
-cowpea_guar_pea,cowpea guar pea,"Cowpea, Guar, Pea",en,crop,Tarun
-cowpea_moong_urid,cowpea moong urid,"Cowpea, Moong/Urid",en,crop,Tarun
+cluster_beans,cluster beans,"Cowpea, Guar, Pea",en,crop,Tarun
+cow_pea,cow pea,"Cowpea, Guar, Pea",en,crop,Tarun
+pea,pea,"Cowpea, Guar, Pea",en,crop,Tarun
+blackgram,blackgram,"Cowpea, Moong/Urid",en,crop,Tarun
+cow_pea,cow pea,"Cowpea, Moong/Urid",en,crop,Tarun
+greengram,greengram,"Cowpea, Moong/Urid",en,crop,Tarun
 crop_and_non_crop_area,crop and non crop area,Crop & Non-Crop area,en,non_crop,Tarun
 cucumber,cucumber,Cucumber,en,crop,Tarun
 cucurbits,cucurbits,Cucurbits,en,crop,Tarun
 cumin,cumin,Cumin,en,crop,Tarun
-cumin_and_coriander,cumin and coriander,Cumin & Coriander,en,crop,Tarun
+coriander,coriander,Cumin & Coriander,en,crop,Tarun
+cumin,cumin,Cumin & Coriander,en,crop,Tarun
 rice,rice,Direct seeded rice,en,crop,Tarun
-dry_fruits_nuts_spices_and_oil_seeds,dry fruits nuts spices and oil seeds,"Dry Fruits, Nuts Spices & Oil Seeds",en,crop,Tarun
+dry_fruits,dry fruits,"Dry Fruits, Nuts Spices & Oil Seeds",en,crop,Tarun
+nuts,nuts,"Dry Fruits, Nuts Spices & Oil Seeds",en,crop,Tarun
+oil_seeds,oil seeds,"Dry Fruits, Nuts Spices & Oil Seeds",en,crop,Tarun
+spices,spices,"Dry Fruits, Nuts Spices & Oil Seeds",en,crop,Tarun
 empty_godowns_and_sheds,empty godowns and sheds,Empty Godowns & Sheds,en,storage,Tarun
+carnation,carnation,Floricultur e (Carnation & Gerbera),en,crop,Tarun
 floriculture,floriculture,Floricultur e (Carnation & Gerbera),en,crop,Tarun
+gerbera,gerbera,Floricultur e (Carnation & Gerbera),en,crop,Tarun
 flour_suji_meals_and_crushed_grain_split_pulses_dals,flour suji meals and crushed grain split pulses dals,"Flour Suji meals and Crushed grain (Animal & poultry feed), Split Pulses Dals)",en,storage,Tarun
-for_rodent_control_in_field_storage_and_crops_like_rice_soybean_and_coconut,for rodent control in field storage and crops like rice soybean and coconut,"For rodent control in field , storage and crops like rice, soybean and coconut)",en,crop,Tarun
+coconut,coconut,"For rodent control in field , storage and crops like rice, soybean and coconut)",en,crop,Tarun
+rice,rice,"For rodent control in field , storage and crops like rice, soybean and coconut)",en,crop,Tarun
+soybean,soybean,"For rodent control in field , storage and crops like rice, soybean and coconut)",en,crop,Tarun
 for_rodent_control_in_field_and_residential_premises,for rodent control in field and residential premises,For rodent control in field and residential premises (to be used under the supervision of trained personal),en,structure,Tarun
 french_bean,french bean,French bean,en,crop,Tarun
 garlic,garlic,Garlic,en,crop,Tarun
@@ -78,9 +106,9 @@ godowns_residential_premises_public_halls,godowns residential premises public ha
 chickpea,chickpea,Gram,en,crop,Tarun
 grape,grape,Grape,en,crop,Tarun
 grape,grape,Grapes,en,crop,Tarun
-grapes_soil_drench,grapes soil drench,Grapes (Soil drench),en,crop,Tarun
-grapes_foliar_application,grapes foliar application,Grapes – Foliar application,en,crop,Tarun
-grapes_soil_drench,grapes soil drench,Grapes –Soil drench,en,crop,Tarun
+grape,grape,Grapes (Soil drench),en,crop,Tarun
+grape,grape,Grapes – Foliar application,en,crop,Tarun
+grape,grape,Grapes –Soil drench,en,crop,Tarun
 greengram,greengram,Green gram,en,crop,Tarun
 green_pea,green pea,Green Pea,en,crop,Tarun
 greengram,greengram,Greengram,en,crop,Tarun
@@ -89,7 +117,8 @@ groundnut,groundnut,Ground nut (Seed Treatment),en,crop,Tarun
 groundnut,groundnut,Groundnut,en,crop,Tarun
 groundnut,groundnut,Groundnut (Seed Treatment),en,crop,Tarun
 groundnut,groundnut,Groundnut (Soil Drench),en,crop,Tarun
-groundnut_sugarcane,groundnut sugarcane,"Groundnut, Sugarcane",en,crop,Tarun
+groundnut,groundnut,"Groundnut, Sugarcane",en,crop,Tarun
+sugarcane,sugarcane,"Groundnut, Sugarcane",en,crop,Tarun
 guava,guava,Guava,en,crop,Tarun
 indoor,indoor,Indoor,en,non_crop,Tarun
 indoor_or_outdoor,indoor or outdoor,Indoor or outdoor,en,non_crop,Tarun
@@ -142,7 +171,8 @@ pre_construction,pre construction,Pre-construction (Building),en,structure,Tarun
 public_health,public health,Public health,en,non_crop,Tarun
 pulses,pulses,Pulses (Black gram /Greengram),en,crop,Tarun
 ragi,ragi,Ragi,en,crop,Tarun
-rapeseed_mustard,rapeseed mustard,Rapeseed/ Mustard,en,crop,Tarun
+mustard,mustard,Rapeseed/ Mustard,en,crop,Tarun
+rapeseed,rapeseed,Rapeseed/ Mustard,en,crop,Tarun
 pigeonpea,pigeonpea,Red gram,en,crop,Tarun
 pigeonpea,pigeonpea,Red Gram (Arhar/Tur),en,crop,Tarun
 pigeonpea,pigeonpea,Red gram (Tur or Arhar),en,crop,Tarun
@@ -150,9 +180,10 @@ pigeonpea,pigeonpea,Redgram,en,crop,Tarun
 residential_premises,residential premises,Residential premises,en,structure,Tarun
 rice,rice,Rice,en,crop,Tarun
 rice,rice,Rice (Paddy),en,crop,Tarun
-rice_and_cotton,rice and cotton,Rice (Paddy) &cotton,en,crop,Tarun
-rice_nursery,rice nursery,Rice Nursery,en,crop,Tarun
-rice_nursery,rice nursery,Rice-Nursery (Soil Drenching),en,crop,Tarun
+cotton,cotton,Rice (Paddy) &cotton,en,crop,Tarun
+rice,rice,Rice (Paddy) &cotton,en,crop,Tarun
+rice,rice,Rice Nursery,en,crop,Tarun
+rice,rice,Rice-Nursery (Soil Drenching),en,crop,Tarun
 ridgegourd,ridgegourd,Ridgegourd,en,crop,Tarun
 rodents_burrows,rodents burrows,Rodents Burrows,en,non_crop,Tarun
 rose,rose,Rose,en,crop,Tarun
@@ -167,8 +198,8 @@ soybean,soybean,Soyabean,en,crop,Tarun
 soybean,soybean,Soybean,en,crop,Tarun
 soybean,soybean,Soybean (Seed Treatment),en,crop,Tarun
 stored_grain,stored grain,Stored Grain,en,storage,Tarun
-stored_whole_cereals_and_seed_grains,stored whole cereals and seed grains,Stored whole cereals and seed grains.,en,storage,Tarun
 stored_whole_cereals_and_seed_grains_millet_pulses_dry_fruits_nuts_spices_and_oil_seeds,stored whole cereals and seed grains millet pulses dry fruits nuts spices and oil seeds,"Stored Whole Cereals and Seed Grains Millet, Pulses Dry Fruits, Nuts Spices & Oil Seeds",en,storage,Tarun
+stored_whole_cereals_and_seed_grains,stored whole cereals and seed grains,Stored whole cereals and seed grains.,en,storage,Tarun
 stored_whole_cereals_and_seed_millet_pulses,stored whole cereals and seed millet pulses,"Stored Whole Cereals and Seed, Millet, Pulses",en,storage,Tarun
 stored_whole_cereals_millets_pulses,stored whole cereals millets pulses,Stored whole cereals Millets Pulses,en,storage,Tarun
 sugar_beet,sugar beet,Sugar beet,en,crop,Tarun
@@ -178,15 +209,16 @@ sunflower,sunflower,Sunflower,en,crop,Tarun
 tapioca,tapioca,Tapioca,en,crop,Tarun
 tea,tea,Tea,en,crop,Tarun
 tobacco,tobacco,Tobacco,en,crop,Tarun
-tobacco_nursery,tobacco nursery,Tobacco (Nursery),en,crop,Tarun
+tobacco,tobacco,Tobacco (Nursery),en,crop,Tarun
 tobacco,tobacco,Tobacco (on ground),en,crop,Tarun
-tobacco_nursery,tobacco nursery,Tobacco Nursery,en,crop,Tarun
+tobacco,tobacco,Tobacco Nursery,en,crop,Tarun
 tomato,tomato,Tomato,en,crop,Tarun
-tomato_foliar_application,tomato foliar application,Tomato Foliar application,en,crop,Tarun
-tomato_nursery,tomato nursery,Tomato nursery,en,crop,Tarun
+tomato,tomato,Tomato Foliar application,en,crop,Tarun
+tomato,tomato,Tomato nursery,en,crop,Tarun
 tomato_seedlings,tomato seedlings,Tomato seedlings,en,crop,Tarun
-tomato_soil_drench,tomato soil drench,Tomato Soil drench,en,crop,Tarun
-tomato_chilli,tomato chilli,Tomato/Chilli es,en,crop,Tarun
+tomato,tomato,Tomato Soil drench,en,crop,Tarun
+chilli,chilli,Tomato/Chilli es,en,crop,Tarun
+tomato,tomato,Tomato/Chilli es,en,crop,Tarun
 rice,rice,Transplanted Paddy,en,crop,Tarun
 rice,rice,Transplanted Rice,en,crop,Tarun
 turmeric,turmeric,Turmeric,en,crop,Tarun
@@ -194,5 +226,29 @@ walls_ceilings_floors_of_godowns,walls ceilings floors of godowns,"Walls, ceilin
 walnut,walnut,Walnut,en,crop,Tarun
 watermelon,watermelon,Watermelon,en,crop,Tarun
 wheat,wheat,Wheat,en,crop,Tarun
-wheat_gram,wheat gram,"Wheat , Gram",en,crop,Tarun
 wheat_and_rice,wheat and rice,Wheat & Rice (Grain & seed in stacks),en,storage,Tarun
+chickpea,chickpea,"Wheat , Gram",en,crop,Tarun
+wheat,wheat,"Wheat , Gram",en,crop,Tarun
+okra,okra,Bhindi,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+okra,okra,Bhendi,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+okra,okra,Ladies finger,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+okra,okra,Lady's finger,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+okra,okra,Lady finger,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+blackgram,blackgram,Urad,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+blackgram,blackgram,Urd,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+ragi,ragi,Finger millet,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+brinjal,brinjal,Eggplant,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+brinjal,brinjal,Aubergine,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+brinjal,brinjal,Baingan,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+pigeonpea,pigeonpea,Tur,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+pigeonpea,pigeonpea,Toor,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+pigeonpea,pigeonpea,Arhar,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+greengram,greengram,Mung bean,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+chickpea,chickpea,Chana,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+groundnut,groundnut,Peanut,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+sesamum,sesamum,Sesame,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+sesamum,sesamum,Til,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+sesamum,sesamum,Gingelly,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+capsicum,capsicum,Bell pepper,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+capsicum,capsicum,Shimla mirch,en,crop,"Claude (delegated by Tarun, 2026-11-14)"
+cluster_beans,cluster beans,Guar,en,crop,"Claude (delegated by Tarun, 2026-11-14)"

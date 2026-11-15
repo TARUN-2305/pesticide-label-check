@@ -1,0 +1,970 @@
+{
+ "evaluation": "E3",
+ "label": "g_fixes_extra",
+ "suite": "extra",
+ "date_utc": "2026-11-15T05:28:40+00:00",
+ "command": "tools/e3.py run --register build/release5/register.sqlite --label g_fixes_extra --suite extra",
+ "environment": {
+  "os": "Linux-7.0.0-43-generic-x86_64-with-glibc2.43",
+  "cpu": "12th Gen Intel(R) Core(TM) i3-1220P",
+  "python": "3.12.16",
+  "uv_lock_sha256": "b379cd3feb1f4c1b279b1ec8b5ce7bc871104c2b246590fb3a089d4b35e17a5c"
+ },
+ "inputs": {
+  "suite_sha256": "aad03be9f2f8f8e0119bb3c5b5ceceabe8e445eaffedf2c45950ec1649da0b33",
+  "register_sha256": "a90add01d3247a66a707834e65864dce758b9062fa44396cdfe0bcc1267a1e20",
+  "register_build_hash": "916f131ac4c8516e0701748b9c316937ee5ce1277333fd70963f153623226eb2",
+  "register_release": true
+ },
+ "summary": {
+  "n": 31,
+  "outcome_correct": 31,
+  "outcome_accuracy": 1.0,
+  "outcome_accuracy_ci95": [
+   1.0,
+   1.0
+  ],
+  "by_stratum": {
+   "APPROVED": "22/22",
+   "NOT_APPROVED_FOR_CROP": "1/1",
+   "NOT_APPROVED_FOR_PEST": "6/6",
+   "extra": "2/2"
+  },
+  "approved_rows": {
+   "queries": 23,
+   "exact_set": 23,
+   "precision": 1.0,
+   "recall": 1.0
+  },
+  "descriptor_problems": 0,
+  "restrictions_ok": "31/31",
+  "conflict_ok": "31/31",
+  "safety_critical": [],
+  "missed_conflicts": [],
+  "confusion": {}
+ },
+ "results": [
+  {
+   "id": "X-01",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "brinjal",
+    "product": "Broflanilide 300 g/l SC",
+    "pest": "shoot and fruit borer"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1182
+   ],
+   "got_use_ids": [
+    1182
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-02",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "pigeon pea",
+    "product": "Broflanilide 300 g/l SC"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1186
+   ],
+   "got_use_ids": [
+    1186
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-03",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "chilli",
+    "product": "Broflanilide 300 g/l SC",
+    "pest": "thrips"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1181,
+    1187
+   ],
+   "got_use_ids": [
+    1181,
+    1187
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-04",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "tomato",
+    "product": "Cyantraniliprole 10.26% OD",
+    "pest": "whitefly"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1366
+   ],
+   "got_use_ids": [
+    1366
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-05",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "pomegranate",
+    "product": "Fluensulfone 2% GR",
+    "pest": "root knot nematode"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1625
+   ],
+   "got_use_ids": [
+    1625
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-06",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "eggplant",
+    "product": "Lambda-cyhalothrin 4.9% CS",
+    "pest": "shoot and fruit borer"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1729
+   ],
+   "got_use_ids": [
+    1729
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-07",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "cabbage",
+    "product": "Malathion 50% EC",
+    "pest": "mustard aphid"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1760
+   ],
+   "got_use_ids": [
+    1760
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [
+    "malathion"
+   ],
+   "restrictions_got": [
+    "malathion"
+   ],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-08",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "sugarcane",
+    "product": "Acephate 50% + Imidacloprid 1.8% SP",
+    "pest": "pyrilla"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    2035
+   ],
+   "got_use_ids": [
+    2035
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-09",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "corn",
+    "product": "Acetamiprid 19.5% + Chlorantraniliprole 19.5% FS",
+    "pest": "fall armyworm"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    2040
+   ],
+   "got_use_ids": [
+    2040
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-10",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "cotton",
+    "product": "Diafenthiuron 47% + Bifenthrin 9.4% SC",
+    "pest": "leaf hopper"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    2148
+   ],
+   "got_use_ids": [
+    2148
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-11",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "brinjal",
+    "product": "Emamectin benzoate 1.1% + Diafenthiuron 30% SC",
+    "pest": "red spider mite"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    2164
+   ],
+   "got_use_ids": [
+    2164
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-12",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "paddy",
+    "product": "Tetraniliprole 16% + Lambda-cyhalothrin 10% OD",
+    "pest": "leaf folder"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    2265
+   ],
+   "got_use_ids": [
+    2265
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-13",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "potato",
+    "product": "Mancozeb 35% SC",
+    "pest": "late blight"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    248
+   ],
+   "got_use_ids": [
+    248
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [
+    "mancozeb"
+   ],
+   "restrictions_got": [
+    "mancozeb"
+   ],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-14",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "rice",
+    "product": "Validamycin 3% L",
+    "pest": "sheath blight"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    499
+   ],
+   "got_use_ids": [
+    499
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-15",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "mango",
+    "product": "Carbendazim 12% + Mancozeb 63% WP",
+    "pest": "powdery mildew"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    677
+   ],
+   "got_use_ids": [
+    677
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [
+    "mancozeb"
+   ],
+   "restrictions_got": [
+    "mancozeb"
+   ],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-16",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "potato",
+    "product": "Chlorothalonil 12.5% + Mancozeb 62.5% WG",
+    "pest": "late blight"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    714,
+    870
+   ],
+   "got_use_ids": [
+    714,
+    870
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [
+    "mancozeb"
+   ],
+   "restrictions_got": [
+    "mancozeb"
+   ],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-17",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "paddy",
+    "product": "Chlorantraniliprole 0.64% + Tebuconazole 3% + Clothianidin 1.92% GR",
+    "pest": "yellow stem borer"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    716,
+    2117
+   ],
+   "got_use_ids": [
+    716,
+    2117
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-18",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "potato",
+    "product": "Copper oxychloride 47% + Metalaxyl 8% WP",
+    "pest": "late blight"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    718
+   ],
+   "got_use_ids": [
+    718
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-19",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "paddy",
+    "product": "Isoprothiolane 15% + Trifloxystrobin 2.5% + Pymetrozine 7.5% SE",
+    "pest": "green leaf hopper"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    849
+   ],
+   "got_use_ids": [
+    849
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-20",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "onion",
+    "product": "Metiram 55% + Pyraclostrobin 5% WG",
+    "pest": "purple blotch"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    934
+   ],
+   "got_use_ids": [
+    934
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-21",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "groundnut",
+    "product": "Pydiflumetofen 6.89% + Difenoconazole 11.49% SC",
+    "pest": "rust"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1014
+   ],
+   "got_use_ids": [
+    1014
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-22",
+   "stratum": "APPROVED",
+   "query": {
+    "crop": "okra",
+    "product": "Trifloxystrobin 25% + Tebuconazole 50% WG",
+    "pest": "powdery mildew"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1063
+   ],
+   "got_use_ids": [
+    1063
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-23",
+   "stratum": "NOT_APPROVED_FOR_CROP",
+   "query": {
+    "crop": "wheat",
+    "product": "Isopyrazam 11.5% + Difenoconazole 11.5% SC"
+   },
+   "expected": "NOT_APPROVED_FOR_CROP",
+   "got": "NOT_APPROVED_FOR_CROP",
+   "outcome_ok": true,
+   "expected_use_ids": [],
+   "got_use_ids": [],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  },
+  {
+   "id": "X-24",
+   "stratum": "NOT_APPROVED_FOR_PEST",
+   "query": {
+    "crop": "brinjal",
+    "product": "Carbosulfan 25% EC",
+    "pest": "aphids"
+   },
+   "expected": "NOT_APPROVED_FOR_PEST",
+   "got": "NOT_APPROVED_FOR_PEST",
+   "outcome_ok": true,
+   "expected_use_ids": [],
+   "got_use_ids": [],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 11
+  },
+  {
+   "id": "X-25",
+   "stratum": "NOT_APPROVED_FOR_PEST",
+   "query": {
+    "crop": "cabbage",
+    "product": "Fluxametamide 10% EC",
+    "pest": "aphids"
+   },
+   "expected": "NOT_APPROVED_FOR_PEST",
+   "got": "NOT_APPROVED_FOR_PEST",
+   "outcome_ok": true,
+   "expected_use_ids": [],
+   "got_use_ids": [],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 5
+  },
+  {
+   "id": "X-26",
+   "stratum": "NOT_APPROVED_FOR_PEST",
+   "query": {
+    "crop": "tomato",
+    "product": "Imidacloprid 70% WG",
+    "pest": "fruit borer"
+   },
+   "expected": "NOT_APPROVED_FOR_PEST",
+   "got": "NOT_APPROVED_FOR_PEST",
+   "outcome_ok": true,
+   "expected_use_ids": [],
+   "got_use_ids": [],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 20
+  },
+  {
+   "id": "X-27",
+   "stratum": "NOT_APPROVED_FOR_PEST",
+   "query": {
+    "crop": "paddy",
+    "product": "Buprofezin 15% + Acephate 35% WP",
+    "pest": "stem borer"
+   },
+   "expected": "NOT_APPROVED_FOR_PEST",
+   "got": "NOT_APPROVED_FOR_PEST",
+   "outcome_ok": true,
+   "expected_use_ids": [],
+   "got_use_ids": [],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 20
+  },
+  {
+   "id": "X-28",
+   "stratum": "NOT_APPROVED_FOR_PEST",
+   "query": {
+    "crop": "potato",
+    "product": "Streptomycin sulphate 90% + Tetracycline hydrochloride 10% SP",
+    "pest": "late blight"
+   },
+   "expected": "NOT_APPROVED_FOR_PEST",
+   "got": "NOT_APPROVED_FOR_PEST",
+   "outcome_ok": true,
+   "expected_use_ids": [],
+   "got_use_ids": [],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 20
+  },
+  {
+   "id": "X-29",
+   "stratum": "NOT_APPROVED_FOR_PEST",
+   "query": {
+    "crop": "rice",
+    "product": "Tebuconazole 25.9% EC",
+    "pest": "brown spot"
+   },
+   "expected": "NOT_APPROVED_FOR_PEST",
+   "got": "NOT_APPROVED_FOR_PEST",
+   "outcome_ok": true,
+   "expected_use_ids": [],
+   "got_use_ids": [],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 17
+  },
+  {
+   "id": "X-30",
+   "stratum": "extra",
+   "query": {
+    "crop": "cotton",
+    "product": "Diafenthiuron 30% + Pyriproxyfen 8% SC",
+    "pest": "thrips"
+   },
+   "expected": "NOT_APPROVED_FOR_PEST",
+   "got": "NOT_APPROVED_FOR_PEST",
+   "outcome_ok": true,
+   "expected_use_ids": [],
+   "got_use_ids": [],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [],
+   "restrictions_got": [],
+   "restrictions_ok": true,
+   "conflict_expected": false,
+   "conflict_got": false,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 20
+  },
+  {
+   "id": "X-31",
+   "stratum": "extra",
+   "query": {
+    "crop": "tobacco",
+    "product": "Chlorpyrifos 20% EC",
+    "pest": "ground beetle"
+   },
+   "expected": "APPROVED",
+   "got": "APPROVED",
+   "outcome_ok": true,
+   "expected_use_ids": [
+    1342
+   ],
+   "got_use_ids": [
+    1342
+   ],
+   "rows_ok": true,
+   "descriptor_problems": [],
+   "restrictions_expected": [
+    "chlorpyriphos"
+   ],
+   "restrictions_got": [
+    "chlorpyriphos"
+   ],
+   "restrictions_ok": true,
+   "conflict_expected": true,
+   "conflict_got": true,
+   "conflict_ok": true,
+   "safety_critical": false,
+   "missed_conflict": false,
+   "suggestions": {},
+   "alternatives": 0
+  }
+ ]
+}

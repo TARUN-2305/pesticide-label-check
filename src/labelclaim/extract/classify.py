@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 
 from labelclaim.extract.geometry import BandedRow
-from labelclaim.extract.model import VALUE_COLS, Col, RowKind, Section
+from labelclaim.extract.model import VALUE_COLS, Cell, Col, RowKind, Section
 
 _SECTIONS: tuple[tuple[re.Pattern[str], Section], ...] = (
     (re.compile(r"agricultural use"), Section.INSECTICIDE_SINGLE),
@@ -46,6 +46,13 @@ FORMULATIONS = (
 _HEADING_TAIL = re.compile(rf"\b(?:{FORMULATIONS})\b\.?\s*(?:\([^)]*\)\s*)*$")
 
 
+def _opens_the_row(row: BandedRow, cell: Cell) -> bool:
+    """Every grid position left of `cell` holds an empty cell of this row (none is merged from above)."""
+    cells = row.row.cells
+    position = cells.index(cell)
+    return all(c is not None and not c.text for c in cells[:position])
+
+
 def section_of(text: str) -> Section | None:
     key = " ".join(text.lower().split())
     for pattern, section in _SECTIONS:
@@ -84,7 +91,14 @@ def classify_row(row: BandedRow, *, continuation_allowed: bool) -> RowKind:  # n
     if is_header([c.text for c in cells]):
         return RowKind.HEADER
     if len(cells) == 1 and cells[0] in row.spanning():
-        return RowKind.NOTE  # one cell spanning several columns: an explanatory note inside the table
+        # One cell spanning several columns: an explanatory note inside the table, unless it reads like a
+        # product heading and nothing to its left is merged down from the row above. Fungicide p. 59 and
+        # p. 83-85 have heading cells that stop mid-table (some after an empty sliver cell); kept as notes,
+        # their rows were credited to the product above (E3 audit).
+        text = cells[0].text
+        if _opens_the_row(row, cells[0]) and heading_like(text) and not looks_like_note(text):
+            return RowKind.PRODUCT
+        return RowKind.NOTE
     if continuation_allowed and (
         (row.bands[Col.CROP] and row.text(Col.CROP) == "") or not any(row.text(c) for c in VALUE_COLS)
     ):

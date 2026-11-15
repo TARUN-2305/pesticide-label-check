@@ -31,6 +31,14 @@ def compact(name: str) -> str:
     return re.sub(r"[\s\-]+", "", ingredient_key(name))
 
 
+def spelling_family(name: str) -> str:
+    """A key that folds British/American and transliteration spellings: ph~f, ae~e, oe~e, y~i, and doubled
+    letters. "sulphur"/"sulfur" score only 77 on fuzzy similarity, below the threshold, so the fuzzy pass
+    alone missed them (found on the release register, 2026-11-14)."""
+    k = compact(name).replace("ph", "f").replace("ae", "e").replace("oe", "e").replace("y", "i")
+    return re.sub(r"(.)\1+", r"\1", k)
+
+
 def draft_variants(keys: Iterable[str], threshold: float = THRESHOLD) -> list[Variant]:
     """Candidate pairs of near-identical compact keys (ratio >= threshold, not equal). The spelling seen
     more often is suggested as canonical (ties: longer, then alphabetical); a human confirms each pair.
@@ -40,7 +48,7 @@ def draft_variants(keys: Iterable[str], threshold: float = THRESHOLD) -> list[Va
     pairs = []
     for i, a in enumerate(unique):
         for b in unique[i + 1 :]:
-            if fuzz.ratio(a, b) >= threshold:
+            if fuzz.ratio(a, b) >= threshold or spelling_family(a) == spelling_family(b):
                 canonical, variant = sorted((a, b), key=lambda s: (-counts[s], -len(s), s))
                 pairs.append(Variant(variant, canonical, ""))
     return pairs

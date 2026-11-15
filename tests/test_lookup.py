@@ -165,3 +165,79 @@ def test_register_use_that_a_restriction_names_is_a_conflict(engine: Engine) -> 
     cotton = engine.lookup(Query(product="Chlorpyriphos 20% EC", crop="cotton", pest="aphid"))
     assert not cotton.restrictions[0].names_the_crop
     assert not cotton.conflict
+
+
+# --- L2 §13: the matching rule, general names, the ingredient spelling fold (written before the code) ----
+def options(answer: object) -> dict[str, tuple[str, list[int]]]:
+    return {o.id: (o.outcome.value, sorted(o.use_ids)) for o in answer.options}  # type: ignore[attr-defined]
+
+
+def test_spacing_plural_and_label_variants_resolve_to_one_name(engine: Engine) -> None:
+    for pest in ("white fly", "Whitefly", "whiteflies", "White-flies"):
+        a = engine.lookup(Query(product="Imidacloprid 17.8% SL", crop="paddy", pest=pest))
+        assert (a.outcome, ids(a.uses)) == (Outcome.APPROVED, [19]), pest
+    a = engine.lookup(
+        Query(product="Buprofezin 22% + Fipronil 2% SC", crop="rice", pest="Pests: Brown plant hopper")
+    )
+    assert ids(a.uses) == [4]
+    a = engine.lookup(Query(product="Spinosad 45% SC", crop="ridge gourd", pest="thrips"))
+    assert ids(a.uses) == [16]
+    # a plain "-s" plural against a singular alias (G-M3 survived without this case)
+    a = engine.lookup(Query(product="Spinosad 45% SC", crop="Ridgegourds", pest="thrips"))
+    assert ids(a.uses) == [16]
+
+
+def test_general_pest_with_some_options_approved_is_ambiguous(engine: Engine) -> None:
+    a = engine.lookup(Query(product="Mancozeb 75% WG", crop="potato", pest="blight"))
+    assert a.outcome is Outcome.AMBIGUOUS
+    assert a.uses == ()
+    assert options(a) == {"early_blight": ("NOT_APPROVED_FOR_PEST", []), "late_blight": ("APPROVED", [9])}
+
+
+def test_general_pest_with_every_option_approved_is_approved_and_names_them(engine: Engine) -> None:
+    # bacterial blight is registered only on cotton, so it is not an option on potato
+    a = engine.lookup(Query(product="Mancozeb 75% WP", crop="potato", pest="blight"))
+    assert (a.outcome, ids(a.uses)) == (Outcome.APPROVED, [10])
+    assert options(a) == {"early_blight": ("APPROVED", [10]), "late_blight": ("APPROVED", [10])}
+
+
+def test_general_pest_with_no_option_approved_is_not_approved(engine: Engine) -> None:
+    a = engine.lookup(Query(product="Imidacloprid 17.8% SL", crop="potato", pest="blight"))
+    assert a.outcome is Outcome.NOT_APPROVED_FOR_PEST
+    assert {o for o, _ in options(a).values()} == {"NOT_APPROVED_FOR_PEST"}
+    none_here = engine.lookup(Query(product="Imidacloprid 17.8% SL", crop="rice", pest="blight"))
+    assert none_here.outcome is Outcome.NOT_APPROVED_FOR_PEST
+    assert none_here.options == ()
+
+
+def test_the_registers_own_general_claim_wins(engine: Engine) -> None:
+    # the Mancozeb row on sorghum says "Leafspot" itself; the Zineb row says only "Red leaf spot"
+    a = engine.lookup(Query(product="Mancozeb 75% WP", crop="jowar", pest="leaf spot"))
+    assert (a.outcome, ids(a.uses)) == (Outcome.APPROVED, [11])
+    z = engine.lookup(Query(product="Zineb 75% WP", crop="sorghum", pest="leaf spot"))
+    assert z.outcome is Outcome.AMBIGUOUS
+    assert options(z)["red_leaf_spot"] == ("APPROVED", [12])
+
+
+def test_general_crop_with_different_outcomes_is_ambiguous(engine: Engine) -> None:
+    a = engine.lookup(Query(product="Cyantraniliprole 10.26% OD", crop="gourd", pest="thrips"))
+    assert a.outcome is Outcome.AMBIGUOUS
+    assert a.uses == ()
+    assert options(a) == {
+        "bitter_gourd": ("APPROVED", [13]),
+        "bottle_gourd": ("NOT_APPROVED_FOR_CROP", []),
+        "ridgegourd": ("APPROVED", [14]),
+    }
+
+
+def test_general_crop_with_one_outcome_answers_it_and_keeps_every_conflict(engine: Engine) -> None:
+    a = engine.lookup(Query(product="Spinosad 45% SC", crop="Gourds", pest="thrips"))
+    assert (a.outcome, ids(a.uses)) == (Outcome.APPROVED, [15, 16, 17])
+    assert a.conflict  # the restriction names ridgegourd, one of the options
+
+
+def test_ingredient_spelling_fold_needs_exactly_one_match(engine: Engine) -> None:
+    a = engine.lookup(Query(product="Lime Sulfur 22% SC", crop="grape", pest="powdery mildew"))
+    assert (a.outcome, ids(a.uses)) == (Outcome.APPROVED, [20])
+    two = engine.lookup(Query(ingredient="sullphur", crop="grape"))  # folds to both "sulphur" and "sulfur"
+    assert two.outcome is Outcome.UNKNOWN_PRODUCT

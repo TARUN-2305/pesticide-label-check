@@ -10,14 +10,15 @@ from labelclaim.lookup.models import (
     Answer,
     ApprovedUse,
     Citation,
+    Option,
     Outcome,
     Query,
     RegisterInfo,
     RestrictionNote,
     Suggestion,
 )
-from labelclaim.lookup.names import Names
-from labelclaim.normalize.lexicon import key
+from labelclaim.lookup.names import Names, ProductResolution, Resolution
+from labelclaim.normalize.lexicon import key, match_key
 from labelclaim.register.writer import open_readonly
 
 MAX_ALTERNATIVES = 20
@@ -48,23 +49,34 @@ class Engine:
         return self._info
 
     # -- the one public question ------------------------------------------------------------------
-    def lookup(self, q: Query) -> Answer:  # noqa: PLR0911 - one return per outcome, in L2 §4 order
+    def lookup(self, q: Query) -> Answer:
         text = q.product if q.product is not None else q.ingredient
         assert text is not None  # noqa: S101 - Query guarantees exactly one
         product = self.names.product(text, ingredient_level=q.ingredient is not None)
         if product.status != "exact":
             return Answer(Outcome.UNKNOWN_PRODUCT, self._info, suggestions={"product": product.suggestions})
         crop = self.names.crop(q.crop)
+        if crop.status == "generic":
+            return self._general_crop(product, crop.ids, q.pest)
         restrictions = self._restrictions(product.ingredient_keys, crop.ids if crop.status == "exact" else ())
         if crop.status == "unknown":
             return self._answer(Outcome.UNKNOWN_CROP, restrictions, suggestions={"crop": crop.suggestions})
         if crop.status == "ambiguous":
             return self._answer(Outcome.AMBIGUOUS, restrictions, suggestions={"crop": crop.suggestions})
-        crop_id = crop.ids[0]
+        return self._on_crop(product, crop.ids[0], q.pest, restrictions)
+
+    def _on_crop(  # one return per outcome, in L2 §4 order
+        self,
+        product: ProductResolution,
+        crop_id: str,
+        pest_text: str | None,
+        restrictions: tuple[RestrictionNote, ...],
+    ) -> Answer:
         rows = self._uses(product.product_ids, crop_id)
+        pest: Resolution | None = None
         pest_id: str | None = None
-        if q.pest is not None:
-            pest = self.names.pest(q.pest)
+        if pest_text is not None:
+            pest = self.names.pest(pest_text)
             if pest.status == "unknown":
                 return self._answer(
                     Outcome.UNKNOWN_PEST,
@@ -74,7 +86,8 @@ class Engine:
                 )
             if pest.status == "ambiguous":
                 return self._answer(Outcome.AMBIGUOUS, restrictions, suggestions={"pest": pest.suggestions})
-            pest_id = pest.ids[0]
+            if pest.status == "exact":
+                pest_id = pest.ids[0]
         if not rows:
             return self._answer(
                 Outcome.NOT_APPROVED_FOR_CROP,
@@ -82,6 +95,9 @@ class Engine:
                 approved_crops=self._crops_of(product.product_ids),
                 alternatives=self._uses_for(crop_id, pest_id) if pest_id else [],
             )
+        if pest is not None and pest.status == "generic":
+            assert pest_text is not None  # noqa: S101 - set together with pest
+            return self._general_pest(rows, crop_id, pest.ids, match_key(pest_text), restrictions)
         if pest_id is not None:
             with_pest = [u for u in rows if pest_id in self._pests_of(u)]
             if not with_pest:
@@ -94,6 +110,70 @@ class Engine:
             rows = with_pest
         return self._answer(Outcome.APPROVED, restrictions, uses=rows)
 
+    # -- general names (L2 §13.5) -------------------------------------------------------------------
+    def _general_pest(
+        self,
+        rows: list[int],
+        crop_id: str,
+        members: tuple[str, ...],
+        term: str,
+        restrictions: tuple[RestrictionNote, ...],
+    ) -> Answer:
+        """Options are the members registered on this crop (any product). APPROVED only if this product's
+        rows make the general claim itself, or cover every option; NOT_APPROVED only if they cover none."""
+        registered = self.pest_ids_on((crop_id,))
+        options = [m for m in members if m in registered]
+        pests_of = {u: self._pests_of(u) for u in rows}
+        covered = {m: [u for u in rows if m in pests_of[u]] for m in options}
+        approved = {m for m in options if covered[m]}
+        general = next((m for m in options if match_key(self.names.pest_display[m]) == term), None)
+        listed = tuple(
+            Option(
+                "pest",
+                m,
+                self.names.pest_display[m],
+                Outcome.APPROVED if covered[m] else Outcome.NOT_APPROVED_FOR_PEST,
+                tuple(covered[m]),
+            )
+            for m in options
+        )
+        if options and (general in approved or approved == set(options)):
+            uses = sorted({u for m in approved for u in covered[m]})
+            return self._answer(Outcome.APPROVED, restrictions, uses=uses, options=listed)
+        if not approved:
+            return self._answer(
+                Outcome.NOT_APPROVED_FOR_PEST,
+                restrictions,
+                approved_pests=self._pest_names(rows),
+                options=listed,
+            )
+        choices = tuple(Suggestion(o.id, o.display, 100.0) for o in listed)
+        return self._answer(Outcome.AMBIGUOUS, restrictions, options=listed, suggestions={"pest": choices})
+
+    def _general_crop(self, product: ProductResolution, members: tuple[str, ...], pest: str | None) -> Answer:
+        """The query once per member crop. One shared outcome is the answer; otherwise AMBIGUOUS with each
+        crop's outcome. A restriction naming any member crop sets `conflict` (the conservative choice)."""
+        per = [(c, self._on_crop(product, c, pest, ())) for c in members]
+        restrictions = self._restrictions(product.ingredient_keys, members)
+        listed = tuple(
+            Option("crop", c, self.names.crop_display[c], a.outcome, tuple(u.use_id for u in a.uses))
+            for c, a in per
+        )
+        outcomes = {a.outcome for _, a in per}
+        if len(outcomes) == 1:
+            first = per[0][1]
+            return self._answer(
+                first.outcome,
+                restrictions,
+                uses=sorted({u.use_id for _, a in per for u in a.uses}),
+                approved_crops=first.approved_crops,
+                approved_pests=tuple(sorted({p for _, a in per for p in a.approved_pests})),
+                suggestions=first.suggestions,
+                options=listed,
+            )
+        choices = tuple(Suggestion(o.id, o.display, 100.0) for o in listed)
+        return self._answer(Outcome.AMBIGUOUS, restrictions, options=listed, suggestions={"crop": choices})
+
     # -- helpers ---------------------------------------------------------------------------------------
     def _answer(
         self,
@@ -105,6 +185,7 @@ class Engine:
         approved_crops: tuple[str, ...] = (),
         approved_pests: tuple[str, ...] = (),
         suggestions: dict[str, tuple[Suggestion, ...]] | None = None,
+        options: tuple[Option, ...] = (),
     ) -> Answer:
         return Answer(
             outcome,
@@ -115,6 +196,7 @@ class Engine:
             approved_pests=approved_pests,
             suggestions=suggestions or {},
             restrictions=restrictions,
+            options=options,
         )
 
     def _uses(self, product_ids: tuple[int, ...], crop_id: str) -> list[int]:

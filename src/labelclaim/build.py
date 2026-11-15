@@ -22,10 +22,11 @@ from labelclaim.errors import AnomalyBudgetExceeded, LabelClaimError, SourceInte
 from labelclaim.extract.assemble import assemble
 from labelclaim.extract.model import Anomaly, Col, UseRow
 from labelclaim.extract.pages import Reextractor, read_document
+from labelclaim.normalize.generic import GenericTerm, expand, load_generic
 from labelclaim.normalize.headings import parse_heading
 from labelclaim.normalize.ingredients import Variants, draft_variants, load_variants, write_variants
 from labelclaim.normalize.lexicon import CropLexicon, key, load_crops, write_draft
-from labelclaim.normalize.pests import PestLexicon, draft_pests, load_pests, pest_phrases, write_pests
+from labelclaim.normalize.pests import IGNORE, PestLexicon, draft_pests, load_pests, pest_phrases, write_pests
 from labelclaim.normalize.quantities import parse_quantity, wait_days
 from labelclaim.register.writer import open_readonly, write
 from labelclaim.restrictions import Restriction, parse_restrictions
@@ -51,6 +52,7 @@ class Lexicons:
     crops: CropLexicon
     pests: PestLexicon
     variants: Variants
+    generic: tuple[GenericTerm, ...] = ()
 
     @classmethod
     def load(cls, directory: Path) -> Lexicons:
@@ -60,6 +62,7 @@ class Lexicons:
             load_crops(crops) if crops.exists() else CropLexicon(()),
             load_pests(pests) if pests.exists() else PestLexicon(()),
             load_variants(directory / "ingredients.csv"),
+            load_generic(directory / "generic_terms.csv"),
         )
 
     def unreviewed(self) -> dict[str, int]:
@@ -67,6 +70,7 @@ class Lexicons:
             "crops": len(self.crops.unreviewed),
             "pests": len(self.pests.unreviewed),
             "ingredients": len(self.variants.unreviewed),
+            "generic_terms": sum(1 for t in self.generic if not t.reviewed_by),
         }
 
 
@@ -199,8 +203,8 @@ def build_tables(
     """Rows for every table, in canonical order with IDs assigned in that order; plus name anomalies."""
     names = (
         "source_document", "ingredient", "ingredient_variant", "product", "product_ingredient", "crop",
-        "crop_alias", "pest", "pest_alias", "use_record", "use_record_crop", "use_record_pest", "restriction",
-        "anomaly",
+        "crop_alias", "pest", "pest_alias", "use_record", "use_record_crop", "use_record_pest",
+        "generic_member", "restriction", "anomaly",
     )  # fmt: skip
     tables: Rows = {name: [] for name in names}
     for d in sorted(docs, key=lambda d: d.id):
@@ -244,20 +248,20 @@ def build_tables(
             iid = ingredient_ids[lexicons.variants.canonical(ing.name)]
             tables["product_ingredient"].append((pid, pos, iid, ing.conc, ing.unit, ing.basis))
 
-    crops: dict[str, tuple[str, str]] = {}
-    for e in lexicons.crops.entries:
-        crops.setdefault(e.canonical_id, (e.display_en, e.category))
-        tables["crop_alias"].append((key(e.alias), e.lang, e.canonical_id, e.reviewed_by))
-    tables["crop"] = [(cid, display, cat) for cid, (display, cat) in sorted(crops.items())]
-    tables["crop_alias"] = sorted(set(tables["crop_alias"]))
-    pests: dict[str, str] = {}
-    for pe in lexicons.pests.entries:
-        pests.setdefault(pe.canonical_id, pe.display_en)
-        tables["pest_alias"].append((pe.alias, pe.canonical_id, pe.reviewed_by))
-    tables["pest"] = sorted(pests.items())
-    tables["pest_alias"] = sorted(set(tables["pest_alias"]))
+    _name_tables(tables, lexicons)
 
-    unknown: list[Anomaly] = []
+    unknown: list[Anomaly] = [
+        Anomaly("LEXICON_RULE_COLLISION", f"lexicon:{kind}", 0, 0, 0, f"{mk}: {', '.join(ids)}")
+        for kind, collisions in (
+            ("crops", lexicons.crops.collisions()),
+            ("pests", lexicons.pests.collisions()),
+        )
+        for mk, ids in collisions
+    ]  # two IDs that are one name under match_key must be merged by review first (L2 §13.2)
+    crop_names = {cid: display for cid, display, _ in tables["crop"]}
+    members, missing = expand(lexicons.generic, crop_names, dict(tables["pest"]))
+    tables["generic_member"] = members
+    unknown += [Anomaly("GENERIC_MEMBER_UNKNOWN", "lexicon:generic", 0, 0, 0, m) for m in missing]
     for uid, (doc, use) in enumerate(ordered, start=1):
         f = use.fields
         page, tbl, row = use.rows[0]
@@ -266,6 +270,8 @@ def build_tables(
             unknown.append(Anomaly("UNKNOWN_CROP", doc.id, page, tbl, row, f[Col.CROP].text))
         tables["use_record_crop"] += [(uid, cid) for cid in crop_ids]
         for phrase in pest_phrases(f[Col.PEST].text):
+            if lexicons.pests.ignored(phrase):
+                continue
             ids = lexicons.pests.ids(phrase)
             if not ids:
                 unknown.append(Anomaly("UNKNOWN_PEST", doc.id, page, tbl, row, phrase))
@@ -276,6 +282,24 @@ def build_tables(
         canonical = lexicons.variants.canonical(r.name_raw)
         tables["restriction"].append((rid, canonical, r.name_raw, r.status, r.detail_raw, r.page))
     return tables, unknown
+
+
+def _name_tables(tables: Rows, lexicons: Lexicons) -> None:
+    """crop, crop_alias, pest, pest_alias from the reviewed lexicons (ignored phrases are not pests)."""
+    crops: dict[str, tuple[str, str]] = {}
+    for e in lexicons.crops.entries:
+        crops.setdefault(e.canonical_id, (e.display_en, e.category))
+        tables["crop_alias"].append((key(e.alias), e.lang, e.canonical_id, e.reviewed_by))
+    tables["crop"] = [(cid, display, cat) for cid, (display, cat) in sorted(crops.items())]
+    tables["crop_alias"] = sorted(set(tables["crop_alias"]))
+    pests: dict[str, str] = {}
+    for pe in lexicons.pests.entries:
+        if pe.canonical_id == IGNORE:
+            continue
+        pests.setdefault(pe.canonical_id, pe.display_en)
+        tables["pest_alias"].append((pe.alias, pe.canonical_id, pe.reviewed_by))
+    tables["pest"] = sorted(pests.items())
+    tables["pest_alias"] = sorted(set(tables["pest_alias"]))
 
 
 def _pkey(use: UseRow) -> tuple[int, str, tuple[float, ...]]:

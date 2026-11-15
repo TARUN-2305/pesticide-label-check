@@ -6,7 +6,9 @@ from pathlib import Path
 
 import pytest
 
+from labelclaim.normalize.generic import GenericTerm, expand
 from labelclaim.normalize.ingredients import Variants, draft_variants, load_variants
+from labelclaim.normalize.lexicon import match_key, rule_collisions
 from labelclaim.normalize.pests import PestLexicon, draft_pests, load_pests, pest_phrases
 
 
@@ -112,3 +114,59 @@ def test_plant_part_phrase_is_never_split_even_when_both_halves_exist() -> None:
         if r.alias == "shoot and fruit borer"
     ]
     assert [(r.canonical_id, r.reviewed_by) for r in rows] == [("shoot_and_fruit_borer", "")]
+
+
+def test_dangling_and_left_by_a_comma_is_not_part_of_a_phrase() -> None:
+    assert pest_phrases("Leaf spot, and Powdery mildew") == ("leaf spot", "powdery mildew")
+    assert pest_phrases("Sheath blight and, Blast") == ("sheath blight", "blast")
+    assert pest_phrases("Thrips, and") == ("thrips",)
+    assert pest_phrases("Shoot and fruit borer") == ("shoot and fruit borer",)  # an inner "and" stays
+
+
+def test_ignore_rows_mark_reviewed_non_pests(tmp_path: Path) -> None:
+    path = tmp_path / "pests.csv"
+    path.write_text(
+        "canonical_id,display_en,alias,lang,reviewed_by\n_ignore,not a pest,diseases viz,en,tarun\n"
+    )
+    lexicon = load_pests(path)
+    assert lexicon.ids("diseases viz") == ()
+    assert lexicon.ignored("Diseases viz")
+    assert not lexicon.ignored("thrips")
+
+
+def test_spelling_families_are_candidates_even_below_the_fuzzy_threshold() -> None:
+    pairs = draft_variants(["sulphur", "sulphur", "sulfur", "fipronil"])
+    assert {(p.variant, p.canonical) for p in pairs} == {("sulfur", "sulphur")}
+
+
+# --- L2 §13: the matching rule and general terms (written after the code; the engine tests came first) --
+def test_match_key_ignores_spacing_hyphens_plurals_and_labels() -> None:
+    assert {match_key(t) for t in ("White fly", "Whiteflies", "white-fly", "WHITEFLY")} == {"whitefly"}
+    assert match_key("Pests: Brown Plant Hopper") == match_key("brown planthopper")
+    assert match_key("Leafspot") == match_key("leaf spot")
+    assert match_key("grass") == "grass"  # "-ss" is not a plural
+    assert match_key("Bhindi (Okra)") == match_key("bhindi okra")
+
+
+def test_a_rule_collision_is_reported_but_a_deliberate_multi_mapping_is_not() -> None:
+    assert rule_collisions([("White fly", "white_fly"), ("Whiteflies", "whitefly")]) == [
+        ("whitefly", ("white_fly", "whitefly"))
+    ]
+    assert rule_collisions([("White fly", "whitefly"), ("Whiteflies", "whitefly")]) == []
+    shared = [("Cabbage & Cauliflower", "cabbage"), ("Cabbage & Cauliflower", "cauliflower")]
+    assert rule_collisions(shared) == []
+
+
+def test_general_term_members_by_head_noun_or_list() -> None:
+    pests = {"late_blight": "late blight", "blight": "blight", "blight_spot": "blight spot", "rust": "rust"}
+    crops = {"bitter_gourd": "bitter gourd", "ridgegourd": "ridgegourd"}
+    terms = [
+        GenericTerm("blight", "pest", "head:blight", "t"),
+        GenericTerm("gourd", "crop", "list:bitter_gourd;ridgegourd;snake_gourd", "t"),
+    ]
+    rows, missing = expand(terms, crops, pests)
+    assert ("blight", "pest", "late_blight") in rows
+    assert ("blight", "pest", "blight") in rows
+    assert ("blight", "pest", "blight_spot") not in rows  # the head noun is "spot"
+    assert ("gourd", "crop", "ridgegourd") in rows
+    assert missing == ["gourd: snake_gourd"]  # a listed ID that does not exist is reported, never kept

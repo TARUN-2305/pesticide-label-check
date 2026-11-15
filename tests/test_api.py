@@ -147,3 +147,14 @@ def test_product_field_fits_the_longest_register_heading(client: TestClient) -> 
     )  # about 160 characters
     assert client.post("/v1/lookup", json={"product": long_heading, "crop": "tomato"}).status_code == 200
     assert client.post("/v1/lookup", json={"product": "x" * 201, "crop": "tomato"}).status_code == 422
+
+
+def test_a_general_name_returns_options_with_their_own_outcomes(client: TestClient) -> None:
+    r = client.post("/v1/lookup", json={"product": "Mancozeb 75% WG", "crop": "potato", "pest": "blight"})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["outcome"] == "AMBIGUOUS"
+    assert {o["id"]: o["outcome"] for o in body["options"]} == {
+        "early_blight": "NOT_APPROVED_FOR_PEST",
+        "late_blight": "APPROVED",
+    }

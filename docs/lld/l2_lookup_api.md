@@ -226,7 +226,7 @@ M1's results and the user's crop review changed four inputs to this LLD. The cha
 
 ## 12. Results so far (2026-11-14)
 
-**Environment:** `ENV-NATIVE-1` (Linux 7.0, Intel i3-1220P, Python 3.12.16). The register is the dev build `build/m2dev`. It uses the **unreviewed** pest and ingredient drafts, so it is not a release build.
+**Environment:** `ENV-NATIVE-1` (Linux 7.0, Intel i3-1220P, Python 3.12.16). In §12.1–12.4 the register is the dev build `build/m2dev`. It uses the **unreviewed** pest and ingredient drafts, so it is not a release build. §12.5 is the release build after the user's review.
 
 ### 12.1 What was built
 
@@ -267,7 +267,206 @@ Raw: `reports/M2/perf.json`, `reports/M2/mutants.md`.
 ### 12.4 Not done yet
 
 - **E3 query suite** (150 queries written from the register pages): not built. Q-P2 and Q-P3 cannot be checked yet.
-- **Human review**, which the release build requires:
-  - `data/lexicon/pests.csv` (103 phrases);
-  - `data/lexicon/ingredients.csv` (19 pairs);
-  - `data/lexicon/review/crops_multi_proposal.csv` (31 crop re-mappings).
+- ~~Human review of the pest phrases, ingredient pairs and crop re-mappings~~: done on 2026-11-14, see §12.5. (Commit `628e972` says the reviews were pending. That was wrong: they had been saved before that commit.)
+
+### 12.5 Release build after the user's review (2026-11-14)
+
+**Reviews applied** (all signed by the user, in the file or in chat):
+
+- `data/lexicon/review/crops_multi_proposal.csv`: 30 of 31 re-mappings accepted, 1 rejected (the mosquito row). The crop lexicon now has **121** canonical crops.
+- `data/lexicon/pests.csv`: the 103 phrases reviewed. Two more were decided in chat: "early and late" maps to early blight *and* late blight; "diseases viz" is not a pest (`_ignore`, R9).
+- `data/lexicon/ingredients.csv`: 9 of the 19 drafted pairs kept. One more pair, sulfur = sulphur, came from R10 and was confirmed in chat ("Yes, same chemical").
+
+**Changes found by the release gate** (each with a test in `test_pests_ingredients.py`):
+
+| # | Change | Why |
+|---|---|---|
+| R8 | Pest phrases lose a leading or trailing "and" | The first release attempt refused with 29 `UNKNOWN_PEST`. The user had rightly deleted fragment rows such as "aphids and", which come from cells that end mid-list. The phrase rule now strips the dangling word, and 2 reviewed aliases were re-keyed. |
+| R9 | A reviewed phrase can map to `_ignore` | "diseases viz" is a lead-in, not a pest. An `_ignore` phrase writes no `use_record_pest` row and raises no anomaly, and it is never a pest id or suggestion. |
+| R10 | The ingredient draft also pairs keys with the same *spelling family* (ph~f, ae~e, oe~e, y~i, doubled letters) | "sulfur"/"sulphur" score 77, below the 85 cut-off, so the fuzzy pass missed them. Found by reading the release register's ingredient list. |
+
+**Release register** (`build/release2`, `--release --offline`):
+
+| Measure | Result |
+|---|---|
+| Build hash | `ea931038ba0c55cb…` (an earlier release the same day, before the sulfur pair, was `f35b7e8e…` with 297 ingredients) |
+| Use rows | 2,374; all have a crop, 19 have several crops; 2,372 have a pest |
+| Products, crops, pests, ingredients, restrictions | 655, 121, 627, 296, 97 |
+| Anomalies | 10, all allow-listed (8 `UNMAPPED_TABLE`, 2 `DANGLING_MERGE`); 0 unreviewed lexicon or allow-list rows |
+| Provenance | 14,116 fields re-read from their boxes |
+| Build time | 34.9 s |
+| Determinism | A second release build (`build/release3`) gave the same build hash, and its `register.sqlite` is byte-identical (SHA-256 `d483c74ff0ee36cd…` for both) |
+
+**Predictions, final:**
+
+- **Q-P4** (≤ 450 canonical pests): **wrong.** The review took 687 down to 627; the register simply names that many pests.
+- **Q-P6**, second half (an accepted pair changes the restriction overlay for at least one product): **held.** 80 products contain a restricted ingredient. For **9 of them** the restriction is found *only* through a signed pair: 3 "Aluminum Phosphide" products (restriction: "Aluminium Phosphide") and 6 "Chlorpyrifos" products (restriction: "Chlorpyriphos"). Without the chlorpyrifos pair, the Ber conflict (R4) on "Chlorpyrifos 20 % EC" would be invisible.
+
+**Real queries on the release register:**
+
+| Query | Answer |
+|---|---|
+| ingredient "trifloxystrobin + difenoconazole + sulphur", tomato, late blight | `APPROVED`, p. 89, wait 14 days |
+| product "Chlorpyriphos 20% EC", ber | `APPROVED` with `conflict = true` (p. 16 vs the restrictions list) |
+| ingredient "sulfur", grapes, powdery mildew | `APPROVED`, 3 products, p. 35 (the query spelling differs from the register's) |
+
+**Gate:** `tools/ci.sh --corpus`: ruff, ruff format and mypy `--strict` are clean; 150 unit and 11 golden tests pass. Unit branch coverage is 83 % overall. It is still below 90 % for `normalize/lexicon.py` (78 %), `pests.py` (87 %), `ingredients.py` (88 %), `build.py` and `extract/pages.py` (the last two are covered by the corpus tests, not the unit tests).
+
+**Still not done:**
+
+- the E3 query suite;
+- the coverage gaps above;
+- 2 use rows whose pest cell holds only scientific names (no common name to map). They are reported, not guessed.
+
+### 12.6 E3 query suite (2026-11-14)
+
+The full report is [`reports/E3/report.md`](../../reports/E3/report.md). The suite, its method and the predictions were written before the first run: [`evaluation/e3/`](../../evaluation/e3/README.md).
+
+- **First run (release `ea931038…`):** outcome right for **122 / 150 (81.3 %, 95 % CI 74.7–87.3 %)**. Q-P2 (≥ 98 %) is **wrong**.
+  - **1 safety-critical error** (E3-086): a false APPROVED. My prediction of 0 was wrong.
+- **The cause was extraction** (R11):
+  - Four product headings whose table cells stop mid-table had been filed as notes, and 6 use rows were credited to the previous product.
+  - Fixed in `extract/classify.py`, with tests. The release `5e5f2de1…` has 659 products and still 2,374 uses.
+  - Re-run: 123 / 150, 0 safety-critical.
+- **The remaining 27 misses:**
+  - 6 crop aliases missing ("bhindi", "ladies finger", "urad", "finger millet"; extra: "eggplant");
+  - 10 where one pest has several IDs (spacing, plurals, register typos, a "Pests:" label);
+  - 1 comma lost at a cell edge in the raw text;
+  - 1 ingredient spelling at query time ("sulfate");
+  - all 10 AMBIGUOUS: generic names such as "blight", "mildew", "gourd" are answered NOT_APPROVED_FOR_PEST or UNKNOWN_*. This is a design gap.
+- **Held:**
+  - row precision and recall 1.00 when the answer is APPROVED;
+  - `conflict` right on 150 / 150 (all 5 collisions flagged);
+  - 100 % of row descriptions matched.
+- **My labelling errors:** 2 (a second entry of the same product that I had not searched for). Corrected with page evidence; the first-run numbers are kept.
+- **Q-P3 held** (lexicon gaps found). The lexicon and design fixes need the user's review and are **not done**.
+
+## 13. Design addendum after E3 (2026-11-14): reviewed and implemented 2026-11-15
+
+It answers the E3 misses (§12.6). The decisions in §13.7 were made by delegated review (`data/lexicon/review/e3_review_record.md`), which also added one refinement: **the register's own general claim wins**. Results are in §13.8.
+
+### 13.1 Facts that force the changes
+
+- **Duplicate pest IDs.** 627 pest IDs, and many are one pest written several ways. Whitefly alone has 4 IDs: `whitefly`, `white_fly`, `whiteflies`, `white_flies`. Others: `leaf_spot` / `leafspot`, `sheath_blight` / `sheath_bight`, `brown_plant_hopper` / `pests_brown_plant_hopper`.
+  - **Cause:** `rule:identity` made every distinct spelling its own pest.
+  - **Effect:** a query only matches rows that use the same spelling. In E3 that produced 10 false "not approved for this pest" or "unknown pest" answers.
+- **Crop names.** Crop aliases are the register's raw strings. A user's own name for a crop ("bhindi", "urad", "eggplant") does not resolve, nor does a spacing variant ("ridge gourd" against "Ridgegourd", "cowpea" against "cow pea").
+- **General names.** A general name ("blight", "mildew", "rust", "gourd") is either a pest of its own (the register prints "Blight" on some rows) or unknown. So it never gives AMBIGUOUS. 7 of the 10 E3 cases got a misleading NOT_APPROVED_FOR_PEST, although a specific form *is* approved.
+- **Ingredient spelling.** A user's spelling of an ingredient ("copper sulfate") resolves only if that exact spelling occurs in the register.
+
+### 13.2 One matching rule for crop and pest names (build and lookup)
+
+- **The rule:** `match_key(text)` = `key(text)`; then drop a leading label ("pests:", "diseases:", "insects:"); then remove every non-alphanumeric character; then fold a plural ending ("-ies" → "-y"; "-s" → "", but not "-ss").
+- **Where it applies:** in `normalize/lexicon.py`, used by the build and by `lookup/names.py`, so the two planes cannot drift (as with `ingredient_key`).
+- **What the build does with it:**
+  - It groups lexicon aliases by match key.
+  - Two canonical IDs with the same match key raise a new anomaly, `LEXICON_RULE_COLLISION`, until the lexicon merges them. So the **release gate forces every merge to be reviewed**, and the rule never merges silently.
+- **Measured on the current lexicons:**
+  - pests: **34 groups, 37 IDs to merge** (`data/lexicon/review/e3_pest_merges.csv`, rows `rule:match-key`);
+  - crops: **no collisions**. The rule makes "ridge gourd", "cowpea", "cluster bean", "black gram" and "pigeon pea" resolve.
+
+### 13.3 Reviewed synonyms and typos
+
+- **Pests:** 30 rows in `e3_pest_merges.csv` (basis `review`), each with a recommendation. Examples:
+  - merge: "sheath bight" → sheath blight, "leaf minor" → leaf miner, "blast disease" → blast;
+  - keep separate: phytophthora foot rot vs root rot, flea beetle vs leaf beetle.
+- **Crops:** 23 aliases in `e3_crop_aliases.csv`, for example bhindi, ladies finger, urad, finger millet, eggplant, tur, chana, peanut, sesame.
+- **Kannada names** come with M5, from a sourced list, not from this addendum.
+- **Applying a decision:** the canonical IDs in `pests.csv` are re-pointed and the aliases added to `crops.csv`, signed with the user's name. A rejected row is recorded in the review file, so it is not proposed again.
+
+### 13.4 Ingredient spelling at query time
+
+- **The rule:** if the user's compact ingredient key is not registered, fold it with `spelling_family` (ph~f, ae~e, oe~e, y~i, doubled letters). If **exactly one** registered ingredient has the same family, use it. With 0 or ≥ 2 matches, the outcome stays UNKNOWN_PRODUCT with suggestions.
+- **Why this is allowed:** this is a deterministic fold, the same function the build uses, not a fuzzy score. So ADR-006 ("no fuzzy candidate is used to answer") holds.
+
+### 13.5 General names: options, not guesses
+
+- **Data:** `data/lexicon/generic_terms.csv` (reviewed). Each row is a term, its kind (crop or pest), and its members, given either by a rule or as an explicit list:
+  - the rule `head:<term>` means every pest whose name ends with the term, plus the term itself;
+  - an explicit list is used where the rule does not fit (ragi is a millet, but its name does not end in "millet").
+  - The build expands the members, writes `generic_member(term_key, kind, member_id)`, and lists each term's members in the build manifest for review.
+- **Pest term**, once the product and the crop have resolved:
+  1. *options* = the members with at least one register use on this crop (any product). A blight that never occurs on potato is not an option for potato.
+  2. *approved* = the options this product has a row for, on this crop.
+  3. The outcome:
+
+| Case | Outcome | Answer carries |
+|---|---|---|
+| no options | NOT_APPROVED_FOR_PEST | approved pests on the crop (as today) |
+| approved = none | NOT_APPROVED_FOR_PEST | `options`, each marked not approved |
+| approved = some | **AMBIGUOUS** | `options`, each marked approved or not, with its rows |
+| approved = all | APPROVED (decision D5) | the rows, plus `options` naming each form |
+
+- **Crop term** ("gourd", "millet", "pepper"): run the rest of the query once per member crop.
+  - If every member gives the same outcome, that is the answer, with `options` listed.
+  - Otherwise the answer is AMBIGUOUS, each option carrying its own outcome.
+  - `conflict` is true if it is true for any option (the conservative choice).
+- **Answer model:** an additive field `options: tuple[Option, ...]`, where `Option` = (kind, id, display, outcome, use_ids). The API schema gains the same field, the version goes to 0.2.0, and `openapi.json` is regenerated.
+- **Safety argument:** the engine never answers APPROVED unless *every* interpretation on that crop is approved. It never answers NOT_APPROVED unless *none* is. A partial match is always shown as a choice, with the evidence for each option.
+
+### 13.6 Tests, mutation checks and predictions (written before code)
+
+- **Tests (fixture register):**
+  - "white fly", "Whiteflies" and "whitefly" resolve to one pest; "Pests: Brown plant hopper" resolves; "ridge gourd" resolves;
+  - an unmerged rule collision makes the release build refuse;
+  - a general pest term in each of the four cases above; a member that occurs only on another crop is not an option;
+  - a general crop term with the same outcome for every member, and with different outcomes;
+  - `conflict` when the restriction names one member crop;
+  - "copper sulfate" resolves; a family match with 2 candidates stays unknown;
+  - properties: AMBIGUOUS answers never fill `uses`; every row in `uses` belongs to an approved option.
+- **Mutants, each with its expected killer:**
+  - APPROVED when only some options are approved → the "some" case;
+  - options not filtered by crop → the other-crop member;
+  - no plural fold → "Whiteflies";
+  - first of two spelling-family candidates taken → the 2-candidate test.
+- **Predictions:**
+
+| ID | Prediction |
+|---|---|
+| G-P1 | After the merges, 627 pests become **≤ 570** |
+| G-P2 | Re-run of the same 150: **≥ 145 right** (96.7 %), 0 safety-critical, `conflict` 150 / 150. The expected remaining miss is E3-018 (the lost comma, an extraction issue) |
+| G-P3 | AMBIGUOUS stratum ≥ 9 / 10 |
+| G-P4 | **A fresh suite, E3b,** gets ≥ 95 %. E3b = 60 queries from 10 newly drawn pages (seed 20261115), written after the code and before its first run. This is the honest estimate, because the 150 were used to design these fixes |
+
+### 13.7 Decisions for the user
+
+| ID | Decision | My recommendation |
+|---|---|---|
+| D1 | Adopt the matching rule (§13.2), and with it the 37 `rule:match-key` merges as one block | yes |
+| D2 | Each of the 30 `review` rows in `e3_pest_merges.csv` | as recommended per row (27 merge, 3 keep separate) |
+| D3 | Each of the 23 rows in `e3_crop_aliases.csv` | accept all |
+| D4 | Each general term in `e3_generic_terms.csv`, and its members | accept, and check the crop lists |
+| D5 | When *every* option is approved: answer APPROVED and name the forms, or always answer AMBIGUOUS | APPROVED, naming the forms ("approved for early blight and late blight") |
+| D6 | Ingredient spelling fold at query time (§13.4) | yes |
+
+**Not in this addendum:** lost separators in raw cell text. The comma on insecticide p. 55, plus joined pest names such as `thrips_whitefly` and `alternaria_blight_powdery_mildew`, are extraction issues. They get their own investigation, with E1-style evidence.
+
+### 13.8 Results (2026-11-15)
+
+**What was built:**
+- `normalize/lexicon.py`: `match_key` and `rule_collisions`;
+- `normalize/generic.py`;
+- schema v3 (`generic_member`);
+- engine options for general crop and pest names;
+- the `options` field in the API (0.2.0);
+- the ingredient fold in `lookup/names.py`.
+
+**Tests:**
+- 8 engine tests and 1 API test, written before the code and seen to fail;
+- 4 lexicon and build tests, written after the code.
+
+**Register:** release `916f131a…`, with 563 pests (G-P1: held) and 0 rule collisions.
+
+| Prediction | Result |
+|---|---|
+| G-P1: ≤ 570 pests | 563, held |
+| G-P2: ≥ 145 / 150 on the same suite | 149 / 150, held (the miss is E3-018, as predicted) |
+| G-P3: AMBIGUOUS ≥ 9 / 10 | 10 / 10, held |
+| G-P4: fresh E3b ≥ 95 % | **58 / 60 (96.7 %, CI 91.7–100 %)**, held. 0 safety-critical |
+
+**Mutation checks:** G-M1 to G-M6 are all killed. G-M3 first **survived**, because the plural test only used "-ies"; a "Ridgegourds" case was added. A full re-run kills 23 of 23 (`reports/M2/mutants_after_g.md`).
+
+**Open:**
+- text at cell edges is dropped or put in the wrong cell (E3-018, E3b-27);
+- scientific names without brackets (E3b-28);
+- the spurious crop ID `paddy_sheath`.

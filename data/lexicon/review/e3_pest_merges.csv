@@ -1,0 +1,68 @@
+basis,from_id,into_id,from_name,into_name,uses_from,uses_into,recommendation,reason,decision
+rule:match-key,american_boll_worm,american_bollworm,american boll worm,american bollworm,4,18,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,angular_leafspot,angular_leaf_spot,angular leafspot,angular leaf spot,1,2,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,anthracnose_diseases,anthracnose_disease,anthracnose diseases,anthracnose disease,1,2,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,pest_aphid,aphid,pest: aphid,aphid,1,196,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,bacterial_leafspot,bacterial_leaf_spot,bacterial leafspot,bacterial leaf spot,1,4,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,blackspot,black_spot,blackspot,black spot,1,2,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,b_light,blight,b light,blight,1,16,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,boll_worm,bollworm,boll worm,bollworm,6,36,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,boll_worm_complex,bollworm_complex,boll worm complex,bollworm complex,1,1,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,brown_planthopper,brown_plant_hopper,brown planthopper,brown plant hopper,1,85,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,pests_brown_plant_hopper,brown_plant_hopper,pests: brown plant hopper,brown plant hopper,1,85,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,buck_eye_rot,buckeye_rot,buck eye rot,buckeye rot,1,2,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,dieback,die_back,dieback,die-back,2,14,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,ear_head_midge,earhead_midge,ear head midge,earhead midge,1,1,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,fall_army_worm,fall_armyworm,fall army worm,fall armyworm,9,12,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,fruit_borers,fruit_borer,fruit borers,fruit borer,1,113,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,fruitrot,fruit_rot,fruitrot,fruit rot,1,46,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,green_leafhopper,green_leaf_hopper,green leafhopper,green leaf hopper,1,43,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,green_semi_looper,green_semilooper,green semi looper,green semilooper,3,4,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,jassid_s,jassid,jassid s,jassid,1,170,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,lateleafspot,late_leaf_spot,lateleafspot,late leaf spot,1,2,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,leafhopper,leaf_hopper,leafhopper,leaf hopper,1,20,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,leafspot,leaf_spot,leafspot,leaf spot,16,63,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,myrotheciu_m_leaf_spot,myrothecium_leaf_spot,myrotheciu m leaf spot,myrothecium leaf spot,1,3,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,pink_boll_worm,pink_bollworm,pink boll worm,pink bollworm,4,15,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,pre_mature_leaf_fall,premature_leaf_fall,pre- mature leaf fall,premature leaf fall,2,8,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,semilooper,semi_looper,semilooper,semi looper,8,9,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,sigatoka_leafspot,sigatoka_leaf_spot,sigatoka leafspot,sigatoka leaf spot,1,3,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,spotted_boll_worm,spotted_bollworm,spotted boll worm,spotted bollworm,3,11,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,spotted_stem_borer,spotted_stemborer,spotted stem borer,spotted stemborer,1,1,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,thrips_white_fly,thrips_whitefly,thrips white fly,thrips whitefly,1,1,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,tikka_leafspot,tikka_leaf_spot,tikka leafspot,tikka leaf spot,1,26,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,white_flies,whitefly,white flies,whitefly,2,107,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,white_fly,whitefly,white fly,whitefly,43,107,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,whiteflies,whitefly,whiteflies,whitefly,24,107,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,whitegrub,white_grub,whitegrub,white grub,1,16,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+rule:match-key,yellow_stemborer,yellow_stem_borer,yellow stemborer,yellow stem borer,1,32,merge,"same name once spaces, hyphens, plural endings or a 'Pests:' label are ignored",accept
+review,stemphylum_blight,stemphylium_blight,stemphylum blight,stemphylium blight,1,3,merge,typo,accept
+review,lesser_grain_bore,lesser_grain_borer,lesser grain bore,lesser grain borer,1,6,merge,typo,accept
+review,leaser_grain_borer,lesser_grain_borer,leaser grain borer,lesser grain borer,1,6,merge,typo,accept
+review,grain_discolouration,grain_discoloration,grain discolouration,grain discoloration,2,12,merge,British vs American spelling,accept
+review,bollworms_complex,bollworm_complex,bollworms complex,bollworm complex,1,1,merge,plural inside the phrase,accept
+review,bacterial_bight,bacterial_blight,bacterial bight,bacterial blight,1,3,merge,typo (register prints 'Bight'),accept
+review,sheath_bight,sheath_blight,sheath bight,sheath blight,1,93,merge,typo (register prints 'Sheath Bight'; E3-055),accept
+review,downey_mildew,downy_mildew,downey mildew,downy mildew,22,95,merge,typo,accept
+review,wooly_aphid,woolly_aphid,wooly aphid,woolly aphid,2,1,merge,typo; 'woolly' is the correct spelling,accept
+review,white_back_plant_hopper,white_backed_plant_hopper,white back plant hopper,white backed plant hopper,2,40,merge,same pest (Sogatella furcifera),accept
+review,long_headed_floor_beetle,long_headed_flour_beetle,long headed floor beetle,long headed flour beetle,1,1,merge,typo,accept
+review,black_scruf,black_scurf,black scruf,black scurf,1,9,merge,typo (potato black scurf),accept
+review,black_scruff,black_scurf,black scruff,black scurf,1,9,merge,typo (potato black scurf),accept
+review,black_sank,black_shank,black sank,black shank,1,1,merge,typo,accept
+review,antracnose,anthracnose,antracnose,anthracnose,1,93,merge,typo,accept
+review,tercicum_leaf_blight,turcicum_leaf_blight,tercicum leaf blight,turcicum leaf blight,1,3,merge,typo,accept
+review,groundnut_leaf_minor,groundnut_leaf_miner,groundnut leaf minor,groundnut leaf miner,1,1,merge,typo (register prints 'leaf minor'; E3-016),accept
+review,leaf_minor,leaf_miner,leaf minor,leaf miner,3,24,merge,typo,accept
+review,shoofly,shoot_fly,shoofly,shoot fly,1,20,merge,typo,accept
+review,rust_red_flower_beetle,rust_red_flour_beetle,rust red flower beetle,rust red flour beetle,2,6,merge,typo,accept
+review,gridle_beetle,girdle_beetle,gridle beetle,girdle beetle,1,10,merge,typo,accept
+review,diamond_moth_back,diamond_back_moth,diamond moth back,diamond back moth,1,37,merge,words in the wrong order,accept
+review,blast_disease,blast,blast disease,blast,3,60,merge,"same disease, 'disease' added (E3-043)",accept
+review,blast_of_rice,blast,blast of rice,blast,1,60,merge,same disease,accept
+review,rice_blast,blast,rice blast,blast,1,60,merge,same disease; it only occurs on rice rows,accept
+review,blast_pyricularia,blast,blast (pyricularia,blast,1,60,merge,same disease; the bracket lost its closing half,accept
+review,rice_sheath_blight,sheath_blight,rice sheath blight,sheath blight,1,93,merge,same disease; it only occurs on rice rows,accept
+review,phytophthora_foot_rot,phytophthora_root_rot,phytophthora foot rot,phytophthora root rot,4,3,keep separate,different diseases (foot rot vs root rot),reject
+review,leaf_beetle,flea_beetle,leaf beetle,flea beetle,1,6,keep separate,different pests; only the names are similar,reject
+review,saw_drug_store_beetle,drug_store_beetle,saw drug store beetle,drug store beetle,1,1,keep separate,"the first is two pests joined (saw-toothed grain beetle + drug store beetle): an extraction issue, not a synonym",reject

@@ -216,8 +216,9 @@ class Assembler:
             ref = (table.page, table.index, i)
             if kind in (RowKind.BLANK, RowKind.HEADER):
                 pass
-            elif kind is RowKind.PRODUCT and row.full_width is not None:
-                self._set_product(row.full_width.text, table.page, row.full_width.bbox)
+            elif kind is RowKind.PRODUCT:
+                cell = row.full_width or row.nonempty_cells()[0]  # a heading cell may stop short (p. 59)
+                self._set_product(cell.text, table.page, cell.bbox)
                 content_started = True
             elif kind is RowKind.NOTE:
                 self._note(" ".join(c.text for c in row.nonempty_cells()))

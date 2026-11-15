@@ -9,7 +9,9 @@ from __future__ import annotations
 import csv
 import re
 import unicodedata
+from collections.abc import Iterable
 from dataclasses import dataclass
+from functools import cached_property
 from pathlib import Path
 
 CATEGORIES = ("crop", "storage", "structure", "non_crop")
@@ -22,6 +24,39 @@ def key(text: str) -> str:
     text = re.sub(r"[–—]", "-", text)
     text = re.sub(r"\s+", " ", text)
     return text.strip(" ,.;:-*")  # trailing "*" is a footnote marker ("Apple*")
+
+
+_LABEL = re.compile(r"^(?:pests?|diseases?|insects?)\s*:\s*")
+
+
+def match_key(text: str) -> str:
+    """The key two crop or pest names must share to be the same name (L2 §13.2): `key()`, then no leading
+    label ("Pests:"), no spaces, hyphens or punctuation, and a plural ending folded ("-ies" -> "-y",
+    "-s" -> "" but not "-ss"). "White fly", "Whiteflies" and "whitefly" are one name by rule; two lexicon
+    IDs that collide under it must be merged by review before a release (LEXICON_RULE_COLLISION)."""
+    k = re.sub(r"[\W_]+", "", _LABEL.sub("", key(text)))
+    if len(k) > 4 and k.endswith("ies"):
+        return k[:-3] + "y"
+    if len(k) > 3 and k.endswith("s") and not k.endswith("ss"):
+        return k[:-1]
+    return k
+
+
+def rule_collisions(pairs: Iterable[tuple[str, str]]) -> list[tuple[str, tuple[str, ...]]]:
+    """(match key, the IDs involved) wherever aliases that are equal under `match_key` but written
+    differently map to different ID sets. An alias that deliberately maps to several IDs ("Cabbage &
+    Cauliflower") is not a collision on its own."""
+    by_alias: dict[str, set[str]] = {}
+    for alias, target in pairs:
+        by_alias.setdefault(key(alias), set()).add(target)
+    groups: dict[str, dict[str, frozenset[str]]] = {}
+    for alias, targets in by_alias.items():
+        groups.setdefault(match_key(alias), {})[alias] = frozenset(targets)
+    return [
+        (mk, tuple(sorted(set().union(*sets.values()))))
+        for mk, sets in sorted(groups.items())
+        if len(set(sets.values())) > 1
+    ]
 
 
 @dataclass(frozen=True)
@@ -38,9 +73,18 @@ class CropEntry:
 class CropLexicon:
     entries: tuple[CropEntry, ...]
 
+    @cached_property
+    def _by_match_key(self) -> dict[str, tuple[CropEntry, ...]]:
+        index: dict[str, list[CropEntry]] = {}
+        for e in self.entries:
+            index.setdefault(match_key(e.alias), []).append(e)
+        return {k: tuple(v) for k, v in index.items()}
+
     def resolve(self, text: str) -> tuple[CropEntry, ...]:
-        k = key(text)
-        return tuple(e for e in self.entries if key(e.alias) == k)
+        return self._by_match_key.get(match_key(text), ())
+
+    def collisions(self) -> list[tuple[str, tuple[str, ...]]]:
+        return rule_collisions((e.alias, e.canonical_id) for e in self.entries)
 
     @property
     def unreviewed(self) -> tuple[CropEntry, ...]:

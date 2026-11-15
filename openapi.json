@@ -32,6 +32,13 @@
       "title": "Disclaimer",
       "type": "string"
      },
+     "options": {
+      "items": {
+       "$ref": "#/components/schemas/OptionOut"
+      },
+      "title": "Options",
+      "type": "array"
+     },
      "outcome": {
       "$ref": "#/components/schemas/Outcome"
      },
@@ -72,6 +79,7 @@
      "approved_pests",
      "suggestions",
      "restrictions",
+     "options",
      "register",
      "disclaimer"
     ],
@@ -248,6 +256,42 @@
      "display"
     ],
     "title": "NameOut",
+    "type": "object"
+   },
+   "OptionOut": {
+    "description": "One reading of a general name (\"blight\" -> early blight, late blight) and its own outcome.",
+    "properties": {
+     "display": {
+      "title": "Display",
+      "type": "string"
+     },
+     "id": {
+      "title": "Id",
+      "type": "string"
+     },
+     "kind": {
+      "title": "Kind",
+      "type": "string"
+     },
+     "outcome": {
+      "$ref": "#/components/schemas/Outcome"
+     },
+     "use_ids": {
+      "items": {
+       "type": "integer"
+      },
+      "title": "Use Ids",
+      "type": "array"
+     }
+    },
+    "required": [
+     "kind",
+     "id",
+     "display",
+     "outcome",
+     "use_ids"
+    ],
+    "title": "OptionOut",
     "type": "object"
    },
    "Outcome": {
@@ -482,7 +526,7 @@
  "info": {
   "description": "Answers from India's CIB&RC register 'Major Uses of Pesticides', with page citations.",
   "title": "Pesticide label-claim check",
-  "version": "0.1.0"
+  "version": "0.2.0"
  },
  "openapi": "3.1.0",
  "paths": {

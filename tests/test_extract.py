@@ -275,6 +275,42 @@ def test_notes_attach_to_the_product_or_last_row() -> None:
     assert result.uses[0].notes == ("(Apply at flush)",)
 
 
+def test_a_heading_cell_that_stops_short_of_the_right_edge_starts_a_new_product() -> None:
+    # Fungicide p. 59 (found by E3): the heading's cell ends mid-table (x 72-417 of 72-582), so it is
+    # not full width. It had been kept as a note of the row above, and the Paddy row below was then
+    # credited to the previous product, a false approval (E3-086).
+    short = [("Chlorantraniliprole 0.64% + Tebuconazole 3% + Clothianidin 1.92% GR", 4, 1)] + [None] * 5
+    table = make_table(
+        [
+            SECTION_ROW,
+            heading("Chlorothalonil 40% + Thiophanate Methyl 35% WDG"),
+            ["Groundnut", "Tikka, Rust", "600+525", "1500", "500", "27"],
+            short,
+            ["Paddy", "Yellow Stem Borer and Sheath Blight", "40+187.5+120", "6250", "-", "46"],
+        ]
+    )
+    result = assemble("doc", [(59, [table])])
+    assert [p.text for p in result.products] == [
+        "Chlorothalonil 40% + Thiophanate Methyl 35% WDG",
+        "Chlorantraniliprole 0.64% + Tebuconazole 3% + Clothianidin 1.92% GR",
+    ]
+    assert [u.product.text[:12] for u in result.uses] == ["Chlorothalon", "Chlorantrani"]
+    assert result.uses[0].notes == ()
+
+
+def test_a_heading_cell_after_an_empty_sliver_cell_is_a_product() -> None:
+    # fungicide p. 83 and p. 85: an empty 6-8 pt cell sits left of the heading cell
+    data = ["Chilli", "Anthracnose", "1", "2", "3", "4"]
+    sliver = ["", ("Sedaxane 2.36% w/w + Fludioxonil 2.36% w/w FS", 3, 1), None, None, ("", 2, 1), None]
+    assert kind([sliver, data], 0) is RowKind.PRODUCT
+
+
+def test_a_heading_like_note_that_does_not_start_at_the_left_edge_stays_a_note() -> None:
+    data = ["Paddy", "Stem borer", "1", "2", "3", "4"]
+    indented = [None, ("Mix 0.5% solution of X 20% EC", 5, 1), None, None, None, None]
+    assert kind([indented, data], 0) is RowKind.NOTE
+
+
 def test_spanned_value_is_not_duplicated_and_not_an_anomaly() -> None:
     table = make_table(
         [

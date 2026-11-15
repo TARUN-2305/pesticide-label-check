@@ -1,0 +1,12 @@
+term,kind,members_rule,reviewed_by
+blight,pest,head:blight,"Claude (delegated by Tarun, 2026-11-14)"
+mildew,pest,head:mildew,"Claude (delegated by Tarun, 2026-11-14)"
+rust,pest,head:rust,"Claude (delegated by Tarun, 2026-11-14)"
+borer,pest,head:borer,"Claude (delegated by Tarun, 2026-11-14)"
+mite,pest,head:mite,"Claude (delegated by Tarun, 2026-11-14)"
+plant hopper,pest,head:plant hopper,"Claude (delegated by Tarun, 2026-11-14)"
+leaf spot,pest,head:leaf spot,"Claude (delegated by Tarun, 2026-11-14)"
+blast,pest,head:blast,"Claude (delegated by Tarun, 2026-11-14)"
+gourd,crop,list:bitter_gourd;bottle_gourd;ridgegourd,"Claude (delegated by Tarun, 2026-11-14)"
+millet,crop,list:pearl_millet;ragi;sorghum,"Claude (delegated by Tarun, 2026-11-14)"
+pepper,crop,list:black_pepper;capsicum,"Claude (delegated by Tarun, 2026-11-14)"

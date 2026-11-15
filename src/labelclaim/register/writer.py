@@ -13,8 +13,8 @@ from typing import Any
 Row = Sequence[Any]
 TABLES = (
     "source_document", "ingredient", "ingredient_variant", "product", "product_ingredient", "crop",
-    "crop_alias", "pest", "pest_alias", "use_record", "use_record_crop", "use_record_pest", "restriction",
-    "anomaly",
+    "crop_alias", "pest", "pest_alias", "use_record", "use_record_crop", "use_record_pest", "generic_member",
+    "restriction", "anomaly",
 )  # fmt: skip
 
 

@@ -65,6 +65,16 @@ class SuggestionOut(Out):
     score: float
 
 
+class OptionOut(Out):
+    """One reading of a general name ("blight" -> early blight, late blight) and its own outcome."""
+
+    kind: str
+    id: str
+    display: str
+    outcome: Outcome
+    use_ids: list[int]
+
+
 class RegisterOut(Out):
     build_hash: str
     dates: dict[str, str]
@@ -80,6 +90,7 @@ class AnswerOut(Out):
     approved_pests: list[str]
     suggestions: dict[str, list[SuggestionOut]]
     restrictions: list[RestrictionOut]
+    options: list[OptionOut]
     register_: RegisterOut = Field(validation_alias="register", serialization_alias="register")
     disclaimer: str
 

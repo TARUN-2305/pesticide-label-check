@@ -1,5 +1,5 @@
 -- L1 §7. One build = one file. IDs are assigned in canonical order, so equal inputs give equal files.
-PRAGMA user_version = 2;  -- v2 (L2 §11): many-to-many crops, canonical pests, compact ingredient keys
+PRAGMA user_version = 3;  -- v3 (L2 §13): general names; v2 (L2 §11): many-to-many crops, canonical pests, compact ingredient keys
 CREATE TABLE build_info      (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 CREATE TABLE source_document (id TEXT PRIMARY KEY, kind TEXT NOT NULL, url TEXT NOT NULL, sha256 TEXT NOT NULL,
                               register_date TEXT NOT NULL, pages INTEGER NOT NULL);
@@ -29,6 +29,8 @@ CREATE TABLE use_record_crop (use_record_id INTEGER NOT NULL REFERENCES use_reco
                               PRIMARY KEY (use_record_id, crop_id));
 CREATE TABLE use_record_pest (use_record_id INTEGER NOT NULL REFERENCES use_record, pest_id TEXT NOT NULL REFERENCES pest,
                               phrase TEXT NOT NULL, PRIMARY KEY (use_record_id, pest_id, phrase));
+CREATE TABLE generic_member  (term_key TEXT NOT NULL, kind TEXT NOT NULL CHECK (kind IN ('crop', 'pest')),
+                              member_id TEXT NOT NULL, PRIMARY KEY (term_key, kind, member_id));
 CREATE TABLE restriction     (id INTEGER PRIMARY KEY, ingredient_key TEXT NOT NULL, name_raw TEXT NOT NULL,
                               status TEXT NOT NULL, detail_raw TEXT NOT NULL, page INTEGER NOT NULL);
 CREATE TABLE anomaly         (id INTEGER PRIMARY KEY, code TEXT NOT NULL, doc_id TEXT NOT NULL, page INTEGER NOT NULL,

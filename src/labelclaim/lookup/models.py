@@ -82,6 +82,17 @@ class RestrictionNote:
 
 
 @dataclass(frozen=True)
+class Option:
+    """One reading of a general name (L2 §13.5): which crop or pest, and what the answer is for it."""
+
+    kind: Literal["crop", "pest"]
+    id: str
+    display: str
+    outcome: Outcome
+    use_ids: tuple[int, ...] = ()
+
+
+@dataclass(frozen=True)
 class RegisterInfo:
     build_hash: str
     dates: dict[str, str]
@@ -98,6 +109,7 @@ class Answer:
     approved_pests: tuple[str, ...] = ()
     suggestions: dict[str, tuple[Suggestion, ...]] = field(default_factory=dict)
     restrictions: tuple[RestrictionNote, ...] = ()
+    options: tuple[Option, ...] = ()  # set when the query used a general name ("blight", "gourd")
     disclaimer: str = DISCLAIMER
 
     @property
@@ -110,4 +122,4 @@ class Answer:
         )
 
 
-Status = Literal["exact", "ambiguous", "unknown"]
+Status = Literal["exact", "ambiguous", "unknown", "generic"]  # generic: L2 §13.5

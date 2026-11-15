@@ -10,12 +10,14 @@ import csv
 import re
 from collections.abc import Iterable
 from dataclasses import dataclass
+from functools import cached_property
 from pathlib import Path
 
-from labelclaim.normalize.lexicon import key
+from labelclaim.normalize.lexicon import key, match_key, rule_collisions
 
 FIELDS = ("canonical_id", "display_en", "alias", "lang", "reviewed_by")
 RULES = ("rule:identity", "rule:plural", "rule:split-known")
+IGNORE = "_ignore"  # a reviewed decision that a phrase is not a pest ("diseases viz" = "diseases, namely")
 # a single plant-part word before "and" means one pest of both parts ("shoot and fruit borer")
 _PLANT_PARTS = {
     "shoot", "fruit", "leaf", "stem", "root", "collar", "neck", "pod", "boll", "flower", "bud", "top", "seed",
@@ -23,11 +25,17 @@ _PLANT_PARTS = {
 }  # fmt: skip
 
 
+_DANGLING_AND = re.compile(r"^(?:and\s+)+|(?:\s+and)+$")
+
+
 def pest_phrases(text: str) -> tuple[str, ...]:
+    """Split a pest cell on , ; / and newlines. A leading or trailing "and" left by a comma ("Leaf spot, and
+    Powdery mildew", "Sheath blight and, Blast") is removed: it joins two phrases, it is not part of one
+    (found when the user's review deleted such fragments, 2026-11-14)."""
     plain = re.sub(r"\([^()]*\)", " ", text)
     parts = re.split(r"[,;/\n]", plain)
-    keys = [key(p) for p in parts]
-    return tuple(dict.fromkeys(k for k in keys if k and re.search(r"[a-z]", k)))
+    keys = [_DANGLING_AND.sub("", key(p)).strip() for p in parts]
+    return tuple(dict.fromkeys(k for k in keys if k and k != "and" and re.search(r"[a-z]", k)))
 
 
 def slug(text: str) -> str:
@@ -93,9 +101,21 @@ def _split_suggestion(phrase: str) -> list[str]:
 class PestLexicon:
     entries: tuple[PestEntry, ...]
 
+    @cached_property
+    def _by_match_key(self) -> dict[str, tuple[str, ...]]:
+        index: dict[str, list[str]] = {}
+        for e in self.entries:
+            index.setdefault(match_key(e.alias), []).append(e.canonical_id)
+        return {k: tuple(dict.fromkeys(v)) for k, v in index.items()}
+
     def ids(self, text: str) -> tuple[str, ...]:
-        k = key(text)
-        return tuple(dict.fromkeys(e.canonical_id for e in self.entries if e.alias == k))
+        return tuple(i for i in self._by_match_key.get(match_key(text), ()) if i != IGNORE)
+
+    def ignored(self, text: str) -> bool:
+        return IGNORE in self._by_match_key.get(match_key(text), ())
+
+    def collisions(self) -> list[tuple[str, tuple[str, ...]]]:
+        return rule_collisions((e.alias, e.canonical_id) for e in self.entries)
 
     @property
     def unreviewed(self) -> tuple[PestEntry, ...]:

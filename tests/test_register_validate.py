@@ -193,3 +193,21 @@ def test_build_tables_links_a_use_to_every_crop_and_pest_its_names_map_to(tmp_pa
     assert sorted(p for _, p, _ in tables["use_record_pest"]) == ["early_blight", "late_blight"]
     _, unknown = build_tables((doc,), [(doc, use(crop="Okra", pest="Mealybug"))], [], lexicons)
     assert sorted(a.code for a in unknown) == ["UNKNOWN_CROP", "UNKNOWN_PEST"]
+
+
+def test_two_lexicon_ids_that_are_one_name_by_rule_block_the_build(tmp_path: Path) -> None:
+    # L2 §13.2: "White fly" and "Whiteflies" are one name; until a review merges the IDs, the build reports it
+    doc = SourceDocument("ins", "insecticide", "https://x/ins.pdf", "0" * 64, "2026-09-30", 1)
+    lexicons = Lexicons(
+        CropLexicon((CropEntry("okra", "okra", "Okra", "en", "crop", "t"),)),
+        PestLexicon(
+            (
+                PestEntry("white_fly", "white fly", "white fly", "en", "rule:identity"),
+                PestEntry("whitefly", "whitefly", "whiteflies", "en", "rule:identity"),
+            )
+        ),
+        Variants(()),
+    )
+    _, unknown = build_tables((doc,), [(doc, use(crop="Okra", pest="White fly"))], [], lexicons)
+    assert [a.code for a in unknown] == ["LEXICON_RULE_COLLISION"]
+    assert "white_fly, whitefly" in unknown[0].detail
