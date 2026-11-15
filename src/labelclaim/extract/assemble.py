@@ -24,6 +24,7 @@ from labelclaim.extract.model import (
     Anomaly,
     BBox,
     Col,
+    EdgeDefect,
     Field,
     PageItem,
     ProductHeading,
@@ -91,6 +92,12 @@ class Assembler:
 
     def _anomaly(self, code: str, page: int, table: int, row: int, detail: str) -> None:
         self.anomalies.append(Anomaly(code, self.doc_id, page, table, row, detail[:200]))
+
+    def _edge_anomalies(self, table: RawTable, i: int, defects: list[EdgeDefect]) -> None:
+        """L1 §16: one anomaly per edge defect on row `i` (a reviewed correction or allow entry covers it)."""
+        if self.in_scope:
+            for d in defects:
+                self._anomaly(f"CELL_{d.kind.upper()}", table.page, table.index, i, d.text)
 
     def _set_section(self, section: Section) -> None:
         self.section, self.product, self.last = section, None, None
@@ -192,7 +199,9 @@ class Assembler:
         seen: list[BandedRow] = []
         carried: set[Col] = set()
         content_started = False
+        defects = _defects_by_row(table)
         for i, bands in enumerate(per_row):
+            self._edge_anomalies(table, i, defects.pop(i, []))
             if bands is None:
                 self._unbanded_row(table, i)
                 continue
@@ -388,6 +397,23 @@ class Assembler:
             UseRow(remap[id(b.product)], dict(b.fields), tuple(b.rows), tuple(b.notes)) for b in self.builders
         ]
         return Assembly(uses, products, list(self.anomalies), self.kinds)
+
+
+def _defects_by_row(table: RawTable) -> dict[int, list[EdgeDefect]]:
+    """Each edge defect goes to the row whose vertical band holds its centre; a defect outside every row
+    goes to the nearest row, so none is lost."""
+    out: dict[int, list[EdgeDefect]] = {}
+    if not table.rows:
+        return out
+    for d in table.defects:
+        mid = (d.top + d.bottom) / 2
+        inside = [i for i, r in enumerate(table.rows) if r.bbox[1] <= mid < r.bbox[3]]
+        nearest = min(
+            range(len(table.rows)),
+            key=lambda i: abs((table.rows[i].bbox[1] + table.rows[i].bbox[3]) / 2 - mid),
+        )
+        out.setdefault(inside[0] if inside else nearest, []).append(d)
+    return out
 
 
 def _find_anchor(seen: list[BandedRow], row: BandedRow, col: Col) -> Field | None:

@@ -1,4 +1,4 @@
-"""A small, hand-written register (schema v3) for engine and API tests, written through the real writer.
+"""A small, hand-written register (schema v4) for engine and API tests, written through the real writer.
 The second block (L2 §13) adds general names: blights on potato, leaf spots on sorghum, three gourds."""
 
 from __future__ import annotations
@@ -10,6 +10,7 @@ from labelclaim.register.writer import write
 
 Q = json.dumps({"kind": "value", "lo": [], "hi": [], "unit": None, "status": "parsed"})
 PROV = json.dumps({"rows": [[1, 0, 1]], "fields": {}})
+CORRECTED = json.dumps([{"id": "C-T1", "field": "PEST", "before": "Fruit borer)"}])  # ADR-007
 
 # id, product, crop_raw, pest_raw, ai, form, dilution, wait, wait_lo, wait_hi, page
 USES = [
@@ -109,7 +110,8 @@ def build_fixture(path: Path) -> str:
             ("powdery mildew", "powdery_mildew", "t"),
         ],
         "use_record": [
-            (uid, pid, crop, pest, ai, form, dil, wait, Q, Q, Q, lo, hi, page, page, PROV, "[]")
+            (uid, pid, crop, pest, ai, form, dil, wait, Q, Q, Q, lo, hi, page, page, PROV, "[]",
+             CORRECTED if uid == 1 else "[]")
             for uid, pid, crop, pest, ai, form, dil, wait, lo, hi, page in USES + USES_G
         ],
         "use_record_crop": [(1, "tomato"), (2, "rice"), (3, "cotton"), (4, "rice"), (5, "cotton"), (6, "chilli"),

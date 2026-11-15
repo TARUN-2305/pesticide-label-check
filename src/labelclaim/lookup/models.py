@@ -1,4 +1,5 @@
-"""Query and answer types (L2 §5). Every raw field is copied from the register, never edited (ADR-004)."""
+"""Query and answer types (L2 §5). Every raw field is the register's text: copied as extracted (ADR-004), or,
+where `ApprovedUse.corrected` names it, read from the page by a reviewed correction (ADR-007)."""
 
 from __future__ import annotations
 
@@ -70,6 +71,7 @@ class ApprovedUse:
     wait_raw: str
     wait_days: tuple[int, int] | None
     citation: Citation
+    corrected: tuple[str, ...] = ()  # fields whose text a reviewed correction read from the page (ADR-007)
 
 
 @dataclass(frozen=True)

@@ -1,0 +1,635 @@
+{
+ "run_gap_em": 0.45,
+ "straddle_gap_pt": 0.5,
+ "overlap_share": 0.5,
+ "summary": {
+  "table_chars": 221386,
+  "reported_runs": 32,
+  "by_kind": {
+   "orphan": 2,
+   "straddle": 9,
+   "overlap": 2,
+   "adjacent": 19
+  },
+  "by_kind_in_scope": {
+   "orphan": 2,
+   "straddle": 8,
+   "overlap": 2,
+   "adjacent": 18
+  },
+  "straddles_by_threshold_pt": {
+   "0.25": 8,
+   "0.5": 9,
+   "1.0": 10,
+   "2.0": 11
+  },
+  "closest_adjacent_pt": 0.7,
+  "pages": 23
+ },
+ "crossings": [
+  {
+   "doc": "mup_insecticide_2026-09-30",
+   "page": 25,
+   "top": 83.0,
+   "kind": "orphan",
+   "cut_gap": null,
+   "in_scope": true,
+   "text": "Cotton",
+   "pieces": [
+    [
+     "none",
+     "Cotton"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_insecticide_2026-09-30",
+   "page": 55,
+   "top": 414.5,
+   "kind": "straddle",
+   "cut_gap": 0.03,
+   "in_scope": true,
+   "text": "(Bemisiatabaci),",
+   "pieces": [
+    [
+     "x135-218",
+     "(Bemisiatabaci)"
+    ],
+    [
+     "x218-289",
+     ","
+    ]
+   ]
+  },
+  {
+   "doc": "mup_insecticide_2026-09-30",
+   "page": 80,
+   "top": 183.8,
+   "kind": "straddle",
+   "cut_gap": 0.05,
+   "in_scope": true,
+   "text": "(Spodopterafrugiperda)",
+   "pieces": [
+    [
+     "x118-232",
+     "(Spodopterafrugiperda"
+    ],
+    [
+     "x232-338",
+     ")"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_insecticide_2026-09-30",
+   "page": 84,
+   "top": 368.4,
+   "kind": "overlap",
+   "cut_gap": null,
+   "in_scope": true,
+   "text": "Aphid(Aphisgossypi)",
+   "pieces": [
+    [
+     "x118-232",
+     "Aphid(Aphisgossypi)"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_insecticide_2026-09-30",
+   "page": 94,
+   "top": 504.4,
+   "kind": "adjacent",
+   "cut_gap": 3.63,
+   "in_scope": false,
+   "text": "germanica),Housefly(Musadomestica),Bedwater",
+   "pieces": [
+    [
+     "x36-248",
+     "germanica),Housefly(Musadomestica),Bed"
+    ],
+    [
+     "x248-316",
+     "water"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_insecticide_2026-09-30",
+   "page": 101,
+   "top": 737.7,
+   "kind": "straddle",
+   "cut_gap": -0.08,
+   "in_scope": false,
+   "text": "800-1000(dependingonthetypeofthe",
+   "pieces": [
+    [
+     "x331-401",
+     "800-"
+    ],
+    [
+     "x401-567",
+     "1000(dependingonthetypeofthe"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 17,
+   "top": 208.5,
+   "kind": "adjacent",
+   "cut_gap": 2.96,
+   "in_scope": true,
+   "text": "0.05%(50ml/100Based",
+   "pieces": [
+    [
+     "x317-410",
+     "0.05%(50ml/100"
+    ],
+    [
+     "x410-500",
+     "Based"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 22,
+   "top": 113.8,
+   "kind": "adjacent",
+   "cut_gap": 4.62,
+   "in_scope": true,
+   "text": "70-87.5/100lof100-125/100lof",
+   "pieces": [
+    [
+     "x243-318",
+     "70-87.5/100lof"
+    ],
+    [
+     "x318-396",
+     "100-125/100lof"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 39,
+   "top": 112.4,
+   "kind": "adjacent",
+   "cut_gap": 4.7,
+   "in_scope": true,
+   "text": "3.22g/10lit.7.5ml/10lit.",
+   "pieces": [
+    [
+     "x243-318",
+     "3.22g/10lit."
+    ],
+    [
+     "x318-410",
+     "7.5ml/10lit."
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 39,
+   "top": 274.7,
+   "kind": "adjacent",
+   "cut_gap": 3.67,
+   "in_scope": true,
+   "text": "Powderymildewandwater",
+   "pieces": [
+    [
+     "x146-243",
+     "Powderymildewand"
+    ],
+    [
+     "x243-318",
+     "water"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 49,
+   "top": 387.5,
+   "kind": "adjacent",
+   "cut_gap": 4.89,
+   "in_scope": true,
+   "text": "Stemphyliumblight,124.5+1000",
+   "pieces": [
+    [
+     "x154-257",
+     "Stemphyliumblight,"
+    ],
+    [
+     "x257-352",
+     "124.5+1000"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 49,
+   "top": 444.6,
+   "kind": "adjacent",
+   "cut_gap": 2.09,
+   "in_scope": true,
+   "text": "Cercosporaleafspot,124.5+1000",
+   "pieces": [
+    [
+     "x154-257",
+     "Cercosporaleafspot,"
+    ],
+    [
+     "x257-352",
+     "124.5+1000"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 50,
+   "top": 73.3,
+   "kind": "adjacent",
+   "cut_gap": 1.28,
+   "in_scope": true,
+   "text": "Sheathblight,Brown90+1350+60",
+   "pieces": [
+    [
+     "x154-257",
+     "Sheathblight,Brown"
+    ],
+    [
+     "x257-352",
+     "90+1350+60"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 55,
+   "top": 87.1,
+   "kind": "adjacent",
+   "cut_gap": 3.12,
+   "in_scope": true,
+   "text": "(6gto10g/10Ldependingonthe",
+   "pieces": [
+    [
+     "x352-433",
+     "(6gto10g/10L"
+    ],
+    [
+     "x433-532",
+     "dependingonthe"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 57,
+   "top": 412.8,
+   "kind": "adjacent",
+   "cut_gap": 4.2,
+   "in_scope": true,
+   "text": "3.0gm/Kgseed10ml/kg(Tomake",
+   "pieces": [
+    [
+     "x352-433",
+     "3.0gm/Kgseed"
+    ],
+    [
+     "x433-532",
+     "10ml/kg(Tomake"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 60,
+   "top": 333.6,
+   "kind": "straddle",
+   "cut_gap": 0.0,
+   "in_scope": true,
+   "text": "(Phytophthorainfestans)and",
+   "pieces": [
+    [
+     "x145-257",
+     "(Phytophthorainfestan"
+    ],
+    [
+     "x257-352",
+     "s)and"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 60,
+   "top": 346.9,
+   "kind": "straddle",
+   "cut_gap": 0.02,
+   "in_scope": true,
+   "text": "EarlyBlight(Alternaria",
+   "pieces": [
+    [
+     "x145-257",
+     "EarlyBlight(Alternari"
+    ],
+    [
+     "x257-352",
+     "a"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 60,
+   "top": 394.8,
+   "kind": "adjacent",
+   "cut_gap": 2.52,
+   "in_scope": true,
+   "text": "PaddySheathBlight",
+   "pieces": [
+    [
+     "x72-145",
+     "PaddySheath"
+    ],
+    [
+     "x145-257",
+     "Blight"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 62,
+   "top": 479.4,
+   "kind": "adjacent",
+   "cut_gap": 4.36,
+   "in_scope": true,
+   "text": "Downymildewand62.5+625to78.1+",
+   "pieces": [
+    [
+     "x145-244",
+     "Downymildewand"
+    ],
+    [
+     "x244-352",
+     "62.5+625to78.1+"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 62,
+   "top": 479.4,
+   "kind": "adjacent",
+   "cut_gap": 2.2,
+   "in_scope": true,
+   "text": "1000to1250ml375–500L",
+   "pieces": [
+    [
+     "x352-433",
+     "1000to1250ml"
+    ],
+    [
+     "x433-532",
+     "375–500L"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 72,
+   "top": 506.3,
+   "kind": "adjacent",
+   "cut_gap": 2.95,
+   "in_scope": true,
+   "text": "andNeckBlast,False+105+96.25",
+   "pieces": [
+    [
+     "x145-244",
+     "andNeckBlast,False"
+    ],
+    [
+     "x244-352",
+     "+105+96.25"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 72,
+   "top": 596.4,
+   "kind": "adjacent",
+   "cut_gap": 2.27,
+   "in_scope": true,
+   "text": "Aphid,thrips&white+24.38)",
+   "pieces": [
+    [
+     "x145-244",
+     "Aphid,thrips&white"
+    ],
+    [
+     "x244-352",
+     "+24.38)"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 73,
+   "top": 211.0,
+   "kind": "straddle",
+   "cut_gap": -0.06,
+   "in_scope": true,
+   "text": "Northernleafblight,160-200",
+   "pieces": [
+    [
+     "x145-154",
+     "N"
+    ],
+    [
+     "x154-243",
+     "orthernleafblight,"
+    ],
+    [
+     "x243-352",
+     "160-200"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 73,
+   "top": 224.4,
+   "kind": "straddle",
+   "cut_gap": -0.12,
+   "in_scope": true,
+   "text": "Southernleafblight",
+   "pieces": [
+    [
+     "x145-154",
+     "S"
+    ],
+    [
+     "x154-235",
+     "outhernleafbligh"
+    ],
+    [
+     "x235-243",
+     "t"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 73,
+   "top": 293.0,
+   "kind": "adjacent",
+   "cut_gap": 0.7,
+   "in_scope": true,
+   "text": "Frogeyeleafspotand160-200",
+   "pieces": [
+    [
+     "x145-243",
+     "Frogeyeleafspotand"
+    ],
+    [
+     "x243-352",
+     "160-200"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 76,
+   "top": 494.2,
+   "kind": "adjacent",
+   "cut_gap": 2.7,
+   "in_scope": true,
+   "text": "DownyMildew,Powdery136(12+124)",
+   "pieces": [
+    [
+     "x145-262",
+     "DownyMildew,Powdery"
+    ],
+    [
+     "x262-351",
+     "136(12+124)"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 76,
+   "top": 506.8,
+   "kind": "straddle",
+   "cut_gap": 0.34,
+   "in_scope": true,
+   "text": "Alternaria153(13.5+139.5)",
+   "pieces": [
+    [
+     "x145-262",
+     "Alternaria"
+    ],
+    [
+     "x262-351",
+     "153(13.5+139.5)"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 77,
+   "top": 202.6,
+   "kind": "orphan",
+   "cut_gap": null,
+   "in_scope": true,
+   "text": "0.33+15",
+   "pieces": [
+    [
+     "none",
+     "0.33+15"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 82,
+   "top": 411.1,
+   "kind": "overlap",
+   "cut_gap": 3.0,
+   "in_scope": true,
+   "text": "SheathBlight,LeafB1l0as0t+70+50",
+   "pieces": [
+    [
+     "x145-244",
+     "SheathBlight,Leaf"
+    ],
+    [
+     "x244-351",
+     "B1l0as0t+70+50"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 84,
+   "top": 270.4,
+   "kind": "straddle",
+   "cut_gap": 0.0,
+   "in_scope": true,
+   "text": "Metalaxyl-M0.011)",
+   "pieces": [
+    [
+     "x253-351",
+     "Metalaxyl-M0.011"
+    ],
+    [
+     "x351-433",
+     ")"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 86,
+   "top": 556.7,
+   "kind": "adjacent",
+   "cut_gap": 2.06,
+   "in_scope": true,
+   "text": "(0.15+0.975)–1.125g1500",
+   "pieces": [
+    [
+     "x244-351",
+     "(0.15+0.975)–1.125g"
+    ],
+    [
+     "x351-433",
+     "1500"
+    ]
+   ]
+  },
+  {
+   "doc": "mup_fungicide_2026-09-30",
+   "page": 89,
+   "top": 207.8,
+   "kind": "adjacent",
+   "cut_gap": 2.36,
+   "in_scope": true,
+   "text": "SufficienttocoatNA(Seed",
+   "pieces": [
+    [
+     "x412-496",
+     "Sufficienttocoat"
+    ],
+    [
+     "x496-581",
+     "NA(Seed"
+    ]
+   ]
+  }
+ ]
+}

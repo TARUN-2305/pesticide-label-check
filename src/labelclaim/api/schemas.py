@@ -49,6 +49,10 @@ class UseOut(Out):
     wait_raw: str
     wait_days: tuple[int, int] | None
     citation: CitationOut
+    corrected: list[str] = Field(
+        default_factory=list,
+        description="Fields the extractor misread; a reviewed correction read them from the page (ADR-007)",
+    )
 
 
 class RestrictionOut(Out):

@@ -12,7 +12,8 @@ from typing import Any
 import pdfplumber
 from pdfplumber.utils.text import extract_text
 
-from labelclaim.extract.model import BBox, Cell, PageItem, RawRow, RawTable, TextLine
+from labelclaim.extract.edges import Glyph, defects
+from labelclaim.extract.model import BBox, Cell, EdgeDefect, PageItem, RawRow, RawTable, TextLine
 
 _WS = re.compile(r"\s+")
 
@@ -80,7 +81,8 @@ def read_document(
                     for row, row_texts in zip(table.rows, texts, strict=True)
                 )
                 box = boxes[i]
-                items.append((box[1], box[0], RawTable(doc_id, number, index, box, rows)))
+                found_defects = _edge_defects(page.chars, box, [_bbox(c) for c in table.cells])
+                items.append((box[1], box[0], RawTable(doc_id, number, index, box, rows, found_defects)))
 
             def outside_tables(obj: dict[str, Any], tboxes: list[BBox] = table_boxes) -> bool:
                 return obj.get("object_type") != "char" or not any(_mid_in(obj, b) for b in tboxes)
@@ -94,6 +96,18 @@ def read_document(
                     items.append((top, x0, TextLine(doc_id, number, top, text, tuple(line))))
             items.sort(key=lambda item: (item[0], item[1]))
             yield number, [item for _, _, item in items]
+
+
+def _edge_defects(chars: list[dict[str, Any]], box: BBox, cells: list[BBox]) -> tuple[EdgeDefect, ...]:
+    """L1 §16: text in this table that crosses its cell lines (centre inside the table's box)."""
+    glyphs = [
+        Glyph(
+            c["text"], float(c["x0"]), float(c["x1"]), float(c["top"]), float(c["bottom"]), float(c["size"])
+        )
+        for c in chars
+        if box[0] <= (c["x0"] + c["x1"]) / 2 <= box[2] and box[1] <= (c["top"] + c["bottom"]) / 2 <= box[3]
+    ]
+    return tuple(defects(glyphs, cells))
 
 
 def _lines(words: list[dict[str, Any]], tolerance: float = 3.0) -> list[list[Cell]]:

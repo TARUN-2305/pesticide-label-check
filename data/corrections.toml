@@ -1,0 +1,155 @@
+# Reviewed corrections of rows the extractor misread (ADR-007, L1 §16).
+# Found by the edge audit (reports/E1/edge_audit.md) and drafted by Claude on 2026-11-15.
+# Each entry must match exactly ONE extracted row (`match` = the extracted text, before); otherwise the build
+# fails. `evidence` is the page's text from poppler `pdftotext -layout` (an independent reader); the row
+# images are in reports/E1/rows/. A release build refuses while any reviewed_by is empty.
+
+# --- insecticide p. 25: the crop cell "Cotton" has no drawn top border (CELL_ORPHAN) ----------------------
+# The extractor took the borderless cell for a merge from the row above, so both rows said Brinjal.
+
+[[correct]]
+id = "C-01"
+doc = "mup_insecticide_2026-09-30"
+page = 25
+product = "DIMPROPYRIDAZ 120 g/l SL"
+match = { crop = "Brinjal", pest = "White fly", wait = "31" }
+set = { crop = "Cotton" }
+covers = ["CELL_ORPHAN"]
+evidence = "p. 25 lines 1-3: 'White fly 108 – 120 900 – 1000 500' / 'Cotton ... 31' / 'Jassids, Aphids 84 700 500'"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+[[correct]]
+id = "C-02"
+doc = "mup_insecticide_2026-09-30"
+page = 25
+product = "DIMPROPYRIDAZ 120 g/l SL"
+match = { crop = "Brinjal", pest = "Jassids, Aphids", wait = "31" }
+set = { crop = "Cotton" }
+evidence = "p. 25 lines 1-3: the same Cotton cell spans both rows (the waiting period 31 is printed once)"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+# --- insecticide p. 55: "tabaci)," -- the comma lies past the column line (CELL_STRADDLE, E3-018) -------
+
+[[correct]]
+id = "C-03"
+doc = "mup_insecticide_2026-09-30"
+page = 55
+product = "Acephate 50 % + Imidacloprid 01.80 % SP"
+match = { crop = "Chilli", dose_ai = "518 ," }
+set = { pest = "Jassids (Amrasca biguttula biguttula), Aphid (Aphis gossypii), Whitefly (Bemisia tabaci), Thrips (Scirtothrips dorsalis), Fruit borer (Helicoverpa armigera), Tobacco caterpillar (Spodoptera litura)", dose_ai = "518" }
+covers = ["CELL_STRADDLE"]
+evidence = "p. 55 lines 25-29: 'Whitefly' / '(Bemisia tabaci),' / 'Thrips' / '(Scirtothrips' / 'dorsalis), Fruit'"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+# --- insecticide p. 80: "frugiperda)" -- the bracket lies past the column line (CELL_STRADDLE) ----------
+
+[[correct]]
+id = "C-04"
+doc = "mup_insecticide_2026-09-30"
+page = 80
+product = "Novaluron 05.25 % + Emamectin Benzoate 0.9% SC"
+match = { crop = "Maize", dose_ai = ") 78.75+13.50" }
+set = { pest = "Fall armyworm (Spodoptera frugiperda) & Stem borer (Chilo partellus)", dose_ai = "78.75+13.50" }
+covers = ["CELL_STRADDLE"]
+evidence = "p. 80 lines 8-12: 'Fall armyworm' / '(Spodoptera frugiperda)' / 'Maize 78.75+13.50 1500 500 27' / '& Stem borer (Chilo' / 'partellus)'"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+# --- fungicide p. 60: two pest names run past the column line into the dose cell (CELL_STRADDLE) --------
+
+[[correct]]
+id = "C-05"
+doc = "mup_fungicide_2026-09-30"
+page = 60
+product = "Cyazofamid 25% + Pyraclostrobin 18% w/v SC"
+match = { crop = "Tomato", dose_ai = "75+54 - 87.5+63 s) and a" }
+set = { pest = "Tomato Late Blight (Phytophthora infestans) and Early Blight (Alternaria solani)", dose_ai = "75+54 - 87.5+63" }
+covers = ["CELL_STRADDLE"]
+evidence = "p. 60 lines 17-20: 'Tomato Tomato Late Blight 75+54 - 87.5+63 300-350 500 26' / '(Phytophthora infestans) and' / 'Early Blight (Alternaria' / 'solani)'"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+# --- fungicide p. 60: the pest name starts inside the crop column (found by the crop lexicon, E3b-27) ---
+# Geometrically clean (no anomaly): the PDF itself places "Sheath" in the crop column.
+
+[[correct]]
+id = "C-06"
+doc = "mup_fungicide_2026-09-30"
+page = 60
+product = "Cyproconazole 12.5% + Tebuconazole 12.5% SC"
+match = { crop = "Paddy Sheath", pest = "B light" }
+set = { crop = "Paddy", pest = "Sheath Blight" }
+evidence = "p. 60 line 22: 'Paddy Sheath Blight 200-250 800-1000 500 44' (Paddy is the crop; Sheath Blight is a disease of paddy listed elsewhere on the page, line 25)"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+# --- fungicide p. 73: 8-9 pt sliver cells took the first letters; one row split in two (CELL_STRADDLE) -
+
+[[correct]]
+id = "C-07"
+doc = "mup_fungicide_2026-09-30"
+page = 73
+product = "Mefentrifluconazole 133 g/l + Fluxapyroxad 89 g/l + Pyraclostrobin 178 g/l SC"
+match = { crop = "Corn", pest = "N S orthern leaf blight," }
+set = { pest = "Northern leaf blight, Southern leaf blight" }
+covers = ["CELL_STRADDLE"]
+evidence = "p. 73 lines 11-12: 'Corn Northern leaf blight, 160-200 400-500 ml 500 48' / 'Southern leaf blight'"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+[[correct]]
+id = "C-08"
+doc = "mup_fungicide_2026-09-30"
+page = 73
+product = "Mefentrifluconazole 133 g/l + Fluxapyroxad 89 g/l + Pyraclostrobin 178 g/l SC"
+match = { crop = "Corn", pest = "outhern leaf bligh t" }
+drop = true
+evidence = "p. 73 lines 11-12: one row; its second pest line was extracted as a row of its own (now in C-07)"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+# --- fungicide p. 77: the a.i. cell has no drawn borders; one row split in two (CELL_ORPHAN) ------------
+# Replaces the allow-list's "left empty, not guessed" for this row: the page does print the value.
+
+[[correct]]
+id = "C-09"
+doc = "mup_fungicide_2026-09-30"
+page = 77
+product = "Penconazole 1.1% + Mancozeb 50% DF"
+match = { crop = "Mango", pest = "Anthracnose &", dose_ai = "" }
+set = { pest = "Anthracnose & Powdery Mildew", dose_ai = "0.33+15" }
+covers = ["CELL_ORPHAN", "DANGLING_MERGE"]
+evidence = "p. 77 lines 10-11: 'Mango Anthracnose & 0.33+15 30 10L 76' / 'Powdery Mildew'"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+[[correct]]
+id = "C-10"
+doc = "mup_fungicide_2026-09-30"
+page = 77
+product = "Penconazole 1.1% + Mancozeb 50% DF"
+match = { crop = "Mango", pest = "Powdery Mildew", dose_ai = "" }
+drop = true
+covers = ["DANGLING_MERGE"]
+evidence = "p. 77 lines 10-11: one row; its second pest line was extracted as a row of its own (now in C-09)"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+# --- fungicide p. 82: the a.i. dose is drawn over the word "Blast" (CELL_OVERLAP) -----------------------
+
+[[correct]]
+id = "C-11"
+doc = "mup_fungicide_2026-09-30"
+page = 82
+product = "Pymetrozine 25.0% + Thiamethoxam 17.5% + Hexaconazole 12.5% WG"
+match = { crop = "Paddy", pest = "Sheath Blight, Leaf", dose_ai = "B 1l0as0t + 70 + 50" }
+set = { pest = "Sheath Blight, Leaf Blast", dose_ai = "100 + 70 + 50" }
+covers = ["CELL_OVERLAP"]
+evidence = "p. 82 lines 26-28: '500 19' / 'Paddy Sheath Blight, Leaf Blast' / '100 + 70 + 50 400'. JUDGMENT: 'Blast' is in the PDF's text but is hidden under the dose cell on the rendered page (reports/E1/rows/fungicide_p82_C-11.png shows 'Sheath Blight, Leaf'). Kept because the text layer is the author's input and 'Leaf' alone is not a disease."
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+# --- fungicide p. 84: the closing bracket lies past the column line (CELL_STRADDLE) ---------------------
+
+[[correct]]
+id = "C-12"
+doc = "mup_fungicide_2026-09-30"
+page = 84
+product = "Sedaxane 15.27% w/w + Fludioxonil 7.64% w/w + Metalaxyl-M 3.06%w/w FS"
+match = { crop = "Maize", dose_ai = "0.09 (Sedaxane 0.053 + Fludioxonil 0.026 + Metalaxyl-M 0.011", dose_form = "0.3 )" }
+set = { dose_ai = "0.09 (Sedaxane 0.053 + Fludioxonil 0.026 + Metalaxyl-M 0.011)", dose_form = "0.3" }
+covers = ["CELL_STRADDLE"]
+evidence = "p. 84 lines 14-17: 'Seedling rot, 0.09 0.3 10 ml/kg seed' / '(Sedaxane 0.053 +' / 'Fludioxonil 0.026 +' / 'Metalaxyl-M 0.011)'"
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"

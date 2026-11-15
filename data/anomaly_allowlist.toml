@@ -14,3 +14,22 @@ doc = "mup_fungicide_2026-09-30"
 page = 77
 reason = "Penconazole 1.1%: the Mango row has no a.i. cell drawn in the PDF (checked visually); the field is left empty, not guessed."
 reviewed_by = "Tarun"
+
+# Edge-audit hits that need no correction (reports/E1/edge_audit.md). Drafted by Claude 2026-11-15; each is
+# pinned to its exact text, so another defect on the same page is not allowed by it.
+
+[[allow]]
+code = "CELL_STRADDLE"
+doc = "mup_fungicide_2026-09-30"
+page = 76
+detail = "Alternaria153(13.5+139.5)"
+reason = "The detector's one false positive: the pest text ends 0.2 pt before the line and the dose starts 0.1 pt after it (cut gap 0.34 pt). Stored texts 'Alternaria' and '153 (13.5 + 139.5)' match the page."
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+
+[[allow]]
+code = "CELL_OVERLAP"
+doc = "mup_insecticide_2026-09-30"
+page = 84
+detail = "Aphid(Aphisgossypi)"
+reason = "Glyphs of 'Aphisgossypi' touch (no space drawn), but the stored pest text 'Aphid (Aphis gossypi)' matches the page."
+reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"

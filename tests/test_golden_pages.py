@@ -179,5 +179,13 @@ def test_only_reviewed_anomalies_remain() -> None:
     """Exactly the anomalies seen and explained in the M1 audit; anything new fails here first."""
     ins = {(a.code, a.page) for a in extracted("insecticide").anomalies}
     fun = {(a.code, a.page) for a in extracted("fungicide").anomalies}
-    assert ins == {("UNMAPPED_TABLE", 7)}  # rodenticide / wood-preservative table, a 3-4 column layout
-    assert fun == {("DANGLING_MERGE", 77)}  # Mango: no a.i. cell drawn in the PDF
+    # Text crossing cell lines (L1 §16, reports/E1/edge_audit.md): each is corrected or allowed by text.
+    ins_edges = {("CELL_ORPHAN", 25), ("CELL_STRADDLE", 55), ("CELL_STRADDLE", 80), ("CELL_OVERLAP", 84)}
+    fun_edges = {("CELL_STRADDLE", 60), ("CELL_STRADDLE", 73), ("CELL_STRADDLE", 76), ("CELL_ORPHAN", 77),
+                 ("CELL_OVERLAP", 82), ("CELL_STRADDLE", 84)}  # fmt: skip
+    assert ins == {("UNMAPPED_TABLE", 7)} | ins_edges  # p. 7: rodenticide table, a 3-4 column layout
+    assert fun == {("DANGLING_MERGE", 77)} | fun_edges  # p. 77: the Mango a.i. cell has no borders (C-09)
+    cell_hits = [
+        a for k in ("insecticide", "fungicide") for a in extracted(k).anomalies if a.code[:5] == "CELL_"
+    ]
+    assert len(cell_hits) == 12

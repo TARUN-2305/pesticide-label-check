@@ -22,10 +22,14 @@ from labelclaim.normalize.lexicon import key, match_key
 from labelclaim.register.writer import open_readonly
 
 MAX_ALTERNATIVES = 20
+CORRECTED_FIELD = {
+    "CROP": "crop_raw", "PEST": "pest_raw", "DOSE_AI": "dose_ai_raw", "DOSE_FORM": "dose_form_raw",
+    "DILUTION": "dilution_raw", "WAIT": "wait_raw",
+}  # fmt: skip
 _USE_SQL = """
 SELECT u.id, p.heading_raw, u.crop_raw, u.pest_raw, u.dose_ai_raw, u.dose_form_raw, u.dilution_raw,
        u.wait_raw,
-       u.wait_lo, u.wait_hi, u.page_first, u.page_last, d.id, d.register_date, d.url
+       u.wait_lo, u.wait_hi, u.page_first, u.page_last, d.id, d.register_date, d.url, u.corrected_json
 FROM use_record u JOIN product p ON p.id = u.product_id JOIN source_document d ON d.id = p.document_id
 WHERE u.id IN ({ids}) ORDER BY u.id
 """
@@ -270,10 +274,11 @@ class Engine:
             return ()
         rows = self._conn.execute(_USE_SQL.format(ids=",".join("?" * len(use_ids))), use_ids).fetchall()
         out = []
-        for uid, heading, crop, pest, ai, form, dil, wait, lo, hi, first, last, doc, date, url in rows:
+        for uid, heading, crop, pest, ai, form, dil, wait, lo, hi, first, last, doc, date, url, fixed in rows:
             citation = Citation(doc, date, first, last, f"{url}#page={first}")
             days = (lo, hi) if lo is not None and hi is not None else None
-            out.append(ApprovedUse(uid, heading, crop, pest, ai, form, dil, wait, days, citation))
+            corrected = tuple(sorted({CORRECTED_FIELD[c["field"]] for c in json.loads(fixed)}))
+            out.append(ApprovedUse(uid, heading, crop, pest, ai, form, dil, wait, days, citation, corrected))
         return tuple(out)
 
 

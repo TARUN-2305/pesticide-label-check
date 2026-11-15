@@ -1204,3 +1204,7 @@ yellow_stem_borer_leaf_folder,yellow stem borer leaf folder,yellow stem borer le
 whorl_maggot,whorl maggot,yellow stem borer leaf folder and whorl maggot,en,rule:split-known
 yellow_stem_borer_leaf_folder,yellow stem borer leaf folder,yellow stem borer leaf folder and whorl maggot,en,rule:split-known
 yellow_stem_borer,yellow stem borer,yellow stemborer,en,"Claude (delegated by Tarun, 2026-11-14)"
+late_blight,late blight,tomato late blight and early blight,en,"Claude (delegated by Tarun, 2026-11-15)"
+early_blight,early blight,tomato late blight and early blight,en,"Claude (delegated by Tarun, 2026-11-15)"
+turcicum_leaf_blight,turcicum leaf blight,northern leaf blight,en,"Claude (delegated by Tarun, 2026-11-15)"
+maydis_leaf_blight,maydis leaf blight,southern leaf blight,en,"Claude (delegated by Tarun, 2026-11-15)"

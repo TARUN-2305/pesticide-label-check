@@ -4,10 +4,12 @@ The real pages are covered by test_golden_pages.py."""
 
 from __future__ import annotations
 
+import dataclasses
+
 from labelclaim.extract.assemble import assemble
 from labelclaim.extract.classify import classify_row, heading_like, section_of
 from labelclaim.extract.geometry import band_row, row_bands
-from labelclaim.extract.model import Col, PageItem, RowKind, Section, TextLine
+from labelclaim.extract.model import Col, EdgeDefect, PageItem, RowKind, Section, TextLine
 from tests.tablekit import EDGES, heading, make_table
 
 SECTION_ROW = heading("Agricultural Use")
@@ -429,3 +431,23 @@ def test_header_block_with_unit_digits_is_a_header_not_data() -> None:
     assert kind([row1, data], 0) is RowKind.HEADER
     assert kind([row2, data], 0) is RowKind.HEADER
     assert kind([data], 0) is RowKind.DATA
+
+
+def test_an_edge_defect_becomes_an_anomaly_on_the_row_it_sits_in() -> None:
+    # insecticide p. 25: the crop text "Cotton" lies in no cell. Without this anomaly the row silently
+    # took the crop of the row above (Brinjal), a wrong fact (reports/E1/edge_audit.md #2).
+    table = make_table(
+        [
+            SECTION_ROW,
+            heading("Dimpropyridaz 120 g/l SL"),
+            ["Brinjal", "White fly", "108", "900", "500", "3"],
+            ["", "White fly", "108", "900", "500", "31"],
+        ]
+    )
+    row_top = table.rows[3].bbox[1]
+    defect = EdgeDefect("orphan", "Cotton", row_top + 5.0, row_top + 16.0, None)
+    table = dataclasses.replace(table, defects=(defect,))
+    result = assemble("doc", [(25, [table])])
+    assert [(a.code, a.row, a.detail) for a in result.anomalies if a.code.startswith("CELL_")] == [
+        ("CELL_ORPHAN", 3, "Cotton")
+    ]

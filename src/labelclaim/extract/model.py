@@ -22,12 +22,26 @@ class RawRow:
 
 
 @dataclass(frozen=True)
+class EdgeDefect:
+    """Text that crosses the table's drawn cell lines (L1 §16): "orphan" (in no cell), "overlap" (glyphs
+    drawn over each other) or "straddle" (a cell line cuts a word). `text` has no spaces: the register's
+    PDFs encode none."""
+
+    kind: Literal["orphan", "overlap", "straddle"]
+    text: str
+    top: float
+    bottom: float
+    cut_gap: float | None  # pt across the tightest cut between two cells; None when there is no cut
+
+
+@dataclass(frozen=True)
 class RawTable:
     doc_id: str
     page: int
     index: int
     bbox: BBox
     rows: tuple[RawRow, ...]
+    defects: tuple[EdgeDefect, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -67,12 +81,13 @@ class Field:
     "blank" (an explicitly empty crop cell read as 'same crop as above'), "spanned" (no own cell: a cell
     of this row whose x-centre is in band `span_of` spans across this column; text is "" by design, so a
     value printed once in the PDF is never duplicated into a second column), "absent" (the table's layout
-    has no such column, e.g. no waiting-period column in the seed-treatment tables).
+    has no such column, e.g. no waiting-period column in the seed-treatment tables), "corrected" (a
+    reviewed correction replaced the extracted text; `bboxes` still name the page area, ADR-007).
     """
 
     text: str
     bboxes: tuple[tuple[int, BBox], ...]  # (page, bbox) pairs the text was read from
-    source: Literal["cell", "merged", "carried", "blank", "spanned", "absent"]
+    source: Literal["cell", "merged", "carried", "blank", "spanned", "absent", "corrected"]
     origin: RowRef | None = None
     span_of: Col | None = None
 
@@ -122,6 +137,7 @@ class UseRow:
     fields: dict[Col, Field]
     rows: tuple[RowRef, ...]  # every raw row that contributed (the first is the data row)
     notes: tuple[str, ...] = ()
+    corrections: tuple[tuple[str, str, str], ...] = ()  # (correction id, column name, text before), ADR-007
 
     @property
     def page_first(self) -> int:

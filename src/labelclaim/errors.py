@@ -23,3 +23,7 @@ class ProvenanceError(LabelClaimError):
 
 class AnomalyBudgetExceeded(LabelClaimError):
     """A release build found anomalies that are not on the reviewed allow-list."""
+
+
+class CorrectionError(LabelClaimError):
+    """A reviewed correction is malformed, stale (matches no row) or ambiguous (matches several)."""

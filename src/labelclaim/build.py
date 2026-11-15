@@ -18,6 +18,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
+from labelclaim.corrections import Applied, Correction, apply_corrections, covered, load_corrections
 from labelclaim.errors import AnomalyBudgetExceeded, LabelClaimError, SourceIntegrityError
 from labelclaim.extract.assemble import assemble
 from labelclaim.extract.model import Anomaly, Col, UseRow
@@ -40,10 +41,15 @@ from labelclaim.validate import (
 )
 
 REPO = Path(__file__).resolve().parents[2]
-CODE_VERSION = "0.1.0"  # schema v2: many-to-many crops, canonical pests, compact ingredient keys (L2 §11)
+CODE_VERSION = "0.2.0"  # schema v4: reviewed corrections (ADR-007); v3 general names; v2 L2 §11
 Rows = dict[str, list[tuple[Any, ...]]]
 Extracted = tuple[
-    list[tuple[SourceDocument, UseRow]], list[Restriction], list[Anomaly], int, dict[str, dict[str, Any]]
+    list[tuple[SourceDocument, UseRow]],
+    list[Restriction],
+    list[Anomaly],
+    int,
+    dict[str, dict[str, Any]],
+    Applied,
 ]
 
 
@@ -84,6 +90,8 @@ class BuildResult:
     unallowed: list[Anomaly]
     unreviewed: dict[str, int]
     unreviewed_allowlist: int
+    corrections_applied: int
+    unreviewed_corrections: int
     provenance_checked: int
     seconds: float
     per_document: dict[str, dict[str, Any]] = field(default_factory=dict)
@@ -97,18 +105,45 @@ def _allowlist(path: Path) -> list[dict[str, Any]]:
 
 
 def _allowed(a: Anomaly, allow: list[dict[str, Any]]) -> bool:
+    """An entry allows (code, doc, page); with a `detail`, only the anomaly with exactly that text."""
     return any(
-        e.get("code") == a.code and e.get("doc") == a.doc_id and e.get("page") == a.page for e in allow
+        e.get("code") == a.code
+        and e.get("doc") == a.doc_id
+        and e.get("page") == a.page
+        and e.get("detail", a.detail) == a.detail
+        for e in allow
     )
 
 
-def extract_all(docs: tuple[SourceDocument, ...], cache: Path, *, offline: bool) -> Extracted:
-    """Extract and validate every source document (the build plane up to normalisation)."""
+def release_blockers(
+    unallowed: int, unreviewed: dict[str, int], unreviewed_allow: int, unreviewed_fix: int
+) -> list[str]:
+    """Why a release build must refuse (I8, ADR-006, ADR-007); empty when it may proceed."""
+    out = []
+    if unallowed:
+        out.append(f"{unallowed} anomalies not allow-listed or corrected")
+    if any(unreviewed.values()):
+        out.append(f"unreviewed lexicon rows {unreviewed}")
+    if unreviewed_allow:
+        out.append(f"{unreviewed_allow} unreviewed allow-list entries")
+    if unreviewed_fix:
+        out.append(f"{unreviewed_fix} unreviewed corrections")
+    return out
+
+
+def extract_all(
+    docs: tuple[SourceDocument, ...], cache: Path, *, offline: bool, corrections: tuple[Correction, ...] = ()
+) -> Extracted:
+    """Extract and validate every source document (the build plane up to normalisation).
+
+    I3 (provenance) is checked on the extractor's own output, before reviewed corrections are applied:
+    it tests the extractor, and a corrected field is by definition not what the boxes hold (ADR-007)."""
     uses_all: list[tuple[SourceDocument, UseRow]] = []
     restrictions: list[Restriction] = []
     anomalies: list[Anomaly] = []
     provenance = 0
     per_document: dict[str, dict[str, Any]] = {}
+    applied: Applied = {}
     for doc in docs:
         path = ensure_cached(doc, cache, offline=offline)
         if doc.kind == "restrictions":
@@ -116,19 +151,22 @@ def extract_all(docs: tuple[SourceDocument, ...], cache: Path, *, offline: bool)
             per_document[doc.id] = {"restrictions": len(restrictions)}
             continue
         assembly = assemble(doc.id, read_document(path, doc.id))
-        uses, dupes = check_duplicates(doc.id, assembly.uses)
+        with Reextractor(path) as reader:
+            provenance += check_provenance(assembly.uses, reader.text)
+        corrected, done = apply_corrections(doc.id, assembly.uses, corrections)
+        applied |= done
+        uses, dupes = check_duplicates(doc.id, corrected)
         anomalies += assembly.anomalies + dupes
         anomalies += check_incomplete(doc.id, uses)
         anomalies += check_sections(doc.id, doc.kind, dict(doc.expected_sections), uses)
-        with Reextractor(path) as reader:
-            provenance += check_provenance(uses, reader.text)
         uses_all += [(doc, u) for u in uses]
         per_document[doc.id] = {
             "uses": len(uses),
             "products": len(assembly.products),
             "kinds": dict(assembly.kinds),
+            "corrections": len(done),
         }
-    return uses_all, restrictions, anomalies, provenance, per_document
+    return uses_all, restrictions, anomalies, provenance, per_document, applied
 
 
 def run(
@@ -140,28 +178,35 @@ def run(
     offline: bool = False,
     cache: Path = DEFAULT_CACHE,
     allowlist: Path | None = None,
+    corrections_file: Path | None = None,
 ) -> BuildResult:
     started = time.perf_counter()
     docs = load_manifest(sources)
     lexicons = Lexicons.load(lexicon_dir)
     allow = _allowlist(allowlist or sources.parent / "anomaly_allowlist.toml")
-    uses, restrictions, anomalies, provenance, per_document = extract_all(docs, cache, offline=offline)
+    corrections = load_corrections(corrections_file or sources.parent / "corrections.toml")
+    uses, restrictions, anomalies, provenance, per_document, applied = extract_all(
+        docs, cache, offline=offline, corrections=corrections
+    )
     tables, name_anomalies = build_tables(docs, uses, restrictions, lexicons)
     ordered = sorted(
         anomalies + name_anomalies, key=lambda a: (a.doc_id, a.page, a.table, a.row, a.code, a.detail)
     )
+
+    def ok(a: Anomaly) -> bool:
+        return _allowed(a, allow) or covered(a, corrections, applied)
+
     tables["anomaly"] = [
-        (i, a.code, a.doc_id, a.page, a.table, a.row, a.detail, int(_allowed(a, allow)))
+        (i, a.code, a.doc_id, a.page, a.table, a.row, a.detail, int(ok(a)))
         for i, a in enumerate(ordered, start=1)
     ]
-    unallowed = [a for a in ordered if not _allowed(a, allow)]
+    unallowed = [a for a in ordered if not ok(a)]
     unreviewed = lexicons.unreviewed()
     unreviewed_allow = sum(1 for e in allow if not str(e.get("reviewed_by", "")).strip())
-    if release and (unallowed or any(unreviewed.values()) or unreviewed_allow):
-        raise AnomalyBudgetExceeded(
-            f"release build refused: {len(unallowed)} anomalies not allow-listed, unreviewed lexicon rows "
-            f"{unreviewed}, {unreviewed_allow} unreviewed allow-list entries"
-        )
+    unreviewed_fix = sum(1 for c in corrections if not c.reviewed)
+    blockers = release_blockers(len(unallowed), unreviewed, unreviewed_allow, unreviewed_fix)
+    if release and blockers:
+        raise AnomalyBudgetExceeded("release build refused: " + "; ".join(blockers))
     out_dir.mkdir(parents=True, exist_ok=True)
     info = {
         "code_version": CODE_VERSION,
@@ -178,11 +223,13 @@ def run(
         unallowed=unallowed,
         unreviewed=unreviewed,
         unreviewed_allowlist=unreviewed_allow,
+        corrections_applied=len(applied),
+        unreviewed_corrections=unreviewed_fix,
         provenance_checked=provenance,
         seconds=round(time.perf_counter() - started, 2),
         per_document=per_document,
     )
-    listing = [asdict(a) | {"allowed": _allowed(a, allow)} for a in ordered]
+    listing = [asdict(a) | {"allowed": ok(a)} for a in ordered]
     (out_dir / "anomalies.json").write_text(
         json.dumps(listing, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
     )
@@ -330,6 +377,7 @@ def _use_row(uid: int, pid: int, use: UseRow) -> tuple[Any, ...]:
         _q(quantities[Col.DILUTION]), days[0] if days else None, days[1] if days else None, use.page_first,
         use.page_last, json.dumps(provenance, ensure_ascii=False, sort_keys=True),
         json.dumps(list(use.notes), ensure_ascii=False),
+        json.dumps([{"id": i, "field": f, "before": b} for i, f, b in use.corrections], ensure_ascii=False),
     )  # fmt: skip
 
 
@@ -376,7 +424,7 @@ def audit(register: Path) -> dict[str, Any]:
 
 
 def draft_lexicon(what: str, sources: Path, cache: Path, out: Path, *, offline: bool) -> str:
-    uses, restrictions, _, _, _ = extract_all(load_manifest(sources), cache, offline=offline)
+    uses, restrictions, *_ = extract_all(load_manifest(sources), cache, offline=offline)
     if what == "crops":
         return f"{write_draft([u.fields[Col.CROP].text for _, u in uses], out)} crop strings -> {out}"
     if what == "pests":

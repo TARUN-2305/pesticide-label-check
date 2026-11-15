@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
+import dataclasses
 import sqlite3
 from pathlib import Path
 
 import pytest
 
-from labelclaim.build import Lexicons, build_tables
+from labelclaim.build import Lexicons, _allowed, build_tables, release_blockers
 from labelclaim.errors import ProvenanceError
-from labelclaim.extract.model import Col, Field, ProductHeading, Section, TextLine, UseRow
+from labelclaim.extract.model import Anomaly, Col, Field, ProductHeading, Section, TextLine, UseRow
 from labelclaim.normalize.ingredients import Variants
 from labelclaim.normalize.lexicon import CropEntry, CropLexicon, key, load_crops, split_pests, suggest
 from labelclaim.normalize.pests import PestEntry, PestLexicon
@@ -211,3 +212,22 @@ def test_two_lexicon_ids_that_are_one_name_by_rule_block_the_build(tmp_path: Pat
     _, unknown = build_tables((doc,), [(doc, use(crop="Okra", pest="White fly"))], [], lexicons)
     assert [a.code for a in unknown] == ["LEXICON_RULE_COLLISION"]
     assert "white_fly, whitefly" in unknown[0].detail
+
+
+def test_an_allow_entry_with_a_detail_allows_only_that_text() -> None:
+    a = Anomaly("CELL_STRADDLE", "doc", 76, 0, 3, "Alternaria153(13.5+139.5)")
+    exact = [{"code": "CELL_STRADDLE", "doc": "doc", "page": 76, "detail": a.detail}]
+    assert _allowed(a, exact)
+    assert not _allowed(dataclasses.replace(a, detail="(Phytophthorainfestans)and"), exact)
+    assert _allowed(dataclasses.replace(a, detail="anything"), [{"code": a.code, "doc": "doc", "page": 76}])
+
+
+def test_release_blockers_name_every_unreviewed_input() -> None:
+    clean = {"crops": 0, "pests": 0}
+    assert release_blockers(0, clean, 0, 0) == []
+    assert release_blockers(0, clean, 0, 12) == ["12 unreviewed corrections"]  # ADR-007 (mutant E-M6)
+    assert release_blockers(0, clean, 2, 0) == ["2 unreviewed allow-list entries"]
+    assert release_blockers(0, {"crops": 0, "pests": 4}, 0, 0) == [
+        "unreviewed lexicon rows {'crops': 0, 'pests': 4}"
+    ]
+    assert release_blockers(3, clean, 0, 0) == ["3 anomalies not allow-listed or corrected"]

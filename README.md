@@ -4,12 +4,12 @@
 
 **For:** agri-input dealers, farmers and extension workers. Kannada and English, by text and later by voice.
 
-**Status (2026-11-14):** M0 design reviewed and approved. **M1 (register extraction) and M2 (lookup engine and HTTP API) are implemented and tested.** The crop, pest and ingredient lexicons and the anomaly allow-list are human-reviewed, and the *release* build passes: 2,374 approved-use rows, each with a page citation. Not done: the E1 and E3 evaluations are incomplete, and there is no app yet.
+**Status (2026-11-15):** M0 design reviewed and approved. **M1 (register extraction) and M2 (lookup engine and HTTP API) are implemented and tested.** The crop, pest and ingredient lexicons and the anomaly allow-list are human-reviewed, and the *release* build passes: 2,374 approved-use rows, each with a page citation. An edge audit found 13 rows the extractor misread (one with a wrong crop); they are now detected, and corrected through a reviewed file ([ADR-007](docs/adr/0007-reviewed-corrections.md)). The corrections were reviewed under the user's delegation, and the release build passes (`d86befe7…`). Not done: the E1 golden set, and there is no app yet.
 
 | Milestone | Scope | State |
 |---|---|---|
 | M0 | Requirements, architecture, ADRs, LLDs, evaluation, tests, threats | designed, approved |
-| M1 | Register extraction (L1) | implemented, tested; release build verified; E1 golden set partly done |
+| M1 | Register extraction (L1) | implemented, tested; edge defects detected and corrected ([audit](reports/E1/edge_audit.md)); corrections reviewed, release verified; E1 golden set partly done |
 | M2 | Lookup engine and HTTP API (L2) | implemented, tested, measured; release build verified ([L2 §12.5](docs/lld/l2_lookup_api.md)). E3: 122/150 on the first run (target 98 % **not met**); after the reviewed L2 §13 fixes, **58/60 on a fresh suite** with 0 false approvals ([report](reports/E3/report.md)) |
 | M3 | Tool-calling layer + number verifier | planned |
 | M4 | Evaluation on Kisan Call Centre questions | planned |

@@ -415,3 +415,38 @@ M6 (iterating a set when assigning IDs) is covered by the 5-seed determinism che
 **Inputs for M2.** These are observations; the assistant did not change any of the user's choices.
 - **Crops and application methods mixed together.** Some register strings name several crops, or a crop plus a method, and were reviewed as one ID: "Tomato/Chilli es" → `tomato_chilli`, "Beans (Cowpea, moong, Urd)" → `cowpea_moong_urid`, "Grapes (Soil drench)" → `grapes_soil_drench`, "Tobacco (Nursery)" → `tobacco_nursery`. A lookup for "tomato" or "grape" would therefore miss those uses. M2 needs either a many-to-many use ↔ crop mapping or a split of the method into `application_note`.
 - **A leftover empty alias.** `unknown` (alias "") came from an empty crop string in an early build. No current use has an empty crop, so the row is unused.
+
+## 16. Addendum: text that crosses cell lines (2026-11-15)
+
+**Found by:** E3-018 and E3b-27. **Measured in:** [`reports/E1/edge_audit.md`](../../reports/E1/edge_audit.md). **Decision:** [ADR-007](../adr/0007-reviewed-corrections.md).
+
+**Detector** (`extract/edges.py`, pure). It works on the glyphs inside each table and the table's cells:
+
+| Step | Rule | Constant |
+|---|---|---|
+| run | glyphs on one line (`top` to the nearest pt), split where the gap exceeds 0.45 × font size | `RUN_GAP` |
+| owner | the cell holding the glyph's centre (pdfplumber's rule) | — |
+| orphan | some glyph of the run has no owner | — |
+| overlap | two neighbouring glyphs share more than half the narrower one's width | `OVERLAP` |
+| straddle | the run spans two cells and its tightest cut is under 0.5 pt | `STRADDLE_GAP` |
+
+On this register's tables, real straddles cut at −0.12 to +0.05 pt. The closest pair of separate texts sits at 0.70 pt.
+
+**Pipeline:**
+1. `pages.read_document` attaches `RawTable.defects`.
+2. `Assembler.feed_table` emits `CELL_ORPHAN`, `CELL_OVERLAP` or `CELL_STRADDLE` on the row that holds the defect's vertical centre (in-scope sections only).
+3. `build.extract_all` checks I3 on the extractor's own output, then applies `corrections.apply_corrections`.
+4. An anomaly is accepted when an exact allow entry (`detail` must match) or an applied correction that lists its code on that row covers it.
+5. `release_blockers` refuses a release while any correction is unreviewed.
+
+**Schema v4:** `use_record.corrected_json` (`[{id, field, before}]`). The API's `UseOut.corrected` names the corrected fields.
+
+**Tests:**
+- `tests/test_edges.py` (8);
+- `tests/test_corrections.py` (14);
+- the assembler test in `tests/test_extract.py`;
+- `test_an_allow_entry_with_a_detail_allows_only_that_text` and `test_release_blockers_name_every_unreviewed_input`;
+- the API test `test_a_corrected_field_is_named_in_the_answer`;
+- the golden test that lists the 12 `CELL_*` anomalies.
+
+**Mutation checks:** E-M1 to E-M6 (`reports/M2/mutants_after_edges.md`). E-M6, "unreviewed corrections do not block a release", **survived** at first, as predicted, because no test covered the gate. `release_blockers` and its test were then added; all 29 are now killed.

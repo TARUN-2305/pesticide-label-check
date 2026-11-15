@@ -96,6 +96,26 @@ MUTANTS = [
     ("G-M6 rule collisions not reported", "build.py",
      '        for mk, ids in collisions\n', '        for mk, ids in collisions[:0]\n',
      ["tests/test_register_validate.py::test_two_lexicon_ids_that_are_one_name_by_rule_block_the_build"], "killed"),
+    # L1 §16 / ADR-007 (edge defects and reviewed corrections), predictions written 2026-11-15 before the run
+    ("E-M1 straddle threshold too tight", "extract/edges.py",
+     'return ("straddle" if cut < STRADDLE_GAP else "adjacent"), cut', 'return ("straddle" if cut < 0.1 else "adjacent"), cut',
+     ["tests/test_edges.py"], "killed"),
+    ("E-M2 text in no cell ignored", "extract/edges.py",
+     '    if None in owners:\n        return "orphan", cut', '    if False:\n        return "orphan", cut',
+     ["tests/test_edges.py"], "killed"),
+    ("E-M3 defects never reach the assembler", "extract/assemble.py",
+     "self._edge_anomalies(table, i, defects.pop(i, []))", "self._edge_anomalies(table, i, [])",
+     ["tests/test_extract.py"], "killed"),
+    ("E-M4 a correction matching 0 rows is skipped", "corrections.py",
+     "        if len(hits) != 1:\n", "        if len(hits) > 1:\n            pass\n        if not hits:\n            continue\n        if len(hits) != 1:\n",
+     ["tests/test_corrections.py"], "killed"),
+    ("E-M5 a correction covers anomalies on any row", "corrections.py",
+     "and ref in applied.get(c.id, ())", "and (ref in applied.get(c.id, ()) or True)",
+     ["tests/test_corrections.py"], "killed"),
+    ("E-M6 unreviewed corrections do not block a release", "build.py",
+     "    if unreviewed_fix:\n        out.append", "    if False:\n        out.append",
+     ["tests/test_register_validate.py"],
+     "survived on the first run (no test covered the gate); killed after test_release_blockers_*"),
 ]  # fmt: skip
 
 

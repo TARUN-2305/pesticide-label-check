@@ -158,3 +158,13 @@ def test_a_general_name_returns_options_with_their_own_outcomes(client: TestClie
         "early_blight": "NOT_APPROVED_FOR_PEST",
         "late_blight": "APPROVED",
     }
+
+
+def test_a_corrected_field_is_named_in_the_answer(client: TestClient) -> None:
+    # ADR-007: the fixture's use 1 carries a reviewed correction of its pest text
+    r = client.post(
+        "/v1/lookup",
+        json={"product": "Chlorantraniliprole 18.5% SC", "crop": "tomato", "pest": "fruit borer"},
+    )
+    (use,) = r.json()["uses"]
+    assert use["corrected"] == ["pest_raw"]

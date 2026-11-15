@@ -412,6 +412,14 @@
      "citation": {
       "$ref": "#/components/schemas/CitationOut"
      },
+     "corrected": {
+      "description": "Fields the extractor misread; a reviewed correction read them from the page (ADR-007)",
+      "items": {
+       "type": "string"
+      },
+      "title": "Corrected",
+      "type": "array"
+     },
      "crop_raw": {
       "title": "Crop Raw",
       "type": "string"
