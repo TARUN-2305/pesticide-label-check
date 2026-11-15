@@ -60,6 +60,7 @@ max-branches = 16
 "tools/mutants.py" = ["E501", "S603", "S404"]  # a table of source snippets; runs our own pytest only
 "tools/perf_lookup.py" = ["E501", "S311", "S101"]  # a measurement script: seeded sampling, asserts on our own server
 "tools/e3.py" = ["S311"]  # seeded sampling and bootstrap, not cryptography
+"tools/e1.py" = ["S311"]  # seeded sampling, not cryptography
 
 [tool.mypy]
 strict = true

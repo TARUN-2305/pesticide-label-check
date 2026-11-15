@@ -1,0 +1,1598 @@
+{
+ "register": "build/register.sqlite",
+ "labels": "evaluation/e1b/labels_adjudicated.jsonl",
+ "summary": {
+  "items": 60,
+  "scored_standard_layout": 59,
+  "non_standard_layout": [
+   "E1b-009"
+  ],
+  "field_accuracy_8": 0.9936,
+  "field_accuracy_7": 0.9927,
+  "row_accuracy": 0.9661,
+  "per_field": {
+   "product": 59,
+   "crop": 59,
+   "pest": 57,
+   "dose_ai": 58,
+   "dose_form": 59,
+   "dilution": 59,
+   "wait": 59,
+   "page": 59
+  },
+  "rows_wrong": [
+   "E1b-053",
+   "E1b-060"
+  ]
+ },
+ "results": [
+  {
+   "item": "E1b-001",
+   "use_id": 1050,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Abamectin 01.90 % EC",
+    "crop": "Apple",
+    "pest": "European Red Mite and Spotted Red Spider Mite",
+    "dose_ai": "0.00095%",
+    "dose_form": "0.05%",
+    "dilution": "6-7 litre water/ tree",
+    "wait": "7",
+    "page": "2"
+   },
+   "actual": {
+    "product": "Abamectin 01.90 % EC",
+    "crop": "Apple",
+    "pest": "European Red Mite and Spotted Red Spider Mite",
+    "dose_ai": "0.00095%",
+    "dose_form": "0.05%",
+    "dilution": "6-7 litre water/ tree",
+    "wait": "7",
+    "page": "2"
+   }
+  },
+  {
+   "item": "E1b-002",
+   "use_id": 1118,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Broflanilide 20% SC",
+    "crop": "Pomegranate",
+    "pest": "Thrips & Fruit borer",
+    "dose_ai": "25",
+    "dose_form": "125",
+    "dilution": "500",
+    "wait": "1",
+    "page": "8"
+   },
+   "actual": {
+    "product": "Broflanilide 20% SC",
+    "crop": "Pomegranate",
+    "pest": "Thrips & Fruit borer",
+    "dose_ai": "25",
+    "dose_form": "125",
+    "dilution": "500",
+    "wait": "1",
+    "page": "8"
+   }
+  },
+  {
+   "item": "E1b-003",
+   "use_id": 1158,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Carbofuran 03 % CG",
+    "crop": "Paddy (Rice)",
+    "pest": "Brown plant hopper Gall midge, Stem borer, Green leaf hopper, Hispa",
+    "dose_ai": "750",
+    "dose_form": "25000",
+    "dilution": "-",
+    "wait": "-",
+    "page": "10"
+   },
+   "actual": {
+    "product": "Carbofuran 03 % CG",
+    "crop": "Paddy (Rice)",
+    "pest": "Brown plant hopper Gall midge, Stem borer, Green leaf hopper, Hispa",
+    "dose_ai": "750",
+    "dose_form": "25000",
+    "dilution": "-",
+    "wait": "-",
+    "page": "10"
+   }
+  },
+  {
+   "item": "E1b-004",
+   "use_id": 1217,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "CHLORANTRANILIPROLE 47.85 % w/w SC",
+    "crop": "Sugarcane",
+    "pest": "Early shoot borer (Chilo infuscatellus), Top Borer (Scirpophaga excerptalis), Stalk borer (Chilo auricilius)",
+    "dose_ai": "75",
+    "dose_form": "125",
+    "dilution": "1000",
+    "wait": "214",
+    "page": "13"
+   },
+   "actual": {
+    "product": "CHLORANTRANILIPROLE 47.85 % w/w SC",
+    "crop": "Sugarcane",
+    "pest": "Early shoot borer (Chilo infuscatellus), Top Borer (Scirpophaga excerptalis), Stalk borer (Chilo auricilius)",
+    "dose_ai": "75",
+    "dose_form": "125",
+    "dilution": "1000",
+    "wait": "214",
+    "page": "13"
+   }
+  },
+  {
+   "item": "E1b-005",
+   "use_id": 1223,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "CHLORANTRANILIPROLE 47.85 % w/w SC",
+    "crop": "Groundnut",
+    "pest": "Tobacco caterpillar (Spodoptera litura) Groundnut leaf miner (Aproaerema modicella)",
+    "dose_ai": "30",
+    "dose_form": "50",
+    "dilution": "400-500",
+    "wait": "34",
+    "page": "14"
+   },
+   "actual": {
+    "product": "CHLORANTRANILIPROLE 47.85 % w/w SC",
+    "crop": "Groundnut",
+    "pest": "Tobacco caterpillar (Spodoptera litura) Groundnut leaf miner (Aproaerema modicella)",
+    "dose_ai": "30",
+    "dose_form": "50",
+    "dilution": "400-500",
+    "wait": "34",
+    "page": "14"
+   }
+  },
+  {
+   "item": "E1b-006",
+   "use_id": 1331,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Cypermethrin 25 % EC",
+    "crop": "Cotton",
+    "pest": "Jassids, Thrips",
+    "dose_ai": "20 – 30",
+    "dose_form": "80 – 120",
+    "dilution": "200 – 300",
+    "wait": "-",
+    "page": "21"
+   },
+   "actual": {
+    "product": "Cypermethrin 25 % EC",
+    "crop": "Cotton",
+    "pest": "Jassids, Thrips",
+    "dose_ai": "20 – 30",
+    "dose_form": "80 – 120",
+    "dilution": "200 – 300",
+    "wait": "-",
+    "page": "21"
+   }
+  },
+  {
+   "item": "E1b-007",
+   "use_id": 1376,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Diafenthiuron 50 % WP",
+    "crop": "Cotton",
+    "pest": "Whiteflies, Aphids, Thrips, Jassids",
+    "dose_ai": "239",
+    "dose_form": "500",
+    "dilution": "500",
+    "wait": "30",
+    "page": "24"
+   },
+   "actual": {
+    "product": "Diafenthiuron 50 % WP",
+    "crop": "Cotton",
+    "pest": "Whiteflies, Aphids, Thrips, Jassids",
+    "dose_ai": "239",
+    "dose_form": "500",
+    "dilution": "500",
+    "wait": "30",
+    "page": "24"
+   }
+  },
+  {
+   "item": "E1b-008",
+   "use_id": 1454,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Fenmezoditiaz 200g/L SC",
+    "crop": "Rice",
+    "pest": "Brown Plant Hopper (Nilaparvata lugens), White Backed Plant Hopper (Sogatella furcifera)",
+    "dose_ai": "25-30",
+    "dose_form": "125-150",
+    "dilution": "500",
+    "wait": "37",
+    "page": "27"
+   },
+   "actual": {
+    "product": "Fenmezoditiaz 200g/L SC",
+    "crop": "Rice",
+    "pest": "Brown Plant Hopper (Nilaparvata lugens), White Backed Plant Hopper (Sogatella furcifera)",
+    "dose_ai": "25-30",
+    "dose_form": "125-150",
+    "dilution": "500",
+    "wait": "37",
+    "page": "27"
+   }
+  },
+  {
+   "item": "E1b-009",
+   "use_id": 1504,
+   "stratum": "insecticide_single",
+   "wrong": [
+    "crop",
+    "dilution"
+   ],
+   "expected": {
+    "product": "Flocoumafen 0.005% Block Bait (Strom)",
+    "crop": "For rodent control in field , storage andcrops like rice, soybean and coconut)",
+    "pest": "Rattus rattus, Bandicota bengalensis, Tatera indica, Mus musculus",
+    "dose_ai": "0.75-1.0",
+    "dose_form": "15-20",
+    "dilution": "At an interval of 5-10m in bait station or active burrow. Repeat the application after 14days if problem persists.",
+    "wait": "NA",
+    "page": "31"
+   },
+   "actual": {
+    "product": "Flocoumafen 0.005% Block Bait (Strom)",
+    "crop": "For rodent control in field , storage and crops like rice, soybean and coconut)",
+    "pest": "Rattus rattus, Bandicota bengalensis, Tatera indica, Mus musculus",
+    "dose_ai": "0.75-1.0",
+    "dose_form": "15-20",
+    "dilution": "At an interval of 5- 10m in bait station or active burrow. Repeat the application after 14 days if problem persists.",
+    "wait": "NA",
+    "page": "31"
+   }
+  },
+  {
+   "item": "E1b-010",
+   "use_id": 1511,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Flonicamid 50 % WG",
+    "crop": "Chilli",
+    "pest": "Aphids (Aphis gossipy), Jassids (Amrasca bigutulla bigutulla), White fly (Bemisia tabaci)",
+    "dose_ai": "100",
+    "dose_form": "200",
+    "dilution": "500",
+    "wait": "05",
+    "page": "31"
+   },
+   "actual": {
+    "product": "Flonicamid 50 % WG",
+    "crop": "Chilli",
+    "pest": "Aphids (Aphis gossipy), Jassids (Amrasca bigutulla bigutulla), White fly (Bemisia tabaci)",
+    "dose_ai": "100",
+    "dose_form": "200",
+    "dilution": "500",
+    "wait": "05",
+    "page": "31"
+   }
+  },
+  {
+   "item": "E1b-011",
+   "use_id": 1521,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Flubendiamide 20 % WG",
+    "crop": "Tomato",
+    "pest": "Fruit borer",
+    "dose_ai": "48",
+    "dose_form": "100",
+    "dilution": "375 – 500",
+    "wait": "05",
+    "page": "32"
+   },
+   "actual": {
+    "product": "Flubendiamide 20 % WG",
+    "crop": "Tomato",
+    "pest": "Fruit borer",
+    "dose_ai": "48",
+    "dose_form": "100",
+    "dilution": "375 – 500",
+    "wait": "05",
+    "page": "32"
+   }
+  },
+  {
+   "item": "E1b-012",
+   "use_id": 1539,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Flubendiamide 39.35 % w/w SC",
+    "crop": "Bengal gram",
+    "pest": "Pod Borer (Helicoverpa armigera & Spodoptera spp.)",
+    "dose_ai": "48",
+    "dose_form": "100",
+    "dilution": "500",
+    "wait": "05",
+    "page": "32"
+   },
+   "actual": {
+    "product": "Flubendiamide 39.35 % w/w SC",
+    "crop": "Bengal gram",
+    "pest": "Pod Borer (Helicoverpa armigera & Spodoptera spp.)",
+    "dose_ai": "48",
+    "dose_form": "100",
+    "dilution": "500",
+    "wait": "05",
+    "page": "32"
+   }
+  },
+  {
+   "item": "E1b-013",
+   "use_id": 1552,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Flumite 20 % SC / Flufenzine 20 % SC",
+    "crop": "Tea",
+    "pest": "Red spider mite",
+    "dose_ai": "100 – 120",
+    "dose_form": "500-600",
+    "dilution": "500 – 1000",
+    "wait": "07",
+    "page": "33"
+   },
+   "actual": {
+    "product": "Flumite 20 % SC / Flufenzine 20 % SC",
+    "crop": "Tea",
+    "pest": "Red spider mite",
+    "dose_ai": "100 – 120",
+    "dose_form": "500-600",
+    "dilution": "500 – 1000",
+    "wait": "07",
+    "page": "33"
+   }
+  },
+  {
+   "item": "E1b-014",
+   "use_id": 1584,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Imidacloprid 48 % FS (dosage per 100 kg of seeds)",
+    "crop": "Sorghum",
+    "pest": "Shoot fly",
+    "dose_ai": "720",
+    "dose_form": "1200",
+    "dilution": "-",
+    "wait": "-",
+    "page": "35"
+   },
+   "actual": {
+    "product": "Imidacloprid 48 % FS (dosage per 100 kg of seeds)",
+    "crop": "Sorghum",
+    "pest": "Shoot fly",
+    "dose_ai": "720",
+    "dose_form": "1200",
+    "dilution": "-",
+    "wait": "-",
+    "page": "35"
+   }
+  },
+  {
+   "item": "E1b-015",
+   "use_id": 1627,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Indoxacarb 14.50 % SC",
+    "crop": "Pigeon pea",
+    "pest": "Pod borer complex",
+    "dose_ai": "50-60",
+    "dose_form": "333 - 400",
+    "dilution": "500 - 1000",
+    "wait": "15",
+    "page": "37"
+   },
+   "actual": {
+    "product": "Indoxacarb 14.50 % SC",
+    "crop": "Pigeon pea",
+    "pest": "Pod borer complex",
+    "dose_ai": "50-60",
+    "dose_form": "333 - 400",
+    "dilution": "500 - 1000",
+    "wait": "15",
+    "page": "37"
+   }
+  },
+  {
+   "item": "E1b-016",
+   "use_id": 1638,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Isocycloseram 9.2% W/W Dc (10% W/V) DC",
+    "crop": "Brinjal",
+    "pest": "Shoot and Fruit Borer",
+    "dose_ai": "60",
+    "dose_form": "600",
+    "dilution": "500",
+    "wait": "5",
+    "page": "37"
+   },
+   "actual": {
+    "product": "Isocycloseram 9.2% W/W Dc (10% W/V) DC",
+    "crop": "Brinjal",
+    "pest": "Shoot and Fruit Borer",
+    "dose_ai": "60",
+    "dose_form": "600",
+    "dilution": "500",
+    "wait": "5",
+    "page": "37"
+   }
+  },
+  {
+   "item": "E1b-017",
+   "use_id": 1721,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Oxydemeton-methyl 25 % EC",
+    "crop": "Apple",
+    "pest": "Wooly Aphid",
+    "dose_ai": "0.025%",
+    "dose_form": "1500-2000",
+    "dilution": "1500- 2000",
+    "wait": "-",
+    "page": "42"
+   },
+   "actual": {
+    "product": "Oxydemeton-methyl 25 % EC",
+    "crop": "Apple",
+    "pest": "Wooly Aphid",
+    "dose_ai": "0.025%",
+    "dose_form": "1500-2000",
+    "dilution": "1500- 2000",
+    "wait": "-",
+    "page": "42"
+   }
+  },
+  {
+   "item": "E1b-018",
+   "use_id": 1807,
+   "stratum": "insecticide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Quinalphos 25 % EC",
+    "crop": "Citrus",
+    "pest": "Citrus butterfly",
+    "dose_ai": "0.025%",
+    "dose_form": "1500 – 2000",
+    "dilution": "500 – 1000",
+    "wait": "-",
+    "page": "46"
+   },
+   "actual": {
+    "product": "Quinalphos 25 % EC",
+    "crop": "Citrus",
+    "pest": "Citrus butterfly",
+    "dose_ai": "0.025%",
+    "dose_form": "1500 – 2000",
+    "dilution": "500 – 1000",
+    "wait": "-",
+    "page": "46"
+   }
+  },
+  {
+   "item": "E1b-019",
+   "use_id": 1955,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Acephate 50 % + Fipronil 5% WDG",
+    "crop": "Paddy",
+    "pest": "Stem borer, Leaf folder, Brown Plant Hopper",
+    "dose_ai": "500 + 50",
+    "dose_form": "1000",
+    "dilution": "500",
+    "wait": "27",
+    "page": "54"
+   },
+   "actual": {
+    "product": "Acephate 50 % + Fipronil 5% WDG",
+    "crop": "Paddy",
+    "pest": "Stem borer, Leaf folder, Brown Plant Hopper",
+    "dose_ai": "500 + 50",
+    "dose_form": "1000",
+    "dilution": "500",
+    "wait": "27",
+    "page": "54"
+   }
+  },
+  {
+   "item": "E1b-020",
+   "use_id": 2064,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Cypermethrin 10 % + Indoxacarb 10 % w/w SC",
+    "crop": "Rice",
+    "pest": "Leaf Folder",
+    "dose_ai": "37.5+37.5",
+    "dose_form": "375",
+    "dilution": "500",
+    "wait": "37",
+    "page": "67"
+   },
+   "actual": {
+    "product": "Cypermethrin 10 % + Indoxacarb 10 % w/w SC",
+    "crop": "Rice",
+    "pest": "Leaf Folder",
+    "dose_ai": "37.5+37.5",
+    "dose_form": "375",
+    "dilution": "500",
+    "wait": "37",
+    "page": "67"
+   }
+  },
+  {
+   "item": "E1b-021",
+   "use_id": 2069,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Diafenthiuron 40.1 % + Acetamiprid 3.9 % w/w WP",
+    "crop": "Cotton",
+    "pest": "Thrips, Mites and Whitefly",
+    "dose_ai": "(200.5 + 19.5 – (240.6 + 23.4)",
+    "dose_form": "500 - 600",
+    "dilution": "500",
+    "wait": "21",
+    "page": "67"
+   },
+   "actual": {
+    "product": "Diafenthiuron 40.1 % + Acetamiprid 3.9 % w/w WP",
+    "crop": "Cotton",
+    "pest": "Thrips, Mites and Whitefly",
+    "dose_ai": "(200.5 + 19.5 – (240.6 + 23.4)",
+    "dose_form": "500 - 600",
+    "dilution": "500",
+    "wait": "21",
+    "page": "67"
+   }
+  },
+  {
+   "item": "E1b-022",
+   "use_id": 2083,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Dinotefuran 15 % + Pymetrozine 45% WG",
+    "crop": "Rice",
+    "pest": "Brown Plant Hopper, white Backed Plant Hopper, Green Leaf Hopper, Rice Ear Head Bug",
+    "dose_ai": "200",
+    "dose_form": "333",
+    "dilution": "500",
+    "wait": "24",
+    "page": "69"
+   },
+   "actual": {
+    "product": "Dinotefuran 15 % + Pymetrozine 45% WG",
+    "crop": "Rice",
+    "pest": "Brown Plant Hopper, white Backed Plant Hopper, Green Leaf Hopper, Rice Ear Head Bug",
+    "dose_ai": "200",
+    "dose_form": "333",
+    "dilution": "500",
+    "wait": "24",
+    "page": "69"
+   }
+  },
+  {
+   "item": "E1b-023",
+   "use_id": 2149,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Fipronil 15% + Imidacloprid 5% w/v SC",
+    "crop": "Cotton",
+    "pest": "Pink bollworm",
+    "dose_ai": "90 + 30",
+    "dose_form": "600",
+    "dilution": "500",
+    "wait": "6",
+    "page": "75"
+   },
+   "actual": {
+    "product": "Fipronil 15% + Imidacloprid 5% w/v SC",
+    "crop": "Cotton",
+    "pest": "Pink bollworm",
+    "dose_ai": "90 + 30",
+    "dose_form": "600",
+    "dilution": "500",
+    "wait": "6",
+    "page": "75"
+   }
+  },
+  {
+   "item": "E1b-024",
+   "use_id": 2161,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Flonicamid 11.7% + Diafenthiuron 36% WG",
+    "crop": "Cotton",
+    "pest": "White fly, Aphids, Jassids",
+    "dose_ai": "73.13+225",
+    "dose_form": "625",
+    "dilution": "500",
+    "wait": "80",
+    "page": "76"
+   },
+   "actual": {
+    "product": "Flonicamid 11.7% + Diafenthiuron 36% WG",
+    "crop": "Cotton",
+    "pest": "White fly, Aphids, Jassids",
+    "dose_ai": "73.13+225",
+    "dose_form": "625",
+    "dilution": "500",
+    "wait": "80",
+    "page": "76"
+   }
+  },
+  {
+   "item": "E1b-025",
+   "use_id": 2165,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Fluxametamide 5.81% + Bifenthrin 5.81 % EC (11.62% EC w/w) (12% EC w/v)",
+    "crop": "Chilli",
+    "pest": "Thrips (Scirtothrips dorsalis) Whitefly (Bemisia tabaci)",
+    "dose_ai": "30 + 30",
+    "dose_form": "500",
+    "dilution": "375",
+    "wait": "7",
+    "page": "76"
+   },
+   "actual": {
+    "product": "Fluxametamide 5.81% + Bifenthrin 5.81 % EC (11.62% EC w/w) (12% EC w/v)",
+    "crop": "Chilli",
+    "pest": "Thrips (Scirtothrips dorsalis) Whitefly (Bemisia tabaci)",
+    "dose_ai": "30 + 30",
+    "dose_form": "500",
+    "dilution": "375",
+    "wait": "7",
+    "page": "76"
+   }
+  },
+  {
+   "item": "E1b-026",
+   "use_id": 2167,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Fluxametamide 5.81% + Bifenthrin 5.81 % EC (11.62% EC w/w) (12% EC w/v)",
+    "crop": "Tomato",
+    "pest": "Leaf miner (Liriomyza trifolii)",
+    "dose_ai": "30 + 30",
+    "dose_form": "500",
+    "dilution": "375",
+    "wait": "7",
+    "page": "76"
+   },
+   "actual": {
+    "product": "Fluxametamide 5.81% + Bifenthrin 5.81 % EC (11.62% EC w/w) (12% EC w/v)",
+    "crop": "Tomato",
+    "pest": "Leaf miner (Liriomyza trifolii)",
+    "dose_ai": "30 + 30",
+    "dose_form": "500",
+    "dilution": "375",
+    "wait": "7",
+    "page": "76"
+   }
+  },
+  {
+   "item": "E1b-027",
+   "use_id": 2169,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Fluxametamide 5.81% + Bifenthrin 5.81 % EC (11.62% EC w/w) (12% EC w/v)",
+    "crop": "Brinjal",
+    "pest": "Whitefly (Bemisia tabaci), Jassid (Amrasca bigutulla bigutulla)",
+    "dose_ai": "30 + 30",
+    "dose_form": "500",
+    "dilution": "375",
+    "wait": "7",
+    "page": "76"
+   },
+   "actual": {
+    "product": "Fluxametamide 5.81% + Bifenthrin 5.81 % EC (11.62% EC w/w) (12% EC w/v)",
+    "crop": "Brinjal",
+    "pest": "Whitefly (Bemisia tabaci), Jassid (Amrasca bigutulla bigutulla)",
+    "dose_ai": "30 + 30",
+    "dose_form": "500",
+    "dilution": "375",
+    "wait": "7",
+    "page": "76"
+   }
+  },
+  {
+   "item": "E1b-028",
+   "use_id": 2221,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Profenofos 50% + Fenpropathrin 5% EC",
+    "crop": "Cotton",
+    "pest": "Pink Bollworm (Pectinophora gossipiella), Thrips (Thrips tabaci), Aphids (Aphis gossypii), Jassids (Amrasca biguttula) and Whitefly (Bemisia tabaci)",
+    "dose_ai": "825 (750 + 75)",
+    "dose_form": "1500",
+    "dilution": "500",
+    "wait": "22",
+    "page": "82"
+   },
+   "actual": {
+    "product": "Profenofos 50% + Fenpropathrin 5% EC",
+    "crop": "Cotton",
+    "pest": "Pink Bollworm (Pectinophora gossipiella), Thrips (Thrips tabaci), Aphids (Aphis gossypii), Jassids (Amrasca biguttula) and Whitefly (Bemisia tabaci)",
+    "dose_ai": "825 (750 + 75)",
+    "dose_form": "1500",
+    "dilution": "500",
+    "wait": "22",
+    "page": "82"
+   }
+  },
+  {
+   "item": "E1b-029",
+   "use_id": 2267,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Spiropidon 30% w/w + Acetamiprid 24% w/w WG",
+    "crop": "Cotton",
+    "pest": "Mealy bugs (Phenococcus solenopsis, Thrips (Thips tabaci), Jassids (Amrasca devastans), Aphids (Aphis gossypii), Whiteflies (Bemisia tabaci)",
+    "dose_ai": "108 (Spiropidion 60 + Acetamiprid 48) – 135 (Spiropidion 75 + Acetamiprid 60)",
+    "dose_form": "200 - 250",
+    "dilution": "500",
+    "wait": "85",
+    "page": "85"
+   },
+   "actual": {
+    "product": "Spiropidon 30% w/w + Acetamiprid 24% w/w WG",
+    "crop": "Cotton",
+    "pest": "Mealy bugs (Phenococcus solenopsis, Thrips (Thips tabaci), Jassids (Amrasca devastans), Aphids (Aphis gossypii), Whiteflies (Bemisia tabaci)",
+    "dose_ai": "108 (Spiropidion 60 + Acetamiprid 48) – 135 (Spiropidion 75 + Acetamiprid 60)",
+    "dose_form": "200 - 250",
+    "dilution": "500",
+    "wait": "85",
+    "page": "85"
+   }
+  },
+  {
+   "item": "E1b-030",
+   "use_id": 2269,
+   "stratum": "insecticide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Tetraniliprole 0.4 % w/w + Fipronil 0.6 % w/w GR",
+    "crop": "Rice",
+    "pest": "Stem borer (Scirpophaga incertulas) and leaf folder (Cnaphalocrocis medinalis)",
+    "dose_ai": "40 + 60 – 50 + 75",
+    "dose_form": "10 - 12.5",
+    "dilution": "NA",
+    "wait": "65",
+    "page": "86"
+   },
+   "actual": {
+    "product": "Tetraniliprole 0.4 % w/w + Fipronil 0.6 % w/w GR",
+    "crop": "Rice",
+    "pest": "Stem borer (Scirpophaga incertulas) and leaf folder (Cnaphalocrocis medinalis)",
+    "dose_ai": "40 + 60 – 50 + 75",
+    "dose_form": "10 - 12.5",
+    "dilution": "NA",
+    "wait": "65",
+    "page": "86"
+   }
+  },
+  {
+   "item": "E1b-031",
+   "use_id": 17,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Bitertanol25%WP",
+    "crop": "Groundnut",
+    "pest": "Rust",
+    "dose_ai": "250gm",
+    "dose_form": "1000gm",
+    "dilution": "500",
+    "wait": "30",
+    "page": "3"
+   },
+   "actual": {
+    "product": "Bitertanol25%WP",
+    "crop": "Groundnut",
+    "pest": "Rust",
+    "dose_ai": "250gm",
+    "dose_form": "1000gm",
+    "dilution": "500",
+    "wait": "30",
+    "page": "3"
+   }
+  },
+  {
+   "item": "E1b-032",
+   "use_id": 84,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Carbendazim 50%WP",
+    "crop": "Tobacco",
+    "pest": "Anthracnose",
+    "dose_ai": "112.5",
+    "dose_form": "225",
+    "dilution": "750",
+    "wait": "-",
+    "page": "6"
+   },
+   "actual": {
+    "product": "Carbendazim 50%WP",
+    "crop": "Tobacco",
+    "pest": "Anthracnose",
+    "dose_ai": "112.5",
+    "dose_form": "225",
+    "dilution": "750",
+    "wait": "-",
+    "page": "6"
+   }
+  },
+  {
+   "item": "E1b-033",
+   "use_id": 136,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Copper Sulphate 2.62% SC",
+    "crop": "Potato",
+    "pest": "Early blight and Late blight",
+    "dose_ai": "-",
+    "dose_form": "1 litre",
+    "dilution": "500",
+    "wait": "3 days",
+    "page": "9"
+   },
+   "actual": {
+    "product": "Copper Sulphate 2.62% SC",
+    "crop": "Potato",
+    "pest": "Early blight and Late blight",
+    "dose_ai": "-",
+    "dose_form": "1 litre",
+    "dilution": "500",
+    "wait": "3 days",
+    "page": "9"
+   }
+  },
+  {
+   "item": "E1b-034",
+   "use_id": 176,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Fludioxonil 20.4% w/w SC",
+    "crop": "Apple",
+    "pest": "Botrytis cinerea, Penicillium sp Alternaria alternata Mucor piriformis",
+    "dose_ai": "57.5 g ai/100 L water",
+    "dose_form": "250 ml/100 L water",
+    "dilution": "100",
+    "wait": "40",
+    "page": "12"
+   },
+   "actual": {
+    "product": "Fludioxonil 20.4% w/w SC",
+    "crop": "Apple",
+    "pest": "Botrytis cinerea, Penicillium sp Alternaria alternata Mucor piriformis",
+    "dose_ai": "57.5 g ai/100 L water",
+    "dose_form": "250 ml/100 L water",
+    "dilution": "100",
+    "wait": "40",
+    "page": "12"
+   }
+  },
+  {
+   "item": "E1b-035",
+   "use_id": 209,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Kitazin 48% EC",
+    "crop": "Tomato",
+    "pest": "Early blight",
+    "dose_ai": "0.10% or100 Gram in 100lit. Of water",
+    "dose_form": "0.20%or 200mlin 200lt. of water",
+    "dilution": "As required depending upon crop Stage and plant protection equipment used",
+    "wait": "5",
+    "page": "15"
+   },
+   "actual": {
+    "product": "Kitazin 48% EC",
+    "crop": "Tomato",
+    "pest": "Early blight",
+    "dose_ai": "0.10% or100 Gram in 100lit. Of water",
+    "dose_form": "0.20%or 200mlin 200lt. of water",
+    "dilution": "As required depending upon crop Stage and plant protection equipment used",
+    "wait": "5",
+    "page": "15"
+   }
+  },
+  {
+   "item": "E1b-036",
+   "use_id": 233,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Kresoxim-methyl 44.3% SC",
+    "crop": "Wheat",
+    "pest": "Rust, Leaf blight",
+    "dose_ai": "250",
+    "dose_form": "500",
+    "dilution": "500",
+    "wait": "34",
+    "page": "17"
+   },
+   "actual": {
+    "product": "Kresoxim-methyl 44.3% SC",
+    "crop": "Wheat",
+    "pest": "Rust, Leaf blight",
+    "dose_ai": "250",
+    "dose_form": "500",
+    "dilution": "500",
+    "wait": "34",
+    "page": "17"
+   }
+  },
+  {
+   "item": "E1b-037",
+   "use_id": 259,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Mancozeb 75% WP",
+    "crop": "Cauliflower",
+    "pest": "Leafspot",
+    "dose_ai": "1.125-1.5kg",
+    "dose_form": "1.5-2kg",
+    "dilution": "750Ltr.",
+    "wait": "-",
+    "page": "18"
+   },
+   "actual": {
+    "product": "Mancozeb 75% WP",
+    "crop": "Cauliflower",
+    "pest": "Leafspot",
+    "dose_ai": "1.125-1.5kg",
+    "dose_form": "1.5-2kg",
+    "dilution": "750Ltr.",
+    "wait": "-",
+    "page": "18"
+   }
+  },
+  {
+   "item": "E1b-038",
+   "use_id": 260,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Mancozeb 75% WP",
+    "crop": "Groundnut",
+    "pest": "Tikka disease& rust",
+    "dose_ai": "1.125- 1.5kg",
+    "dose_form": "1.5-2kg",
+    "dilution": "750Ltr.",
+    "wait": "-",
+    "page": "18"
+   },
+   "actual": {
+    "product": "Mancozeb 75% WP",
+    "crop": "Groundnut",
+    "pest": "Tikka disease& rust",
+    "dose_ai": "1.125- 1.5kg",
+    "dose_form": "1.5-2kg",
+    "dilution": "750Ltr.",
+    "wait": "-",
+    "page": "18"
+   }
+  },
+  {
+   "item": "E1b-039",
+   "use_id": 271,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Mandipropamid 23.4% SC",
+    "crop": "Watermelon",
+    "pest": "Downy Mildew",
+    "dose_ai": "100 g/a.i./L or 0.2 g a.i./L",
+    "dose_form": "400 ml/ha or 0.8 ml/L",
+    "dilution": "500",
+    "wait": "10",
+    "page": "19"
+   },
+   "actual": {
+    "product": "Mandipropamid 23.4% SC",
+    "crop": "Watermelon",
+    "pest": "Downy Mildew",
+    "dose_ai": "100 g/a.i./L or 0.2 g a.i./L",
+    "dose_form": "400 ml/ha or 0.8 ml/L",
+    "dilution": "500",
+    "wait": "10",
+    "page": "19"
+   }
+  },
+  {
+   "item": "E1b-040",
+   "use_id": 329,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Picoxystrobin 22.52% w/w SC",
+    "crop": "Soybean",
+    "pest": "Rust(Phakopsora pachyrhizi) Leaf spot (Cercospora kikuchii& Alternaria alternata)",
+    "dose_ai": "100",
+    "dose_form": "400",
+    "dilution": "500",
+    "wait": "25",
+    "page": "24"
+   },
+   "actual": {
+    "product": "Picoxystrobin 22.52% w/w SC",
+    "crop": "Soybean",
+    "pest": "Rust(Phakopsora pachyrhizi) Leaf spot (Cercospora kikuchii& Alternaria alternata)",
+    "dose_ai": "100",
+    "dose_form": "400",
+    "dilution": "500",
+    "wait": "25",
+    "page": "24"
+   }
+  },
+  {
+   "item": "E1b-041",
+   "use_id": 337,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Propiconazole 25% EC",
+    "crop": "Wheat",
+    "pest": "Stem rust (P.graminis f.sp . tritici)",
+    "dose_ai": "125gm",
+    "dose_form": "500gm",
+    "dilution": "750",
+    "wait": "30",
+    "page": "24"
+   },
+   "actual": {
+    "product": "Propiconazole 25% EC",
+    "crop": "Wheat",
+    "pest": "Stem rust (P.graminis f.sp . tritici)",
+    "dose_ai": "125gm",
+    "dose_form": "500gm",
+    "dilution": "750",
+    "wait": "30",
+    "page": "24"
+   }
+  },
+  {
+   "item": "E1b-042",
+   "use_id": 342,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Propiconazole 25% EC",
+    "crop": "Groundnut",
+    "pest": "Rust (Puccinia arachidis)",
+    "dose_ai": "125gm",
+    "dose_form": "500gm",
+    "dilution": "750",
+    "wait": "15",
+    "page": "25"
+   },
+   "actual": {
+    "product": "Propiconazole 25% EC",
+    "crop": "Groundnut",
+    "pest": "Rust (Puccinia arachidis)",
+    "dose_ai": "125gm",
+    "dose_form": "500gm",
+    "dilution": "750",
+    "wait": "15",
+    "page": "25"
+   }
+  },
+  {
+   "item": "E1b-043",
+   "use_id": 374,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "(Streptomycin Sulphate 9% + Tetracycline Hydrochloride 1%) SP",
+    "crop": "Citrus",
+    "pest": "Citrus canker",
+    "dose_ai": "-",
+    "dose_form": "Spray Streptocycline 50 to100 ppm solution repeatedly at an interval of 15to 20 days and fully cover the foliage and young fruits After the appearance of new growth.",
+    "dilution": "-",
+    "wait": "-",
+    "page": "31"
+   },
+   "actual": {
+    "product": "(Streptomycin Sulphate 9% + Tetracycline Hydrochloride 1%) SP",
+    "crop": "Citrus",
+    "pest": "Citrus canker",
+    "dose_ai": "-",
+    "dose_form": "Spray Streptocycline 50 to100 ppm solution repeatedly at an interval of 15to 20 days and fully cover the foliage and young fruits After the appearance of new growth.",
+    "dilution": "-",
+    "wait": "-",
+    "page": "31"
+   }
+  },
+  {
+   "item": "E1b-044",
+   "use_id": 418,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Tebuconazole 2% DS",
+    "crop": "Wheat",
+    "pest": "Loose smut, Flag smut",
+    "dose_ai": "0.2kg/10kg seed",
+    "dose_form": "10Lt/10kg seed",
+    "dilution": "",
+    "wait": "",
+    "page": "36"
+   },
+   "actual": {
+    "product": "Tebuconazole 2% DS",
+    "crop": "Wheat",
+    "pest": "Loose smut, Flag smut",
+    "dose_ai": "0.2kg/10kg seed",
+    "dose_form": "10Lt/10kg seed",
+    "dilution": "",
+    "wait": "",
+    "page": "36"
+   }
+  },
+  {
+   "item": "E1b-045",
+   "use_id": 454,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Tetraconazole 3.8% w/w EW",
+    "crop": "Tea",
+    "pest": "Blister Blight",
+    "dose_ai": "19",
+    "dose_form": "500",
+    "dilution": "175",
+    "wait": "7",
+    "page": "39"
+   },
+   "actual": {
+    "product": "Tetraconazole 3.8% w/w EW",
+    "crop": "Tea",
+    "pest": "Blister Blight",
+    "dose_ai": "19",
+    "dose_form": "500",
+    "dilution": "175",
+    "wait": "7",
+    "page": "39"
+   }
+  },
+  {
+   "item": "E1b-046",
+   "use_id": 505,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Zineb 75%WP",
+    "crop": "Onion",
+    "pest": "Downy mildew",
+    "dose_ai": "1.125- 1.5KG",
+    "dose_form": "1.5-2KG",
+    "dilution": "750-1000 Lt",
+    "wait": "",
+    "page": "42"
+   },
+   "actual": {
+    "product": "Zineb 75%WP",
+    "crop": "Onion",
+    "pest": "Downy mildew",
+    "dose_ai": "1.125- 1.5KG",
+    "dose_form": "1.5-2KG",
+    "dilution": "750-1000 Lt",
+    "wait": "",
+    "page": "42"
+   }
+  },
+  {
+   "item": "E1b-047",
+   "use_id": 513,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Zineb 75%WP",
+    "crop": "Chilli",
+    "pest": "Leafspot",
+    "dose_ai": "1.125- 1.5KG",
+    "dose_form": "1.5-2KG",
+    "dilution": "750-1000 Lt",
+    "wait": "",
+    "page": "43"
+   },
+   "actual": {
+    "product": "Zineb 75%WP",
+    "crop": "Chilli",
+    "pest": "Leafspot",
+    "dose_ai": "1.125- 1.5KG",
+    "dose_form": "1.5-2KG",
+    "dilution": "750-1000 Lt",
+    "wait": "",
+    "page": "43"
+   }
+  },
+  {
+   "item": "E1b-048",
+   "use_id": 518,
+   "stratum": "fungicide_single",
+   "wrong": [],
+   "expected": {
+    "product": "Zineb 75%WP",
+    "crop": "Cauliflower",
+    "pest": "Leafspot",
+    "dose_ai": "1.125- 1.5KG",
+    "dose_form": "1.5-2KG",
+    "dilution": "750-1000 Lt",
+    "wait": "",
+    "page": "43"
+   },
+   "actual": {
+    "product": "Zineb 75%WP",
+    "crop": "Cauliflower",
+    "pest": "Leafspot",
+    "dose_ai": "1.125- 1.5KG",
+    "dose_form": "1.5-2KG",
+    "dilution": "750-1000 Lt",
+    "wait": "",
+    "page": "43"
+   }
+  },
+  {
+   "item": "E1b-049",
+   "use_id": 548,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Azoxystrobin 18.2% w/w + Cyproconazole 7.3% w/w SC",
+    "crop": "Soybean",
+    "pest": "Leaf spot",
+    "dose_ai": "0.28 % w/w",
+    "dose_form": "1 %",
+    "dilution": "500",
+    "wait": "27",
+    "page": "46"
+   },
+   "actual": {
+    "product": "Azoxystrobin 18.2% w/w + Cyproconazole 7.3% w/w SC",
+    "crop": "Soybean",
+    "pest": "Leaf spot",
+    "dose_ai": "0.28 % w/w",
+    "dose_form": "1 %",
+    "dilution": "500",
+    "wait": "27",
+    "page": "46"
+   }
+  },
+  {
+   "item": "E1b-050",
+   "use_id": 565,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Azoxystrobin 18.2% + Difenoconazole 11.4% w/w SC",
+    "crop": "Ground nut",
+    "pest": "Tikka leaf spot & Rust",
+    "dose_ai": "148 g/ha (91 +57)",
+    "dose_form": "500 ml/ha 1 ml/lit water",
+    "dilution": "500",
+    "wait": "46",
+    "page": "47"
+   },
+   "actual": {
+    "product": "Azoxystrobin 18.2% + Difenoconazole 11.4% w/w SC",
+    "crop": "Ground nut",
+    "pest": "Tikka leaf spot & Rust",
+    "dose_ai": "148 g/ha (91 +57)",
+    "dose_form": "500 ml/ha 1 ml/lit water",
+    "dilution": "500",
+    "wait": "46",
+    "page": "47"
+   }
+  },
+  {
+   "item": "E1b-051",
+   "use_id": 571,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Azoxystrobin 14 % + Epoxiconazole 9 % SC",
+    "crop": "Wheat",
+    "pest": "Yellow rust (Puccinia striiformis f. sp. tritici), Leaf rust (Puccinia triticina) Powdery mildew (Erysiphe graminis) Karnal bunt (Neovossia indica)",
+    "dose_ai": "(105+67.5) to (140+90)",
+    "dose_form": "750-1000",
+    "dilution": "500",
+    "wait": "35",
+    "page": "48"
+   },
+   "actual": {
+    "product": "Azoxystrobin 14 % + Epoxiconazole 9 % SC",
+    "crop": "Wheat",
+    "pest": "Yellow rust (Puccinia striiformis f. sp. tritici), Leaf rust (Puccinia triticina) Powdery mildew (Erysiphe graminis) Karnal bunt (Neovossia indica)",
+    "dose_ai": "(105+67.5) to (140+90)",
+    "dose_form": "750-1000",
+    "dilution": "500",
+    "wait": "35",
+    "page": "48"
+   }
+  },
+  {
+   "item": "E1b-052",
+   "use_id": 610,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Azoxystrobin 5.1%w/w +Tebuconazole 9.1% w/w+ Prochloraz 18.2 % w/w EC",
+    "crop": "Rice",
+    "pest": "Blast (Pyricularia oryaze) & Sheath Blight (Rhizoctonia solani)",
+    "dose_ai": "98.0 + 175.0 + 350.0",
+    "dose_form": "1750",
+    "dilution": "500",
+    "wait": "40",
+    "page": "51"
+   },
+   "actual": {
+    "product": "Azoxystrobin 5.1%w/w +Tebuconazole 9.1% w/w+ Prochloraz 18.2 % w/w EC",
+    "crop": "Rice",
+    "pest": "Blast (Pyricularia oryaze) & Sheath Blight (Rhizoctonia solani)",
+    "dose_ai": "98.0 + 175.0 + 350.0",
+    "dose_form": "1750",
+    "dilution": "500",
+    "wait": "40",
+    "page": "51"
+   }
+  },
+  {
+   "item": "E1b-053",
+   "use_id": 615,
+   "stratum": "fungicide_combination",
+   "wrong": [
+    "pest",
+    "dose_ai"
+   ],
+   "expected": {
+    "product": "Azoxystrobin 1.3% + Tebuconazole 0.22% + Thiamethoxam 25.9% FS",
+    "crop": "Wheat",
+    "pest": "Loose smut, Termite and Root aphid",
+    "dose_ai": "0.78+0.13+15. 54",
+    "dose_form": "60",
+    "dilution": "-",
+    "wait": "-",
+    "page": "52"
+   },
+   "actual": {
+    "product": "Azoxystrobin 1.3% + Tebuconazole 0.22% + Thiamethoxam 25.9% FS",
+    "crop": "Wheat",
+    "pest": "Root aphid",
+    "dose_ai": "54",
+    "dose_form": "60",
+    "dilution": "-",
+    "wait": "-",
+    "page": "52"
+   }
+  },
+  {
+   "item": "E1b-054",
+   "use_id": 665,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Carbendazim 25%+ Mancozeb 50% WS",
+    "crop": "Wheat",
+    "pest": "Loose smut",
+    "dose_ai": "(7.5+15) to (8.75+17.5)",
+    "dose_form": "30-35",
+    "dilution": "0.1",
+    "wait": "-",
+    "page": "56"
+   },
+   "actual": {
+    "product": "Carbendazim 25%+ Mancozeb 50% WS",
+    "crop": "Wheat",
+    "pest": "Loose smut",
+    "dose_ai": "(7.5+15) to (8.75+17.5)",
+    "dose_form": "30-35",
+    "dilution": "0.1",
+    "wait": "-",
+    "page": "56"
+   }
+  },
+  {
+   "item": "E1b-055",
+   "use_id": 821,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Kasugamycin 6 % + Thifluzamide 26% SC w/v",
+    "crop": "Paddy",
+    "pest": "Blast & Sheath blight",
+    "dose_ai": "20.70 + 89.70",
+    "dose_form": "345",
+    "dilution": "25 (via Drone application )",
+    "wait": "17",
+    "page": "70"
+   },
+   "actual": {
+    "product": "Kasugamycin 6 % + Thifluzamide 26% SC w/v",
+    "crop": "Paddy",
+    "pest": "Blast & Sheath blight",
+    "dose_ai": "20.70 + 89.70",
+    "dose_form": "345",
+    "dilution": "25 (via Drone application )",
+    "wait": "17",
+    "page": "70"
+   }
+  },
+  {
+   "item": "E1b-056",
+   "use_id": 876,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Metalaxy l8%+ Mancozeb 64%WP",
+    "crop": "Tobacco Nursery",
+    "pest": "Damping off",
+    "dose_ai": "3600gor 0.072%",
+    "dose_form": "5000gor 0.1%",
+    "dilution": "1000lt.",
+    "wait": "Not less than7 weeks",
+    "page": "74"
+   },
+   "actual": {
+    "product": "Metalaxy l8%+ Mancozeb 64%WP",
+    "crop": "Tobacco Nursery",
+    "pest": "Damping off",
+    "dose_ai": "3600gor 0.072%",
+    "dose_form": "5000gor 0.1%",
+    "dilution": "1000lt.",
+    "wait": "Not less than7 weeks",
+    "page": "74"
+   }
+  },
+  {
+   "item": "E1b-057",
+   "use_id": 877,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Metalaxy l8%+ Mancozeb 64%WP",
+    "crop": "Tobacco Nursery",
+    "pest": "Leaf blight/ Black Shank (Soil drench at sowing and sprayat30days after sowing)",
+    "dose_ai": "1440gor 0.14%",
+    "dose_form": "2000gor 0.2%",
+    "dilution": "1000lt.",
+    "wait": "Not less than7 weeks",
+    "page": "75"
+   },
+   "actual": {
+    "product": "Metalaxy l8%+ Mancozeb 64%WP",
+    "crop": "Tobacco Nursery",
+    "pest": "Leaf blight/ Black Shank (Soil drench at sowing and sprayat30days after sowing)",
+    "dose_ai": "1440gor 0.14%",
+    "dose_form": "2000gor 0.2%",
+    "dilution": "1000lt.",
+    "wait": "Not less than7 weeks",
+    "page": "75"
+   }
+  },
+  {
+   "item": "E1b-058",
+   "use_id": 916,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Penflufen 13.28% w/w + Trifloxystrobin 13.28% w/w FS",
+    "crop": "Rice",
+    "pest": "Brown leaf spot, Sheath blight, Leaf blast",
+    "dose_ai": "1.84 + 1.84 - 2.15 + 2.15",
+    "dose_form": "12 – 14 ml",
+    "dilution": "Method of application For direct seeded Rice- Seeds are soaked in water for overnight and water is drained out. These water soaked seeds are stored in shade for pre-germination. Prepare total slurry volume 16 ml with appropriate quantity of the formulation and water for treating 1 kg of rice seed. Seed can be treated by mixing the proper amount of the slurry and seed on a polythene bag or appropriate seed treatment equipment until each seed is uniformly coated. The treated seeds should be dried in shade. For Nursery-prepare total slurry volume 32 ml with appropriate quantity of the formulation and water for treating 1 kg of rice seed. Seed can be treated by mixing the proper amount of the slurry and seed on a polythene bag. The treated seeds should be dried in shade.",
+    "wait": "",
+    "page": "77"
+   },
+   "actual": {
+    "product": "Penflufen 13.28% w/w + Trifloxystrobin 13.28% w/w FS",
+    "crop": "Rice",
+    "pest": "Brown leaf spot, Sheath blight, Leaf blast",
+    "dose_ai": "1.84 + 1.84 - 2.15 + 2.15",
+    "dose_form": "12 – 14 ml",
+    "dilution": "Method of application For direct seeded Rice- Seeds are soaked in water for overnight and water is drained out. These water soaked seeds are stored in shade for pre-germination. Prepare total slurry volume 16 ml with appropriate quantity of the formulation and water for treating 1 kg of rice seed. Seed can be treated by mixing the proper amount of the slurry and seed on a polythene bag or appropriate seed treatment equipment until each seed is uniformly coated. The treated seeds should be dried in shade. For Nursery-prepare total slurry volume 32 ml with appropriate quantity of the formulation and water for treating 1 kg of rice seed. Seed can be treated by mixing the proper amount of the slurry and seed on a polythene bag. The treated seeds should be dried in shade.",
+    "wait": "",
+    "page": "77"
+   }
+  },
+  {
+   "item": "E1b-059",
+   "use_id": 923,
+   "stratum": "fungicide_combination",
+   "wrong": [],
+   "expected": {
+    "product": "Picoxystrobin 7.05% + Propiconazole 11.71% SC",
+    "crop": "Corn",
+    "pest": "Northern Corn Leaf Blight (Exserohilum turcicum) Southern Corn Leaf Blight (Biopolaris maydis.)",
+    "dose_ai": "200",
+    "dose_form": "1000",
+    "dilution": "500",
+    "wait": "38",
+    "page": "79"
+   },
+   "actual": {
+    "product": "Picoxystrobin 7.05% + Propiconazole 11.71% SC",
+    "crop": "Corn",
+    "pest": "Northern Corn Leaf Blight (Exserohilum turcicum) Southern Corn Leaf Blight (Biopolaris maydis.)",
+    "dose_ai": "200",
+    "dose_form": "1000",
+    "dilution": "500",
+    "wait": "38",
+    "page": "79"
+   }
+  },
+  {
+   "item": "E1b-060",
+   "use_id": 947,
+   "stratum": "fungicide_combination",
+   "wrong": [
+    "pest"
+   ],
+   "expected": {
+    "product": "Pydiflumetofen 13.6%w/w + Propiconazole 11.4% w/w SE",
+    "crop": "Soybean",
+    "pest": "Leaf spot, Pod Blight/ Anthracnose",
+    "dose_ai": "165 (90+75)",
+    "dose_form": "600",
+    "dilution": "500",
+    "wait": "27",
+    "page": "81"
+   },
+   "actual": {
+    "product": "Pydiflumetofen 13.6%w/w + Propiconazole 11.4% w/w SE",
+    "crop": "Soybean",
+    "pest": "Blight/ Anthracnose",
+    "dose_ai": "165 (90+75)",
+    "dose_form": "600",
+    "dilution": "500",
+    "wait": "27",
+    "page": "81"
+   }
+  }
+ ]
+}

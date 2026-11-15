@@ -33,3 +33,11 @@
 | crops: remove `paddy_sheath` | The only use (731) is corrected by C-06 | accept |
 
 **Not decided here, left open:** `turcicum_blight` and `turcicum_leaf_blight` are two IDs for one disease. Merging them is a lexicon change for the next review.
+
+## Maintenance after L1 §17 (2026-11-15)
+
+The split-pest-cell fix (L1 §17) changed the extracted text of the p. 73 Corn row: it is now one row.
+- **C-07:** its `match` was updated to the new extracted text, "N S orthern leaf blight, outhern leaf bligh t". The corrected value is unchanged.
+- **C-08:** retired, because the second half is no longer a row of its own.
+
+Both changes are mechanical: the build had refused C-07 as stale, as designed. Done under the same delegation.

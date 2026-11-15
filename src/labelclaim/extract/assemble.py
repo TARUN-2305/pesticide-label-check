@@ -40,6 +40,7 @@ from labelclaim.extract.model import (
 _PAGE_NUMBER = re.compile(r"\d{1,3}\.?|➢")
 _UNFINISHED = re.compile(r"(?:[–\-+(,/&]|\bto|\band|\bor)\s*$", re.IGNORECASE)
 MERGE_TOLERANCE = 1.0  # pt
+HUG_MARGIN = 2.0  # pt: a pest cell ending this far short of the column line is a box around one text line
 VIRTUAL_TABLE = -1  # table index used in RowRefs of rows rebuilt from unruled text
 
 
@@ -217,10 +218,7 @@ class Assembler:
                 continue
             if not self.in_scope:
                 continue
-            if kind in (RowKind.DATA, RowKind.UNMAPPED) and content_started and self._continues_last(row):
-                kind = RowKind.CONTINUATION
-            elif kind is RowKind.CONTINUATION and self._is_full_row(row):
-                kind = RowKind.DATA  # a new row with a visually blank crop at the top of a table (p. 8)
+            kind = self._refine(kind, row, seen, content_started=content_started)
             self.kinds[kind.value] += 1
             ref = (table.page, table.index, i)
             if kind in (RowKind.BLANK, RowKind.HEADER):
@@ -289,6 +287,40 @@ class Assembler:
             and not (last is not None and _continues(last.fields[c].text, row.text(c)))
         ]
         return len(fresh) >= 2
+
+    def _refine(
+        self, kind: RowKind, row: BandedRow, seen: list[BandedRow], *, content_started: bool
+    ) -> RowKind:
+        """Kinds that need the rows already assembled: continuations and pest lines (L1 §5.4, §17)."""
+        if kind in (RowKind.DATA, RowKind.UNMAPPED) and content_started and self._continues_last(row):
+            return RowKind.CONTINUATION
+        if kind is RowKind.CONTINUATION and self._is_full_row(row):
+            return RowKind.DATA  # a new row with a visually blank crop at the top of a table (p. 8)
+        if kind is RowKind.DATA and self._pest_line(row, seen):
+            return RowKind.CONTINUATION  # one more line of the last use's pest cell
+        return kind
+
+    def _pest_line(self, row: BandedRow, seen: list[BandedRow]) -> bool:
+        """L1 §17 (E1 audit): a grid row whose only own cell is the pest, while the crop and every value are
+        merged from the last use's own row, is one more line of that use's pest cell when the cell hugs its
+        text (a box drawn around one line, ending short of the column line) or the text visibly continues
+        ('Early blight, and' / 'Septoria leaf spot'). Two full-width pest cells with no such cue stay two
+        uses: separate rows that share merged values (insecticide p. 46)."""
+        last = self.last
+        if last is None or not self._same_product() or self.bands is None:
+            return False
+        own = [c for c in Col if c not in row.absent and not row.covered(c)]
+        if own != [Col.PEST] or not row.text(Col.PEST):
+            return False
+        for col in (Col.CROP, *VALUE_COLS):
+            if col in row.absent or col in row.spans:
+                continue
+            anchor = _find_anchor(seen, row, col)
+            if anchor is None or anchor.origin != last.rows[0]:
+                return False
+        right = max(c.bbox[2] for c in row.bands[Col.PEST])
+        hugs = right < self.bands[Col.PEST + 1] - HUG_MARGIN
+        return hugs or _continues(last.fields[Col.PEST].text, row.text(Col.PEST))
 
     def _continue(self, row: BandedRow, ref: RowRef) -> None:
         if self.last is None or not self._same_product():

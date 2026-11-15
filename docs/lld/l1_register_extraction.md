@@ -378,7 +378,7 @@ Raw: `reports/M1/build_runs.csv`, `build/run*/build_manifest.json`, `build/run*/
 | P3 | Build < 60 s | median 40.8 s | held |
 | P4 | 142 crop strings → 95–120 canonical | 197 distinct crop strings across *both* registers (142 was the insecticide spike only). The canonical count is **NOT MEASURED**: it needs the human review | not yet testable |
 | P5 | ≥ 95 % of headings parse fully | first measurement **94.3 %** (miss); after adding formulation codes and the note rule (D10): **97.9 %** | **wrong at first**, met after the fix |
-| P6 | E1 field accuracy ≥ 99 % | **NOT MEASURED**: the 120-row stratified golden set is not built. The 22 golden rows: on their first run, 1 extractor bug (the 5-column misfire on fungicide p. 20, fixed) and 2 labels of mine were wrong (corrected with character-level evidence; see `test_golden_pages.py`) | not yet testable |
+| P6 | E1 field accuracy ≥ 99 % | **Measured 2026-11-15** ([E1 report](../../reports/E1/report.md)): 98.92 % on the first run (missed), 99.35 % after adjudication; row accuracy 94.8 % (target 97 % missed; 6 split pest cells). Before that: The 22 golden rows: on their first run, 1 extractor bug (the 5-column misfire on fungicide p. 20, fixed) and 2 labels of mine were wrong (corrected with character-level evidence; see `test_golden_pages.py`) | not yet testable |
 
 ### 15.4 Mutation checks (`tools/mutants.py`; predictions written in the script before running)
 
@@ -450,3 +450,42 @@ On this register's tables, real straddles cut at −0.12 to +0.05 pt. The closes
 - the golden test that lists the 12 `CELL_*` anomalies.
 
 **Mutation checks:** E-M1 to E-M6 (`reports/M2/mutants_after_edges.md`). E-M6, "unreviewed corrections do not block a release", **survived** at first, as predicted, because no test covered the gate. `release_blockers` and its test were then added; all 29 are now killed.
+
+## 17. Addendum: pest cells cut into lines (2026-11-15)
+
+**Found by:** E1 ([report](../../reports/E1/report.md)). Six of 116 rows had pest text split into rows of their own, and the release register held 77 such rows.
+
+**Cause:**
+- **Some pest cells contain text boxes drawn around single lines.** pdfplumber reads each box as a grid row of its own, while the crop and value cells span them all.
+- **In 4 rows a stray box sat inside a full pest cell (nested cells).** The text was read twice: "Tikka Leaf spot and Rust ikka Leaf spot and".
+
+**Rules:**
+1. **`pages.drop_nested`:** a cell lying inside another cell of the same table is dropped, because its characters already belong to the outer cell.
+2. **`Assembler._pest_line`:** a DATA row is one more line of the last use's pest cell, and is joined to it as a continuation, when all of these hold:
+   - its only own cell is the pest;
+   - the crop and every value are merged *from the last use's own row*;
+   - the cell hugs its text (ends ≥ 2 pt short of the column line) **or** the text visibly continues (the previous line ends in "," "&" "and" "-" "/" "(" or an open bracket, or the line starts lower-case or with "(").
+
+   Two full-width pest cells with no such cue stay separate uses (insecticide p. 46, "Tobacco caterpillar" / "Spotted boll worm").
+
+**Effect:**
+
+| Measure | Before → after |
+|---|---|
+| Pest-only rows in the register | 77 → **2** (the two predicted: the residual "Pod" / "Blight/ Anthracnose", fungicide p. 81, and the legitimate p. 46 pair) |
+| Uses | 2,372 → 2,297 |
+
+**Knock-on changes:**
+- the joined texts produced 16 new pest phrases, added to the lexicon as reviewed rows that map to existing IDs;
+- C-07's match text was updated and C-08 retired (the build had refused C-07 as stale, as designed);
+- release `7c93bd89…` is byte-identical on rebuild.
+
+**Not covered:**
+- a split row that also carries part of a value (fungicide combination, "0.78+0.13+15." / "54"; E1b-053);
+- full-width splits with no cue (the residual above).
+
+Both are left visible in E1b instead of being special-cased.
+
+**Tests:**
+- 6 in `tests/test_extract.py`: text-hugging lines, a continuing full-width line, two separate full-width pests, a row with its own value, nested cells, and merges from another row;
+- mutants E-M7, E-M8 and E-M9. E-M9 survived first, as predicted, until the merge-origin test was added.

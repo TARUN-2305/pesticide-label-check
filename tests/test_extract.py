@@ -9,7 +9,8 @@ import dataclasses
 from labelclaim.extract.assemble import assemble
 from labelclaim.extract.classify import classify_row, heading_like, section_of
 from labelclaim.extract.geometry import band_row, row_bands
-from labelclaim.extract.model import Col, EdgeDefect, PageItem, RowKind, Section, TextLine
+from labelclaim.extract.model import Col, EdgeDefect, PageItem, RawTable, RowKind, Section, TextLine
+from labelclaim.extract.pages import drop_nested
 from tests.tablekit import EDGES, heading, make_table
 
 SECTION_ROW = heading("Agricultural Use")
@@ -451,3 +452,114 @@ def test_an_edge_defect_becomes_an_anomaly_on_the_row_it_sits_in() -> None:
     assert [(a.code, a.row, a.detail) for a in result.anomalies if a.code.startswith("CELL_")] == [
         ("CELL_ORPHAN", 3, "Cotton")
     ]
+
+
+# --- L1 §17: a pest cell cut into line-high cells -----------------------------------------------------
+
+
+def _hug(table: RawTable, row: int, col: int, right: float) -> RawTable:
+    """Narrow one cell so it ends at `right`, as the text boxes drawn around single lines do."""
+    rows = list(table.rows)
+    cells = list(rows[row].cells)
+    old = cells[col]
+    assert old is not None
+    cells[col] = dataclasses.replace(old, bbox=(old.bbox[0] + 4, old.bbox[1], right, old.bbox[3]))
+    rows[row] = dataclasses.replace(rows[row], cells=tuple(cells))
+    return dataclasses.replace(table, rows=tuple(rows))
+
+
+def test_lines_of_one_pest_cell_cut_by_text_boxes_are_one_use() -> None:
+    # fungicide p. 10 (E1 audit): "Bakane (Gibberella" / "fujikoroi)" sit in boxes hugging each line, so
+    # pdfplumber yields two grid rows; the crop and all values span both. It had become two uses.
+    table = make_table(
+        [
+            SECTION_ROW,
+            heading("Carbendazim 50% WP"),
+            [("Rice", 1, 2), "Blast", ("1", 1, 2), ("2", 1, 2), ("500", 1, 2), ("15", 1, 2)],
+            [None, "Sheath Rot", None, None, None, None],
+        ]
+    )
+    table = _hug(_hug(table, 2, 1, 230.0), 3, 1, 220.0)  # the pest column ends at 290
+    rows, anomalies = run(table)
+    assert anomalies == []
+    assert [r[Col.PEST] for r in rows] == ["Blast Sheath Rot"]
+
+
+def test_a_full_width_pest_line_that_visibly_continues_is_joined() -> None:
+    # fungicide p. 73: "Early blight, and" / "Septoria leaf spot"
+    table = make_table(
+        [
+            SECTION_ROW,
+            heading("Mefentrifluconazole 133 g/l SC"),
+            [
+                ("Tomato", 1, 2),
+                "Early blight, and",
+                ("160-200", 1, 2),
+                ("400", 1, 2),
+                ("500", 1, 2),
+                ("07", 1, 2),
+            ],
+            [None, "Septoria leaf spot", None, None, None, None],
+        ]
+    )
+    rows, _ = run(table)
+    assert [r[Col.PEST] for r in rows] == ["Early blight, and Septoria leaf spot"]
+
+
+def test_two_full_width_pests_sharing_merged_values_stay_two_uses() -> None:
+    # insecticide p. 46: "Tobacco caterpillar" / "Spotted boll worm" are separate grid rows of the table
+    table = make_table(
+        [
+            SECTION_ROW,
+            heading("Lambda-cyhalothrin 5% EC"),
+            [
+                ("Cotton", 1, 2),
+                "Tobacco caterpillar",
+                ("15", 1, 2),
+                ("300", 1, 2),
+                ("500", 1, 2),
+                ("15", 1, 2),
+            ],
+            [None, "Spotted boll worm", None, None, None, None],
+        ]
+    )
+    rows, _ = run(table)
+    assert [r[Col.PEST] for r in rows] == ["Tobacco caterpillar", "Spotted boll worm"]
+
+
+def test_a_pest_row_with_its_own_value_is_never_joined() -> None:
+    table = make_table(
+        [
+            SECTION_ROW,
+            heading("Copper oxychloride 50% WP"),
+            [("Tomato", 1, 2), "Early blight and", "1.25", ("2.5", 1, 2), ("750", 1, 2), ("-", 1, 2)],
+            [None, "late blight", "1.50", None, None, None],
+        ]
+    )
+    rows, _ = run(table)
+    assert [r[Col.PEST] for r in rows] == ["Early blight and", "late blight"]
+
+
+def test_a_cell_nested_inside_another_is_dropped() -> None:
+    # fungicide p. 54 and p. 73: a stray box inside the pest cell duplicated its text ("... Rust ikka Leaf")
+    outer = (145.0, 200.0, 257.0, 281.0)
+    inner = (150.0, 214.0, 257.0, 227.0)
+    other = (257.0, 200.0, 352.0, 281.0)
+    assert drop_nested([outer, inner, other, None]) == [outer, None, other, None]
+
+
+def test_a_pest_line_is_joined_only_to_the_use_its_merges_come_from() -> None:
+    # Mutant E-M9: the crop and three values span rows 1-3 from row 1, but row 2 has its own pest and a.i.
+    # (its a.i. cell spans rows 2-3). Row 3's merges do not all come from row 2, the last use's own row, so
+    # row 3 is a use of its own even though its text starts lower-case.
+    table = make_table(
+        [
+            SECTION_ROW,
+            heading("Mancozeb 75% WP"),
+            [("Potato", 1, 3), "Early blight", "1.5", ("2", 1, 3), ("500", 1, 3), ("10", 1, 3)],
+            [None, "Black scurf", ("1.8", 1, 2), None, None, None],
+            [None, "late blight", None, None, None, None],
+        ]
+    )
+    rows, _ = run(table)
+    assert [r[Col.PEST] for r in rows] == ["Early blight", "Black scurf", "late blight"]

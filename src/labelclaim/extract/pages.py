@@ -5,7 +5,7 @@ from __future__ import annotations
 import bisect
 import re
 import unicodedata
-from collections.abc import Iterator
+from collections.abc import Iterator, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -70,10 +70,12 @@ def read_document(
             for index, i in enumerate(keep):
                 table = found[i]
                 texts = table.extract()
+                every = [_bbox(c) for row in table.rows for c in row.cells if c is not None]
+                nested = {b for b, kept in zip(every, drop_nested(every), strict=True) if kept is None}
                 rows = tuple(
                     RawRow(
                         cells=tuple(
-                            None if cell is None else Cell(clean(text), _bbox(cell))
+                            None if cell is None or _bbox(cell) in nested else Cell(clean(text), _bbox(cell))
                             for cell, text in zip(row.cells, row_texts, strict=True)
                         ),
                         bbox=_bbox(row.bbox),
@@ -96,6 +98,13 @@ def read_document(
                     items.append((top, x0, TextLine(doc_id, number, top, text, tuple(line))))
             items.sort(key=lambda item: (item[0], item[1]))
             yield number, [item for _, _, item in items]
+
+
+def drop_nested(boxes: Sequence[BBox | None]) -> list[BBox | None]:
+    """L1 §17: a cell lying inside another cell of the same table is a stray box drawn within that cell
+    (fungicide p. 54, 60, 73, 81). Its characters already belong to the outer cell, so it becomes None."""
+    present = [b for b in boxes if b is not None]
+    return [None if b is not None and any(o != b and _inside(b, o) for o in present) else b for b in boxes]
 
 
 def _edge_defects(chars: list[dict[str, Any]], box: BBox, cells: list[BBox]) -> tuple[EdgeDefect, ...]:

@@ -4,7 +4,7 @@
 
 **For:** agri-input dealers, farmers and extension workers. Kannada and English, by text and later by voice.
 
-**Status (2026-11-15):** M0 design reviewed and approved. **M1 (register extraction) and M2 (lookup engine and HTTP API) are implemented and tested.** The crop, pest and ingredient lexicons and the anomaly allow-list are human-reviewed, and the *release* build passes: 2,374 approved-use rows, each with a page citation. An edge audit found 13 rows the extractor misread (one with a wrong crop); they are now detected, and corrected through a reviewed file ([ADR-007](docs/adr/0007-reviewed-corrections.md)). The corrections were reviewed under the user's delegation, and the release build passes (`d86befe7…`). Not done: the E1 golden set, and there is no app yet.
+**Status (2026-11-15):** M0 design reviewed and approved. **M1 (register extraction) and M2 (lookup engine and HTTP API) are implemented and tested.** The crop, pest and ingredient lexicons and the anomaly allow-list are human-reviewed, and the *release* build passes: 2,374 approved-use rows, each with a page citation. An edge audit found 13 rows the extractor misread (one with a wrong crop); they are now detected, and corrected through a reviewed file ([ADR-007](docs/adr/0007-reviewed-corrections.md)). The corrections were reviewed under the user's delegation, and the release build passes (`d86befe7…`). E1 (120 random rows, labelled from page images) found one defect, split pest cells. After the fix (L1 §17), the register's pest-only rows went from 77 to 2, and a fresh E1b sample of 60 rows scores **99.36 % of fields and 96.6 % of rows** (target 97 %, missed by one row; [report](reports/E1/report.md)). There is no app yet.
 
 | Milestone | Scope | State |
 |---|---|---|

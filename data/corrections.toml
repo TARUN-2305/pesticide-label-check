@@ -87,21 +87,13 @@ id = "C-07"
 doc = "mup_fungicide_2026-09-30"
 page = 73
 product = "Mefentrifluconazole 133 g/l + Fluxapyroxad 89 g/l + Pyraclostrobin 178 g/l SC"
-match = { crop = "Corn", pest = "N S orthern leaf blight," }
+match = { crop = "Corn", pest = "N S orthern leaf blight, outhern leaf bligh t" }  # one row since L1 §17 (was two)
 set = { pest = "Northern leaf blight, Southern leaf blight" }
 covers = ["CELL_STRADDLE"]
 evidence = "p. 73 lines 11-12: 'Corn Northern leaf blight, 160-200 400-500 ml 500 48' / 'Southern leaf blight'"
 reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
 
-[[correct]]
-id = "C-08"
-doc = "mup_fungicide_2026-09-30"
-page = 73
-product = "Mefentrifluconazole 133 g/l + Fluxapyroxad 89 g/l + Pyraclostrobin 178 g/l SC"
-match = { crop = "Corn", pest = "outhern leaf bligh t" }
-drop = true
-evidence = "p. 73 lines 11-12: one row; its second pest line was extracted as a row of its own (now in C-07)"
-reviewed_by = "Claude (delegated by Tarun, 2026-11-15)"
+# C-08 (drop the second half of the Corn row) was retired on 2026-11-15: L1 §17 now joins that line itself.
 
 # --- fungicide p. 77: the a.i. cell has no drawn borders; one row split in two (CELL_ORPHAN) ------------
 # Replaces the allow-list's "left empty, not guessed" for this row: the page does print the value.
