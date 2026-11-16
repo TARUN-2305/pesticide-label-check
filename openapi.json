@@ -86,6 +86,100 @@
     "title": "AnswerOut",
     "type": "object"
    },
+   "AskOut": {
+    "description": "L3 \u00a74. `headline` is a template on the engine's outcome; `message` is model-written and\nnumber-verified, or templated when `phrased_by` is \"template\". `answer` is exactly what /v1/lookup\nreturns.",
+    "properties": {
+     "answer": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/AnswerOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "clarification": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/ClarificationOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "headline": {
+      "title": "Headline",
+      "type": "string"
+     },
+     "message": {
+      "title": "Message",
+      "type": "string"
+     },
+     "phrased_by": {
+      "title": "Phrased By",
+      "type": "string"
+     },
+     "provider": {
+      "title": "Provider",
+      "type": "string"
+     },
+     "slots": {
+      "anyOf": [
+       {
+        "additionalProperties": {
+         "anyOf": [
+          {
+           "type": "string"
+          },
+          {
+           "type": "null"
+          }
+         ]
+        },
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Slots"
+     },
+     "verifier_blocked": {
+      "title": "Verifier Blocked",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "headline",
+     "message",
+     "answer",
+     "slots",
+     "clarification",
+     "provider",
+     "phrased_by",
+     "verifier_blocked"
+    ],
+    "title": "AskOut",
+    "type": "object"
+   },
+   "AskRequest": {
+    "additionalProperties": false,
+    "properties": {
+     "question": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Question",
+      "type": "string"
+     }
+    },
+    "required": [
+     "question"
+    ],
+    "title": "AskRequest",
+    "type": "object"
+   },
    "CitationOut": {
     "properties": {
      "document_id": {
@@ -117,6 +211,24 @@
      "url"
     ],
     "title": "CitationOut",
+    "type": "object"
+   },
+   "ClarificationOut": {
+    "properties": {
+     "missing": {
+      "title": "Missing",
+      "type": "string"
+     },
+     "question": {
+      "title": "Question",
+      "type": "string"
+     }
+    },
+    "required": [
+     "question",
+     "missing"
+    ],
+    "title": "ClarificationOut",
     "type": "object"
    },
    "ErrorBody": {
@@ -554,6 +666,65 @@
      }
     },
     "summary": "Healthz"
+   }
+  },
+  "/v1/ask": {
+   "post": {
+    "description": "A plain-words question (L3). The model only interprets and phrases; the engine decides.",
+    "operationId": "ask_v1_ask_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AskRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AskOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorOut"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     },
+     "429": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorOut"
+        }
+       }
+      },
+      "description": "Too Many Requests"
+     },
+     "503": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorOut"
+        }
+       }
+      },
+      "description": "Service Unavailable"
+     }
+    },
+    "summary": "Ask"
    }
   },
   "/v1/crops": {

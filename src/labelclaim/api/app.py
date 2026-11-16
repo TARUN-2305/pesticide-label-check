@@ -28,6 +28,8 @@ from starlette.exceptions import HTTPException
 from labelclaim.api.ratelimit import TokenBucket
 from labelclaim.api.schemas import (
     AnswerOut,
+    AskOut,
+    AskRequest,
     ErrorOut,
     HealthOut,
     LookupRequest,
@@ -35,6 +37,8 @@ from labelclaim.api.schemas import (
     ProductOut,
     RegisterOut,
 )
+from labelclaim.assistant.loop import Assistant, Chat
+from labelclaim.assistant.providers import ProviderError, Router
 from labelclaim.lookup.engine import Engine
 from labelclaim.lookup.models import Query as LookupQuery
 from labelclaim.normalize.lexicon import key
@@ -50,6 +54,7 @@ class Settings:
     rate_per_minute: int = 60
     cors_origins: tuple[str, ...] = ()
     clock: Callable[[], float] = field(default=time.monotonic, compare=False)
+    chat_clients: dict[str, Chat] = field(default_factory=dict, compare=False)  # in fallback order (L3 §6)
 
 
 class Engines:
@@ -169,6 +174,8 @@ def create_app(settings: Settings) -> FastAPI:
         request.state.outcome = answer.outcome.value
         return AnswerOut.model_validate({**_plain(asdict(answer)), "conflict": answer.conflict})
 
+    _mount_assistant(app, settings, engines)
+
     @app.get("/v1/crops", response_model=list[NameOut])
     def crops(q: QueryText) -> list[NameOut]:
         names = engines.get().names
@@ -192,6 +199,33 @@ def create_app(settings: Settings) -> FastAPI:
         return [ProductOut(id=pid, heading=h) for h, pid in hits[:MAX_RESULTS]]
 
     return app
+
+
+def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines) -> None:
+    """POST /v1/ask (L3): the model interprets and phrases; the engine decides."""
+    router = Router(list(settings.chat_clients))
+
+    @app.post(
+        "/v1/ask",
+        response_model=AskOut,
+        responses={422: {"model": ErrorOut}, 429: {"model": ErrorOut}, 503: {"model": ErrorOut}},
+    )
+    def ask(body: AskRequest, request: Request) -> AskOut | JSONResponse:
+        """A plain-words question (L3). The model only interprets and phrases; the engine decides."""
+        if not settings.chat_clients:
+            return _error(503, "assistant_unavailable", "no model is configured; use POST /v1/lookup",
+                          request.state.request_id)  # fmt: skip
+        try:
+            result = Assistant(engines.get(), settings.chat_clients, router).ask(body.question)
+        except ProviderError:
+            return _error(503, "assistant_unavailable", "the models are unavailable; use POST /v1/lookup",
+                          request.state.request_id)  # fmt: skip
+        answer = result.answer
+        request.state.outcome = answer.outcome.value if answer else "CLARIFY"
+        return AskOut.model_validate({
+            **_plain(asdict(result)),
+            "answer": {**_plain(asdict(answer)), "conflict": answer.conflict} if answer else None,
+        })  # fmt: skip
 
 
 def _search(q: str, aliases: dict[str, set[str]], limit: int = MAX_RESULTS) -> list[str]:

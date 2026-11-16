@@ -99,6 +99,31 @@ class AnswerOut(Out):
     disclaimer: str
 
 
+class AskRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    question: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
+
+
+class ClarificationOut(BaseModel):
+    question: str
+    missing: str
+
+
+class AskOut(BaseModel):
+    """L3 §4. `headline` is a template on the engine's outcome; `message` is model-written and
+    number-verified, or templated when `phrased_by` is "template". `answer` is exactly what /v1/lookup
+    returns."""
+
+    headline: str
+    message: str
+    answer: AnswerOut | None
+    slots: dict[str, str | None] | None
+    clarification: ClarificationOut | None
+    provider: str
+    phrased_by: str
+    verifier_blocked: bool
+
+
 class NameOut(BaseModel):
     id: str
     display: str

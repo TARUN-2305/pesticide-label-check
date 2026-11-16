@@ -168,3 +168,46 @@ def test_a_corrected_field_is_named_in_the_answer(client: TestClient) -> None:
     )
     (use,) = r.json()["uses"]
     assert use["corrected"] == ["pest_raw"]
+
+
+# --- L3: POST /v1/ask -------------------------------------------------------------------------------
+
+
+def test_ask_without_a_model_is_503_and_points_to_lookup(client: TestClient) -> None:
+    r = client.post("/v1/ask", json={"question": "coragen on tomato?"})
+    assert r.status_code == 503
+    assert r.json()["error"]["code"] == "assistant_unavailable"
+    assert "/v1/lookup" in r.json()["error"]["message"]
+
+
+def test_ask_returns_headline_message_and_the_engines_answer(
+    register: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    from labelclaim.assistant.providers import ChatReply, ToolCall  # noqa: PLC0415 (L3-only names)
+    from tests.test_assistant import Script  # noqa: PLC0415
+
+    args = {
+        "product": "Chlorantraniliprole 18.5% SC",
+        "ingredient": None,
+        "crop": "tomato",
+        "pest": "fruit borer",
+    }
+    groq = Script("groq", [ChatReply(None, ToolCall("c", "lookup", args), 1, 1, 1.0),
+                           ChatReply("Approved; wait 3 days.", None, 1, 1, 1.0)])  # fmt: skip
+    caplog.set_level(logging.INFO)
+    settings = Settings(register=register, rate_per_minute=1000, chat_clients={"groq": groq})
+    with TestClient(create_app(settings)) as c:
+        r = c.post("/v1/ask", json={"question": "my private question: coragen on tomato"})
+    assert r.status_code == 200
+    body = r.json()
+    assert body["headline"].startswith("Approved")
+    assert body["message"] == "Approved; wait 3 days."
+    assert body["answer"]["outcome"] == "APPROVED"
+    assert body["answer"]["uses"][0]["corrected"] == ["pest_raw"]
+    assert (body["provider"], body["phrased_by"], body["verifier_blocked"]) == ("groq", "model", False)
+    assert "private question" not in caplog.text
+
+
+def test_ask_rejects_an_empty_or_huge_question(client: TestClient) -> None:
+    assert client.post("/v1/ask", json={"question": ""}).status_code == 422
+    assert client.post("/v1/ask", json={"question": "x" * 501}).status_code == 422
