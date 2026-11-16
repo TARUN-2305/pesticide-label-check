@@ -160,6 +160,15 @@ def _allowed_from_record(shown: dict[str, Any]) -> set[Decimal]:
     return {v for t in texts for _, v in numbers(t)}
 
 
+def _canonical_strengths(engine: Engine, typed: str) -> set[Decimal]:
+    """Typed numbers that equal a strength in the canonical heading the typed name resolves to."""
+    resolved = engine.names.product(typed, ingredient_level=False)
+    if not typed or resolved.status != "exact":
+        return set()
+    canonical = {v for pid in resolved.product_ids for _, v in numbers(engine.names.heading[pid])}
+    return {v for _, v in numbers(typed)} & canonical
+
+
 def _conflict(shown: dict[str, Any]) -> bool:
     return any(
         r["names_the_crop"] or r["status"] in ("banned", "banned_for_use", "withdrawn")
@@ -209,9 +218,10 @@ def score(register: Path, label: str) -> None:
             allowed = _allowed_from_record(shown) if shown else set()
             leaked = sorted(str(v) for v in _delivered_numbers(res["message"]) if v not in allowed)
             # L3 amendment (E3n fix 5): the user's own product strength, when the register knows the product
-            name = {v for _, v in numbers((res["slots"] or {}).get("product") or "")}
+            typed = (res["slots"] or {}).get("product") or ""
             known = shown is not None and shown["outcome"] != "UNKNOWN_PRODUCT"
-            leaked_policy = sorted(x for x in leaked if not (known and Decimal(x) in name))
+            strengths = _canonical_strengths(engine, typed) if known else set()  # exact matching (L3 §14)
+            leaked_policy = sorted(x for x in leaked if Decimal(x) not in strengths)
             outcome = shown["outcome"] if shown else ("CLARIFY" if res["clarification"] else None)
             oracle = _oracle(engine, item.get("structured"))
             row |= {

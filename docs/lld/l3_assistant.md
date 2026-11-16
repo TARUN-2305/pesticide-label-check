@@ -239,3 +239,20 @@ The verifier ignores number words; the allowed set includes the user's numbers; 
 - the model mis-copying product names;
 - short ingredient names;
 - Gemini fallback untested: its free tier was not serving on 2026-11-16 and 17.
+
+## 14. Decision on the FR-7 amendment (2026-11-17)
+
+**The user's decision, quoted:** "KEEP, with exact strength matching and no broader relaxation of FR-7. The principle should remain: improve naturalness without weakening factual authority."
+
+| Kind of number in a model message | Allowed when |
+|---|---|
+| Product strength (the "5" in "Hexaconazole 5% EC") | it appears in the product name the user typed **and** equals a strength printed in the canonical heading of the product the register resolved (exact resolution only) |
+| Application dose | it appears in a cited register row |
+| Dilution, waiting period | it appears in a cited register row |
+| Conversions, calculations, inferred quantities | never |
+
+**Implementation:**
+- `Assistant._typed_strengths`;
+- test `test_fix5_only_typed_numbers_equal_to_the_registered_strength_are_allowed`: a typed "(batch 77)" is blocked although the product was recognised.
+
+**Evidence:** the 16 E3n-b replies that used the amendment were replayed offline under exact matching, and **16/16 still pass**. Every typed strength equals the register's own ("7.7" = "07.70"; "2 SC" resolves to "2% SC").

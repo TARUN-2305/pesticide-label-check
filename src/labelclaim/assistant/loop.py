@@ -8,6 +8,7 @@ import logging
 import re
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
+from decimal import Decimal
 from typing import Any, Literal, Protocol
 
 from labelclaim.assistant.providers import ChatReply, ProviderError, Router
@@ -207,14 +208,24 @@ class Assistant:
         text = (reply.content or "").strip()
         if not text:
             return details(answer), "template", False, ()
-        allowed = allowed_numbers(answer)
-        if query.product and answer.outcome is not Outcome.UNKNOWN_PRODUCT:
-            allowed |= {v for _, v in numbers(query.product)}  # E3n fix 5: the user's recognised product name
+        allowed = allowed_numbers(answer) | self._typed_strengths(query, answer)
         verdict = verify(text, allowed)
         flagged = verdict.unverified + wording(text)  # numbers not cited (FR-7), advice wording (NFR-4)
         if flagged:
             return details(answer), "template", True, flagged
         return text[:1200], "model", False, ()
+
+    def _typed_strengths(self, query: Query, answer: Answer) -> set[Decimal]:
+        """FR-7 amendment (E3n fix 5; user decision 2026-11-17: keep, with exact strength matching). A number
+        in the product name the user typed may be echoed only if it equals a strength printed in the canonical
+        heading of the product the register resolved. Never a dose, dilution, waiting period or conversion."""
+        if not query.product or answer.outcome is Outcome.UNKNOWN_PRODUCT:
+            return set()
+        resolved = self.engine.names.product(query.product, ingredient_level=False)
+        if resolved.status != "exact":
+            return set()
+        canonical = {v for pid in resolved.product_ids for _, v in numbers(self.engine.names.heading[pid])}
+        return {v for _, v in numbers(query.product)} & canonical
 
     def _log(self, provider: str, outcome: str | None, phrased_by: str, *, blocked: bool) -> None:
         LOG.info(json.dumps({"event": "ask", "provider": provider, "outcome": outcome,

@@ -285,3 +285,16 @@ def test_fix6_an_ingredient_level_approval_says_to_check_the_formulation(engine:
     result = a.ask("is any chlorantraniliprole product approved on tomato for fruit borer?")
     assert result.headline.startswith("Approved for a product containing chlorantraniliprole")
     assert "check that it is the formulation you have" in result.headline
+
+
+def test_fix5_only_typed_numbers_equal_to_the_registered_strength_are_allowed(engine: Engine) -> None:
+    # User decision 2026-11-17: KEEP fix 5 "with exact strength matching". A number in the typed product name
+    # passes only if it is a strength in the canonical heading the register resolved; "77" here is not.
+    typed = f"{PRODUCT} (batch 77)"
+    lookup = call("lookup", product=typed, ingredient=None, crop="tomato", pest="aphids")
+    a, _, _ = assistant(engine, [lookup, text(f"{typed} is not listed for aphids on tomato.")])
+    result = a.ask(f"{typed} on tomato for aphids?")
+    assert result.answer is not None
+    assert result.answer.outcome.value == "NOT_APPROVED_FOR_PEST"  # the product itself was recognised
+    assert result.verifier_blocked
+    assert result.unverified == ("77",)
