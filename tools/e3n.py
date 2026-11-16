@@ -31,7 +31,7 @@ import httpx
 from labelclaim.assistant.loop import Assistant
 from labelclaim.assistant.providers import ProviderError, Router, build_clients
 from labelclaim.assistant.secrets import load_keys
-from labelclaim.assistant.verify import allowed_numbers, numbers
+from labelclaim.assistant.verify import numbers
 from labelclaim.lookup.engine import Engine
 from labelclaim.lookup.models import Answer, Outcome, Query
 
@@ -148,9 +148,23 @@ def _oracle(engine: Engine, s: dict[str, Any] | None) -> Answer | None:
         return None
 
 
-def _answer_again(engine: Engine, slots: dict[str, Any] | None) -> Answer | None:
-    """The engine's answer for the slots the model chose (recomputed, so allowed numbers are exact)."""
-    return _oracle(engine, slots)
+def _allowed_from_record(shown: dict[str, Any]) -> set[Decimal]:
+    """allowed_numbers() over the recorded answer: rows, alternatives, restrictions and register dates."""
+    texts = list(shown["register"]["dates"].values())
+    for u in (*shown["uses"], *shown["alternatives"]):
+        texts += [u["product_heading"], u["crop_raw"], u["pest_raw"], u["dose_ai_raw"], u["dose_form_raw"],
+                  u["dilution_raw"], u["wait_raw"], u["citation"]["register_date"],
+                  str(u["citation"]["page_first"]), str(u["citation"]["page_last"])]  # fmt: skip
+    for r in shown["restrictions"]:
+        texts += [r["ingredient"], r["detail_raw"], str(r["page"])]
+    return {v for t in texts for _, v in numbers(t)}
+
+
+def _conflict(shown: dict[str, Any]) -> bool:
+    return any(
+        r["names_the_crop"] or r["status"] in ("banned", "banned_for_use", "withdrawn")
+        for r in shown["restrictions"]
+    )
 
 
 def _delivered_numbers(text: str) -> set[Decimal]:
@@ -191,10 +205,14 @@ def score(register: Path, label: str) -> None:
             "error": rec.get("error"),
         }
         if res:
-            answer = _answer_again(engine, res["slots"]) if res["slots"] else None
-            allowed = allowed_numbers(answer) if answer else set()
+            shown = res["answer"]  # scored as recorded: what the user saw, not what today's code would return
+            allowed = _allowed_from_record(shown) if shown else set()
             leaked = sorted(str(v) for v in _delivered_numbers(res["message"]) if v not in allowed)
-            outcome = answer.outcome.value if answer else ("CLARIFY" if res["clarification"] else None)
+            # L3 amendment (E3n fix 5): the user's own product strength, when the register knows the product
+            name = {v for _, v in numbers((res["slots"] or {}).get("product") or "")}
+            known = shown is not None and shown["outcome"] != "UNKNOWN_PRODUCT"
+            leaked_policy = sorted(x for x in leaked if not (known and Decimal(x) in name))
+            outcome = shown["outcome"] if shown else ("CLARIFY" if res["clarification"] else None)
             oracle = _oracle(engine, item.get("structured"))
             row |= {
                 "provider": res["provider"],
@@ -204,33 +222,34 @@ def score(register: Path, label: str) -> None:
                 "outcome": outcome,
                 "slots": res["slots"],
                 "leaked": leaked,
+                "leaked_beyond_product_name": leaked_policy,
                 "oracle": oracle.outcome.value if oracle else None,
                 "message": res["message"],
                 "headline": res["headline"],
             }
-            if answer and oracle:
-                same_uses = {u.use_id for u in answer.uses} == {u.use_id for u in oracle.uses}
-                row["matches_structured"] = answer.outcome == oracle.outcome and same_uses
+            if shown and oracle:
+                same_uses = {u["use_id"] for u in shown["uses"]} == {u.use_id for u in oracle.uses}
+                row["matches_structured"] = shown["outcome"] == oracle.outcome.value and same_uses
             if item["part"] in ("plain", "variant"):
                 row["matches_label"] = outcome == item["labelled_outcome"]
             approved_headline = res["headline"].removeprefix(BAN_PREFIX).startswith("Approved")
             row["approval_not_asked"] = bool(
                 approved_headline and oracle is not None and oracle.outcome is not Outcome.APPROVED
             )
-            model_text = res["phrased_by"] == "model" and answer is not None
+            model_text = res["phrased_by"] == "model" and shown is not None
+            approved, conflict = (
+                bool(shown and shown["outcome"] == "APPROVED"),
+                bool(shown and _conflict(shown)),
+            )
             row["prose_disagrees"] = bool(
                 model_text
                 and (
                     (
-                        answer.outcome is not Outcome.APPROVED
+                        not approved
                         and _SAYS_APPROVED.search(res["message"])
                         and not _SAYS_NOT.search(res["message"])
                     )
-                    or (
-                        answer.outcome is Outcome.APPROVED
-                        and not answer.conflict
-                        and _SAYS_NOT.search(res["message"])
-                    )
+                    or (approved and not conflict and _SAYS_NOT.search(res["message"]))
                 )
             )
         rows.append(row)
@@ -250,7 +269,12 @@ def score(register: Path, label: str) -> None:
     summary = {
         "items_scored": len(rows),
         "errors_unavailable": [r["id"] for r in rows if r.get("error")],
-        "delivered_numbers_outside_cited_rows": {r["id"]: r["leaked"] for r in rows if r.get("leaked")},
+        "delivered_numbers_outside_cited_rows_strict": {
+            r["id"]: r["leaked"] for r in rows if r.get("leaked")
+        },
+        "delivered_numbers_outside_cited_rows_and_product_name": {
+            r["id"]: r["leaked_beyond_product_name"] for r in rows if r.get("leaked_beyond_product_name")
+        },
         "N_matches_structured_all": rate(n_items, "matches_structured"),
         "N_matches_structured_plain": rate(part["plain"], "matches_structured"),
         "N_matches_structured_variant": rate(part["variant"], "matches_structured"),
@@ -278,7 +302,7 @@ def score(register: Path, label: str) -> None:
             for p, v in lat.items()
         },
     }
-    out = ROOT / "reports" / "E3n"
+    out = ROOT / "reports" / ("E3n" if SUITE.name == "e3n" else "E3nb")  # one folder per suite: labels repeat
     out.mkdir(parents=True, exist_ok=True)
     (out / f"{label}.json").write_text(
         json.dumps({"summary": summary, "items": rows}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"

@@ -9,7 +9,8 @@
    "R-24",
    "R-25"
   ],
-  "delivered_numbers_outside_cited_rows": {},
+  "delivered_numbers_outside_cited_rows_strict": {},
+  "delivered_numbers_outside_cited_rows_and_product_name": {},
   "N_matches_structured_all": "55/90 (61.1%)",
   "N_matches_structured_plain": "51/70 (72.9%)",
   "N_matches_structured_variant": "4/20 (20.0%)",
@@ -85,6 +86,7 @@
     "pest": "sheath blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Listed instead: Carbendazim 50%WP on Paddy (Rice) for Sheath blight: a.i. 1gm/ kg seed; formulation 2 gm/ kg seed; water 1Lit./10 kg seed; waiting period (wet slurry treatment) (as printed, p. 5). Difenoconazole 25% EC on Paddy (Rice) for Sheath blight: a.i. 0.0125% or12.5g/100lt r. water; formulation 0.05%or50 ml/100ltr. water; water 500; waiting period 25 (as printed, p. 11). Flusilazole 40% EC on Rice (Paddy) for Sheath blight: a.i. 120g a.i./ha; formulation 300ml/ha; water 500; waiting period 24 (as printed, p. 12).",
    "headline": "Not listed for this pest: Kasugamycin 5% + Copper oxychloride 45% WP is registered on rice, but not for sheath blight.",
@@ -105,6 +107,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease are you targeting on tomato with Coragen?",
    "headline": "Need one more detail",
@@ -124,6 +127,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease are you targeting on okra with this product?",
    "headline": "Need one more detail",
@@ -150,6 +154,7 @@
     "pest": "early blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Listed instead: Azoxystrobin 23% SC on Tomato for Early & Late blight: a.i. 125gm; formulation 500ml; water 500; waiting period 3 (as printed, p. 2). Captan 50% WP on Tomato for Early blight: a.i. 1250gm; formulation 2.5kg; water 750-1000; waiting period - (as printed, p. 4). Captan 75% WP on Tomato for Early blight: a.i. 1250gm; formulation 1667gm; water 1000; waiting period 6 (as printed, p. 4).",
    "headline": "Not listed for this pest: Cymoxanil 8% + Mancozeb 64% WP is registered on tomato, but not for early blight.",
@@ -175,6 +180,7 @@
     "pest": "plant hopper"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "AMBIGUOUS",
    "message": "See the suggestions and options in the answer.",
    "headline": "More than one match; please choose one of the options.",
@@ -200,6 +206,7 @@
     "pest": "rice weevil"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows a restriction: Aluminium Phosphide use is allowed only by government‑approved pest‑control operators, and tube packs of 10 or 20 tablets (3 g each) are completely banned. For stored grain the label claim lists rice weevil among the approved pests, with a dose of 3.35 g active ingredient.",
    "headline": "Approved: Aluminium Phosphide 77.50 % GR on Stored Grain for rice weevil is listed in the register (p. 5).",
@@ -225,6 +232,7 @@
     "pest": "fruit rot"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Mancozeb is banned for use on guava (S.O. 4294(E) dated 3 Oct 2023). The register also lists a label claim for “Mancozeb 75 % WP – Guava – Fruit rot” with a dose of 15 g tree⁻¹ (product dose 20 g tree⁻¹) diluted in 10 L water.",
    "headline": "Warning: a ban or restriction applies; see restrictions. Approved: Mancozeb 75% WP on Guava for fruit rot is listed in the register (p. 19).",
@@ -250,6 +258,7 @@
     "pest": "late blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "The product is **not approved for late blight on tomato**. The register instead lists approved alternatives, such as Azoxystrobin 23 % SC (wait 3 days) and Captan 75 % WP (wait 6 days). No waiting period is provided for the product you asked about.",
    "headline": "Not listed for this pest: Pydiflumetofen 6.89% + Difenoconazole 11.49% SC is registered on tomato, but not for late blight.",
@@ -275,6 +284,7 @@
     "pest": "brown plant hopper"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register lists Dinofuran 20 % SG for rice (paddy) against brown plant hopper with a dose of **30 – 40 g ai / ha** (equivalent to **150 – 200 g product / ha**) and a dilution of **500 L water / ha**.",
    "headline": "Approved: Dinotefuran 20 % SG on Rice (Paddy) for brown plant hopper is listed in the register (p. 25).",
@@ -300,6 +310,7 @@
     "pest": "early blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows that **Cyazofamid 6.2 % + Mancozeb 60.8 % WP** is **APPROVED** for **early blight on potato** (dose AI 77.5 + 760 g ha⁻¹, dose form 1250 g ha⁻¹, dilution 500 L ha⁻¹, wait 22 days). No ban or restriction applies to this use.",
    "headline": "Approved: Cyazofamid 6.2%+Mancozeb 60.8% w/w WP on Potato for early blight is listed in the register (p. 60).",
@@ -325,6 +336,7 @@
     "pest": "tikka disease"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Mancozeb 75% WP on Groundnut for Tikka disease& rust: a.i. 1.125- 1.5kg; formulation 1.5-2kg; water 750Ltr.; waiting period - (as printed, p. 18).",
    "headline": "Approved: Mancozeb 75% WP on Groundnut for tikka disease is listed in the register (p. 18).",
@@ -345,6 +357,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease are you targeting on cotton?",
    "headline": "Need one more detail",
@@ -369,6 +382,7 @@
     "pest": "rust"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Hexaconazole 5% EC on Soybean for Rust: a.i. 0.005% (5g/100 lit); formulation 0.1%or (100ml/100 lit); water As required; waiting period 30 (as printed, p. 14).",
    "headline": "Approved: Hexaconazole 5% EC on Soybean for rust is listed in the register (p. 14).",
@@ -394,6 +408,7 @@
     "pest": "brown plant hopper"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "SULFOXAFLOR 7.5% + BUPROFEZIN 15% SC on Paddy for Brown Plant Hopper (BPH): a.i. 60 + 120 – 75 + 150; formulation 800 - 1000; water 500; waiting period 26 (as printed, p. 86).",
    "headline": "Approved: SULFOXAFLOR 7.5% + BUPROFEZIN 15% SC on Paddy for brown plant hopper is listed in the register (p. 86).",
@@ -419,6 +434,7 @@
     "pest": "late blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Picoxystrobin 2.5% + Dimethomorph 16.5% + Mancozeb 50% WP on Tomato for Early Blight (Alternaria solani) and Late Blight (Phytophthora infestans): a.i. 2070; formulation 3000; water 500; waiting period 15 (as printed, p. 78).",
    "headline": "Approved: Picoxystrobin 2.5% + Dimethomorph 16.5% + Mancozeb 50% WP on Tomato for late blight is listed in the register (p. 78).",
@@ -444,6 +460,7 @@
     "pest": "thrips"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Listed instead: Broflanilide 20% SC on Tomato for Thrips, Leaf miner & Fruit borer: a.i. 25; formulation 125; water 500; waiting period 1 (as printed, p. 8). Cyantraniliprole 10.26 % OD on Tomato for Leaf miner (Liriomyza trifolii), Aphids (Aphis ossypi), Thrips (Thrips tabaci), Whitefly (Bemesia tabaci), Fruit borer (Helicoverpa armigera): a.i. 90; formulation 900; water 500; waiting period 03 (as printed, p. 18). CYANTRANILIPROLE 18.41% w/w SC on Tomato for Thrips, Aphid, White fly, Leaf miner: a.i. 8.75; formulation 43.75; water 10; waiting period 75 (as printed, p. 20).",
    "headline": "Not listed for this pest: Indoxacarb 10% + Thiamethoxam 10% WG is registered on tomato, but not for thrips.",
@@ -469,6 +486,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed: the register has no use of Imidacloprid 70% WS on rice.",
@@ -494,6 +512,7 @@
     "pest": "rust"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "AMBIGUOUS",
    "message": "See the suggestions and options in the answer.",
    "headline": "More than one match; please choose one of the options.",
@@ -519,6 +538,7 @@
     "pest": "stem borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Listed instead: Acephate 95 % SG on Rice (Paddy) for Stem borer, Leaf folder, Brown plant hopper: a.i. 562.50; formulation 592; water 500; waiting period 30 (as printed, p. 2). Benfuracarb 03 % GR on Rice (Paddy) for Stem borer, Leaf folder, Brown plant hopper: a.i. 1000; formulation 33000; water -; waiting period 20 (as printed, p. 6). Bifenthrin 08.80 % CS on Rice (Paddy) for Stem borer, Leaf folder: a.i. 44; formulation 500; water 500; waiting period 21 (as printed, p. 6).",
    "headline": "Not listed for this pest: Pymetrozine 11.3% + Triflumezopyrim 1.9% SC is registered on rice, but not for stem borer.",
@@ -544,6 +564,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Emamectin benzoate 01.90 % EC on Paddy for Leaf folder & Hispa: a.i. 8.08; formulation 425; water 500; waiting period 48 (as printed, p. 26).",
    "headline": "Approved: Emamectin benzoate 01.90 % EC on Paddy is listed in the register (p. 26).",
@@ -569,6 +590,7 @@
     "pest": "stem borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Carbofuran 03 % CG on Paddy (Rice) for Brown plant hopper Gall midge, Stem borer, Green leaf hopper, Hispa: a.i. 750; formulation 25000; water -; waiting period - (as printed, p. 10).",
    "headline": "Approved: Carbofuran 03 % CG on Paddy (Rice) for stem borer is listed in the register (p. 10).",
@@ -594,6 +616,7 @@
     "pest": "mildew"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "AMBIGUOUS",
    "message": "See the suggestions and options in the answer.",
    "headline": "More than one match; please choose one of the options.",
@@ -619,6 +642,7 @@
     "pest": "whorl maggot"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Isoprothiolane 28% + Fipronil 5% EC on Rice for Stem borer, Brown plant hopper, Green leaf hopper, Whorl maggot: a.i. 280+50; formulation 1000; water 500; waiting period 58 (as printed, p. 78).",
    "headline": "Approved: Isoprothiolane 28% + Fipronil 5% EC on Rice for whorl maggot is listed in the register (p. 78).",
@@ -644,6 +668,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed: the register has no use of Tebuconazole 50% + Trifloxystrobin 25% WG on potato.",
@@ -669,6 +694,7 @@
     "pest": "sheath blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Isopyrazam 11.16% w/w + Azoxystrobin 17.86% w/w SC on Rice for Sheath Bight (Rhizoctonia solani); Brown Leaf Spot (Helminthosporium oryzae); Dirty Panicle complex: a.i. 130 (50+80); formulation 400; water 500; waiting period 39 (as printed, p. 69).",
    "headline": "Approved: Isopyrazam 11.16% w/w + Azoxystrobin 17.86% w/w SC on Rice for sheath blight is listed in the register (p. 69).",
@@ -694,6 +720,7 @@
     "pest": "aphids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Imidacloprid 70 % WG on Okra (Bhindi) for Jassids, Aphids, Thrips: a.i. 21 – 24.5; formulation 30 – 35; water 300 – 375; waiting period 03 (as printed, p. 35).",
    "headline": "Approved: Imidacloprid 70 % WG on Okra (Bhindi) for aphids is listed in the register (p. 35).",
@@ -719,6 +746,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed: the register has no use of Lambda-cyhalothrin 4.9% CS on cabbage.",
@@ -744,6 +772,7 @@
     "pest": "pod borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Emamectin benzoate 01.90 % EC** is approved for **chickpea – pod borer** with a dose of **07.13 g ai / ha**, product rate **375 g / ha**, dilution **500 L / ha**, and a pre‑harvest interval of **14 days**. No ban or restriction is listed.",
    "headline": "Approved: Emamectin benzoate 01.90 % EC on Chick pea for pod borer is listed in the register (p. 25).",
@@ -764,6 +793,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -788,6 +818,7 @@
     "pest": "stem borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register lists **Flubendiamide 0.70 % GR** for paddy (rice) against stem borer with a waiting period of **25 days** before harvest.",
    "headline": "Approved: Flubendiamide 20 % WG on Rice for stem borer is listed in the register (p. 32).",
@@ -808,6 +839,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Please provide the exact product name you are interested in",
    "headline": "Need one more detail",
@@ -834,6 +866,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed: the register has no use of Mancozeb 75% WP on coriander.",
@@ -854,6 +887,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease are you targeting on chilli?",
    "headline": "Need one more detail",
@@ -878,6 +912,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "The register does not have a listed use for Streptocycline on citrus.",
    "headline": "Product not found in the register: Streptocycline.",
@@ -903,6 +938,7 @@
     "pest": "anthracnose"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Ban or restriction: none. The register lists **Tebuconazole 25.9 % EC** for **black gram (urad)** against **leaf‑spot/anthracnose** with a dose of 187.5 g ai / ha (product 750 g / ha), diluted in 500 L water, and a pre‑harvest interval of 17 days.",
    "headline": "Approved: Tebuconazole 25.9%EC on Black gram for anthracnose is listed in the register (p. 37).",
@@ -928,6 +964,7 @@
     "pest": "pink bollworm"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows a waiting period of **42 days** before harvest for Bifenthrin 25 % + Thiamethoxam 25 % WG on cotton against pink bollworm. No ban or restriction is listed.",
    "headline": "Approved: Bifenthrin 25% + Thiamethoxam 25% WG on Cotton for pink bollworm is listed in the register (p. 59).",
@@ -953,6 +990,7 @@
     "pest": "rust"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Pyraclostrobin 133 g/l + Epoxiconazole 50 g/l SE** is **APPROVED** for coffee against rust, with a dose of 137.25 g AI / ha, product rate 750 g / ha, dilution 750 L / ha and a pre‑harvest interval of 37 days.",
    "headline": "Approved: Pyraclostrobin 133 g/l + Epoxiconazole 50g/l SE on Coffee for rust is listed in the register (p. 82).",
@@ -978,6 +1016,7 @@
     "pest": "white grub"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows this use is **APPROVED**. It is listed for groundnut seed treatment against aphids, jassids, termites and white grub, with a dose of 2.45 + 10.5 + 15.75 (g AI) and 70 ml per 10 kg of seed. No ban or restriction applies.",
    "headline": "Approved: Pyraclostrobin 3.5% + Thiram 15.0% + Clothianidin 22.5% FS on Ground nut (Seed Treatment) for white grub is listed in the register (p. 83).",
@@ -1003,6 +1042,7 @@
     "pest": "pod borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Fluxametamide 10 % EC** is approved for use on red gram against spotted pod borer/pod borer. The label claim lists a dose of 40 g ai / ha (400 g product / ha), diluted in 500 L water, with a 5‑day pre‑harvest interval. No ban or restriction is noted.",
    "headline": "Approved: Fluxametamide 10% w/w EC on Redgram for pod borer is listed in the register (p. 34).",
@@ -1028,6 +1068,7 @@
     "pest": "sheath blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "The register shows **Picoxystrobin 10 % + Isoprothiolane 25 % EC is not approved for sheath blight in paddy**. It lists alternative products such as Carbendazim 50 % WP, Difenoconazole 25 % EC, Flusilazole 40 % EC, Flutriafol 23 % w/w SC and Hexaconazole 0.5 % GR for that use.",
    "headline": "Not listed for this pest: Picoxystrobin 10% + Isoprothiolane 25% EC is registered on paddy, but not for sheath blight.",
@@ -1053,6 +1094,7 @@
     "pest": "aphids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows that **Chlorpyrifos 20 % EC** is **restricted** for citrus (it is listed as banned for use in citrus). Although an entry exists for “Aphid” on citrus, the ban/restriction applies.",
    "headline": "Warning: a ban or restriction applies; see restrictions. Approved: Chlorpyrifos 20 % EC on Citrus for aphids is listed in the register (p. 16).",
@@ -1073,6 +1115,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_CROP",
    "message": "Which pest or disease are you targeting on strawberry?",
    "headline": "Need one more detail",
@@ -1097,6 +1140,7 @@
     "pest": "jassids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows this use is **APPROVED** for cotton against whiteflies and jassids. The label claim lists a dose of **60 g + 300 g AI / ha**, a product rate of **1000 g / ha**, dilution **500 L / ha**, and a pre‑harvest interval of **14 days**.",
    "headline": "Approved: Pyrifluquinazon 6% + Buprofezin 30% SC on Cotton for jassids is listed in the register (p. 83).",
@@ -1122,6 +1166,7 @@
     "pest": "late blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Mancozeb 75 % WG is **not approved** for late blight on tomato. The register shows it is restricted (banned on guava, jowar and tapioca) and lists alternative products such as Azoxystrobin 23 % SC, Captan 50 % WP, Captan 75 % WP, Copper oxychloride 50 % WP and Copper Hydroxide 61.41 % WG for that use.",
    "headline": "Not listed for this pest: Mancozeb 75% WG is registered on tomato, but not for late blight.",
@@ -1147,6 +1192,7 @@
     "pest": "mealybug"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows this use is **APPROVED** and no ban or restriction applies. For cotton against mealybug, the label claim lists a dose of 250 g Buprofezin + 625 g Acephate per hectare (product rate 1250 g ha⁻¹), diluted in 500 L water, with a 15‑day pre‑harvest interval.",
    "headline": "Approved: Buprofezin 20 % + Acephate 50 % w/w WP on Cotton for mealybug is listed in the register (p. 59).",
@@ -1172,6 +1218,7 @@
     "pest": "yellow rust"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows this use is **APPROVED**. For wheat against yellow rust (Puccinia striiformis sp. tritici), the label specifies a dose of 200 g ai / ha, 1000 g product / ha, dilution 500 L water / ha, and a pre‑harvest interval of 52 days.",
    "headline": "Approved: Picoxystrobin 7.05% + Propiconazole 11.71% SC on Wheat for yellow rust is listed in the register (p. 78).",
@@ -1197,6 +1244,7 @@
     "pest": "stem borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows this use is **APPROVED** for paddy (rice) against stem borer (also listed for brown plant hopper and white‑backed plant hopper). The label dose is 10 + 500 g ai / ha, 2.5 g product / ha, diluted in 500‑800 L water / ha, with a 10‑day pre‑harvest interval.",
    "headline": "Approved: Acetamiprid 00.40 % + Chlorpyriphos 20 % EC on Paddy (Rice) for stem borer is listed in the register (p. 56).",
@@ -1224,6 +1272,7 @@
     "pest": "blast"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed for this pest: Hexaconazole 0.5% GR is registered on rice, but not for blast.",
@@ -1244,6 +1293,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_CROP",
    "message": "Which pest or disease are you targeting on quinoa?",
    "headline": "Need one more detail",
@@ -1270,6 +1320,7 @@
     "pest": "late blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Listed instead: Azoxystrobin 23% SC on Tomato for Early & Late blight: a.i. 125gm; formulation 500ml; water 500; waiting period 3 (as printed, p. 2). Captan 50% WP on Tomato for Late blight: a.i. 1250gm; formulation 2.5kg; water 750-1000; waiting period - (as printed, p. 4). Captan 75% WP on Tomato for Late blight: a.i. 1250gm; formulation 1667gm; water 1000; waiting period 6 (as printed, p. 4).",
    "headline": "Not listed for this pest: Metiram 55% + Pyraclostrobin 5% WG is registered on tomato, but not for late blight.",
@@ -1295,6 +1346,7 @@
     "pest": "whitefly"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register lists the use of **Acephate 50 % + Imidacloprid 1.80 % SP** on chilli for whitefly with a dose of **518 g AI ha⁻¹** (or **1000 g product ha⁻¹**) diluted in **500 L water ha⁻¹**. The pre‑harvest waiting period is **3 days**.",
    "headline": "Approved: Acephate 50 % + Imidacloprid 01.80 % SP on Chilli for whitefly is listed in the register (p. 55).",
@@ -1315,6 +1367,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -1334,6 +1387,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease are you targeting on cotton?",
    "headline": "Need one more detail",
@@ -1358,6 +1412,7 @@
     "pest": "shoot fly"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "AMBIGUOUS",
    "message": "Which millet—pearl millet, ragi, or sorghum?",
    "headline": "More than one match; please choose one of the options.",
@@ -1378,6 +1433,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_CROP",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -1397,6 +1453,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_CROP",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -1421,6 +1478,7 @@
     "pest": "aphids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register lists **Cyantraniliprole 10.26 % OD** for **pomegranate – aphids (Aphis punicae)** with a dose of **90 g ai / ha** (product dose 900 g / ha), dilution 1000 L / ha and a 5‑day pre‑harvest interval. No ban or restriction applies.",
    "headline": "Approved: Cyantraniliprole 10.26 % OD on Pomegranate for aphids is listed in the register (p. 18).",
@@ -1446,6 +1504,7 @@
     "pest": "white fly"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows this use is **APPROVED**. For the product Buprofezin 15 % + Acephate 35 % WP on okra against jassids & white fly, the label lists a dose of 112.5 + 262.5 g AI / ha (750 g product / ha), diluted in 500 L water, with a 7‑day pre‑harvest interval.",
    "headline": "Approved: Buprofezin 15 % + Acephate 35 % w/w WP on Okra for white fly is listed in the register (p. 59).",
@@ -1474,6 +1533,7 @@
     "pest": "stemphylium blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Listed instead: Tebuconazole 38.39% w/w SC on Onion for Purple blotch and Stemphylium blight: a.i. 189.2 to 215; formulation 440-500; water 375-500; waiting period 43 (as printed, p. 38). Azoxystrobin 18.2% + Difenoconazole 11.4% w/w SC on Onion for Purple blotch, Stemphylium blight and Downy mildew: a.i. 0.03% or 0.3 g/l; formulation 0.1% or 1 ml / Litre water; water 500; waiting period 7 (as printed, p. 47). Azoxystrobin 8.3% + Mancozeb 66.7% WG on Onion for Stemphylium blight, Purple blotch and Downy mildew: a.i. 124.5+1000; formulation 1500; water 500; waiting period 42 (as printed, p. 49).",
    "headline": "Not listed for this pest: Difenoconazole 4.8% + Mancozeb 64% WP is registered on onion, but not for stemphylium blight.",
@@ -1499,6 +1559,7 @@
     "pest": "whitefly"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Pyriproxyfen 10 % + Bifenthrin 10 % EC** is approved for use on green gram against whitefly (dose AI 100 + 100 g ha⁻¹, dose form 1000 g ha⁻¹, dilution 500 L ha⁻¹, pre‑harvest interval 25 days). No ban or restriction applies.",
    "headline": "Approved: Pyriproxyfen 10 % + Bifenthrin10 % w/w EC on Green gram for whitefly is listed in the register (p. 84).",
@@ -1526,6 +1587,7 @@
     "pest": "blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "AMBIGUOUS",
    "message": "See the suggestions and options in the answer.",
    "headline": "More than one match; please choose one of the options.",
@@ -1551,6 +1613,7 @@
     "pest": "downy mildew"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows this use is **APPROVED**. It lists Iprovalicarb 8.4 % w/w + Copper oxychloride 68.2 % w/w (40.6 % w/w as Cu) WG for cucumber against downy mildew, with a dose of 84 + 406 – 105 + 507.5 g ai ha⁻¹, product rate 1000 – 1250 g ha⁻¹, dilution 500 L ha⁻¹ and a 5‑day pre‑harvest interval.",
    "headline": "Approved: Iprovalicarb 8.4 % w/w + Copper oxychloride 68.2 % w/w (40.6 % w/w as Cu) WG on Ccumber for downy mildew is listed in the register (p. 69).",
@@ -1571,6 +1634,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease are you targeting on tomato?",
    "headline": "Need one more detail",
@@ -1595,6 +1659,7 @@
     "pest": "bacterial leaf spot"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows this use is **APPROVED** for tomato – bacterial leafspot. No ban or restriction is listed. The label claim is to spray seedlings with a streptocycline solution (0 to 100 ppm) in seed beds and fields after the first true leaves appear, with two sprays (one before transplanting and one after).",
    "headline": "Approved: (Streptomycin Sulphate 90% + Tetracycline Hydrochloride 10%) SP on Tomato for bacterial leaf spot is listed in the register (p. 29).",
@@ -1620,6 +1685,7 @@
     "pest": "whitefly"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows that **Acetamiprid 20 % + Chlorantraniliprole 20 % WG** is an approved label claim for **whitefly (Bemisia tabaci) on tomato**. The listed label dose is 30 + 30 g ai ha⁻¹ (150 g product ha⁻¹) diluted in 500 L water, with a 7‑day pre‑harvest interval. No ban or restriction is mentioned.",
    "headline": "Approved: Acetamiprid 20% + Chlorantraniliprole 20% WG on Tomato for whitefly is listed in the register (p. 56).",
@@ -1640,6 +1706,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -1664,6 +1731,7 @@
     "pest": "downy mildew"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows that **Metalaxyl 35 % WS** is approved for **downy mildew on bajra (pearl millet)**. The label claim specifies a slurry seed‑treatment dose of **200 g AI / 100 kg seed** (product dose 600 g / 100 kg seed) with a dilution of **0.75‑1.0 L / 100 kg seed** and a pre‑harvest interval of **3‑3½ months**. No ban or restriction applies.",
    "headline": "Approved: Metalaxyl 35% WS on Bajra for downy mildew is listed in the register (p. 20).",
@@ -1684,6 +1752,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -1708,6 +1777,7 @@
     "pest": "sheath blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Zineb 75 % WP is **not approved** for sheath blight in paddy. The register lists alternative products such as Carbendazim 50 % WP, Difenoconazole 25 % EC, Flusilazole 40 % EC, Flutriafol 23 % w/w SC and Hexaconazole 0.5 % GR for that use.",
    "headline": "Not listed for this pest: Zineb 75% WP is registered on paddy, but not for sheath blight.",
@@ -1728,6 +1798,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease are you targeting on chilli?",
    "headline": "Need one more detail",
@@ -1752,6 +1823,7 @@
     "pest": "blast"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "कोई प्रतिबंध नहीं है; ज़ीनेब 75 % WP रागी में ब्लास्ट के लिए **APPROVED** है। लेबल पर दिया गया खुराक AI 1.125‑1.5 kg / ha, उत्पाद 1.5‑2 kg / ha और पतला 750‑1000 L / ha है।",
    "headline": "Approved: Zineb 75%WP on Ragi for blast is listed in the register (p. 42).",
@@ -1777,6 +1849,7 @@
     "pest": "hispa"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Could you confirm the exact product name you want to check?",
    "headline": "Product not found in the register: malathion 50 EC.",
@@ -1797,6 +1870,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -1816,6 +1890,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -1840,6 +1915,7 @@
     "pest": "late blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Hexaconazole 2 % SC** is approved for potato against late blight. The label claim lists a dose of **60 g AI / ha**, a product rate of **3.0 L / ha**, dilution **500 L water / ha**, and a pre‑harvest interval of **21 days**.",
    "headline": "Approved: Hexaconazole 2% SC on Potato for late blight is listed in the register (p. 13).",
@@ -1860,6 +1936,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Which carbosulfan product are you looking for?",
    "headline": "Need one more detail",
@@ -1884,6 +1961,7 @@
     "pest": "leafhopper"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Could you confirm the exact product name you want to check?",
    "headline": "Product not found in the register: chloropyriphos 20 EC.",
@@ -1909,6 +1987,7 @@
     "pest": "snail"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Metaldehyde 2.5 % DP** is **APPROVED** for use on **tea** against **snails** (including giant and African snails). No ban or restriction is listed.",
    "headline": "Approved: Metaldehyde 2.5% DP on Citrus, Rubber, Paddy (Rice), Tea, Vegetables for snail is listed in the register (p. 40).",
@@ -1929,6 +2008,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -1948,6 +2028,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Which product exactly? Please type the name as printed on the label.",
    "headline": "Need one more detail",
@@ -1972,6 +2053,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Could you tell me the specific pest or disease you want to control on the tomatoes?",
    "headline": "Product not found in the register: copper sulfate 47.15 + mancozeb 30 WDG.",
@@ -1997,6 +2079,7 @@
     "pest": "mites"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Diafenthiuron 48 % + Dinotefuran 8 % WG** is **APPROVED** for **brinjal (baingan)** against **mites** (Tetranychus urticae). The listed dose is **300 + 50 g ai / ha** (product rate 625 g / ha), diluted in **500 L / ha**, with a **3‑day** pre‑harvest interval.",
    "headline": "Approved: Diafenthiuron 48 % + Dinotefuran 8% WG on Brinjal for mites is listed in the register (p. 68).",
@@ -2017,6 +2100,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Which product name are you using for the picoxystrobin + propiconazole SC?",
    "headline": "Need one more detail",
@@ -2041,6 +2125,7 @@
     "pest": "bollworms"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Could you confirm the exact product name or brand you are using?",
    "headline": "Product not found in the register: alpha cypermethrin 10 SC.",
@@ -2066,6 +2151,7 @@
     "pest": "WBPH"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Could you tell me the active ingredient name for the product you are using?",
    "headline": "Product not found in the register: Nitenpyram 25 SP.",
@@ -2091,6 +2177,7 @@
     "pest": "leafminer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Could you confirm the exact product name as it appears on the label?",
    "headline": "Product not found in the register: tetraniliprole 10.81 + spirotetramat 21.62 SC.",
@@ -2116,6 +2203,7 @@
     "pest": "rust"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "AMBIGUOUS",
    "message": "Could you provide the exact product name (including any brand or formulation code) you want to check?",
    "headline": "Product not found in the register: mancozeb 75wp.",
@@ -2141,6 +2229,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "Could you tell me which pest or disease you want to control with this product on wheat?",
    "headline": "Product not found in the register: cyproconazole 12.5 + tebuconazole 12.5 SC.",
@@ -2166,6 +2255,7 @@
     "pest": "gall midge"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Could you confirm the exact product name as it appears on the label?",
    "headline": "Product not found in the register: acephate 50 + imidacloprid 1.8 SP.",
@@ -2192,6 +2282,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
@@ -2210,6 +2301,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which pesticide product are you considering for fruit borer in tomato?",
    "headline": "Need one more detail",
@@ -2228,6 +2320,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
@@ -2246,6 +2339,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which pesticide product are you considering for blast on paddy?",
    "headline": "Need one more detail",
@@ -2264,6 +2358,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
@@ -2282,6 +2377,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which pesticide product are you referring to?",
    "headline": "Need one more detail",
@@ -2300,6 +2396,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
@@ -2318,6 +2415,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
@@ -2336,6 +2434,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which pesticide product are you interested in for aphids on chilli?",
    "headline": "Need one more detail",
@@ -2354,6 +2453,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
@@ -2372,6 +2472,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop are you targeting the stem borer on?",
    "headline": "Need one more detail",
@@ -2390,6 +2491,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop are you asking about?",
    "headline": "Need one more detail",
@@ -2408,6 +2510,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which pesticide product are you planning to use for brinjal shoot and fruit borer?",
    "headline": "Need one more detail",
@@ -2426,6 +2529,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
@@ -2444,6 +2548,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which pesticide product are you asking about for groundnut?",
    "headline": "Need one more detail",
@@ -2467,6 +2572,7 @@
     "pest": "aphids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "The register does not have a record for the product **Confidor**, so it cannot confirm any label claim for cotton against aphids.",
    "headline": "Product not found in the register: Confidor.",
@@ -2491,6 +2597,7 @@
     "pest": "brown plant hopper"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "The register does not have a record for the product **Actara** on **paddy** against **brown plant hopper**.",
    "headline": "Product not found in the register: Actara.",
@@ -2515,6 +2622,7 @@
     "pest": "late blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Could you tell me the active ingredient or formulation details of the Ridomil Gold product you are referring to?",
    "headline": "Product not found in the register: Ridomil Gold.",
@@ -2539,6 +2647,7 @@
     "pest": "sheath blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "The register does not have a record for **Amistar Top** on rice for sheath‑blight, so no approved label claim is listed.",
    "headline": "Product not found in the register: Amistar Top.",
@@ -2563,6 +2672,7 @@
     "pest": "blast"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "The register does not have a record for the product **Nativo**.",
    "headline": "Product not found in the register: Nativo.",
@@ -2582,6 +2692,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pesticide product are you asking about for wheat rust?",
    "headline": "Need one more detail",
@@ -2600,6 +2711,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pesticide product are you asking about for early blight on tomato?",
    "headline": "Need one more detail",
@@ -2625,6 +2737,7 @@
     "pest": "stem borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "See the suggestions and options in the answer.",
    "headline": "Product not found in the register: Regent.",
@@ -2649,6 +2762,7 @@
     "pest": "fruit borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "The register does not have a record for the product **Takumi**; therefore no approved label claim for fruit‑borer on chilli is listed.",
    "headline": "Product not found in the register: Takumi.",
@@ -2668,6 +2782,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pesticide product are you asking about for diamond back moth on cabbage?",
    "headline": "Need one more detail",
@@ -2686,6 +2801,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pesticide product are you asking about for cotton whitefly?",
    "headline": "Need one more detail",
@@ -2709,6 +2825,7 @@
     "pest": "tikka disease"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Could you provide the exact product name (including any percentage or formulation code) you want to check?",
    "headline": "Product not found in the register: Kavach.",
@@ -2733,6 +2850,7 @@
     "pest": "anthracnose"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Could you please confirm the exact product name or the active ingredient you want to check?",
    "headline": "Product not found in the register: Saaf.",
@@ -2757,6 +2875,7 @@
     "pest": "jassids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "The register does not have a record for the product **Admire** on okra for jassids.",
    "headline": "Product not found in the register: Admire.",
@@ -2781,6 +2900,7 @@
     "pest": "stem borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Could you confirm the exact product name or provide the active ingredient it contains?",
    "headline": "Product not found in the register: Coragen 18.5 SC.",
@@ -2807,6 +2927,7 @@
     "pest": "whitefly"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_PEST",
    "message": "Listed instead: Afidopyropen 50 g/L DC on Brinjal for Whitefly, Jassids: a.i. 50; formulation 1000; water 500 – 750; waiting period 01 (as printed, p. 3). Cyantraniliprole 10.26 % OD on Brinjal for Whitefly- Bemisia tabaci Shoot and fruit borer – Leucinodes orbonalis Aphids- Aphis gossypii Thrips- Thrips tabaci: a.i. 90; formulation 900; water 500; waiting period 3 (as printed, p. 19). Diafenthiuron 50 % WP on Brinjal for Whitefly: a.i. 300; formulation 600; water 500 – 750; waiting period 03 (as printed, p. 23).",
    "headline": "Not listed for this pest: Chlorantraniliprole 18.5% SC is registered on brinjal, but not for whitefly.",
@@ -2831,6 +2952,7 @@
     "pest": "aphids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register lists the label claim for **Imidacloprid 17.80 % SL on cotton against aphids** as:\n\n- Dose of active ingredient: **20 – 25 g ha⁻¹**  \n- Dose of product (formulation): **100 – 125 g ha⁻¹**  \n\nNo ban or restriction applies. (The register provides the dose per hectare; conversion to per‑acre units is not given.)",
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",
@@ -2855,6 +2977,7 @@
     "pest": "late blight"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Mancozeb 75 % WP** is approved for potato against late blight, with a dose of **1.125‑1.5 kg AI / ha** (or **1.5‑2 kg product / ha**) and a dilution of **750 L / ha**. No ban or restriction applies to this use.",
    "headline": "Approved: Mancozeb 75% WP on Potato for late blight is listed in the register (p. 18).",
@@ -2879,6 +3002,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The label lists a use of **Chlorantraniliprole 18.50 % SC** on tomato for fruit borer with a dose of **150 ml per hectare**, to be diluted in **500 L of water per hectare**.",
    "headline": "Approved: Chlorantraniliprole 18.50 % SC on Tomato is listed in the register (p. 12).",
@@ -2904,6 +3028,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which pesticide product or ingredient are you interested in?",
    "headline": "Need one more detail",
@@ -2922,6 +3047,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Which insecticide product are you interested in checking for cotton bollworm?",
    "headline": "Need one more detail",
@@ -2945,6 +3071,7 @@
     "pest": "stem borer"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Carbofuran 03 % CG** is **APPROVED** for paddy (rice) against stem borer (along with other listed pests). No ban or restriction applies to this specific formulation and crop.",
    "headline": "Approved: Carbofuran 03 % CG on Paddy (Rice) for stem borer is listed in the register (p. 10).",
@@ -2971,6 +3098,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "NOT_APPROVED_FOR_CROP",
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed: the register has no use of Dinotefuran 20% SG on tomato.",
@@ -2990,6 +3118,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "For which crop are you asking about Coragen?",
    "headline": "Need one more detail",
@@ -3008,6 +3137,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -3037,6 +3167,7 @@
     "pest": "aphids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows that **Imidacloprid 17.80 % SL** is approved for use on cotton against aphids (also whitefly, jassid, thrips) with a dose of 20 – 25 g ai / ha (100 – 125 g product / ha), diluted in 500 – 700 L water / ha and a pre‑harvest interval of 40 days.",
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",
@@ -3062,6 +3193,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_CROP",
    "message": "Which pest or disease are you targeting on groundnut?",
    "headline": "Need one more detail",
@@ -3087,6 +3219,7 @@
     "pest": "fruit fly"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed for this pest: Chlorantraniliprole 18.5% SC is registered on tomato, but not for fruit fly.",
@@ -3111,6 +3244,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": null,
    "message": "Chlorantraniliprole 18.50 % SC on Tomato for Fruit borer: a.i. 30; formulation 150; water 500; waiting period 03 (as printed, p. 12).",
    "headline": "Approved: Chlorantraniliprole 18.50 % SC on Tomato is listed in the register (p. 12).",
@@ -3134,6 +3268,7 @@
     "pest": "aphids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "I’m sorry, I need a bit more information. Could you tell me which other pesticide products you’re interested in as alternatives?",
    "headline": "Warning: a ban or restriction applies; see restrictions. Approved: Chlorpyrifos 20 % EC on Citrus for aphids is listed in the register (p. 16).",
@@ -3153,6 +3288,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -3178,6 +3314,7 @@
     "pest": "thrips"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Spinosad 45 % SC on Chilli for Fruit borer, Thrips: a.i. 73; formulation 160; water 500; waiting period 03 (as printed, p. 47).",
    "headline": "Approved: Spinosad 45 % SC on Chilli for thrips is listed in the register (p. 47).",
@@ -3202,6 +3339,7 @@
     "pest": "diamond back moth"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Emamectin benzoate 5 % SG** is **approved** for use on cabbage against diamond‑back moth, with a label dose of 7.5 – 10 g ai / ha (150 – 200 g product / ha), diluted in 500 L water and a 3‑day pre‑harvest interval.  \n\nThe register does not contain price information.",
    "headline": "Approved: Emamectin benzoate 05 % SG on Cabbage for diamond back moth is listed in the register (p. 25).",
@@ -3228,6 +3366,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Mancozeb 75% WP on Grapes for Angular leafspot, Downy mildew, Anthracnose: a.i. 1.125-1.5kg; formulation 1.5-2kg; water 750Ltr.; waiting period - (as printed, p. 19).",
    "headline": "Approved: Mancozeb 75% WP on Grapes is listed in the register (p. 19).",
@@ -3252,6 +3391,7 @@
     "pest": null
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Thiamethoxam 25 % WG** approved for rice (paddy) with a dose of **100 g product per hectare** (dose_form = 100). The label rate of 100 g per acre is not the same unit as the register’s hectare‑based rate.",
    "headline": "Approved: Thiamethoxam 25 % WG on Rice (Paddy) is listed in the register (p. 52).",
@@ -3288,6 +3428,7 @@
     "pest": "powdery mildew"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Hexaconazole 5 % EC is approved for mango against powdery mildew, with a pre‑harvest interval of 30 days. The register does not list a specific number of sprays per season.",
    "headline": "Approved: Hexaconazole 5% EC on Mango for powdery mildew is listed in the register (p. 14).",
@@ -3307,6 +3448,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -3325,6 +3467,7 @@
    "outcome": "CLARIFY",
    "slots": null,
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
@@ -3348,6 +3491,7 @@
     "pest": "bollworm"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "ಬ್ಯಾನಿಲ್ಲ. ಪ್ರೊಫೆನೋಫಾಸ್ 50 % EC ಅನ್ನು ಹತ್ತಿ ಬೆಳೆದಾಗ ಬೋಲ್ವಾರ್ಮ್‌ಗಾಗಿ ಅನುಮೋದಿಸಲಾಗಿದೆ; ಪ್ರಮಾಣ 750 – 1000 g AI/ಹೆಕ್ಟೇರ್, 1500 – 2000 g ಉತ್ಪನ್ನ/ಹೆಕ್ಟೇರ್, 500 – 1000 L ನೀರಿನಲ್ಲಿ, ಕಾಯುವ ಅವಧಿ 15 ದಿನಗಳು.",
    "headline": "Approved: Profenofos 50 % EC on Cotton for bollworm is listed in the register (p. 43).",
@@ -3376,6 +3520,7 @@
     "pest": "aphids"
    },
    "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "Imidacloprid 17.80 % SL on Cotton for Aphid, Whitefly, Jassid, Thrips: a.i. 20 - 25; formulation 100 - 125; water 500 - 700; waiting period 40 (as printed, p. 36).",
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",

@@ -11,7 +11,7 @@
 | M0 | Requirements, architecture, ADRs, LLDs, evaluation, tests, threats | designed, approved |
 | M1 | Register extraction (L1) | implemented, tested; edge defects detected and corrected ([audit](reports/E1/edge_audit.md)); corrections reviewed, release verified; E1 golden set partly done |
 | M2 | Lookup engine and HTTP API (L2) | implemented, tested, measured; release build verified ([L2 §12.5](docs/lld/l2_lookup_api.md)). E3: 122/150 on the first run (target 98 % **not met**); after the reviewed L2 §13 fixes, **58/60 on a fresh suite** with 0 false approvals ([report](reports/E3/report.md)) |
-| M3 | Tool-calling layer + number verifier | implemented, tested; live smoke test 6/6 on Groq and Gemini, 0 unverified numbers delivered ([L3 §12](docs/lld/l3_assistant.md)). E3n evaluation not run yet |
+| M3 | Tool-calling layer + number verifier | implemented, tested; evaluated: on a fresh suite of 84 questions, **80.4 %** of answerable questions reach the same answer as a structured lookup (90 % when typed plainly), and no dose or waiting period outside the cited rows was ever delivered ([E3n](reports/E3n/first_run.md), [E3n-b](reports/E3nb/first_run.md)) |
 | M4 | Evaluation on Kisan Call Centre questions | planned |
 | M5 | Kannada, speech in and out | planned |
 | M6 | Web app and pilot | planned |

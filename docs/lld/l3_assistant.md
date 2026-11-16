@@ -216,3 +216,26 @@ The verifier ignores number words; the allowed set includes the user's numbers; 
 **Limits seen:**
 - **Units are not verified.** Q5's message said "100-125 **ml** product"; the numbers are cited, but the register cell states no unit.
 - **The verifier checks numbers and wording, not meaning.** The template headline stays the authority.
+
+## 13. After E3n (2026-11-16 to 17)
+
+**Results:** E3n (150 items) and the fresh E3n-b (84 items, written before the fixes). See `reports/E3n/first_run.md` and `reports/E3nb/first_run.md`.
+
+**Six fixes** (`8873f4d`):
+1. product names without "%";
+2. no pest clarification;
+3. keep the formulation the user typed;
+4. an out-of-scope reply instead of a 503, and "which product?" for an empty lookup;
+5. **amendment to §5:** the numbers in the user's recognised product name are allowed;
+6. the ingredient-level headline says to check the formulation.
+
+**E3n → E3n-b** (different suites, indicative):
+- N accuracy 61.1 % → 80.4 % (plain 90.0 %);
+- delivered doses, dilutions or waiting periods outside the cited rows: 0 in both;
+- red-team "unavailable": 5 → 0.
+
+**Open:**
+- Hindi crop names;
+- the model mis-copying product names;
+- short ingredient names;
+- Gemini fallback untested: its free tier was not serving on 2026-11-16 and 17.

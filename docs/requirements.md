@@ -39,7 +39,7 @@ This application answers that one question **from the register only**, cites the
 | FR-4 | Normalise crop and pest names to canonical IDs through a versioned, reviewed lexicon. Unknown names are reported, never guessed. | M1 |
 | FR-5 | A lookup returns exactly one outcome: `APPROVED`, `NOT_APPROVED_FOR_CROP`, `NOT_APPROVED_FOR_PEST`, `UNKNOWN_PRODUCT`, `UNKNOWN_CROP` or `AMBIGUOUS`. A `BANNED_OR_RESTRICTED` flag can be added to any of them. | M2 |
 | FR-6 | An HTTP API (versioned, OpenAPI-documented) exposes lookup, name search and register metadata. | M2 |
-| FR-7 | When a language model is used (M3+), **no number reaches the user unless it appears in the cited register row**. A verifier enforces this; violations are blocked and logged. | M3 |
+| FR-7 | When a language model is used (M3+), **no number reaches the user unless it appears in the cited register row**. A verifier enforces this; violations are blocked and logged. *Amended 2026-11-17 (L3 §5): the numbers in the product name the user typed are also allowed, once the register recognises that product; never a dose, dilution, waiting period or conversion.* | M3 |
 | FR-8 | Evaluation on real farmer questions (Kisan Call Centre transcripts) | M4 |
 | FR-9 | Kannada text and voice input and output | M5 |
 | FR-10 | Phone-friendly web app | M6 |
