@@ -130,9 +130,7 @@ def test_a_clarifying_question_with_a_number_is_replaced_by_a_template(engine: E
     [
         text("I think it is approved."),  # no tool call
         call("search_web", q="coragen"),  # not one of the two tools
-        call(
-            "lookup", product=None, ingredient=None, crop="tomato", pest=None
-        ),  # neither product nor ingredient
+        # (an empty lookup is no longer a failure: E3n fix 4 turns it into "which product?")
         call("lookup", product=PRODUCT, ingredient=None, crop="x" * 500, pest=None),  # over the length limit
     ],
 )
@@ -223,3 +221,67 @@ def test_recommendation_wording_falls_back_to_the_template(engine: Engine) -> No
     assert result.verifier_blocked
     assert result.unverified == ("recommended",)
     assert result.phrased_by == "template"
+
+
+# --- E3n fixes 2-6 (reports/E3n/first_run.md) -------------------------------------------------------
+
+
+def test_fix2_the_clarifying_tool_cannot_ask_for_the_optional_pest() -> None:
+    from labelclaim.assistant.loop import TOOLS  # noqa: PLC0415
+
+    enum = TOOLS[1]["function"]["parameters"]["properties"]["missing"]["enum"]
+    assert "pest" not in enum
+    assert "crop" in enum
+
+
+def test_fix3_a_formulation_the_user_typed_is_kept_when_the_model_drops_it(engine: Engine) -> None:
+    # E3n N-020/N-009: "Emamectin benzoate 5% SG" became ingredient "Emamectin benzoate"
+    dropped = call("lookup", product=None, ingredient="Chlorantraniliprole", crop="cotton", pest=None)
+    a, _, _ = assistant(engine, [dropped, text("Not listed.")])
+    result = a.ask("Can Chlorantraniliprole 18.5% SC be used in cotton?")
+    assert result.slots is not None
+    assert (result.slots["product"], result.slots["ingredient"]) == ("Chlorantraniliprole 18.5% SC", None)
+
+
+def test_fix3_a_plain_ingredient_question_stays_an_ingredient_lookup(engine: Engine) -> None:
+    ing = call("lookup", product=None, ingredient="chlorantraniliprole", crop="tomato", pest=None)
+    a, _, _ = assistant(engine, [ing, text("Listed.")])
+    result = a.ask("is any chlorantraniliprole product approved on tomato?")
+    assert result.slots is not None
+    assert (result.slots["product"], result.slots["ingredient"]) == (None, "chlorantraniliprole")
+
+
+def test_fix4_a_model_that_declines_to_call_a_tool_gets_an_out_of_scope_reply(engine: Engine) -> None:
+    a, _, _ = assistant(engine, [ProviderError("declined")], [ProviderError("declined")])
+    result = a.ask("What is the weather today?")
+    assert result.headline == "Out of scope"
+    assert result.answer is None
+    assert result.phrased_by == "template"
+    assert "register" in result.message
+
+
+def test_fix4_an_empty_lookup_asks_for_the_product(engine: Engine) -> None:
+    empty = call("lookup", product=None, ingredient=None, crop="potato", pest="late blight")
+    a, _, _ = assistant(engine, [empty])
+    result = a.ask("which products are approved for late blight in potato?")
+    assert result.clarification is not None
+    assert result.clarification.missing == "product"
+
+
+def test_fix5_numbers_in_the_users_recognised_product_name_are_allowed(engine: Engine) -> None:
+    # E3n N-001: "...Copper oxychloride 45% WP is registered on rice, but not for sheath blight" was blocked
+    not_for_pest = call("lookup", product=PRODUCT, ingredient=None, crop="tomato", pest="aphids")
+    a, _, _ = assistant(
+        engine, [not_for_pest, text("Chlorantraniliprole 18.5% SC is not listed for aphids on tomato.")]
+    )
+    result = a.ask("Chlorantraniliprole 18.5% SC on tomato for aphids?")
+    assert not result.verifier_blocked
+    assert result.phrased_by == "model"
+
+
+def test_fix6_an_ingredient_level_approval_says_to_check_the_formulation(engine: Engine) -> None:
+    ing = call("lookup", product=None, ingredient="chlorantraniliprole", crop="tomato", pest="fruit borer")
+    a, _, _ = assistant(engine, [ing, text("Listed.")])
+    result = a.ask("is any chlorantraniliprole product approved on tomato for fruit borer?")
+    assert result.headline.startswith("Approved for a product containing chlorantraniliprole")
+    assert "check that it is the formulation you have" in result.headline

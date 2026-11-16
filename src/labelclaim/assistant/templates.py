@@ -19,14 +19,20 @@ COLUMN_UNITS = (
 )
 
 
-def headline(answer: Answer, product: str, crop: str, pest: str | None) -> str:
+def headline(
+    answer: Answer, product: str, crop: str, pest: str | None, *, by_ingredient: bool = False
+) -> str:
+    """The first line the user reads, from the engine's outcome. An ingredient-level approval says to check
+    the formulation (E3n fix 6): another formulation of the same ingredient may be the one that is listed."""
     use = answer.uses[0] if answer.uses else None
     warn = "Warning: a ban or restriction applies; see restrictions. " if answer.conflict else ""
     for_pest = f" for {pest}" if pest else ""
     text = {
         Outcome.APPROVED: (
-            f"Approved: {use.product_heading} on {use.crop_raw}{for_pest} is listed in the register "
-            f"(p. {use.citation.page_first})."
+            (f"Approved for a product containing {product}: " if by_ingredient else "Approved: ")
+            + f"{use.product_heading} on {use.crop_raw}{for_pest} is listed in the register "
+            + f"(p. {use.citation.page_first})"
+            + ("; check that it is the formulation you have." if by_ingredient else ".")
             if use
             else "Approved."
         ),

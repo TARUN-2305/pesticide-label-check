@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import re
 import sqlite3
 from collections import defaultdict
 from dataclasses import dataclass
 
 from rapidfuzz import fuzz, process
 
+from labelclaim.extract.classify import FORMULATIONS
 from labelclaim.lookup.models import Status, Suggestion
 from labelclaim.normalize.headings import parse_heading
 from labelclaim.normalize.ingredients import compact, spelling_family
@@ -106,8 +108,13 @@ class Names:
         return k
 
     def product(self, text: str, *, ingredient_level: bool) -> ProductResolution:
-        """Ingredient sets match as sets (L2 §11 A4); a full heading also pins concentration and form."""
+        """Ingredient sets match as sets (L2 §11 A4); a full heading also pins concentration and form.
+        A strength typed without "%" ("Malathion 50 EC") is read as a percentage (E3n fix 1)."""
         heading = parse_heading(text)
+        if not ingredient_level and heading.status != "parsed":
+            retry = with_percent(text)
+            if retry != text and parse_heading(retry).status == "parsed":
+                text, heading = retry, parse_heading(retry)
         names = (
             [p.strip() for p in text.split("+")]
             if ingredient_level
@@ -190,3 +197,17 @@ def _resolve(text: str, aliases: dict[str, set[str]], display: dict[str, str]) -
                 suggestions[target] = Suggestion(target, display[target], round(float(score), 1))
     ranked = sorted(suggestions.values(), key=lambda s: (-s.score, s.id))
     return Resolution("unknown", (), tuple(ranked[:MAX_SUGGESTIONS]))
+
+
+_BARE_STRENGTH = re.compile(
+    rf"(?<![\d.])(\d+(?:\.\d+)?)(?!\s*(?:%|g\s*/|gm?\b|ml\b|kg\b|l\b))(?=\s*(?:\+|$|(?:{FORMULATIONS})\b))",
+    re.IGNORECASE,
+)
+
+
+def with_percent(text: str) -> str:
+    """'Malathion 50 EC' -> 'Malathion 50% EC'; '75wp' -> '75% wp'. A number already followed by a unit is
+    left alone, so g/l strengths never change. Query side only: the register's own headings are never
+    rewritten."""
+    out = _BARE_STRENGTH.sub(lambda m: m.group(1) + "% ", text)
+    return " ".join(out.split())

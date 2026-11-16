@@ -5,15 +5,17 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from collections.abc import Mapping, Sequence
 from dataclasses import asdict, dataclass
 from typing import Any, Literal, Protocol
 
 from labelclaim.assistant.providers import ChatReply, ProviderError, Router
 from labelclaim.assistant.templates import CLARIFY, COLUMN_UNITS, details, headline
-from labelclaim.assistant.verify import allowed_numbers, verify, verify_clarification, wording
+from labelclaim.assistant.verify import allowed_numbers, numbers, verify, verify_clarification, wording
+from labelclaim.extract.classify import FORMULATIONS
 from labelclaim.lookup.engine import Engine
-from labelclaim.lookup.models import Answer, Query
+from labelclaim.lookup.models import Answer, Outcome, Query
 
 LOG = logging.getLogger("labelclaim.assistant")
 MAX_ROWS_TO_MODEL = 5
@@ -27,8 +29,8 @@ product. \
 If the user named only an active ingredient, pass it as ingredient instead. Pass the crop and the pest or \
 disease as written: crops often have Indian or local names (ber, bhindi, brinjal, paddy, ragi), which the \
 register knows.
-- ask_clarifying_question: if the crop, or the product or ingredient, is missing. Ask one short question \
-with no numbers in it.
+- ask_clarifying_question: only if the crop, or both the product and the ingredient, are missing. Ask one \
+short question with no numbers in it. The pest is optional: never ask for it; leave it null if not given.
 
 After the lookup result arrives, reply in 1 to 3 short sentences, in the language of the question:
 - Say what the result says. Never decide yourself whether a use is approved.
@@ -61,7 +63,8 @@ TOOLS: list[dict[str, Any]] = [
             "type": "object",
             "properties": {
                 "question": {"type": "string"},
-                "missing": {"type": "string", "enum": ["product", "crop", "pest", "which_product"]},
+                # the pest is optional, so it is never asked for (E3n fix 2)
+                "missing": {"type": "string", "enum": ["product", "crop", "which_product"]},
             },
             "required": ["question", "missing"],
             "additionalProperties": False,
@@ -120,7 +123,15 @@ class Assistant:
             {"role": "system", "content": SYSTEM},
             {"role": "user", "content": question},
         ]
-        provider, understood = self.router.run(lambda name: self._understand(name, messages))
+        try:
+            provider, understood = self.router.run(lambda name: self._understand(name, messages))
+        except ProviderError as exc:
+            if "declined" not in str(exc):
+                raise
+            self._log("none", None, "out_of_scope", blocked=False)  # E3n fix 4: not a 503
+            return AskResult(
+                "Out of scope", OUT_OF_SCOPE, None, None, None, "none", "template", verifier_blocked=False
+            )
         clarification = understood.clarification
         if clarification is not None:
             self._log(provider, None, "clarify", blocked=False)
@@ -138,8 +149,9 @@ class Assistant:
             "crop": query.crop,
             "pest": query.pest,
         }
-        head = headline(answer, query.product or query.ingredient or "", query.crop, query.pest)
-        message, phrased_by, blocked, bad = self._phrase(provider, messages, understood, answer)
+        head = headline(answer, query.product or query.ingredient or "", query.crop, query.pest,
+                        by_ingredient=query.product is None)  # fmt: skip
+        message, phrased_by, blocked, bad = self._phrase(provider, messages, understood, answer, query)
         self._log(provider, answer.outcome.value, phrased_by, blocked=blocked)
         return AskResult(head, message, answer, slots, None, provider, phrased_by, blocked, bad)
 
@@ -162,6 +174,10 @@ class Assistant:
         product, ingredient = _text(args.get("product")), _text(args.get("ingredient"))
         if product and ingredient:  # the more specific name wins (live smoke test, 2026-11-15)
             ingredient = None
+        if ingredient and not product and (typed := product_in_question(messages[-1]["content"], ingredient)):
+            product, ingredient = typed, None  # E3n fix 3: keep the formulation the user typed
+        if not product and not ingredient:  # E3n fix 4: an empty lookup is a missing product, not a failure
+            return _Understood(call.id, args, call.raw, None, Clarification(CLARIFY["product"], "product"))
         try:
             query = Query(crop=_text(args.get("crop")) or "", product=product, ingredient=ingredient,
                           pest=_text(args.get("pest")))  # fmt: skip
@@ -170,7 +186,12 @@ class Assistant:
         return _Understood(call.id, args, call.raw, query, None)
 
     def _phrase(
-        self, provider: str, messages: list[dict[str, Any]], understood: _Understood, answer: Answer
+        self,
+        provider: str,
+        messages: list[dict[str, Any]],
+        understood: _Understood,
+        answer: Answer,
+        query: Query,
     ) -> tuple[str, Literal["model", "template"], bool, tuple[str, ...]]:
         call = understood.raw_call or {"id": understood.call_id, "type": "function",
                 "function": {"name": "lookup", "arguments": json.dumps(understood.arguments)}}  # fmt: skip
@@ -186,7 +207,10 @@ class Assistant:
         text = (reply.content or "").strip()
         if not text:
             return details(answer), "template", False, ()
-        verdict = verify(text, allowed_numbers(answer))
+        allowed = allowed_numbers(answer)
+        if query.product and answer.outcome is not Outcome.UNKNOWN_PRODUCT:
+            allowed |= {v for _, v in numbers(query.product)}  # E3n fix 5: the user's recognised product name
+        verdict = verify(text, allowed)
         flagged = verdict.unverified + wording(text)  # numbers not cited (FR-7), advice wording (NFR-4)
         if flagged:
             return details(answer), "template", True, flagged
@@ -195,6 +219,25 @@ class Assistant:
     def _log(self, provider: str, outcome: str | None, phrased_by: str, *, blocked: bool) -> None:
         LOG.info(json.dumps({"event": "ask", "provider": provider, "outcome": outcome,
                              "phrased_by": phrased_by, "verifier_blocked": blocked}))  # fmt: skip
+
+
+OUT_OF_SCOPE = (
+    "I can only check whether a pesticide product is registered for a crop (and pest) in the official CIB&RC "
+    "register. Please ask about a product and a crop."
+)
+_TYPED_PRODUCT = re.compile(
+    rf"[^?!,;]{{0,80}}?\d+(?:\.\d+)?\s*(?:%|g\s*/\s*l)?\s*(?:w/[wv]\s*)?(?:{FORMULATIONS})\b", re.IGNORECASE
+)
+
+
+def product_in_question(question: str, ingredient: str) -> str | None:
+    """E3n fix 3: the product as the user typed it ("Emamectin benzoate 5% SG"), when the model passed only
+    the ingredient. None when the question names the ingredient without a strength and formulation."""
+    start = question.lower().find(ingredient.lower())
+    if start < 0:
+        return None
+    m = _TYPED_PRODUCT.match(question[start:])
+    return " ".join(m.group(0).split()) if m else None
 
 
 def _text(value: object) -> str | None:

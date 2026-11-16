@@ -20,7 +20,9 @@ from labelclaim.errors import LabelClaimError
 
 LOG = logging.getLogger("labelclaim.assistant")
 T = TypeVar("T")
-Kind = Literal["timeout", "rate_limited", "server", "auth", "bad_response", "bad_tool_call", "unavailable"]
+Kind = Literal[
+    "timeout", "rate_limited", "server", "auth", "bad_response", "bad_tool_call", "declined", "unavailable"
+]
 GROQ = ("groq", "https://api.groq.com/openai/v1", "openai/gpt-oss-120b")
 # Live checks, 2026-11-15 (ADR-008): gemini-2.5-flash is listed but answers 404 "no longer available to new
 # users"; gemini-3.8-flash (which that error recommends) timed out at 60 s on a two-word prompt;
@@ -147,6 +149,10 @@ class ChatClient:
             raise ProviderError("auth", f"{self.name} HTTP {status}")
         if status >= 500:
             raise ProviderError("server", f"{self.name} HTTP {status}")
+        if (
+            status == 400 and "tool_use_failed" in response.text
+        ):  # the model wrote prose instead of a tool call
+            raise ProviderError("declined", self.name)
         if status != 200:
             raise ProviderError("bad_response", f"{self.name} HTTP {status}")
 

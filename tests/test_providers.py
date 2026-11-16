@@ -203,3 +203,17 @@ def test_build_clients_keeps_only_usable_providers_in_order() -> None:
     )
     assert list(clients) == ["gemini"]
     assert build_clients({}, transport=httpx.MockTransport(handler)) == {}
+
+
+def test_fix4_a_model_that_declined_to_call_a_tool_is_typed_declined() -> None:
+    body = {
+        "error": {
+            "code": "tool_use_failed",
+            "message": "Tool choice is required, but model did not call a tool",
+        }
+    }
+    with pytest.raises(ProviderError) as err:
+        client(httpx.MockTransport(lambda r: httpx.Response(400, json=body))).chat(
+            [{"role": "user", "content": "q"}]
+        )
+    assert err.value.kind == "declined"

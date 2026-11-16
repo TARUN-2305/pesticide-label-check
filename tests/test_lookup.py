@@ -241,3 +241,28 @@ def test_ingredient_spelling_fold_needs_exactly_one_match(engine: Engine) -> Non
     assert (a.outcome, ids(a.uses)) == (Outcome.APPROVED, [20])
     two = engine.lookup(Query(ingredient="sullphur", crop="grape"))  # folds to both "sulphur" and "sulfur"
     assert two.outcome is Outcome.UNKNOWN_PRODUCT
+
+
+# --- E3n fix 1: a product typed without "%" ---------------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    "typed",
+    ["Chlorantraniliprole 18.5 SC", "chlorantraniliprole 18.5SC", "Chlorantraniliprole 18.5 % SC"],
+)
+def test_a_strength_typed_without_percent_still_finds_the_product(engine: Engine, typed: str) -> None:
+    # E3n first run: "malathion 50 EC", "Nitenpyram 25 SP" were UNKNOWN_PRODUCT; dealers often omit the "%"
+    answer = engine.lookup(Query(crop="tomato", product=typed, pest="fruit borer"))
+    assert answer.outcome is Outcome.APPROVED
+
+
+def test_the_percent_retry_never_changes_a_strength_in_grams_per_litre(engine: Engine) -> None:
+    from labelclaim.lookup.names import with_percent  # noqa: PLC0415
+
+    assert with_percent("Broflanilide 300 g/l SC") == "Broflanilide 300 g/l SC"
+    assert with_percent("Mancozeb 75wp") == "Mancozeb 75% wp"
+    assert (
+        with_percent("cyproconazole 12.5 + tebuconazole 12.5 SC")
+        == "cyproconazole 12.5% + tebuconazole 12.5% SC"
+    )
+    assert with_percent("Malathion 50% EC") == "Malathion 50% EC"

@@ -151,6 +151,22 @@ MUTANTS = [
      "        provider, understood = self.router.run(",
      "        LOG.info(question)\n        provider, understood = self.router.run(",
      ["tests/test_assistant.py"], "killed"),
+    # E3n fixes (reports/E3n/first_run.md), predictions written 2026-11-17 before the run
+    ("F-M1 no retry with % for a bare strength", "lookup/names.py",
+     'if retry != text and parse_heading(retry).status == "parsed":', "if False:",
+     ["tests/test_lookup.py"], "killed"),
+    ("F-M2 a dropped formulation is not restored", "assistant/loop.py",
+     "if ingredient and not product and (typed := product_in_question(", "if False and (typed := product_in_question(",
+     ["tests/test_assistant.py"], "killed"),
+    ("F-M3 a declined tool call becomes a 503 again", "assistant/loop.py",
+     'if "declined" not in str(exc):', "if True:",
+     ["tests/test_assistant.py"], "killed"),
+    ("F-M4 the user's product-name numbers not allowed", "assistant/loop.py",
+     "if query.product and answer.outcome is not Outcome.UNKNOWN_PRODUCT:", "if False:",
+     ["tests/test_assistant.py"], "killed"),
+    ("F-M5 an ingredient-level approval reads like a product approval", "assistant/templates.py",
+     'if by_ingredient else "Approved: "', 'if False else "Approved: "',
+     ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 

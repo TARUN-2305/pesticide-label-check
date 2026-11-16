@@ -36,7 +36,7 @@ from labelclaim.lookup.engine import Engine
 from labelclaim.lookup.models import Answer, Outcome, Query
 
 ROOT = Path(__file__).resolve().parents[1]
-SUITE = ROOT / "evaluation" / "e3n"
+SUITE = ROOT / "evaluation" / "e3n"  # --suite e3nb switches to evaluation/e3nb
 _ANY_DIGITS = re.compile(r"\d+(?:[.,]\d+)?")  # \d is Unicode-aware: Kannada and other digits count too
 
 
@@ -297,7 +297,10 @@ def main() -> None:
     s = sub.add_parser("score")
     s.add_argument("--register", type=Path, required=True)
     s.add_argument("--label", required=True)
+    p.add_argument("--suite", default="e3n", choices=["e3n", "e3nb"])
     args = p.parse_args()
+    global SUITE  # noqa: PLW0603 (one CLI switch for the whole run)
+    SUITE = ROOT / "evaluation" / args.suite
     if args.cmd == "run":
         run(args.register, args.label, set(args.only), args.pause)
     else:
