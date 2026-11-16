@@ -1,0 +1,56 @@
+{"id": "NB-001", "source": "E3-119", "pool": "UNKNOWN_PRODUCT", "query": {"crop": "tea", "product": "Paraquat dichloride 24% SL"}, "expect": "UNKNOWN_PRODUCT"}
+{"id": "NB-002", "source": "E3-029", "pool": "APPROVED", "query": {"crop": "cotton", "product": "Indoxacarb 14.5% + Acetamiprid 7.7% SC", "pest": "bollworm"}, "expect": "APPROVED"}
+{"id": "NB-003", "source": "E3b-24", "pool": "APPROVED", "query": {"crop": "beans", "product": "Streptomycin sulphate 9% + Tetracycline hydrochloride 1% SP", "pest": "halo blight"}, "expect": "APPROVED"}
+{"id": "NB-004", "source": "E3b-04", "pool": "APPROVED", "query": {"crop": "tur", "product": "Emamectin benzoate 5% SG", "pest": "pod borer"}, "expect": "APPROVED"}
+{"id": "NB-005", "source": "E3-118", "pool": "UNKNOWN_PRODUCT", "query": {"crop": "cotton", "product": "Neem oil"}, "expect": "UNKNOWN_PRODUCT"}
+{"id": "NB-006", "source": "E3-105", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "groundnut", "product": "Carbendazim 12% + Mancozeb 63% WP", "pest": "rust"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NB-007", "source": "E3-011", "pool": "APPROVED", "query": {"crop": "bengal gram", "product": "Imidacloprid 48% FS", "pest": "termites"}, "expect": "APPROVED"}
+{"id": "NB-008", "source": "E3-075", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "tomato", "product": "Indoxacarb 14.5% + Acetamiprid 7.7% SC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-009", "source": "E3b-59", "pool": "AMBIGUOUS", "query": {"crop": "grapes", "product": "Cymoxanil 8% + Mancozeb 64% WP", "pest": "mildew"}, "expect": "AMBIGUOUS"}
+{"id": "NB-010", "source": "E3-014", "pool": "APPROVED", "query": {"crop": "maize", "product": "Isocycloseram 18.1% SC", "pest": "fall armyworm"}, "expect": "APPROVED"}
+{"id": "NB-011", "source": "E3b-14", "pool": "APPROVED", "query": {"crop": "sugarcane", "product": "Tetraniliprole 0.4% + Fipronil 0.6% GR", "pest": "white grub"}, "expect": "APPROVED"}
+{"id": "NB-012", "source": "E3-016", "pool": "APPROVED", "query": {"crop": "groundnut", "product": "Methoxyfenozide 21.8% SC", "pest": "groundnut leaf miner"}, "expect": "APPROVED"}
+{"id": "NB-013", "source": "E3-084", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "wheat", "product": "Tricyclazole 75% WP"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-014", "source": "E3-080", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "wheat", "product": "Metalaxyl 35% WS"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-015", "source": "E3b-12", "pool": "APPROVED", "query": {"crop": "cotton", "product": "Pyriproxyfen 8% + Dinotefuran 5% + Diafenthiuron 18% SC", "pest": "aphids"}, "expect": "APPROVED"}
+{"id": "NB-016", "source": "E3b-49", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "chilli", "product": "Pyriproxyfen 5% + Diafenthiuron 25% SE", "pest": "aphids"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NB-017", "source": "E3-058", "pool": "APPROVED", "query": {"crop": "rice", "product": "Picoxystrobin 6.78% + Tricyclazole 20.33% SC", "pest": "neck blast"}, "expect": "APPROVED"}
+{"id": "NB-018", "source": "E3-062", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "tomato", "product": "Carbosulfan 25% EC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-019", "source": "E3b-20", "pool": "APPROVED", "query": {"crop": "groundnut", "product": "Hexaconazole 5% EC", "pest": "tikka leaf spot"}, "expect": "APPROVED"}
+{"id": "NB-020", "source": "E3b-03", "pool": "APPROVED", "query": {"crop": "rice", "product": "Dinotefuran 70% WG", "pest": "white backed plant hopper"}, "expect": "APPROVED"}
+{"id": "NB-021", "source": "E3-097", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "cabbage", "product": "Acetamiprid 20% + Chlorantraniliprole 20% WG", "pest": "whitefly"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NB-022", "source": "E3-148", "pool": "restriction overlay", "query": {"crop": "cotton", "product": "Monocrotophos 15% SG", "pest": "whitefly"}, "expect": "APPROVED"}
+{"id": "NB-023", "source": "E3b-50", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "okra", "product": "Pyriproxyfen 5% + Fenpropathrin 15% EC", "pest": "jassids"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NB-024", "source": "E3b-16", "pool": "APPROVED", "query": {"crop": "groundnut", "product": "Thiamethoxam 12.6% + Lambda-cyhalothrin 9.5% ZC", "pest": "leaf hopper"}, "expect": "APPROVED"}
+{"id": "NB-025", "source": "E3b-34", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "rice", "product": "Novaluron 10% EC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-026", "source": "E3-056", "pool": "APPROVED", "query": {"crop": "pomegranate", "product": "Kasugamycin 5% + Copper oxychloride 45% WP", "pest": "bacterial blight"}, "expect": "APPROVED"}
+{"id": "NB-027", "source": "E3-116", "pool": "UNKNOWN_PRODUCT", "query": {"crop": "cotton", "product": "Endosulfan 35% EC"}, "expect": "UNKNOWN_PRODUCT"}
+{"id": "NB-028", "source": "E3-092", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "grapes", "product": "Cyantraniliprole 10.26% OD", "pest": "mealybug"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NB-029", "source": "E3-102", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "apple", "product": "Lime Sulphur 22% SC", "pest": "scab"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NB-030", "source": "E3-061", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "cotton", "product": "Broflanilide 300 g/l SC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-031", "source": "E3-088", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "chilli", "product": "Metiram 44% + Dimethomorph 9% WG"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-032", "source": "E3b-54", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "chilli", "product": "Hexaconazole 2% SC", "pest": "anthracnose"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NB-033", "source": "E3b-10", "pool": "APPROVED", "query": {"crop": "brinjal", "product": "Pyriproxyfen 5% + Fenpropathrin 15% EC", "pest": "shoot and fruit borer"}, "expect": "APPROVED"}
+{"id": "NB-034", "source": "E3-036", "pool": "APPROVED", "query": {"crop": "chilli", "product": "Pyraclostrobin 10% + Fipronil 5% SC", "pest": "powdery mildew"}, "expect": "APPROVED"}
+{"id": "NB-035", "source": "E3-125", "pool": "UNKNOWN_CROP", "query": {"crop": "tomatoe", "product": "Chlorantraniliprole 18.5% SC"}, "expect": "UNKNOWN_CROP"}
+{"id": "NB-036", "source": "E3b-18", "pool": "APPROVED", "query": {"crop": "rice", "product": "Flutriafol 23% SC", "pest": "brown spot"}, "expect": "APPROVED"}
+{"id": "NB-037", "source": "E3-126", "pool": "UNKNOWN_CROP", "query": {"crop": "brocoli", "product": "Thiamethoxam 25% WG"}, "expect": "UNKNOWN_CROP"}
+{"id": "NB-038", "source": "E3-086", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "rice", "product": "Chlorothalonil 40% + Thiophanate methyl 35% WDG"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-039", "source": "E3-136", "pool": "AMBIGUOUS", "query": {"crop": "sugarcane", "product": "Methoxyfenozide 21.8% SC", "pest": "borer"}, "expect": "AMBIGUOUS"}
+{"id": "NB-040", "source": "E3-043", "pool": "APPROVED", "query": {"crop": "paddy", "product": "Pyraclostrobin 100 g/l CS", "pest": "blast"}, "expect": "APPROVED"}
+{"id": "NB-041", "source": "E3-030", "pool": "APPROVED", "query": {"crop": "paddy", "product": "Indoxacarb 10% + Thiamethoxam 10% WG", "pest": "yellow stem borer"}, "expect": "APPROVED"}
+{"id": "NB-042", "source": "E3-012", "pool": "APPROVED", "query": {"crop": "bajra", "product": "Imidacloprid 48% FS", "pest": "shoot fly"}, "expect": "APPROVED"}
+{"id": "NB-043", "source": "E3b-41", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "wheat", "product": "Hexaconazole 75% WG"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-044", "source": "E3-138", "pool": "AMBIGUOUS", "query": {"crop": "gourd", "product": "Cyantraniliprole 10.26% OD", "pest": "thrips"}, "expect": "AMBIGUOUS"}
+{"id": "NB-045", "source": "E3b-57", "pool": "AMBIGUOUS", "query": {"crop": "grapes", "product": "Hexaconazole 2% SC", "pest": "mildew"}, "expect": "AMBIGUOUS"}
+{"id": "NB-046", "source": "E3b-39", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "cotton", "product": "Tetraniliprole 10.81% + Spirotetramat 21.62% SC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-047", "source": "E3-044", "pool": "APPROVED", "query": {"crop": "citrus", "product": "Streptomycin sulphate 90% + Tetracycline hydrochloride 10% SP", "pest": "citrus canker"}, "expect": "APPROVED"}
+{"id": "NB-048", "source": "E3-147", "pool": "restriction overlay", "query": {"crop": "jowar", "product": "Mancozeb 75% WP", "pest": "leaf spot"}, "expect": "APPROVED"}
+{"id": "NB-049", "source": "E3b-47", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "tea", "product": "Emamectin benzoate 5% SG", "pest": "red spider mite"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NB-050", "source": "E3-049", "pool": "APPROVED", "query": {"crop": "paddy", "product": "Tricyclazole 75% WP", "pest": "blast"}, "expect": "APPROVED"}
+{"id": "NB-051", "source": "E3b-27", "pool": "APPROVED", "query": {"crop": "paddy", "product": "Cyproconazole 12.5% + Tebuconazole 12.5% SC", "pest": "sheath blight"}, "expect": "APPROVED"}
+{"id": "NB-052", "source": "E3-123", "pool": "UNKNOWN_CROP", "query": {"crop": "kiwi", "product": "Hexaconazole 5% EC"}, "expect": "UNKNOWN_CROP"}
+{"id": "NB-053", "source": "E3-005", "pool": "APPROVED", "query": {"crop": "bhindi", "product": "Flupyradifurone 17.09% SL", "pest": "whitefly"}, "expect": "APPROVED"}
+{"id": "NB-054", "source": "E3b-25", "pool": "APPROVED", "query": {"crop": "cucumber", "product": "Cymoxanil 8% + Mancozeb 64% WP", "pest": "downy mildew"}, "expect": "APPROVED"}
+{"id": "NB-055", "source": "E3-078", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "mango", "product": "Lime Sulphur 22% SC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NB-056", "source": "E3-083", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "maize", "product": "Tebuconazole 5.36% FS"}, "expect": "NOT_APPROVED_FOR_CROP"}
