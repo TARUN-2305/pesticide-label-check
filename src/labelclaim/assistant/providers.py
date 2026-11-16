@@ -214,7 +214,8 @@ def build_clients(
     A provider without a key, or whose model is gone, is left out and logged (names only)."""
     plan = [
         (GROQ, "GROQ_API_KEY", {"strict": True, "extra": {"reasoning_effort": "low"}}),
-        (GEMINI, "GEMINI_API_KEY", {"strict": False, "extra": {}}),
+        # the fallback gets a longer timeout: its free tier took > 8 s for a two-word reply (2026-11-16)
+        (GEMINI, "GEMINI_API_KEY", {"strict": False, "extra": {}, "timeout": 20.0}),
     ]
     clients: dict[str, ChatClient] = {}
     for (name, base, model), key_name, options in plan:

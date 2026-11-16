@@ -1,0 +1,11 @@
+{
+ "label": "first_run",
+ "started": "2026-11-16T22:19:56+0530",
+ "models": {
+  "groq": "openai/gpt-oss-120b"
+ },
+ "python": "3.12.16",
+ "register": "build/register.sqlite",
+ "commit": "bd3a494",
+ "suite_sha256": "68b8e4ea2b837b07822435d3676714279168237b20cc10ceac63c00193e5dc84"
+}

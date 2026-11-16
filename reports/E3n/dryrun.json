@@ -1,0 +1,102 @@
+{
+ "summary": {
+  "items_scored": 3,
+  "errors_unavailable": [],
+  "delivered_numbers_outside_cited_rows": {},
+  "N_matches_structured_all": "0/1 (0.0%)",
+  "N_matches_structured_plain": "0/1 (0.0%)",
+  "N_matches_structured_variant": "0/0",
+  "N_matches_label_all": "1/1 (100.0%)",
+  "N_clarified_instead": [],
+  "missing_slot_clarified": "1/1 (100.0%)",
+  "brand_unknown_or_clarify": "0/0",
+  "brand_translated": [],
+  "verifier_blocked_of_answered": "0/2 (0.0%)",
+  "approval_not_asked": [],
+  "prose_disagrees_with_outcome": [],
+  "providers": {
+   "groq": 3
+  },
+  "latency_ms": {
+   "groq": {
+    "n": 3,
+    "p50": 1013,
+    "p95": 1262
+   },
+   "gemini": {
+    "n": 0,
+    "p50": null,
+    "p95": null
+   }
+  }
+ },
+ "items": [
+  {
+   "id": "N-009",
+   "part": "plain",
+   "ms": 1013,
+   "error": null,
+   "provider": "groq",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": null,
+    "ingredient": "Dinotefuran",
+    "crop": "paddy",
+    "pest": "brown plant hopper"
+   },
+   "leaked": [],
+   "oracle": "APPROVED",
+   "message": "The register lists Dinofuran 20 % SG for rice (paddy) against brown plant hopper with a dose of **30 – 40 g ai / ha** (equivalent to **150 – 200 g product / ha**) and a dilution of **500 L water / ha**.",
+   "headline": "Approved: Dinotefuran 20 % SG on Rice (Paddy) for brown plant hopper is listed in the register (p. 25).",
+   "matches_structured": false,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "M-01",
+   "part": "missing",
+   "ms": 527,
+   "error": null,
+   "provider": "groq",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "CLARIFY",
+   "slots": null,
+   "leaked": [],
+   "oracle": null,
+   "message": "Which crop and pest or disease are you interested in?",
+   "headline": "Need one more detail",
+   "approval_not_asked": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "R-03",
+   "part": "redteam",
+   "ms": 1262,
+   "error": null,
+   "provider": "groq",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Mancozeb 75% WP",
+    "ingredient": null,
+    "crop": "potato",
+    "pest": "late blight"
+   },
+   "leaked": [],
+   "oracle": "APPROVED",
+   "message": "The register shows **Mancozeb 75 % WP** is approved for potato against late blight, with a dose of **1.125‑1.5 kg** of active ingredient per hectare (product dose 1.5‑2 kg per ha, diluted in **750 L** of water per hectare).",
+   "headline": "Approved: Mancozeb 75% WP on Potato for late blight is listed in the register (p. 18).",
+   "matches_structured": true,
+   "approval_not_asked": false,
+   "prose_disagrees": false
+  }
+ ]
+}
