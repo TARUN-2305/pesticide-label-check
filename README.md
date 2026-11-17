@@ -4,14 +4,14 @@
 
 **For:** agri-input dealers, farmers and extension workers. Kannada and English, by text and later by voice.
 
-**Status (2026-11-15):** M0 design reviewed and approved. **M1 (register extraction) and M2 (lookup engine and HTTP API) are implemented and tested.** The crop, pest and ingredient lexicons and the anomaly allow-list are human-reviewed, and the *release* build passes: 2,374 approved-use rows, each with a page citation. An edge audit found 13 rows the extractor misread (one with a wrong crop); they are now detected, and corrected through a reviewed file ([ADR-007](docs/adr/0007-reviewed-corrections.md)). The corrections were reviewed under the user's delegation, and the release build passes (`d86befe7…`). E1 (120 random rows, labelled from page images) found one defect, split pest cells. After the fix (L1 §17), the register's pest-only rows went from 77 to 2, and a fresh E1b sample of 60 rows scores **99.36 % of fields and 96.6 % of rows** (target 97 %, missed by one row; [report](reports/E1/report.md)). There is no app yet.
+**Status (2026-11-18):** M0 to M3 are implemented and tested. The register is a read-only SQLite file built offline from the official PDFs (release `285c851f…`: 2,297 approved-use rows, each with a page citation). The lookup engine and HTTP API answer from it deterministically (M2). The assistant (M3) lets a language model understand the question and phrase the reply, but every fact comes from the register, and a verifier blocks any dose, dilution or waiting period not in the cited rows. The latest live suite, E3n-c ([report](reports/E3nc/first_run.md)), found one approval for the wrong crop: the model translated a Kannada crop name itself. The deterministic guard for it is the next fix. There is no web app yet (M6).
 
 | Milestone | Scope | State |
 |---|---|---|
 | M0 | Requirements, architecture, ADRs, LLDs, evaluation, tests, threats | designed, approved |
 | M1 | Register extraction (L1) | implemented, tested; edge defects detected and corrected ([audit](reports/E1/edge_audit.md)); corrections reviewed, release verified; E1 golden set partly done |
 | M2 | Lookup engine and HTTP API (L2) | implemented, tested, measured; release build verified ([L2 §12.5](docs/lld/l2_lookup_api.md)). E3: 122/150 on the first run (target 98 % **not met**); after the reviewed L2 §13 fixes, **58/60 on a fresh suite** with 0 false approvals ([report](reports/E3/report.md)) |
-| M3 | Tool-calling layer + number verifier | implemented, tested; evaluated: on a fresh suite of 84 questions, **80.4 %** of answerable questions reach the same answer as a structured lookup (90 % when typed plainly), and no dose or waiting period outside the cited rows was ever delivered ([E3n](reports/E3n/first_run.md), [E3n-b](reports/E3nb/first_run.md)) |
+| M3 | Tool-calling layer + number verifier | implemented, tested; evaluated live on three suites ([E3n](reports/E3n/first_run.md), [E3n-b](reports/E3nb/first_run.md), [E3n-c](reports/E3nc/first_run.md)). On the fresh E3n-b, **80.4 %** of answerable questions reach the same answer as a structured lookup (90 % when typed plainly). No dose or waiting period outside the cited rows has been delivered in any suite. Open: one wrong-crop approval in E3n-c (fix A) |
 | M4 | Evaluation on Kisan Call Centre questions | planned |
 | M5 | Kannada, speech in and out | planned |
 | M6 | Web app and pilot | planned |
@@ -22,8 +22,9 @@
 - [Architecture (HLD)](docs/architecture.md) and [decision records](docs/adr/)
 - [L1: register extraction](docs/lld/l1_register_extraction.md)
 - [L2: lookup engine and API](docs/lld/l2_lookup_api.md)
+- [L3: assistant](docs/lld/l3_assistant.md)
 - [Evaluation plan](docs/evaluation_plan.md), [test strategy](docs/test_strategy.md), [threat model](docs/threat_model.md)
-- Interview notes: [M0 design](docs/interview_notes/m0_design.md), [M1 extraction](docs/interview_notes/m1_extraction.md)
+- Interview notes: [M0 design](docs/interview_notes/m0_design.md), [M1 extraction](docs/interview_notes/m1_extraction.md), [M3 assistant](docs/interview_notes/m3_assistant.md)
 - M1 results: [L1 §15](docs/lld/l1_register_extraction.md), [mutation checks](reports/M1/mutants.md), [build runs](reports/M1/build_runs.csv)
 
 ## Development

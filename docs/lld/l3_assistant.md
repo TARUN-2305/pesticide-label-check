@@ -256,3 +256,28 @@ The verifier ignores number words; the allowed set includes the user's numbers; 
 - test `test_fix5_only_typed_numbers_equal_to_the_registered_strength_are_allowed`: a typed "(batch 77)" is blocked although the product was recognised.
 
 **Evidence:** the 16 E3n-b replies that used the amendment were replayed offline under exact matching, and **16/16 still pass**. Every typed strength equals the register's own ("7.7" = "07.70"; "2 SC" resolves to "2% SC").
+
+## 15. Polish round and E3n-c (2026-11-18)
+
+**Built** (`eded4fe`, `427fb48`; E3n-c committed before them in `7880226`):
+- `_users_product`: the user's typed product text wins over the model's copy when the numbers differ. When only the spelling differs, the typed text wins only if it is the one the register resolves.
+- 130 reviewed Hindi and Kannada crop aliases. They were reviewed under delegation and then checked by the user ([record](../../data/lexicon/review/polish_review_record.md)).
+- `unique_prefix`: a short ingredient name folds to the one registered ingredient it begins, if exactly one does.
+- Gemini: the first serving model of an ordered list.
+
+**Measured** ([report](../../reports/E3nc/first_run.md)):
+- plain items 18/18;
+- targeted variants 14/18;
+- 0 numbers beyond the cited rows and the exact product strength;
+- the Gemini fallback 18/18 (p95 7.3 s).
+
+**Open, in priority order:**
+
+| ID | Finding | Candidate fix |
+|---|---|---|
+| A | The model translated "bende" (okra) to brinjal, giving an **approval for the wrong crop** (NC-034). It also cut "chai bagan" to "bagan" (NC-019) and kept a case suffix (NC-027) | When the question contains an exact crop alias and the model's crop resolves differently or not at all, use the question's alias (the crop analogue of `_users_product`) |
+| B | Clarifications that ask for a slot the question already gives (NC-023, NC-028, RC-05) | Fill the slots deterministically from the question before accepting a clarification |
+| C | Prose on a not-found crop claimed "bagan" = guava | Template text only when the outcome cites no rows |
+| D | "150 grams" for a liquid whose register column is "g or ml" | Use the register's unit unless the cell states one |
+
+**Scorer change:** `approval_for_other_rows` was added after NC-034, because `approval_not_asked` misses a wrong-row approval when the asked rows are approved too. All three suites were re-scored, and E3n gains N-009 and N-030 (addendum in its report).

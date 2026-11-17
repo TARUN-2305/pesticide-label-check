@@ -1,0 +1,567 @@
+{
+ "summary": {
+  "items_scored": 18,
+  "errors_unavailable": [],
+  "delivered_numbers_outside_cited_rows_strict": {
+   "NC-002": [
+    "10"
+   ],
+   "NC-003": [
+    "40",
+    "5"
+   ],
+   "NC-005": [
+    "47",
+    "9.4"
+   ],
+   "NC-007": [
+    "5"
+   ],
+   "NC-010": [
+    "10",
+    "12"
+   ],
+   "NC-012": [
+    "75"
+   ],
+   "NC-018": [
+    "22"
+   ]
+  },
+  "delivered_numbers_outside_cited_rows_and_product_name": {},
+  "N_matches_structured_all": "18/18 (100.0%)",
+  "N_matches_structured_plain": "18/18 (100.0%)",
+  "N_matches_structured_variant": "0/0",
+  "N_matches_label_all": "17/18 (94.4%)",
+  "N_clarified_instead": [],
+  "missing_slot_clarified": "0/0",
+  "brand_unknown_or_clarify": "0/0",
+  "brand_translated": [],
+  "verifier_blocked_of_answered": "0/18 (0.0%)",
+  "approval_not_asked": [],
+  "approval_for_other_rows": [],
+  "prose_disagrees_with_outcome": [
+   "NC-011"
+  ],
+  "providers": {
+   "gemini": 18
+  },
+  "latency_ms": {
+   "groq": {
+    "n": 0,
+    "p50": null,
+    "p95": null
+   },
+   "gemini": {
+    "n": 18,
+    "p50": 3744.5,
+    "p95": 7286
+   }
+  }
+ },
+ "items": [
+  {
+   "id": "NC-001",
+   "part": "plain",
+   "ms": 3886,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "NOT_APPROVED_FOR_PEST",
+   "slots": {
+    "product": "Fluensulfone 2% GR",
+    "ingredient": null,
+    "crop": "tomato",
+    "pest": "fruit borer"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "NOT_APPROVED_FOR_PEST",
+   "message": "Fluensulfone is not registered for use against fruit borer in tomato in the CIB&RC register.",
+   "headline": "Not listed for this pest: Fluensulfone 2% GR is registered on tomato, but not for fruit borer.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-002",
+   "part": "plain",
+   "ms": 3007,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "NOT_APPROVED_FOR_CROP",
+   "slots": {
+    "product": "Pyriproxyfen 10% + Bifenthrin 10% EC",
+    "ingredient": null,
+    "crop": "tomato",
+    "pest": null
+   },
+   "leaked": [
+    "10"
+   ],
+   "leaked_beyond_product_name": [],
+   "oracle": "NOT_APPROVED_FOR_CROP",
+   "message": "The CIB&RC register does not list any approved uses for Pyriproxyfen 10% + Bifenthrin 10% EC on tomato.",
+   "headline": "Not listed: the register has no use of Pyriproxyfen 10% + Bifenthrin 10% EC on tomato.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-003",
+   "part": "plain",
+   "ms": 2271,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "NOT_APPROVED_FOR_PEST",
+   "slots": {
+    "product": "Emamectin benzoate 5% + Lufenuron 40% WG",
+    "ingredient": null,
+    "crop": "cauliflower",
+    "pest": "aphids"
+   },
+   "leaked": [
+    "40",
+    "5"
+   ],
+   "leaked_beyond_product_name": [],
+   "oracle": "NOT_APPROVED_FOR_PEST",
+   "message": "The CIB&RC register does not list any approved use for Emamectin benzoate 5% + Lufenuron 40% WG on aphids in cauliflower.",
+   "headline": "Not listed for this pest: Emamectin benzoate 5% + Lufenuron 40% WG is registered on cauliflower, but not for aphids.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-004",
+   "part": "plain",
+   "ms": 3976,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Pyriofenone 18% SC",
+    "ingredient": null,
+    "crop": "grapes",
+    "pest": "powdery mildew"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "APPROVED",
+   "message": "The CIB&RC register lists Pyriofenone 18.0% w/v SC for grapes and powdery mildew with a waiting period of 7 days on page 27, and 5 days on page 35.",
+   "headline": "Approved: Pyriofenone 18.0% w/v SC on Grapes for powdery mildew is listed in the register (p. 27).",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-005",
+   "part": "plain",
+   "ms": 2304,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "NOT_APPROVED_FOR_PEST",
+   "slots": {
+    "product": "Diafenthiuron 47% + Bifenthrin 9.4% SC",
+    "ingredient": null,
+    "crop": "chilli",
+    "pest": "whitefly"
+   },
+   "leaked": [
+    "47",
+    "9.4"
+   ],
+   "leaked_beyond_product_name": [],
+   "oracle": "NOT_APPROVED_FOR_PEST",
+   "message": "The CIB&RC register does not list any approved use for Diafenthiuron 47% + Bifenthrin 9.4% SC against whitefly in chilli.",
+   "headline": "Not listed for this pest: Diafenthiuron 47% + Bifenthrin 9.4% SC is registered on chilli, but not for whitefly.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-006",
+   "part": "plain",
+   "ms": 3867,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Emamectin Benzoate 1.25% + Lambda Cyhalothrin 1.5% + Bifenthrin 4.5% EC",
+    "ingredient": null,
+    "crop": "rice",
+    "pest": "leaf folder"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "APPROVED",
+   "message": "The CIB&RC register lists Emamectin Benzoate 1.25% + Lambda Cyhalothrin 1.5% + Bifenthrin 4.5% EC as approved for stem borer and leaf folder in Paddy ( Rice) at a dose_form of 750 ml per hectare, dilution of 500 litres per hectare, and a waiting period of 17 days.",
+   "headline": "Approved: Emamectin Benzoate 1.25% + Lambda Cyhalothrin 1.5% + Bifenthrin 4.5% EC on Paddy ( Rice) for leaf folder is listed in the register (p. 70).",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-007",
+   "part": "plain",
+   "ms": 6137,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "UNKNOWN_CROP",
+   "slots": {
+    "product": "Hexaconazole 5% SC",
+    "ingredient": null,
+    "crop": "lavender",
+    "pest": null
+   },
+   "leaked": [
+    "5"
+   ],
+   "leaked_beyond_product_name": [],
+   "oracle": "UNKNOWN_CROP",
+   "message": "The CIB&RC register does not list Hexaconazole 5% SC for use on lavender.",
+   "headline": "Crop not found in the register: lavender.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-008",
+   "part": "plain",
+   "ms": 8250,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Copper sulfate 47.15% + Mancozeb 30% WDG",
+    "ingredient": null,
+    "crop": "pomegranate",
+    "pest": "bacterial blight"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "APPROVED",
+   "message": "The CIB&RC register approves the use of Copper Sulphate 47.15% + Mancozeb 30% WDG on pomegranate for bacterial blight, with a dose form of 2500 grams per hectare and a dilution of 500 litres of water per hectare. The waiting period before harvest is 44 days.",
+   "headline": "Approved: Copper Sulphate 47.15% + Mancozeb 30% WDG on Pomegranate for bacterial blight is listed in the register (p. 59).",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-009",
+   "part": "plain",
+   "ms": 7286,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Novaluron 10% EC",
+    "ingredient": null,
+    "crop": "bengal gram",
+    "pest": "pod borer"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "APPROVED",
+   "message": "The CIB&RC register lists Bengal gram and pod borer for Novaluron 10 % EC with a dose_form of 750 ml per hectare, dilution of 500 litres of water per hectare, and a waiting period of 07 days.",
+   "headline": "Approved: Novaluron 10 % EC on Bengal gram for pod borer is listed in the register (p. 41).",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-010",
+   "part": "plain",
+   "ms": 6795,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "NOT_APPROVED_FOR_CROP",
+   "slots": {
+    "product": "Lambda cyhalothrin 10% + Lufenuron 12% SC",
+    "ingredient": null,
+    "crop": "tomato",
+    "pest": null
+   },
+   "leaked": [
+    "10",
+    "12"
+   ],
+   "leaked_beyond_product_name": [],
+   "oracle": "NOT_APPROVED_FOR_CROP",
+   "message": "The official CIB&RC register does not list any approved use for Lambda cyhalothrin 10% + Lufenuron 12% SC on tomato.",
+   "headline": "Not listed: the register has no use of Lambda cyhalothrin 10% + Lufenuron 12% SC on tomato.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-011",
+   "part": "plain",
+   "ms": 3308,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "NOT_APPROVED_FOR_PEST",
+   "slots": {
+    "product": "Difenoconazole 10% + Mancozeb 50% WDG",
+    "ingredient": null,
+    "crop": "apple",
+    "pest": "scab"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "NOT_APPROVED_FOR_PEST",
+   "message": "The CIB&RC register does not list Difenoconazole 10% + Mancozeb 50% WDG for use against scab on apple. Other products are registered for this use, such as Captan 50% WP, Captan 75% WP, Carbendazim 50%WP, Chlorothalonil 75% WP, and Difenoconazole 25% EC.",
+   "headline": "Not listed for this pest: Difenoconazole 10% + Mancozeb 50% WDG is registered on apple, but not for scab.",
+   "matches_structured": true,
+   "matches_label": false,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": true
+  },
+  {
+   "id": "NC-012",
+   "part": "plain",
+   "ms": 5675,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "AMBIGUOUS",
+   "slots": {
+    "product": "Mancozeb 75% WG",
+    "ingredient": null,
+    "crop": "potato",
+    "pest": "blight"
+   },
+   "leaked": [
+    "75"
+   ],
+   "leaked_beyond_product_name": [],
+   "oracle": "AMBIGUOUS",
+   "message": "Mancozeb 75% WG is approved for late blight in potato, but it is not approved for early blight. Mancozeb is banned for use on Guava, Jowar and Tapioca.",
+   "headline": "More than one match; please choose one of the options.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-013",
+   "part": "plain",
+   "ms": 6731,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Pymetrozine 30% + Tebuconazole 37% WG",
+    "ingredient": null,
+    "crop": "paddy",
+    "pest": "sheath blight"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "APPROVED",
+   "message": "The CIB&RC register lists Pymetrozine 30.0% + Tebuconazole 37.0% WG as approved for paddy against sheath blight. The waiting period before harvest is 33 days.",
+   "headline": "Approved: Pymetrozine 30.0% + Tebuconazole 37.0% WG on Paddy for sheath blight is listed in the register (p. 83).",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-014",
+   "part": "plain",
+   "ms": 2722,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Dimpropyridaz 120 g/l SL",
+    "ingredient": null,
+    "crop": "cucumber",
+    "pest": "aphids"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "APPROVED",
+   "message": "The CIB&RC register lists Dimpropyridaz 120 g/l SL for aphids on cucumber with a dose of 700 dose_form and a waiting period of 3 days.",
+   "headline": "Approved: DIMPROPYRIDAZ 120 g/l SL on Cucumber for aphids is listed in the register (p. 25).",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-015",
+   "part": "plain",
+   "ms": 3622,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "NOT_APPROVED_FOR_CROP",
+   "slots": {
+    "product": "Streptomycin sulphate 9% + Tetracycline hydrochloride 1% SP",
+    "ingredient": null,
+    "crop": "grapes",
+    "pest": null
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "NOT_APPROVED_FOR_CROP",
+   "message": "The CIB&RC register does not list any approved use for this product on grapes.",
+   "headline": "Not listed: the register has no use of Streptomycin sulphate 9% + Tetracycline hydrochloride 1% SP on grapes.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-016",
+   "part": "plain",
+   "ms": 2856,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Zineb 75% WP",
+    "ingredient": null,
+    "crop": "sorghum",
+    "pest": "red leaf spot"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "APPROVED",
+   "message": "The official CIB&RC register lists Zineb 75%WP for Jowar and red leaf spot with a dose of product of 1.5-2KG and dilution of 750-1000 Lt.",
+   "headline": "Approved: Zineb 75%WP on Jowar for red leaf spot is listed in the register (p. 42).",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-017",
+   "part": "plain",
+   "ms": 2283,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "APPROVED",
+   "slots": {
+    "product": "Hexaconazole 75% WG",
+    "ingredient": null,
+    "crop": "coffee",
+    "pest": "leaf rust"
+   },
+   "leaked": [],
+   "leaked_beyond_product_name": [],
+   "oracle": "APPROVED",
+   "message": "The CIB&RC register lists an approved use for Hexaconazole 75% WG on coffee for leaf rust, with a dose of 133.3 grams of product per hectare and a waiting period of 54 days.",
+   "headline": "Approved: Hexaconazole 75% WG on Coffee for leaf rust is listed in the register (p. 14).",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  },
+  {
+   "id": "NC-018",
+   "part": "plain",
+   "ms": 2560,
+   "error": null,
+   "provider": "gemini",
+   "phrased_by": "model",
+   "blocked": false,
+   "flagged": [],
+   "outcome": "NOT_APPROVED_FOR_PEST",
+   "slots": {
+    "product": "Metaflumizone 22% SC",
+    "ingredient": null,
+    "crop": "cabbage",
+    "pest": "aphids"
+   },
+   "leaked": [
+    "22"
+   ],
+   "leaked_beyond_product_name": [],
+   "oracle": "NOT_APPROVED_FOR_PEST",
+   "message": "Metaflumizone 22% SC is not approved for aphids on cabbage in the CIB&RC register.",
+   "headline": "Not listed for this pest: Metaflumizone 22% SC is registered on cabbage, but not for aphids.",
+   "matches_structured": true,
+   "matches_label": true,
+   "approval_not_asked": false,
+   "approval_for_other_rows": false,
+   "prose_disagrees": false
+  }
+ ]
+}

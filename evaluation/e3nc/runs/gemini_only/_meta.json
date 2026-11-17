@@ -1,0 +1,11 @@
+{
+ "label": "gemini_only",
+ "started": "2026-11-18T00:30:17+0530",
+ "models": {
+  "gemini": "gemini-3.5-flash-lite"
+ },
+ "python": "3.12.16",
+ "register": "build/register.sqlite",
+ "commit": "427fb48",
+ "suite_sha256": "e6a05977cba7344f5a0cdcc95b40b7272b823e55a62cb4ff3c80dffbc3af17bb"
+}
