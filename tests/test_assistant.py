@@ -298,3 +298,50 @@ def test_fix5_only_typed_numbers_equal_to_the_registered_strength_are_allowed(en
     assert result.answer.outcome.value == "NOT_APPROVED_FOR_PEST"  # the product itself was recognised
     assert result.verifier_blocked
     assert result.unverified == ("77",)
+
+
+# --- polish round (E3n-b misses; E3n-c measures them) ---------------------------------------------------
+
+
+def test_a_mis_copied_strength_is_replaced_by_the_users_typed_product(engine: Engine) -> None:
+    # E3n-b NB-011: the model copied "Tetraniliprole 0.4% ..." as "0.5%". The strength must be the user's.
+    miscopied = call(
+        "lookup", product="Chlorantraniliprole 15.5% SC", ingredient=None, crop="tomato", pest="fruit borer"
+    )
+    a, _, _ = assistant(engine, [miscopied, text("Approved; wait 3 days.")])
+    result = a.ask("Chlorantraniliprole 18.5% SC on tomato for fruit borer?")
+    assert result.slots is not None
+    assert result.slots["product"] == "Chlorantraniliprole 18.5% SC"
+    assert result.answer is not None
+    assert result.answer.outcome.value == "APPROVED"
+
+
+def test_words_dragged_into_the_product_are_dropped_when_the_typed_product_resolves(engine: Engine) -> None:
+    # E3n-b NB-050: "tricyclazole 75WP blast" -- the pest word ended up in the product slot
+    dragged = call(
+        "lookup", product="chlorantraniliprole 18.5SC fruit", ingredient=None, crop="tomato", pest="borer"
+    )
+    a, _, _ = assistant(engine, [dragged, text("Approved.")])
+    result = a.ask("chlorantraniliprole 18.5SC fruit borer tomato")
+    assert result.slots is not None
+    assert result.slots["product"] == "chlorantraniliprole 18.5SC"
+
+
+def test_a_model_spelling_correction_with_the_same_numbers_is_kept_when_it_resolves(engine: Engine) -> None:
+    corrected = call("lookup", product=PRODUCT, ingredient=None, crop="tomato", pest="fruit borer")
+    a, _, _ = assistant(engine, [corrected, text("Approved.")])
+    result = a.ask("Chlorantranilprole 18.5% SC on tomato for fruit borer?")  # the user's typo
+    assert result.slots is not None
+    assert result.slots["product"] == PRODUCT
+
+
+def test_a_mis_copy_that_is_another_registered_product_still_takes_the_users_strength(engine: Engine) -> None:
+    # The dangerous case (found by mutant P-M2 surviving): the model's altered name is itself a registered
+    # product, so it resolves. Only the "numbers must be the user's" rule stops the wrong product being used.
+    other = call(
+        "lookup", product="Chlorantraniliprole 0.4% GR", ingredient=None, crop="rice", pest="stem borer"
+    )
+    a, _, _ = assistant(engine, [other, text("Approved.")])
+    result = a.ask("Chlorantraniliprole 18.5% SC on rice for stem borer?")
+    assert result.slots is not None
+    assert result.slots["product"] == "Chlorantraniliprole 18.5% SC"

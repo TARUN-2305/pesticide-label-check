@@ -1,0 +1,131 @@
+alias,lang,canonical_id,note
+gehu,hi,wheat,common Hindi name
+gehun,hi,wheat,common Hindi name
+gehoon,hi,wheat,common Hindi name
+dhan,hi,rice,common Hindi name
+dhaan,hi,rice,common Hindi name
+chawal,hi,rice,common Hindi name
+makka,hi,maize,common Hindi name
+makki,hi,maize,common Hindi name
+makkai,hi,maize,common Hindi name
+bhutta,hi,maize,common Hindi name
+juar,hi,sorghum,common Hindi name
+mandua,hi,ragi,common Hindi name
+nachni,hi,ragi,common Hindi name
+kapas,hi,cotton,common Hindi name
+ganna,hi,sugarcane,common Hindi name
+mirch,hi,chilli,common Hindi name
+mirchi,hi,chilli,common Hindi name
+hari mirch,hi,chilli,common Hindi name
+tamatar,hi,tomato,common Hindi name
+bengan,hi,brinjal,common Hindi name
+pyaz,hi,onion,common Hindi name
+pyaaz,hi,onion,common Hindi name
+aloo,hi,potato,common Hindi name
+alu,hi,potato,common Hindi name
+patta gobhi,hi,cabbage,common Hindi name
+band gobhi,hi,cabbage,common Hindi name
+bandh gobhi,hi,cabbage,common Hindi name
+phool gobhi,hi,cauliflower,common Hindi name
+kheera,hi,cucumber,common Hindi name
+khira,hi,cucumber,common Hindi name
+aam,hi,mango,common Hindi name
+angoor,hi,grape,common Hindi name
+angur,hi,grape,common Hindi name
+anar,hi,pomegranate,common Hindi name
+anaar,hi,pomegranate,common Hindi name
+kela,hi,banana,common Hindi name
+seb,hi,apple,common Hindi name
+amrood,hi,guava,common Hindi name
+amrud,hi,guava,common Hindi name
+chai,hi,tea,common Hindi name
+chai bagan,hi,tea,common Hindi name
+moongphali,hi,groundnut,common Hindi name
+mungfali,hi,groundnut,common Hindi name
+moongfali,hi,groundnut,common Hindi name
+sarson,hi,mustard,common Hindi name
+rai,hi,mustard,common Hindi name
+soya,hi,soybean,common Hindi name
+mung,hi,greengram,common Hindi name
+matar,hi,pea,common Hindi name
+dhaniya,hi,coriander,common Hindi name
+jeera,hi,cumin,common Hindi name
+zeera,hi,cumin,common Hindi name
+haldi,hi,turmeric,common Hindi name
+adrak,hi,ginger,common Hindi name
+lahsun,hi,garlic,common Hindi name
+lehsun,hi,garlic,common Hindi name
+tambaku,hi,tobacco,common Hindi name
+tambakhu,hi,tobacco,common Hindi name
+nariyal,hi,coconut,common Hindi name
+papita,hi,papaya,common Hindi name
+tarbooz,hi,watermelon,common Hindi name
+tarbuj,hi,watermelon,common Hindi name
+karela,hi,bitter_gourd,common Hindi name
+lauki,hi,bottle_gourd,common Hindi name
+ghiya,hi,bottle_gourd,common Hindi name
+turai,hi,ridgegourd,common Hindi name
+torai,hi,ridgegourd,common Hindi name
+arandi,hi,castor,common Hindi name
+surajmukhi,hi,sunflower,common Hindi name
+gwar,hi,cluster_beans,common Hindi name
+elaichi,hi,cardamom,common Hindi name
+kali mirch,hi,black_pepper,common Hindi name
+jau,hi,barley,common Hindi name
+kusum,hi,safflower,common Hindi name
+bhatta,kn,rice,common Kannada name (transliterated); a native speaker's spot-check is welcome
+batta,kn,rice,common Kannada name (transliterated); a native speaker's spot-check is welcome
+godhi,kn,wheat,common Kannada name (transliterated); a native speaker's spot-check is welcome
+godi,kn,wheat,common Kannada name (transliterated); a native speaker's spot-check is welcome
+jola,kn,sorghum,common Kannada name (transliterated); a native speaker's spot-check is welcome
+sajje,kn,pearl_millet,common Kannada name (transliterated); a native speaker's spot-check is welcome
+mekke jola,kn,maize,common Kannada name (transliterated); a native speaker's spot-check is welcome
+musukina jola,kn,maize,common Kannada name (transliterated); a native speaker's spot-check is welcome
+hatti,kn,cotton,common Kannada name (transliterated); a native speaker's spot-check is welcome
+kabbu,kn,sugarcane,common Kannada name (transliterated); a native speaker's spot-check is welcome
+menasinakayi,kn,chilli,common Kannada name (transliterated); a native speaker's spot-check is welcome
+menasinakai,kn,chilli,common Kannada name (transliterated); a native speaker's spot-check is welcome
+menasinakaayi,kn,chilli,common Kannada name (transliterated); a native speaker's spot-check is welcome
+badane,kn,brinjal,common Kannada name (transliterated); a native speaker's spot-check is welcome
+badanekayi,kn,brinjal,common Kannada name (transliterated); a native speaker's spot-check is welcome
+bende,kn,okra,common Kannada name (transliterated); a native speaker's spot-check is welcome
+bendekayi,kn,okra,common Kannada name (transliterated); a native speaker's spot-check is welcome
+eerulli,kn,onion,common Kannada name (transliterated); a native speaker's spot-check is welcome
+irulli,kn,onion,common Kannada name (transliterated); a native speaker's spot-check is welcome
+ullagaddi,kn,onion,common Kannada name (transliterated); a native speaker's spot-check is welcome
+aalugadde,kn,potato,common Kannada name (transliterated); a native speaker's spot-check is welcome
+alugadde,kn,potato,common Kannada name (transliterated); a native speaker's spot-check is welcome
+ele kosu,kn,cabbage,common Kannada name (transliterated); a native speaker's spot-check is welcome
+hookosu,kn,cauliflower,common Kannada name (transliterated); a native speaker's spot-check is welcome
+southekayi,kn,cucumber,common Kannada name (transliterated); a native speaker's spot-check is welcome
+sautekayi,kn,cucumber,common Kannada name (transliterated); a native speaker's spot-check is welcome
+maavu,kn,mango,common Kannada name (transliterated); a native speaker's spot-check is welcome
+drakshi,kn,grape,common Kannada name (transliterated); a native speaker's spot-check is welcome
+draakshi,kn,grape,common Kannada name (transliterated); a native speaker's spot-check is welcome
+dalimbe,kn,pomegranate,common Kannada name (transliterated); a native speaker's spot-check is welcome
+baale,kn,banana,common Kannada name (transliterated); a native speaker's spot-check is welcome
+kadalekayi,kn,groundnut,common Kannada name (transliterated); a native speaker's spot-check is welcome
+shenga,kn,groundnut,common Kannada name (transliterated); a native speaker's spot-check is welcome
+kadale,kn,chickpea,common Kannada name (transliterated); a native speaker's spot-check is welcome
+togari,kn,pigeonpea,common Kannada name (transliterated); a native speaker's spot-check is welcome
+hesaru,kn,greengram,common Kannada name (transliterated); a native speaker's spot-check is welcome
+uddu,kn,blackgram,common Kannada name (transliterated); a native speaker's spot-check is welcome
+tengu,kn,coconut,common Kannada name (transliterated); a native speaker's spot-check is welcome
+thengu,kn,coconut,common Kannada name (transliterated); a native speaker's spot-check is welcome
+kaafi,kn,coffee,common Kannada name (transliterated); a native speaker's spot-check is welcome
+arishina,kn,turmeric,common Kannada name (transliterated); a native speaker's spot-check is welcome
+shunti,kn,ginger,common Kannada name (transliterated); a native speaker's spot-check is welcome
+bellulli,kn,garlic,common Kannada name (transliterated); a native speaker's spot-check is welcome
+kothambari,kn,coriander,common Kannada name (transliterated); a native speaker's spot-check is welcome
+kottambari,kn,coriander,common Kannada name (transliterated); a native speaker's spot-check is welcome
+jeerige,kn,cumin,common Kannada name (transliterated); a native speaker's spot-check is welcome
+yelakki,kn,cardamom,common Kannada name (transliterated); a native speaker's spot-check is welcome
+elakki,kn,cardamom,common Kannada name (transliterated); a native speaker's spot-check is welcome
+hagalakayi,kn,bitter_gourd,common Kannada name (transliterated); a native speaker's spot-check is welcome
+sorekayi,kn,bottle_gourd,common Kannada name (transliterated); a native speaker's spot-check is welcome
+heerekayi,kn,ridgegourd,common Kannada name (transliterated); a native speaker's spot-check is welcome
+hogesoppu,kn,tobacco,common Kannada name (transliterated); a native speaker's spot-check is welcome
+suryakanti,kn,sunflower,common Kannada name (transliterated); a native speaker's spot-check is welcome
+ellu,kn,sesamum,common Kannada name (transliterated); a native speaker's spot-check is welcome
+haralu,kn,castor,common Kannada name (transliterated); a native speaker's spot-check is welcome
+sasive,kn,mustard,common Kannada name (transliterated); a native speaker's spot-check is welcome

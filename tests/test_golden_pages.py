@@ -189,3 +189,18 @@ def test_only_reviewed_anomalies_remain() -> None:
         a for k in ("insecticide", "fungicide") for a in extracted(k).anomalies if a.code[:5] == "CELL_"
     ]
     assert len(cell_hits) == 12
+
+
+def test_the_reextractor_rereads_a_stored_field_from_its_recorded_box() -> None:
+    # Invariant I3 is enforced by the build through Reextractor; this checks it directly on one real field and
+    # covers the reader itself (NFR-6 gap, 2026-11-18).
+    from labelclaim.extract.pages import Reextractor  # noqa: PLC0415
+
+    use = one("insecticide", 20, "Maize", "Fall Army Worm")
+    doc = next(d for d in load_manifest(Path("data/sources.toml")) if d.kind == "insecticide")
+    field = use.fields[Col.PEST]
+    with Reextractor(ensure_cached(doc, offline=True)) as reader:
+        again = " ".join(reader.text(page, box) for page, box in field.bboxes)
+    assert norm(again) == norm(field.text)
+    with Reextractor(ensure_cached(doc, offline=True)) as reader:
+        assert reader.text(20, (0.0, 0.0, 1.0, 1.0)) == ""  # a box with no characters

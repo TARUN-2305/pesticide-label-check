@@ -266,3 +266,22 @@ def test_the_percent_retry_never_changes_a_strength_in_grams_per_litre(engine: E
         == "cyproconazole 12.5% + tebuconazole 12.5% SC"
     )
     assert with_percent("Malathion 50% EC") == "Malathion 50% EC"
+
+
+def test_a_short_ingredient_name_folds_only_to_a_unique_registered_ingredient(engine: Engine) -> None:
+    # E3n-b: "emamectin" for emamectin benzoate. Deterministic: a unique prefix of >= 6 letters, never fuzzy.
+    names = engine.names
+    assert names.ingredient_key("chlorantranil") == names.ingredient_key("Chlorantraniliprole")
+    assert names.ingredient_key("chlor") == "chlor"  # under 6 letters: no fold
+    answer = engine.lookup(Query(crop="tomato", product="Chlorantranil 18.5% SC", pest="fruit borer"))
+    assert answer.outcome is Outcome.APPROVED
+
+
+def test_a_prefix_shared_by_two_ingredients_does_not_fold() -> None:
+    from labelclaim.lookup.names import unique_prefix  # noqa: PLC0415
+
+    keys = ["copperoxychloride", "copperhydroxide", "emamectinbenzoate", "metalaxyl", "metalaxylm"]
+    assert unique_prefix("emamectin", keys) == "emamectinbenzoate"
+    assert unique_prefix("copper", keys) is None  # three... two candidates: never guess
+    assert unique_prefix("metala", keys) is None  # metalaxyl and metalaxylm
+    assert unique_prefix("emame", keys) is None  # under 6 letters

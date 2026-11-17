@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 import sqlite3
 from collections import defaultdict
+from collections.abc import Iterable
 from dataclasses import dataclass
 
 from rapidfuzz import fuzz, process
@@ -105,6 +106,8 @@ class Names:
             same = self.family.get(spelling_family(k), ())
             if len(same) == 1:
                 return same[0]
+            if (folded := unique_prefix(k, self.ingredient)) is not None:  # "emamectin" (polish round)
+                return folded
         return k
 
     def product(self, text: str, *, ingredient_level: bool) -> ProductResolution:
@@ -203,6 +206,19 @@ _BARE_STRENGTH = re.compile(
     rf"(?<![\d.])(\d+(?:\.\d+)?)(?!\s*(?:%|g\s*/|gm?\b|ml\b|kg\b|l\b))(?=\s*(?:\+|$|(?:{FORMULATIONS})\b))",
     re.IGNORECASE,
 )
+
+
+MIN_PREFIX = 6
+
+
+def unique_prefix(key: str, keys: Iterable[str]) -> str | None:
+    """A short ingredient name ("emamectin", "tetracycline") folds to the one registered ingredient it begins,
+    if exactly one does and it has at least MIN_PREFIX letters. Deterministic, never fuzzy: two candidates
+    ("copper" -> oxychloride, hydroxide, sulphate) mean no fold (ADR-006)."""
+    if len(key) < MIN_PREFIX:
+        return None
+    found = [k for k in keys if k.startswith(key) and k != key]
+    return found[0] if len(found) == 1 else None
 
 
 def with_percent(text: str) -> str:

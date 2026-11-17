@@ -170,6 +170,18 @@ MUTANTS = [
     ("F-M5 an ingredient-level approval reads like a product approval", "assistant/templates.py",
      'if by_ingredient else "Approved: "', 'if False else "Approved: "',
      ["tests/test_assistant.py"], "killed"),
+    # polish round, predictions written 2026-11-18 before the run
+    ("P-M1 a short name shared by two ingredients folds anyway", "lookup/names.py",
+     "return found[0] if len(found) == 1 else None", "return found[0] if found else None",
+     ["tests/test_lookup.py"], "killed"),
+    ("P-M2 a mis-copied strength is trusted", "assistant/loop.py",
+     "if sorted(v for _, v in numbers(typed)) != sorted(v for _, v in numbers(product)):",
+     "if False:", ["tests/test_assistant.py"],
+     "survived on the first run (the test's mis-copy was not a registered product); killed after "
+     "test_a_mis_copy_that_is_another_registered_product_still_takes_the_users_strength"),
+    ("P-M3 a pest word dragged into the product is kept", "assistant/loop.py",
+     "return typed if typed_ok and not model_ok else product", "return product",
+     ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 

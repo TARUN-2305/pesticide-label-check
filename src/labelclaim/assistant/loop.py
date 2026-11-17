@@ -177,6 +177,8 @@ class Assistant:
             ingredient = None
         if ingredient and not product and (typed := product_in_question(messages[-1]["content"], ingredient)):
             product, ingredient = typed, None  # E3n fix 3: keep the formulation the user typed
+        if product:
+            product = self._users_product(messages[-1]["content"], product)
         if not product and not ingredient:  # E3n fix 4: an empty lookup is a missing product, not a failure
             return _Understood(call.id, args, call.raw, None, Clarification(CLARIFY["product"], "product"))
         try:
@@ -215,6 +217,21 @@ class Assistant:
             return details(answer), "template", True, flagged
         return text[:1200], "model", False, ()
 
+    def _users_product(self, question: str, product: str) -> str:
+        """Polish round: the product as the user typed it, when the model's copy differs. The strength must be
+        the user's (a mis-copied "0.4%" -> "0.5%" can resolve to another product), so differing numbers always
+        take the user's text. Differing letters only: keep the model's text if it resolves and the user's does
+        not (a corrected typo), else the user's (a pest word dragged into the product slot)."""
+        typed = product_in_question(question, product.split(maxsplit=1)[0])
+        if typed is None or _squash(typed) == _squash(product):
+            return product
+        if sorted(v for _, v in numbers(typed)) != sorted(v for _, v in numbers(product)):
+            return typed
+        names = self.engine.names
+        model_ok = names.product(product, ingredient_level=False).status == "exact"
+        typed_ok = names.product(typed, ingredient_level=False).status == "exact"
+        return typed if typed_ok and not model_ok else product
+
     def _typed_strengths(self, query: Query, answer: Answer) -> set[Decimal]:
         """FR-7 amendment (E3n fix 5; user decision 2026-11-17: keep, with exact strength matching). A number
         in the product name the user typed may be echoed only if it equals a strength printed in the canonical
@@ -249,6 +266,10 @@ def product_in_question(question: str, ingredient: str) -> str | None:
         return None
     m = _TYPED_PRODUCT.match(question[start:])
     return " ".join(m.group(0).split()) if m else None
+
+
+def _squash(text: str) -> str:
+    return re.sub(r"[\W_]+", "", text.lower())
 
 
 def _text(value: object) -> str | None:
