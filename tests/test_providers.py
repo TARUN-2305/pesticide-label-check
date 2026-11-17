@@ -217,3 +217,22 @@ def test_fix4_a_model_that_declined_to_call_a_tool_is_typed_declined() -> None:
             [{"role": "user", "content": "q"}]
         )
     assert err.value.kind == "declined"
+
+
+def test_the_first_gemini_model_that_serves_is_used() -> None:
+    # 2026-11-16..18: gemini-3.5-flash timed out on every check while gemini-3.5-flash-lite answered in 1.8 s.
+    from labelclaim.assistant.providers import GEMINI_MODELS, build_clients  # noqa: PLC0415
+
+    first, second = GEMINI_MODELS[0], GEMINI_MODELS[1]
+    listing = {"data": [{"id": f"models/{m}"} for m in GEMINI_MODELS]}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path.endswith("/models"):
+            return httpx.Response(200, json=listing)
+        model = json.loads(request.content)["model"]
+        if model == first:
+            return httpx.Response(503, json={})
+        return httpx.Response(200, json={"choices": [{"message": {"content": "ok"}}]})
+
+    clients = build_clients({"GEMINI_API_KEY": "k"}, transport=httpx.MockTransport(handler))
+    assert clients["gemini"].model == second

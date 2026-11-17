@@ -80,11 +80,13 @@ def _items() -> list[dict[str, Any]]:
     ]
 
 
-def run(register: Path, label: str, only: set[str], pause: float) -> None:
+def run(register: Path, label: str, only: set[str], pause: float, providers: tuple[str, ...] = ()) -> None:
     out = SUITE / "runs" / label
     out.mkdir(parents=True, exist_ok=True)
     recorder = Recorder()
     clients = build_clients(load_keys(), transport=recorder)
+    if providers:  # e.g. --providers gemini: test the fallback on its own
+        clients = {n: c for n, c in clients.items() if n in providers}
     meta = {
         "label": label,
         "started": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
@@ -328,6 +330,7 @@ def main() -> None:
     r.add_argument("--label", required=True)
     r.add_argument("--only", nargs="*", default=[])
     r.add_argument("--pause", type=float, default=4.0, help="seconds between items (free-tier rate limits)")
+    r.add_argument("--providers", nargs="*", default=[], help="use only these providers, e.g. gemini")
     s = sub.add_parser("score")
     s.add_argument("--register", type=Path, required=True)
     s.add_argument("--label", required=True)
@@ -336,7 +339,7 @@ def main() -> None:
     global SUITE  # noqa: PLW0603 (one CLI switch for the whole run)
     SUITE = ROOT / "evaluation" / args.suite
     if args.cmd == "run":
-        run(args.register, args.label, set(args.only), args.pause)
+        run(args.register, args.label, set(args.only), args.pause, tuple(args.providers))
     else:
         score(args.register, args.label)
 

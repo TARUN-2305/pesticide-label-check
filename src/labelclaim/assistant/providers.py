@@ -28,6 +28,9 @@ GROQ = ("groq", "https://api.groq.com/openai/v1", "openai/gpt-oss-120b")
 # users"; gemini-3.8-flash (which that error recommends) timed out at 60 s on a two-word prompt;
 # gemini-3.5-flash answered in 1.3 s.
 GEMINI = ("gemini", "https://generativelanguage.googleapis.com/v1beta/openai", "gemini-3.5-flash")
+# The fallback is an ordered list: the first model that answers at startup is used. 2026-11-16..18: 3.5-flash
+# timed out on every check; 3.5-flash-lite answered in 1.8 s (ADR-008).
+GEMINI_MODELS = ("gemini-3.5-flash", "gemini-3.5-flash-lite")
 
 
 class ProviderError(LabelClaimError):
@@ -219,21 +222,32 @@ def build_clients(
     """Clients in fallback order (Groq, then Gemini) for every key present whose model the provider lists.
     A provider without a key, or whose model is gone, is left out and logged (names only)."""
     plan = [
-        (GROQ, "GROQ_API_KEY", {"strict": True, "extra": {"reasoning_effort": "low"}}),
+        (
+            GROQ[0],
+            GROQ[1],
+            (GROQ[2],),
+            "GROQ_API_KEY",
+            {"strict": True, "extra": {"reasoning_effort": "low"}},
+        ),
         # the fallback gets a longer timeout: its free tier took > 8 s for a two-word reply (2026-11-16)
-        (GEMINI, "GEMINI_API_KEY", {"strict": False, "extra": {}, "timeout": 20.0}),
+        (
+            GEMINI[0],
+            GEMINI[1],
+            GEMINI_MODELS,
+            "GEMINI_API_KEY",
+            {"strict": False, "extra": {}, "timeout": 20.0},
+        ),
     ]
     clients: dict[str, ChatClient] = {}
-    for (name, base, model), key_name, options in plan:
+    for name, base, models, key_name, options in plan:
         if not keys.get(key_name):
             LOG.warning(json.dumps({"provider": name, "disabled": "no key"}))
             continue
-        client = ChatClient(name, base, keys[key_name], model, transport=transport, **options)  # type: ignore[arg-type]
-        if check_models and not (client.model_available() and client.usable()):
-            LOG.warning(
-                json.dumps({"provider": name, "disabled": f"model {model} not listed or not serving"})
-            )
+        for model in models:  # the first model that is listed and serves
+            client = ChatClient(name, base, keys[key_name], model, transport=transport, **options)  # type: ignore[arg-type]
+            if not check_models or (client.model_available() and client.usable()):
+                clients[name] = client
+                break
+            LOG.warning(json.dumps({"provider": name, "skipped": f"model {model} not listed or not serving"}))
             client.close()
-            continue
-        clients[name] = client
     return clients
