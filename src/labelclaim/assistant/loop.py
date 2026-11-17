@@ -3,6 +3,7 @@ engine's answer; the headline is a template and every number in the message is v
 
 from __future__ import annotations
 
+import dataclasses
 import json
 import logging
 import re
@@ -17,6 +18,8 @@ from labelclaim.assistant.verify import allowed_numbers, numbers, verify, verify
 from labelclaim.extract.classify import FORMULATIONS
 from labelclaim.lookup.engine import Engine
 from labelclaim.lookup.models import Answer, Outcome, Query
+from labelclaim.lookup.names import written_in
+from labelclaim.normalize.lexicon import match_key
 
 LOG = logging.getLogger("labelclaim.assistant")
 MAX_ROWS_TO_MODEL = 5
@@ -113,6 +116,7 @@ class _Understood:
     raw_call: dict[str, Any] | None
     query: Query | None
     clarification: Clarification | None
+    rejected_crop: str | None = None  # fix A: the model's crop, when the user's typed crop replaced it
 
 
 class Assistant:
@@ -181,12 +185,16 @@ class Assistant:
             product = self._users_product(messages[-1]["content"], product)
         if not product and not ingredient:  # E3n fix 4: an empty lookup is a missing product, not a failure
             return _Understood(call.id, args, call.raw, None, Clarification(CLARIFY["product"], "product"))
-        try:
-            query = Query(crop=_text(args.get("crop")) or "", product=product, ingredient=ingredient,
-                          pest=_text(args.get("pest")))  # fmt: skip
+        try:  # the model's call must be valid as it stands; fix A never repairs a malformed call
+            crop, pest = _text(args.get("crop")), _text(args.get("pest"))
+            query = Query(crop=crop or "", product=product, ingredient=ingredient, pest=pest)
         except (ValueError, TypeError) as exc:
             raise ProviderError("bad_tool_call", f"{name}: invalid lookup arguments") from exc
-        return _Understood(call.id, args, call.raw, query, None)
+        users = self._users_crop(messages[-1]["content"], crop, pest)
+        if users == crop:
+            return _Understood(call.id, args, call.raw, query, None)
+        query = dataclasses.replace(query, crop=users or "")
+        return _Understood(call.id, args, call.raw, query, None, rejected_crop=crop)
 
     def _phrase(
         self,
@@ -198,10 +206,14 @@ class Assistant:
     ) -> tuple[str, Literal["model", "template"], bool, tuple[str, ...]]:
         call = understood.raw_call or {"id": understood.call_id, "type": "function",
                 "function": {"name": "lookup", "arguments": json.dumps(understood.arguments)}}  # fmt: skip
+        result = _for_model(answer)
+        rejected = understood.rejected_crop
+        if rejected:  # fix A: the model's own call still says its crop, so name the one actually looked up
+            result["crop_looked_up"] = f"{query.crop} (as the user wrote it; not {rejected})"
         follow = [
             *messages,
             {"role": "assistant", "content": None, "tool_calls": [call]},
-            {"role": "tool", "tool_call_id": understood.call_id, "content": json.dumps(_for_model(answer))},
+            {"role": "tool", "tool_call_id": understood.call_id, "content": json.dumps(result)},
         ]
         try:
             reply = self.clients[provider].chat(follow, max_tokens=1024)
@@ -213,6 +225,8 @@ class Assistant:
         allowed = allowed_numbers(answer) | self._typed_strengths(query, answer)
         verdict = verify(text, allowed)
         flagged = verdict.unverified + wording(text)  # numbers not cited (FR-7), advice wording (NFR-4)
+        if rejected and written_in(text, rejected):  # fix A: a reply about the crop that was not looked up
+            flagged += (f"crop:{rejected}",)
         if flagged:
             return details(answer), "template", True, flagged
         return text[:1200], "model", False, ()
@@ -232,6 +246,25 @@ class Assistant:
         typed_ok = names.product(typed, ingredient_level=False).status == "exact"
         return typed if typed_ok and not model_ok else product
 
+    def _users_crop(self, question: str, crop: str | None, pest: str | None) -> str | None:
+        """Fix A (E3n-c NC-034: "bende", okra, sent as "brinjal", gave an approval for the wrong crop). When
+        the question names exactly one crop by an exact alias, that name is looked up instead of the
+        model's, unless the model's crop already resolves to it, or resolves to another single crop that the
+        user also wrote. Words the model passed as the pest ("mustard aphid") and unit words ("gram") are not
+        counted."""
+        if not crop:
+            return crop
+        names = self.engine.names
+        text = re.sub(re.escape(pest), " ", question, flags=re.IGNORECASE) if pest else question
+        mentions = [(s, ids) for s, ids in names.crop_mentions(text) if match_key(s) not in NOT_CROPS]
+        typed = {i for _, ids in mentions for i in ids}
+        if len(typed) != 1:  # none, or two crops ("tomato or brinjal?"): the model's reading stands
+            return crop
+        model = names.crop(crop)
+        if model.status == "exact" and (set(model.ids) == typed or written_in(question, crop)):
+            return crop
+        return mentions[0][0]
+
     def _typed_strengths(self, query: Query, answer: Answer) -> set[Decimal]:
         """FR-7 amendment (E3n fix 5; user decision 2026-11-17: keep, with exact strength matching). A number
         in the product name the user typed may be echoed only if it equals a strength printed in the canonical
@@ -248,6 +281,9 @@ class Assistant:
         LOG.info(json.dumps({"event": "ask", "provider": provider, "outcome": outcome,
                              "phrased_by": phrased_by, "verifier_blocked": blocked}))  # fmt: skip
 
+
+# crop aliases that are also measurement words: "kitna gram?" is a quantity, not chickpea (fix A)
+NOT_CROPS = frozenset({"gram"})
 
 OUT_OF_SCOPE = (
     "I can only check whether a pesticide product is registered for a crop (and pest) in the official CIB&RC "

@@ -345,3 +345,105 @@ def test_a_mis_copy_that_is_another_registered_product_still_takes_the_users_str
     result = a.ask("Chlorantraniliprole 18.5% SC on rice for stem borer?")
     assert result.slots is not None
     assert result.slots["product"] == "Chlorantraniliprole 18.5% SC"
+
+
+# --- fix A (E3n-c NC-034: "bende", okra, sent as "brinjal"; E3n-d measures it) -------------------------
+
+
+def crop_call(crop: str, pest: str | None) -> ChatReply:
+    return call("lookup", product=PRODUCT, ingredient=None, crop=crop, pest=pest)
+
+
+def test_fixA_a_crop_the_model_translated_wrongly_is_replaced_by_the_users(engine: Engine) -> None:
+    # The dangerous case: the model's crop is registered for this use, the user's is not. Without fix A the
+    # headline would say "Approved" for rice while the user asked about tomato ("tamatar").
+    a, _, _ = assistant(engine, [crop_call("rice", "stem borer"), text("Not listed for stem borer.")])
+    result = a.ask("Chlorantraniliprole 18.5% SC tamatar stem borer")
+    assert result.slots is not None
+    assert result.slots["crop"] == "tamatar"
+    assert result.answer is not None
+    assert result.answer.outcome is Outcome.NOT_APPROVED_FOR_PEST
+    assert not result.headline.startswith("Approved")
+
+
+@pytest.mark.parametrize(
+    ("question", "model_crop", "pest", "used"),
+    [
+        ("Chlorantraniliprole 18.5% SC hari mirch jassids", "mirch", "jassids", "hari mirch"),  # cut short
+        ("Chlorantraniliprole 18.5% SC bhatta ge stem borer", "bhatta ge", "stem borer", "bhatta"),  # suffix
+    ],
+)
+def test_fixA_a_crop_name_the_model_altered_takes_the_users_words(
+    engine: Engine, question: str, model_crop: str, pest: str, used: str
+) -> None:
+    a, _, _ = assistant(engine, [crop_call(model_crop, pest), text("Approved.")])
+    result = a.ask(question)
+    assert result.slots is not None
+    assert result.slots["crop"] == used
+    assert result.answer is not None
+    assert result.answer.outcome is Outcome.APPROVED
+
+
+def test_fixA_a_general_crop_name_from_the_model_takes_the_users_specific_crop(engine: Engine) -> None:
+    gourd = call("lookup", product="Spinosad 45% SC", ingredient=None, crop="gourd", pest="thrips")
+    a, _, _ = assistant(engine, [gourd, text("Approved.")])
+    result = a.ask("Spinosad 45% SC bitter gourd thrips")
+    assert result.slots is not None
+    assert result.slots["crop"] == "bitter gourd"
+
+
+@pytest.mark.parametrize(
+    ("question", "model_crop", "pest", "why"),
+    [
+        ("Chlorantraniliprole 18.5% SC tamatar fruit borer", "tomato", "fruit borer", "the same crop"),
+        ("Chlorantraniliprole 18.5% SC tamatar ya rice? stem borer", "rice", "stem borer", "two crops named"),
+        ("Chlorantraniliprole 18.5% SC egg plant ya tamatar? fruit borer", "tomato", "fruit borer",
+         "two crops named; the model translated one of them"),
+        ("Chlorantraniliprole 18.5% SC kitna gram, golbheda fruit borer", "tomato", "fruit borer",
+         "'gram' is a unit here, and the user's crop word is not in the lexicon"),
+        ("Chlorantraniliprole 18.5% SC for cotton aphids on golbheda", "tomato", "cotton aphids",
+         "'cotton' is part of the pest the model passed"),
+        ("Chlorantraniliprole 18.5% SC cotton aphids tamatar", "cotton", "cotton aphids",
+         "the model's other crop is also written by the user"),
+        ("Chlorantraniliprole 18.5% SC golbheda fruit borer", "tomato", "fruit borer", "no crop name typed"),
+    ],
+)  # fmt: skip
+def test_fixA_the_models_crop_stands(
+    engine: Engine, question: str, model_crop: str, pest: str, why: str
+) -> None:
+    a, groq, _ = assistant(engine, [crop_call(model_crop, pest), text("Listed.")])
+    result = a.ask(question)
+    assert result.slots is not None
+    assert result.slots["crop"] == model_crop, why
+    assert "crop_looked_up" not in groq.sent[1][-1]["content"]
+
+
+def test_fixA_the_tool_result_names_the_crop_looked_up(engine: Engine) -> None:
+    a, groq, _ = assistant(engine, [crop_call("rice", "stem borer"), text("Not listed for stem borer.")])
+    a.ask("Chlorantraniliprole 18.5% SC tamatar stem borer")
+    assert '"crop_looked_up": "tamatar (as the user wrote it; not rice)"' in groq.sent[1][-1]["content"]
+
+
+def test_fixA_a_reply_that_names_the_rejected_crop_falls_back_to_the_template(engine: Engine) -> None:
+    reply = text("It is listed for stem borer on Rice.")
+    a, _, _ = assistant(engine, [crop_call("rice", "stem borer"), reply])
+    result = a.ask("Chlorantraniliprole 18.5% SC tamatar stem borer")
+    assert (result.phrased_by, result.verifier_blocked) == ("template", True)
+    assert result.unverified == ("crop:rice",)
+
+
+def test_fixA_crop_mentions_are_whole_words_longest_first(engine: Engine) -> None:
+    names = engine.names
+    both = [("hari mirch", ("chilli",)), ("tamatar", ("tomato",))]
+    assert names.crop_mentions("hari mirch aur tamatar") == both
+    assert names.crop_mentions("Tomato/Chilli jassids") == [("Tomato/Chilli", ("chilli", "tomato"))]
+    assert names.crop_mentions("Tomato? appear, ricey") == [("Tomato", ("tomato",))]  # whole words only
+
+
+def test_fixA_written_in_compares_whole_words() -> None:
+    from labelclaim.lookup.names import written_in  # noqa: PLC0415
+
+    assert written_in("Is it approved on Brinjal?", "brinjal")
+    assert written_in("rice (paddy) mein", "Rice (Paddy)")
+    assert not written_in("it may appear", "pea")
+    assert not written_in("anything", "")

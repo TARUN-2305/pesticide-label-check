@@ -86,8 +86,8 @@ def build_fixture(path: Path) -> str:
             (12, 0, 12, 22.0, "%", None), (13, 0, 13, 80.0, "%", None), (14, 0, 14, 85.0, "%", None),
         ],
         "crop": [(c, c.replace("_", " "), "crop") for c in (
-            "bitter_gourd", "bottle_gourd", "brinjal", "chilli", "citrus", "cotton", "grape", "potato", "rice",
-            "ridgegourd", "sorghum", "tomato")],
+            "bitter_gourd", "bottle_gourd", "brinjal", "chickpea", "chilli", "citrus", "cotton", "grape", "potato",
+            "rice", "ridgegourd", "sorghum", "tomato")],
         "crop_alias": [
             ("brinjal", "en", "brinjal", "t"), ("egg plant", "en", "brinjal", "t"), ("chilli", "en", "chilli", "t"),
             ("chillies", "en", "chilli", "t"), ("cotton", "en", "cotton", "t"), ("rice", "en", "rice", "t"),
@@ -96,6 +96,9 @@ def build_fixture(path: Path) -> str:
             ("potato", "en", "potato", "t"), ("sorghum", "en", "sorghum", "t"), ("jowar", "en", "sorghum", "t"),
             ("bitter gourd", "en", "bitter_gourd", "t"), ("ridgegourd", "en", "ridgegourd", "t"),
             ("bottle gourd", "en", "bottle_gourd", "t"), ("grape", "en", "grape", "t"),
+            # fix A: local names, and a crop alias that is also a unit word
+            ("tamatar", "hi", "tomato", "t"), ("bhatta", "kn", "rice", "t"), ("hari mirch", "hi", "chilli", "t"),
+            ("gram", "en", "chickpea", "t"),
         ],
         "pest": [(p, p.replace("_", " ")) for p in (
             "aphid", "bacterial_blight", "blight", "brown_plant_hopper", "early_blight", "fruit_borer", "jassid",

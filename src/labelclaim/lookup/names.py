@@ -81,6 +81,25 @@ class Names:
             return Resolution("generic", members)
         return _resolve(text, self.crop_match, self.crop_display)
 
+    def crop_mentions(self, text: str) -> list[tuple[str, tuple[str, ...]]]:
+        """Crop names written in free text, as (the words as written, crop IDs): exact aliases only, matched
+        on whole words, longest first, never overlapping ("chai bagan" wins over "chai"). Fix A (E3n-c NC-034)
+        uses it to see which crop the user typed. Deterministic, never fuzzy (ADR-006)."""
+        words = list(_WORD.finditer(text))
+        found: list[tuple[str, tuple[str, ...]]] = []
+        i = 0
+        while i < len(words):
+            for n in range(min(MAX_ALIAS_WORDS, len(words) - i), 0, -1):
+                span = text[words[i].start() : words[i + n - 1].end()]
+                ids = self.crop_match.get(match_key(span))
+                if ids:
+                    found.append((span, tuple(sorted(ids))))
+                    i += n
+                    break
+            else:
+                i += 1
+        return found
+
     def crop_words(self, crop_ids: tuple[str, ...]) -> set[str]:
         """Single-word aliases of these crops ("ber", "citrus"), to spot them in restriction text."""
         wanted = set(crop_ids)
@@ -209,6 +228,24 @@ _BARE_STRENGTH = re.compile(
 
 
 MIN_PREFIX = 6
+MAX_ALIAS_WORDS = 4  # the longest crop alias a question would contain ("musukina jola", "rice (paddy)")
+# a run of letters; Indic blocks are listed because their vowel signs are not letters to `re`
+_WORD = re.compile(r"(?:[^\W\d_]|[ऀ-෿])+")
+
+
+def written_in(text: str, phrase: str) -> bool:
+    """True when `phrase` appears in `text` as whole words, compared by `match_key` ("Brinjal" in "on
+    brinjal?"; not "pea" in "appear")."""
+    target = match_key(phrase)
+    if not target:
+        return False
+    words = list(_WORD.finditer(text))
+    longest = max(MAX_ALIAS_WORDS, len(_WORD.findall(phrase)))
+    for i in range(len(words)):
+        for n in range(1, min(longest, len(words) - i) + 1):
+            if match_key(text[words[i].start() : words[i + n - 1].end()]) == target:
+                return True
+    return False
 
 
 def unique_prefix(key: str, keys: Iterable[str]) -> str | None:

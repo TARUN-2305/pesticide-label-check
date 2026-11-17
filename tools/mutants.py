@@ -182,6 +182,28 @@ MUTANTS = [
     ("P-M3 a pest word dragged into the product is kept", "assistant/loop.py",
      "return typed if typed_ok and not model_ok else product", "return product",
      ["tests/test_assistant.py"], "killed"),
+    # fix A (E3n-c NC-034); predictions written before running, 2026-11-18
+    ("FA-M1 the user's typed crop never replaces the model's", "assistant/loop.py",
+     "        return mentions[0][0]\n", "        return crop\n", ["tests/test_assistant.py"], "killed"),
+    ("FA-M2 two crops in the question no longer keep the model's reading", "assistant/loop.py",
+     "if len(typed) != 1:", "if not typed:", ["tests/test_assistant.py"],
+     "survived without the 'egg plant ya tamatar' case (checked by running it); killed with it"),
+    ("FA-M3 crop words inside the model's pest are counted", "assistant/loop.py",
+     'text = re.sub(re.escape(pest), " ", question, flags=re.IGNORECASE) if pest else question',
+     "text = question", ["tests/test_assistant.py"], "killed"),
+    ("FA-M4 the unit word 'gram' counts as a crop", "assistant/loop.py",
+     "if match_key(span) not in NOT_CROPS]", "if True]", ["tests/test_assistant.py"], "killed"),
+    ("FA-M5 a different crop the user also wrote is replaced", "assistant/loop.py",
+     "(set(model.ids) == typed or written_in(question, crop))", "set(model.ids) == typed",
+     ["tests/test_assistant.py"], "killed"),
+    ("FA-M6 a reply naming the rejected crop is delivered", "assistant/loop.py",
+     "if rejected and written_in(text, rejected):", "if False:", ["tests/test_assistant.py"], "killed"),
+    ("FA-M7 the tool result does not say which crop was looked up", "assistant/loop.py",
+     'result["crop_looked_up"] = f"{query.crop} (as the user wrote it; not {rejected})"', "pass",
+     ["tests/test_assistant.py"], "killed"),
+    ("FA-M8 shortest alias first", "lookup/names.py",
+     "for n in range(min(MAX_ALIAS_WORDS, len(words) - i), 0, -1):",
+     "for n in range(1, min(MAX_ALIAS_WORDS, len(words) - i) + 1):", ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 
