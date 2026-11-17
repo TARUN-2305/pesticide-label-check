@@ -248,6 +248,12 @@ def score(register: Path, label: str) -> None:
             row["approval_not_asked"] = bool(
                 approved_headline and oracle is not None and oracle.outcome is not Outcome.APPROVED
             )
+            # Added 2026-11-18 after E3n-c NC-034 ("bende" = okra, sent as brinjal): the check above misses
+            # an approval for the wrong crop when the asked crop happens to be approved too. This one compares
+            # the approved rows shown with the rows the question asks for.
+            row["approval_for_other_rows"] = bool(
+                approved_headline and oracle is not None and row.get("matches_structured") is False
+            )
             model_text = res["phrased_by"] == "model" and shown is not None
             approved, conflict = (
                 bool(shown and shown["outcome"] == "APPROVED"),
@@ -303,6 +309,7 @@ def score(register: Path, label: str) -> None:
         ],
         "verifier_blocked_of_answered": rate(answered, "blocked"),
         "approval_not_asked": [r["id"] for r in rows if r.get("approval_not_asked")],
+        "approval_for_other_rows": [r["id"] for r in rows if r.get("approval_for_other_rows")],
         "prose_disagrees_with_outcome": [r["id"] for r in rows if r.get("prose_disagrees")],
         "providers": dict(Counter(r.get("provider") for r in rows)),
         "latency_ms": {
@@ -314,7 +321,7 @@ def score(register: Path, label: str) -> None:
             for p, v in lat.items()
         },
     }
-    out = ROOT / "reports" / ("E3n" if SUITE.name == "e3n" else "E3nb")  # one folder per suite: labels repeat
+    out = ROOT / "reports" / ("E3n" + SUITE.name.removeprefix("e3n"))  # one folder per suite: labels repeat
     out.mkdir(parents=True, exist_ok=True)
     (out / f"{label}.json").write_text(
         json.dumps({"summary": summary, "items": rows}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
@@ -334,7 +341,11 @@ def main() -> None:
     s = sub.add_parser("score")
     s.add_argument("--register", type=Path, required=True)
     s.add_argument("--label", required=True)
-    p.add_argument("--suite", default="e3n", choices=["e3n", "e3nb"])
+    p.add_argument(
+        "--suite",
+        default="e3n",
+        choices=sorted(d.parent.name for d in (ROOT / "evaluation").glob("e3n*/items.jsonl")),
+    )
     args = p.parse_args()
     global SUITE  # noqa: PLW0603 (one CLI switch for the whole run)
     SUITE = ROOT / "evaluation" / args.suite

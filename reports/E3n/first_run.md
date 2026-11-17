@@ -47,3 +47,13 @@
 6. **A headline that names a different product** from the one asked about says so ("A different formulation is approved: …").
 
 **Not independent:** I wrote both the questions and the fixes. A fresh E3n-b suite (different seed, new phrasings, written before the fixes are run) is the measure of the fixes.
+
+## Addendum (2026-11-18): one more approval for a product not asked, found by a stricter scorer check
+
+E3n-c exposed a gap in the scorer: `approval_not_asked` fires only when the right answer is *not* an approval. So it misses an "Approved" headline for **other rows** whenever the rows asked about happen to be approved as well. The new check, `approval_for_other_rows`, compares the approved rows shown with the rows the question asks for. I re-scored this suite from its recorded answers; only the new field changed in `first_run.json`. It flags three items:
+
+- **N-020:** already reported above.
+- **N-030:** the same class as N-020, and missed by this report. The question asked about Flubendiamide **0.7 % GR** for stem borer in rice. The headline said "Approved: Flubendiamide **20 % WG** on Rice for stem borer". The formulation was dropped, as in the "Formulation dropped" row above. The asked product is approved too, which is why the old check stayed silent.
+- **N-009:** looked up at ingredient level ("Dinotefuran"), so the rows shown include **Dinotefuran 70 % WG** as well as the 20 % SG asked about. The headline named the right product.
+
+Fixes 3 and 6 above address this class. E3n-b, scored with the same check, has none ([E3n-c report](../E3nc/first_run.md)).

@@ -46,6 +46,11 @@
   "approval_not_asked": [
    "N-020"
   ],
+  "approval_for_other_rows": [
+   "N-009",
+   "N-020",
+   "N-030"
+  ],
   "prose_disagrees_with_outcome": [
    "N-006"
   ],
@@ -93,6 +98,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -113,6 +119,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -133,6 +140,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -161,6 +169,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -187,6 +196,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -213,6 +223,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": true
   },
   {
@@ -239,6 +250,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -265,6 +277,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -291,6 +304,7 @@
    "matches_structured": false,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": true,
    "prose_disagrees": false
   },
   {
@@ -317,6 +331,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -343,6 +358,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -363,6 +379,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -389,6 +406,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -415,6 +433,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -441,6 +460,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -467,6 +487,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -493,6 +514,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -519,6 +541,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -545,6 +568,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -571,6 +595,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": true,
+   "approval_for_other_rows": true,
    "prose_disagrees": false
   },
   {
@@ -597,6 +622,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -623,6 +649,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -649,6 +676,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -675,6 +703,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -701,6 +730,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -727,6 +757,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -753,6 +784,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -779,6 +811,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -799,6 +832,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -825,6 +859,7 @@
    "matches_structured": false,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": true,
    "prose_disagrees": false
   },
   {
@@ -845,6 +880,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -873,6 +909,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -893,6 +930,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -919,6 +957,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -945,6 +984,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -971,6 +1011,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -997,6 +1038,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1023,6 +1065,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1049,6 +1092,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1075,6 +1119,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1101,6 +1146,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1121,6 +1167,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1147,6 +1194,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1173,6 +1221,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1199,6 +1248,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1225,6 +1275,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1251,6 +1302,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1279,6 +1331,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1299,6 +1352,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1327,6 +1381,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1353,6 +1408,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1373,6 +1429,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1393,6 +1450,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1419,6 +1477,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1439,6 +1498,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1459,6 +1519,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1485,6 +1546,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1511,6 +1573,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1540,6 +1603,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1566,6 +1630,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1594,6 +1659,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1620,6 +1686,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1640,6 +1707,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1666,6 +1734,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1692,6 +1761,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1712,6 +1782,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1738,6 +1809,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1758,6 +1830,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1784,6 +1857,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1804,6 +1878,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1830,6 +1905,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1856,6 +1932,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1876,6 +1953,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1896,6 +1974,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1922,6 +2001,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1942,6 +2022,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1968,6 +2049,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -1994,6 +2076,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2014,6 +2097,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2034,6 +2118,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2060,6 +2145,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2086,6 +2172,7 @@
    "matches_structured": true,
    "matches_label": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2106,6 +2193,7 @@
    "headline": "Need one more detail",
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2132,6 +2220,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2158,6 +2247,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2184,6 +2274,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2210,6 +2301,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2236,6 +2328,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2262,6 +2355,7 @@
    "matches_structured": false,
    "matches_label": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2287,6 +2381,7 @@
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2306,6 +2401,7 @@
    "message": "Which pesticide product are you considering for fruit borer in tomato?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2325,6 +2421,7 @@
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2344,6 +2441,7 @@
    "message": "Which pesticide product are you considering for blast on paddy?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2363,6 +2461,7 @@
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2382,6 +2481,7 @@
    "message": "Which pesticide product are you referring to?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2401,6 +2501,7 @@
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2420,6 +2521,7 @@
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2439,6 +2541,7 @@
    "message": "Which pesticide product are you interested in for aphids on chilli?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2458,6 +2561,7 @@
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2477,6 +2581,7 @@
    "message": "Which crop are you targeting the stem borer on?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2496,6 +2601,7 @@
    "message": "Which crop are you asking about?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2515,6 +2621,7 @@
    "message": "Which pesticide product are you planning to use for brinjal shoot and fruit borer?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2534,6 +2641,7 @@
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2553,6 +2661,7 @@
    "message": "Which pesticide product are you asking about for groundnut?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2578,6 +2687,7 @@
    "headline": "Product not found in the register: Confidor.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2603,6 +2713,7 @@
    "headline": "Product not found in the register: Actara.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2628,6 +2739,7 @@
    "headline": "Product not found in the register: Ridomil Gold.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2653,6 +2765,7 @@
    "headline": "Product not found in the register: Amistar Top.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2678,6 +2791,7 @@
    "headline": "Product not found in the register: Nativo.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2697,6 +2811,7 @@
    "message": "Which pesticide product are you asking about for wheat rust?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2716,6 +2831,7 @@
    "message": "Which pesticide product are you asking about for early blight on tomato?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2743,6 +2859,7 @@
    "headline": "Product not found in the register: Regent.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2768,6 +2885,7 @@
    "headline": "Product not found in the register: Takumi.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2787,6 +2905,7 @@
    "message": "Which pesticide product are you asking about for diamond back moth on cabbage?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2806,6 +2925,7 @@
    "message": "Which pesticide product are you asking about for cotton whitefly?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2831,6 +2951,7 @@
    "headline": "Product not found in the register: Kavach.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2856,6 +2977,7 @@
    "headline": "Product not found in the register: Saaf.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2881,6 +3003,7 @@
    "headline": "Product not found in the register: Admire.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2906,6 +3029,7 @@
    "headline": "Product not found in the register: Coragen 18.5 SC.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2933,6 +3057,7 @@
    "headline": "Not listed for this pest: Chlorantraniliprole 18.5% SC is registered on brinjal, but not for whitefly.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2958,6 +3083,7 @@
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -2983,6 +3109,7 @@
    "headline": "Approved: Mancozeb 75% WP on Potato for late blight is listed in the register (p. 18).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3008,6 +3135,7 @@
    "headline": "Approved: Chlorantraniliprole 18.50 % SC on Tomato is listed in the register (p. 12).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3033,6 +3161,7 @@
    "message": "Which pesticide product or ingredient are you interested in?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3052,6 +3181,7 @@
    "message": "Which insecticide product are you interested in checking for cotton bollworm?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3077,6 +3207,7 @@
    "headline": "Approved: Carbofuran 03 % CG on Paddy (Rice) for stem borer is listed in the register (p. 10).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3104,6 +3235,7 @@
    "headline": "Not listed: the register has no use of Dinotefuran 20% SG on tomato.",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3123,6 +3255,7 @@
    "message": "For which crop are you asking about Coragen?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3142,6 +3275,7 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3173,6 +3307,7 @@
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3198,6 +3333,7 @@
    "message": "Which pest or disease are you targeting on groundnut?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3225,6 +3361,7 @@
    "headline": "Not listed for this pest: Chlorantraniliprole 18.5% SC is registered on tomato, but not for fruit fly.",
    "matches_structured": false,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3249,6 +3386,7 @@
    "message": "Chlorantraniliprole 18.50 % SC on Tomato for Fruit borer: a.i. 30; formulation 150; water 500; waiting period 03 (as printed, p. 12).",
    "headline": "Approved: Chlorantraniliprole 18.50 % SC on Tomato is listed in the register (p. 12).",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3274,6 +3412,7 @@
    "headline": "Warning: a ban or restriction applies; see restrictions. Approved: Chlorpyrifos 20 % EC on Citrus for aphids is listed in the register (p. 16).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3293,6 +3432,7 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3320,6 +3460,7 @@
    "headline": "Approved: Spinosad 45 % SC on Chilli for thrips is listed in the register (p. 47).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3345,6 +3486,7 @@
    "headline": "Approved: Emamectin benzoate 05 % SG on Cabbage for diamond back moth is listed in the register (p. 25).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3372,6 +3514,7 @@
    "headline": "Approved: Mancozeb 75% WP on Grapes is listed in the register (p. 19).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3397,6 +3540,7 @@
    "headline": "Approved: Thiamethoxam 25 % WG on Rice (Paddy) is listed in the register (p. 52).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3434,6 +3578,7 @@
    "headline": "Approved: Hexaconazole 5% EC on Mango for powdery mildew is listed in the register (p. 14).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3453,6 +3598,7 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3472,6 +3618,7 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3497,6 +3644,7 @@
    "headline": "Approved: Profenofos 50 % EC on Cotton for bollworm is listed in the register (p. 43).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   },
   {
@@ -3526,6 +3674,7 @@
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",
    "matches_structured": true,
    "approval_not_asked": false,
+   "approval_for_other_rows": false,
    "prose_disagrees": false
   }
  ]
