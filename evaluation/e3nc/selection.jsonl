@@ -1,0 +1,36 @@
+{"id": "NC-001", "source": "E3-093", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "tomato", "product": "Fluensulfone 2% GR", "pest": "fruit borer"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NC-002", "source": "E3b-36", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "tomato", "product": "Pyriproxyfen 10% + Bifenthrin 10% EC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NC-003", "source": "E3-099", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "cauliflower", "product": "Emamectin benzoate 5% + Lufenuron 40% WG", "pest": "aphids"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NC-004", "source": "E3-042", "pool": "APPROVED", "query": {"crop": "grapes", "product": "Pyriofenone 18% SC", "pest": "powdery mildew"}, "expect": "APPROVED"}
+{"id": "NC-005", "source": "E3-098", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "chilli", "product": "Diafenthiuron 47% + Bifenthrin 9.4% SC", "pest": "whitefly"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NC-006", "source": "E3-027", "pool": "APPROVED", "query": {"crop": "rice", "product": "Emamectin Benzoate 1.25% + Lambda Cyhalothrin 1.5% + Bifenthrin 4.5% EC", "pest": "leaf folder"}, "expect": "APPROVED"}
+{"id": "NC-007", "source": "E3-130", "pool": "UNKNOWN_CROP", "query": {"crop": "lavender", "product": "Hexaconazole 5% SC"}, "expect": "UNKNOWN_CROP"}
+{"id": "NC-008", "source": "E3-053", "pool": "APPROVED", "query": {"crop": "pomegranate", "product": "Copper sulfate 47.15% + Mancozeb 30% WDG", "pest": "bacterial blight"}, "expect": "APPROVED"}
+{"id": "NC-009", "source": "E3b-09", "pool": "APPROVED", "query": {"crop": "bengal gram", "product": "Novaluron 10% EC", "pest": "pod borer"}, "expect": "APPROVED"}
+{"id": "NC-010", "source": "E3-076", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "tomato", "product": "Lambda cyhalothrin 10% + Lufenuron 12% SC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NC-011", "source": "E3b-28", "pool": "APPROVED", "query": {"crop": "apple", "product": "Difenoconazole 10% + Mancozeb 50% WDG", "pest": "scab"}, "expect": "APPROVED"}
+{"id": "NC-012", "source": "E3-131", "pool": "AMBIGUOUS", "query": {"crop": "potato", "product": "Mancozeb 75% WG", "pest": "blight"}, "expect": "AMBIGUOUS"}
+{"id": "NC-013", "source": "E3-033", "pool": "APPROVED", "query": {"crop": "paddy", "product": "Pymetrozine 30% + Tebuconazole 37% WG", "pest": "sheath blight"}, "expect": "APPROVED"}
+{"id": "NC-014", "source": "E3b-07", "pool": "APPROVED", "query": {"crop": "cucumber", "product": "Dimpropyridaz 120 g/l SL", "pest": "aphids"}, "expect": "APPROVED"}
+{"id": "NC-015", "source": "E3b-42", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "grapes", "product": "Streptomycin sulphate 9% + Tetracycline hydrochloride 1% SP"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NC-016", "source": "E3-051", "pool": "APPROVED", "query": {"crop": "sorghum", "product": "Zineb 75% WP", "pest": "red leaf spot"}, "expect": "APPROVED"}
+{"id": "NC-017", "source": "E3b-22", "pool": "APPROVED", "query": {"crop": "coffee", "product": "Hexaconazole 75% WG", "pest": "leaf rust"}, "expect": "APPROVED"}
+{"id": "NC-018", "source": "E3-095", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "cabbage", "product": "Metaflumizone 22% SC", "pest": "aphids"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NC-019", "source": "E3-052", "pool": "APPROVED", "query": {"crop": "tea", "product": "Mancozeb 63% + Carbendazim 12% WP", "pest": "blister blight"}, "expect": "APPROVED"}
+{"id": "NC-020", "source": "E3-009", "pool": "APPROVED", "query": {"crop": "cotton", "product": "Gossyplure 4% RTU", "pest": "pink bollworm"}, "expect": "APPROVED"}
+{"id": "NC-021", "source": "E3-111", "pool": "UNKNOWN_PRODUCT", "query": {"crop": "tea", "product": "Glyphosate 41% SL"}, "expect": "UNKNOWN_PRODUCT"}
+{"id": "NC-022", "source": "E3-124", "pool": "UNKNOWN_CROP", "query": {"crop": "avocado", "product": "Carbendazim 50% WP"}, "expect": "UNKNOWN_CROP"}
+{"id": "NC-023", "source": "E3-085", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "wheat", "product": "Carbendazim 1.92% + Mancozeb 10.08% GR"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NC-024", "source": "E3b-44", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "potato", "product": "Difenoconazole 10% + Mancozeb 50% WDG"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NC-025", "source": "E3-013", "pool": "APPROVED", "query": {"crop": "grapes", "product": "lambda cyhalothrin 4.9 % CS", "pest": "flea beetle"}, "expect": "APPROVED"}
+{"id": "NC-026", "source": "E3-132", "pool": "AMBIGUOUS", "query": {"crop": "tomato", "product": "Metiram 55% + Pyraclostrobin 5% WG", "pest": "blight"}, "expect": "AMBIGUOUS"}
+{"id": "NC-027", "source": "E3-117", "pool": "UNKNOWN_PRODUCT", "query": {"crop": "potato", "product": "Mancozeb 75% EC"}, "expect": "UNKNOWN_PRODUCT"}
+{"id": "NC-028", "source": "E3-047", "pool": "APPROVED", "query": {"crop": "onion", "product": "Tebuconazole 25.9% EC", "pest": "purple blotch"}, "expect": "APPROVED"}
+{"id": "NC-029", "source": "E3b-35", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "chilli", "product": "Nitenpyram 25% SP"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NC-030", "source": "E3b-52", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "grapes", "product": "Hexaconazole 5% SC", "pest": "downy mildew"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NC-031", "source": "E3-015", "pool": "APPROVED", "query": {"crop": "cabbage", "product": "Metaflumizone 22% SC", "pest": "diamondback moth"}, "expect": "APPROVED"}
+{"id": "NC-032", "source": "E3-091", "pool": "NOT_APPROVED_FOR_PEST", "query": {"crop": "tomato", "product": "Broflanilide 300 g/l SC", "pest": "whitefly"}, "expect": "NOT_APPROVED_FOR_PEST"}
+{"id": "NC-033", "source": "E3-074", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "chilli", "product": "Emamectin benzoate 1.1% + Diafenthiuron 30% SC"}, "expect": "NOT_APPROVED_FOR_CROP"}
+{"id": "NC-034", "source": "E3b-05", "pool": "APPROVED", "query": {"crop": "bhindi", "product": "Emamectin benzoate 5% SG", "pest": "shoot and fruit borer"}, "expect": "APPROVED"}
+{"id": "NC-035", "source": "E3-028", "pool": "APPROVED", "query": {"crop": "maize", "product": "Emamectin benzoate 5% + Lufenuron 40% WG", "pest": "stem borer"}, "expect": "APPROVED"}
+{"id": "NC-036", "source": "E3-063", "pool": "NOT_APPROVED_FOR_CROP", "query": {"crop": "rice", "product": "Cyantraniliprole 10.26% OD"}, "expect": "NOT_APPROVED_FOR_CROP"}
