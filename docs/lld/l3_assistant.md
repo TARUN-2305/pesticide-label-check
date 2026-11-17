@@ -281,3 +281,22 @@ The verifier ignores number words; the allowed set includes the user's numbers; 
 | D | "150 grams" for a liquid whose register column is "g or ml" | Use the register's unit unless the cell states one |
 
 **Scorer change:** `approval_for_other_rows` was added after NC-034, because `approval_not_asked` misses a wrong-row approval when the asked rows are approved too. All three suites were re-scored, and E3n gains N-009 and N-030 (addendum in its report).
+
+## 16. Fix A and E3n-d (2026-11-18)
+
+**Built** (`58125de`; E3n-d committed before it in `dd86f2c`):
+- `Names.crop_mentions`: exact aliases on whole words, longest first, no overlaps.
+- `names.written_in`.
+- `Assistant._users_crop`. When the question names exactly one crop, and the model's crop does not resolve to it, that name is looked up. The model's crop stands only if it resolves exactly to another crop the user also wrote. The model's pest text and the unit word "gram" (`NOT_CROPS`) are not counted. A malformed call is still rejected first.
+- The tool result gains `crop_looked_up` when the crop was replaced. A reply naming the rejected crop falls back to the template (`crop:<name>` in `unverified`).
+
+**Deviation from the README of E3n-d, disclosed:** the README says "does not resolve". In the code, a model crop that resolves only as a general term ("gourd") or ambiguously also counts as not resolving, when the user wrote one specific crop. There is a test for it.
+
+**Evidence:**
+- 14 tests;
+- mutants FA-M1 to M8, all killed;
+- an offline replay on 203 recorded model calls: 4 changes, all to the asked crop;
+- E3 offline suites unchanged item by item;
+- E3n-d live: 0 approvals for rows not asked, but 0 live triggers ([report](../../reports/E3nd/first_run.md)).
+
+**Next:** fix B. "Which crop?" was asked on 10 of 18 Kannada-name items, and the lexicon resolves all of them.
