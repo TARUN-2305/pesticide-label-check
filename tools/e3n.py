@@ -171,6 +171,27 @@ def _canonical_strengths(engine: Engine, typed: str) -> set[Decimal]:
     return {v for _, v in numbers(typed)} & canonical
 
 
+def _model_crop(rec: dict[str, Any]) -> str | None:
+    """The crop in the model's first lookup call, from the recorded response body."""
+    for ex in rec.get("exchanges", []):
+        try:
+            calls = ex["response"]["choices"][0]["message"].get("tool_calls") or []
+        except (KeyError, IndexError, TypeError):
+            continue
+        for call in calls:
+            if call.get("function", {}).get("name") == "lookup":
+                try:
+                    crop = json.loads(call["function"]["arguments"]).get("crop")
+                except (ValueError, AttributeError):
+                    return None
+                return str(crop).strip() if crop else None
+    return None
+
+
+def _squash(text: str) -> str:
+    return re.sub(r"[\W_]+", "", text.lower())
+
+
 def _conflict(shown: dict[str, Any]) -> bool:
     return any(
         r["names_the_crop"] or r["status"] in ("banned", "banned_for_use", "withdrawn")
@@ -242,8 +263,18 @@ def score(register: Path, label: str) -> None:
             if shown and oracle:
                 same_uses = {u["use_id"] for u in shown["uses"]} == {u.use_id for u in oracle.uses}
                 row["matches_structured"] = shown["outcome"] == oracle.outcome.value and same_uses
-            if item["part"] in ("plain", "variant"):
+            if item["part"] in ("plain", "variant", "control", "probe"):
                 row["matches_label"] = outcome == item["labelled_outcome"]
+            # E3n-d (fix A): the crop the model first passed, against the crop the lookup used
+            model_crop = _model_crop(rec)
+            used_crop = (res["slots"] or {}).get("crop")
+            row["crop_replaced"] = bool(model_crop and used_crop and model_crop != used_crop)
+            row["model_crop"] = model_crop
+            row["rejected_crop_in_prose"] = bool(
+                row["crop_replaced"]
+                and res["phrased_by"] == "model"
+                and _squash(str(model_crop)) in _squash(res["message"])
+            )
             approved_headline = res["headline"].removeprefix(BAN_PREFIX).startswith("Approved")
             row["approval_not_asked"] = bool(
                 approved_headline and oracle is not None and oracle.outcome is not Outcome.APPROVED
@@ -279,9 +310,10 @@ def score(register: Path, label: str) -> None:
         return f"{k}/{n} ({100 * k / n:.1f}%)" if n else "0/0"
 
     part = {
-        p: [r for r in rows if r["part"] == p] for p in ("plain", "variant", "missing", "brand", "redteam")
+        p: [r for r in rows if r["part"] == p]
+        for p in ("plain", "variant", "control", "probe", "missing", "brand", "redteam")
     }
-    n_items = part["plain"] + part["variant"]
+    n_items = part["plain"] + part["variant"] + part["control"]  # control: E3n-d only
     answered = [r for r in rows if r.get("outcome") not in (None, "CLARIFY")]
     lat = {p: sorted(r["ms"] for r in rows if r.get("provider") == p) for p in ("groq", "gemini")}
     summary = {
@@ -296,6 +328,10 @@ def score(register: Path, label: str) -> None:
         "N_matches_structured_all": rate(n_items, "matches_structured"),
         "N_matches_structured_plain": rate(part["plain"], "matches_structured"),
         "N_matches_structured_variant": rate(part["variant"], "matches_structured"),
+        "N_matches_structured_control": rate(part["control"], "matches_structured"),
+        "probe_matches_structured": rate(part["probe"], "matches_structured"),
+        "crop_replaced": {r["id"]: r["model_crop"] for r in rows if r.get("crop_replaced")},
+        "rejected_crop_in_prose": [r["id"] for r in rows if r.get("rejected_crop_in_prose")],
         "N_matches_label_all": rate(n_items, "matches_label"),
         "N_clarified_instead": [r["id"] for r in n_items if r.get("outcome") == "CLARIFY"],
         "missing_slot_clarified": rate(

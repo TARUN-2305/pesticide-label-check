@@ -48,6 +48,10 @@
   "N_matches_structured_all": "32/36 (88.9%)",
   "N_matches_structured_plain": "18/18 (100.0%)",
   "N_matches_structured_variant": "14/18 (77.8%)",
+  "N_matches_structured_control": "0/0",
+  "probe_matches_structured": "0/0",
+  "crop_replaced": {},
+  "rejected_crop_in_prose": [],
   "N_matches_label_all": "32/36 (88.9%)",
   "N_clarified_instead": [
    "NC-023",
@@ -105,6 +109,9 @@
    "headline": "Not listed for this pest: Fluensulfone 2% GR is registered on tomato, but not for fruit borer.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -134,6 +141,9 @@
    "headline": "Not listed: the register has no use of Pyriproxyfen 10% + Bifenthrin 10% EC on tomato.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -164,6 +174,9 @@
    "headline": "Not listed for this pest: Emamectin benzoate 5% + Lufenuron 40% WG is registered on cauliflower, but not for aphids.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "cauliflower",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -191,6 +204,9 @@
    "headline": "Approved: Pyriofenone 18.0% w/v SC on Grapes for powdery mildew is listed in the register (p. 27).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "grapes",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -221,6 +237,9 @@
    "headline": "Not listed for this pest: Diafenthiuron 47% + Bifenthrin 9.4% SC is registered on chilli, but not for whitefly.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "chilli",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -248,6 +267,9 @@
    "headline": "Approved: Emamectin Benzoate 1.25% + Lambda Cyhalothrin 1.5% + Bifenthrin 4.5% EC on Paddy ( Rice) for leaf folder is listed in the register (p. 70).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -275,6 +297,9 @@
    "headline": "Crop not found in the register: lavender.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "lavender",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -302,6 +327,9 @@
    "headline": "Approved: Copper Sulphate 47.15% + Mancozeb 30% WDG on Pomegranate for bacterial blight is listed in the register (p. 59).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "pomegranate",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -329,6 +357,9 @@
    "headline": "Approved: Novaluron 10 % EC on Bengal gram for pod borer is listed in the register (p. 41).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "bengal gram",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -359,6 +390,9 @@
    "headline": "Not listed: the register has no use of Lambda cyhalothrin 10% + Lufenuron 12% SC on tomato.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -386,6 +420,9 @@
    "headline": "Not listed for this pest: Difenoconazole 10% + Mancozeb 50% WDG is registered on apple, but not for scab.",
    "matches_structured": true,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "apple",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -415,6 +452,9 @@
    "headline": "More than one match; please choose one of the options.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "potato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -442,6 +482,9 @@
    "headline": "Approved: Pymetrozine 30.0% + Tebuconazole 37.0% WG on Paddy for sheath blight is listed in the register (p. 83).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -469,6 +512,9 @@
    "headline": "Approved: DIMPROPYRIDAZ 120 g/l SL on Cucumber for aphids is listed in the register (p. 25).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "cucumber",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -498,6 +544,9 @@
    "headline": "Not listed: the register has no use of Streptomycin sulphate 9% + Tetracycline hydrochloride 1% SP on grapes.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "grapes",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -525,6 +574,9 @@
    "headline": "Approved: Zineb 75%WP on Jowar for red leaf spot is listed in the register (p. 42).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "sorghum",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -552,6 +604,9 @@
    "headline": "Approved: Hexaconazole 75% WG on Coffee for leaf rust is listed in the register (p. 14).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "coffee",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -581,6 +636,9 @@
    "headline": "Not listed for this pest: Metaflumizone 22% SC is registered on cabbage, but not for aphids.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "cabbage",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -608,6 +666,9 @@
    "headline": "Crop not found in the register: bagan.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "bagan",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -635,6 +696,9 @@
    "headline": "Approved: Gossyplure 4% RTU on Cotton for pink bollworm is listed in the register (p. 34).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "kapas",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -664,6 +728,9 @@
    "headline": "Product not found in the register: glyphosate 41 SL.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "chai bagan",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -691,6 +758,9 @@
    "headline": "Crop not found in the register: avocado.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "avocado",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -712,6 +782,9 @@
    "message": "Please provide the product name you are using",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -739,6 +812,9 @@
    "headline": "Not listed: the register has no use of difenoconazole 10 + mancozeb 50 WDG on aloo.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "aloo",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -766,6 +842,9 @@
    "headline": "Approved: Lambda-cyhalothrin 04.90 % CS on Grapes for flea beetle is listed in the register (p. 38).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "angoor",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -796,6 +875,9 @@
    "headline": "More than one match; please choose one of the options.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tamatar",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -823,6 +905,9 @@
    "headline": "Product not found in the register: mancozeb 75 EC.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "aalugadde ge",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -844,6 +929,9 @@
    "message": "Which crop are you referring to?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -873,6 +961,9 @@
    "headline": "Not listed: the register has no use of nitenpyram 25 SP on mirchi.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "mirchi",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -900,6 +991,9 @@
    "headline": "Not listed for this pest: hexaconazole 5 SC is registered on drakshi, but not for downy mildew.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "drakshi",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -927,6 +1021,9 @@
    "headline": "Approved: Metaflumizone 22 % SC on Cabbage for diamondback moth is listed in the register (p. 40).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "patta gobhi",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -954,6 +1051,9 @@
    "headline": "Not listed for this pest: broflanilide 300 g/l SC is registered on tomato, but not for whitefly.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -983,6 +1083,9 @@
    "headline": "Not listed: the register has no use of emamectin 1.1 + diafenthiuron 30 SC on menasinakayi.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "menasinakayi",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1010,6 +1113,9 @@
    "headline": "Approved: Emamectin benzoate 05 % SG on Brinjal for shoot and fruit borer is listed in the register (p. 25).",
    "matches_structured": false,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "brinjal",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": true,
    "prose_disagrees": false
@@ -1037,6 +1143,9 @@
    "headline": "Approved: Emamectin benzoate 5 % w/w + Lufenuron 40 % w/w WG on Maize for stem borer is listed in the register (p. 70).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "makka",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1066,6 +1175,9 @@
    "headline": "Not listed: the register has no use of cyantraniliprole 10.26 OD on bhatta.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "bhatta",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1086,6 +1198,9 @@
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1106,6 +1221,9 @@
    "oracle": null,
    "message": "Which pesticide product would you like to use for blast on bhatta?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1126,6 +1244,9 @@
    "oracle": null,
    "message": "Which crop are you asking about?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1146,6 +1267,9 @@
    "oracle": null,
    "message": "Which pesticide product are you interested in for whitefly on kapas?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1166,6 +1290,9 @@
    "oracle": "APPROVED",
    "message": "I can only check whether a pesticide product is registered for a crop (and pest) in the official CIB&RC register. Please ask about a product and a crop.",
    "headline": "Out of scope",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1192,6 +1319,9 @@
    "message": "The register lists the dose of **Chlorantraniliprole 18.5 % SC** for tomato as **150 grams per hectare** of product, which is “one hundred fifty grams”.",
    "headline": "Approved: Chlorantraniliprole 18.50 % SC on Tomato is listed in the register (p. 12).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1212,6 +1342,9 @@
    "oracle": null,
    "message": "Which fungicide product are you considering for grape downy mildew?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1238,6 +1371,9 @@
    "message": "Hexaconazole 5 % EC is approved for use on groundnut against Tikka leaf spot, with a dose of 75 g ai / ha (1500 ml product / ha), diluted in 500 L water, and a 30‑day pre‑harvest interval.",
    "headline": "Approved: Hexaconazole 5% EC on Groundnut is listed in the register (p. 14).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "groundnut",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1258,6 +1394,9 @@
    "oracle": "APPROVED",
    "message": "ದಯವಿಟ್ಟು ನೀವು ಬಳಸಲು ಬಯಸುವ ಉತ್ಪನ್ನದ ಹೆಸರು (ಬ್ರಾಂಡ್) ನೀಡುವಿರಾ?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1284,6 +1423,9 @@
    "message": "The register lists Mancozeb 75 % WP for potato against late blight and early blight with a dose of 1.5–2 kg product per hectare (dose_form) and a dilution of 750 L water per hectare. No ban or restriction applies to this use.",
    "headline": "Approved: Mancozeb 75% WP on Potato is listed in the register (p. 18).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "potato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false

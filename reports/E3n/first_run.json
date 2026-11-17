@@ -14,6 +14,10 @@
   "N_matches_structured_all": "55/90 (61.1%)",
   "N_matches_structured_plain": "51/70 (72.9%)",
   "N_matches_structured_variant": "4/20 (20.0%)",
+  "N_matches_structured_control": "0/0",
+  "probe_matches_structured": "0/0",
+  "crop_replaced": {},
+  "rejected_crop_in_prose": [],
   "N_matches_label_all": "57/90 (63.3%)",
   "N_clarified_instead": [
    "N-002",
@@ -97,6 +101,9 @@
    "headline": "Not listed for this pest: Kasugamycin 5% + Copper oxychloride 45% WP is registered on rice, but not for sheath blight.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -118,6 +125,9 @@
    "message": "Which pest or disease are you targeting on tomato with Coragen?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -139,6 +149,9 @@
    "message": "Which pest or disease are you targeting on okra with this product?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -168,6 +181,9 @@
    "headline": "Not listed for this pest: Cymoxanil 8% + Mancozeb 64% WP is registered on tomato, but not for early blight.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -195,6 +211,9 @@
    "headline": "More than one match; please choose one of the options.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -222,6 +241,9 @@
    "headline": "Approved: Aluminium Phosphide 77.50 % GR on Stored Grain for rice weevil is listed in the register (p. 5).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "stored grain",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": true
@@ -249,6 +271,9 @@
    "headline": "Warning: a ban or restriction applies; see restrictions. Approved: Mancozeb 75% WP on Guava for fruit rot is listed in the register (p. 19).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "guava",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -276,6 +301,9 @@
    "headline": "Not listed for this pest: Pydiflumetofen 6.89% + Difenoconazole 11.49% SC is registered on tomato, but not for late blight.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -303,6 +331,9 @@
    "headline": "Approved: Dinotefuran 20 % SG on Rice (Paddy) for brown plant hopper is listed in the register (p. 25).",
    "matches_structured": false,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": true,
    "prose_disagrees": false
@@ -330,6 +361,9 @@
    "headline": "Approved: Cyazofamid 6.2%+Mancozeb 60.8% w/w WP on Potato for early blight is listed in the register (p. 60).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "potato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -357,6 +391,9 @@
    "headline": "Approved: Mancozeb 75% WP on Groundnut for tikka disease is listed in the register (p. 18).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "groundnut",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -378,6 +415,9 @@
    "message": "Which pest or disease are you targeting on cotton?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -405,6 +445,9 @@
    "headline": "Approved: Hexaconazole 5% EC on Soybean for rust is listed in the register (p. 14).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "soybean",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -432,6 +475,9 @@
    "headline": "Approved: SULFOXAFLOR 7.5% + BUPROFEZIN 15% SC on Paddy for brown plant hopper is listed in the register (p. 86).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -459,6 +505,9 @@
    "headline": "Approved: Picoxystrobin 2.5% + Dimethomorph 16.5% + Mancozeb 50% WP on Tomato for late blight is listed in the register (p. 78).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -486,6 +535,9 @@
    "headline": "Not listed for this pest: Indoxacarb 10% + Thiamethoxam 10% WG is registered on tomato, but not for thrips.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -513,6 +565,9 @@
    "headline": "Not listed: the register has no use of Imidacloprid 70% WS on rice.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -540,6 +595,9 @@
    "headline": "More than one match; please choose one of the options.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "wheat",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -567,6 +625,9 @@
    "headline": "Not listed for this pest: Pymetrozine 11.3% + Triflumezopyrim 1.9% SC is registered on rice, but not for stem borer.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -594,6 +655,9 @@
    "headline": "Approved: Emamectin benzoate 01.90 % EC on Paddy is listed in the register (p. 26).",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": true,
    "approval_for_other_rows": true,
    "prose_disagrees": false
@@ -621,6 +685,9 @@
    "headline": "Approved: Carbofuran 03 % CG on Paddy (Rice) for stem borer is listed in the register (p. 10).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -648,6 +715,9 @@
    "headline": "More than one match; please choose one of the options.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "chilli",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -675,6 +745,9 @@
    "headline": "Approved: Isoprothiolane 28% + Fipronil 5% EC on Rice for whorl maggot is listed in the register (p. 78).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -702,6 +775,9 @@
    "headline": "Not listed: the register has no use of Tebuconazole 50% + Trifloxystrobin 25% WG on potato.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "potato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -729,6 +805,9 @@
    "headline": "Approved: Isopyrazam 11.16% w/w + Azoxystrobin 17.86% w/w SC on Rice for sheath blight is listed in the register (p. 69).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -756,6 +835,9 @@
    "headline": "Approved: Imidacloprid 70 % WG on Okra (Bhindi) for aphids is listed in the register (p. 35).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "bhindi",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -783,6 +865,9 @@
    "headline": "Not listed: the register has no use of Lambda-cyhalothrin 4.9% CS on cabbage.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "cabbage",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -810,6 +895,9 @@
    "headline": "Approved: Emamectin benzoate 01.90 % EC on Chick pea for pod borer is listed in the register (p. 25).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "chickpea",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -831,6 +919,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -858,6 +949,9 @@
    "headline": "Approved: Flubendiamide 20 % WG on Rice for stem borer is listed in the register (p. 32).",
    "matches_structured": false,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": true,
    "prose_disagrees": false
@@ -879,6 +973,9 @@
    "message": "Please provide the exact product name you are interested in",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -908,6 +1005,9 @@
    "headline": "Not listed: the register has no use of Mancozeb 75% WP on coriander.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "coriander",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -929,6 +1029,9 @@
    "message": "Which pest or disease are you targeting on chilli?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -956,6 +1059,9 @@
    "headline": "Product not found in the register: Streptocycline.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "citrus",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -983,6 +1089,9 @@
    "headline": "Approved: Tebuconazole 25.9%EC on Black gram for anthracnose is listed in the register (p. 37).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "urad",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1010,6 +1119,9 @@
    "headline": "Approved: Bifenthrin 25% + Thiamethoxam 25% WG on Cotton for pink bollworm is listed in the register (p. 59).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1037,6 +1149,9 @@
    "headline": "Approved: Pyraclostrobin 133 g/l + Epoxiconazole 50g/l SE on Coffee for rust is listed in the register (p. 82).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "coffee",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1064,6 +1179,9 @@
    "headline": "Approved: Pyraclostrobin 3.5% + Thiram 15.0% + Clothianidin 22.5% FS on Ground nut (Seed Treatment) for white grub is listed in the register (p. 83).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "groundnut",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1091,6 +1209,9 @@
    "headline": "Approved: Fluxametamide 10% w/w EC on Redgram for pod borer is listed in the register (p. 34).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "red gram",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1118,6 +1239,9 @@
    "headline": "Not listed for this pest: Picoxystrobin 10% + Isoprothiolane 25% EC is registered on paddy, but not for sheath blight.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1145,6 +1269,9 @@
    "headline": "Warning: a ban or restriction applies; see restrictions. Approved: Chlorpyrifos 20 % EC on Citrus for aphids is listed in the register (p. 16).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "citrus",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1166,6 +1293,9 @@
    "message": "Which pest or disease are you targeting on strawberry?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1193,6 +1323,9 @@
    "headline": "Approved: Pyrifluquinazon 6% + Buprofezin 30% SC on Cotton for jassids is listed in the register (p. 83).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1220,6 +1353,9 @@
    "headline": "Not listed for this pest: Mancozeb 75% WG is registered on tomato, but not for late blight.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1247,6 +1383,9 @@
    "headline": "Approved: Buprofezin 20 % + Acephate 50 % w/w WP on Cotton for mealybug is listed in the register (p. 59).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1274,6 +1413,9 @@
    "headline": "Approved: Picoxystrobin 7.05% + Propiconazole 11.71% SC on Wheat for yellow rust is listed in the register (p. 78).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "wheat",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1301,6 +1443,9 @@
    "headline": "Approved: Acetamiprid 00.40 % + Chlorpyriphos 20 % EC on Paddy (Rice) for stem borer is listed in the register (p. 56).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1330,6 +1475,9 @@
    "headline": "Not listed for this pest: Hexaconazole 0.5% GR is registered on rice, but not for blast.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1351,6 +1499,9 @@
    "message": "Which pest or disease are you targeting on quinoa?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1380,6 +1531,9 @@
    "headline": "Not listed for this pest: Metiram 55% + Pyraclostrobin 5% WG is registered on tomato, but not for late blight.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1407,6 +1561,9 @@
    "headline": "Approved: Acephate 50 % + Imidacloprid 01.80 % SP on Chilli for whitefly is listed in the register (p. 55).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "chilli",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1428,6 +1585,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1449,6 +1609,9 @@
    "message": "Which pest or disease are you targeting on cotton?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1476,6 +1639,9 @@
    "headline": "More than one match; please choose one of the options.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "millet",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1497,6 +1663,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1518,6 +1687,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1545,6 +1717,9 @@
    "headline": "Approved: Cyantraniliprole 10.26 % OD on Pomegranate for aphids is listed in the register (p. 18).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "pomegranate",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1572,6 +1747,9 @@
    "headline": "Approved: Buprofezin 15 % + Acephate 35 % w/w WP on Okra for white fly is listed in the register (p. 59).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "okra",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1602,6 +1780,9 @@
    "headline": "Not listed for this pest: Difenoconazole 4.8% + Mancozeb 64% WP is registered on onion, but not for stemphylium blight.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "onion",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1629,6 +1810,9 @@
    "headline": "Approved: Pyriproxyfen 10 % + Bifenthrin10 % w/w EC on Green gram for whitefly is listed in the register (p. 84).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "green gram",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1658,6 +1842,9 @@
    "headline": "More than one match; please choose one of the options.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1685,6 +1872,9 @@
    "headline": "Approved: Iprovalicarb 8.4 % w/w + Copper oxychloride 68.2 % w/w (40.6 % w/w as Cu) WG on Ccumber for downy mildew is listed in the register (p. 69).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "cucumber",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1706,6 +1896,9 @@
    "message": "Which pest or disease are you targeting on tomato?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1733,6 +1926,9 @@
    "headline": "Approved: (Streptomycin Sulphate 90% + Tetracycline Hydrochloride 10%) SP on Tomato for bacterial leaf spot is listed in the register (p. 29).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1760,6 +1956,9 @@
    "headline": "Approved: Acetamiprid 20% + Chlorantraniliprole 20% WG on Tomato for whitefly is listed in the register (p. 56).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1781,6 +1980,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1808,6 +2010,9 @@
    "headline": "Approved: Metalaxyl 35% WS on Bajra for downy mildew is listed in the register (p. 20).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "pearl millet",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1829,6 +2034,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1856,6 +2064,9 @@
    "headline": "Not listed for this pest: Zineb 75% WP is registered on paddy, but not for sheath blight.",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1877,6 +2088,9 @@
    "message": "Which pest or disease are you targeting on chilli?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1904,6 +2118,9 @@
    "headline": "Approved: Zineb 75%WP on Ragi for blast is listed in the register (p. 42).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "ragi",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1931,6 +2148,9 @@
    "headline": "Product not found in the register: malathion 50 EC.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1952,6 +2172,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -1973,6 +2196,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2000,6 +2226,9 @@
    "headline": "Approved: Hexaconazole 2% SC on Potato for late blight is listed in the register (p. 13).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "potato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2021,6 +2250,9 @@
    "message": "Which carbosulfan product are you looking for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2048,6 +2280,9 @@
    "headline": "Product not found in the register: chloropyriphos 20 EC.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "ber",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2075,6 +2310,9 @@
    "headline": "Approved: Metaldehyde 2.5% DP on Citrus, Rubber, Paddy (Rice), Tea, Vegetables for snail is listed in the register (p. 40).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "tea",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2096,6 +2334,9 @@
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2117,6 +2358,9 @@
    "message": "Which product exactly? Please type the name as printed on the label.",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2144,6 +2388,9 @@
    "headline": "Product not found in the register: copper sulfate 47.15 + mancozeb 30 WDG.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "tomatoes",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2171,6 +2418,9 @@
    "headline": "Approved: Diafenthiuron 48 % + Dinotefuran 8% WG on Brinjal for mites is listed in the register (p. 68).",
    "matches_structured": true,
    "matches_label": true,
+   "crop_replaced": false,
+   "model_crop": "baingan",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2192,6 +2442,9 @@
    "message": "Which product name are you using for the picoxystrobin + propiconazole SC?",
    "headline": "Need one more detail",
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2219,6 +2472,9 @@
    "headline": "Product not found in the register: alpha cypermethrin 10 SC.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2246,6 +2502,9 @@
    "headline": "Product not found in the register: Nitenpyram 25 SP.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2273,6 +2532,9 @@
    "headline": "Product not found in the register: tetraniliprole 10.81 + spirotetramat 21.62 SC.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2300,6 +2562,9 @@
    "headline": "Product not found in the register: mancozeb 75wp.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "wheat",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2327,6 +2592,9 @@
    "headline": "Product not found in the register: cyproconazole 12.5 + tebuconazole 12.5 SC.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "gehu",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2354,6 +2622,9 @@
    "headline": "Product not found in the register: acephate 50 + imidacloprid 1.8 SP.",
    "matches_structured": false,
    "matches_label": false,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2380,6 +2651,9 @@
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2400,6 +2674,9 @@
    "oracle": null,
    "message": "Which pesticide product are you considering for fruit borer in tomato?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2420,6 +2697,9 @@
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2440,6 +2720,9 @@
    "oracle": null,
    "message": "Which pesticide product are you considering for blast on paddy?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2460,6 +2743,9 @@
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2480,6 +2766,9 @@
    "oracle": null,
    "message": "Which pesticide product are you referring to?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2500,6 +2789,9 @@
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2520,6 +2812,9 @@
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2540,6 +2835,9 @@
    "oracle": null,
    "message": "Which pesticide product are you interested in for aphids on chilli?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2560,6 +2858,9 @@
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2580,6 +2881,9 @@
    "oracle": null,
    "message": "Which crop are you targeting the stem borer on?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2600,6 +2904,9 @@
    "oracle": null,
    "message": "Which crop are you asking about?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2620,6 +2927,9 @@
    "oracle": null,
    "message": "Which pesticide product are you planning to use for brinjal shoot and fruit borer?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2640,6 +2950,9 @@
    "oracle": null,
    "message": "Which crop is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2660,6 +2973,9 @@
    "oracle": null,
    "message": "Which pesticide product are you asking about for groundnut?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2686,6 +3002,9 @@
    "message": "The register does not have a record for the product **Confidor**, so it cannot confirm any label claim for cotton against aphids.",
    "headline": "Product not found in the register: Confidor.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2712,6 +3031,9 @@
    "message": "The register does not have a record for the product **Actara** on **paddy** against **brown plant hopper**.",
    "headline": "Product not found in the register: Actara.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2738,6 +3060,9 @@
    "message": "Could you tell me the active ingredient or formulation details of the Ridomil Gold product you are referring to?",
    "headline": "Product not found in the register: Ridomil Gold.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "potato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2764,6 +3089,9 @@
    "message": "The register does not have a record for **Amistar Top** on rice for sheath‑blight, so no approved label claim is listed.",
    "headline": "Product not found in the register: Amistar Top.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2790,6 +3118,9 @@
    "message": "The register does not have a record for the product **Nativo**.",
    "headline": "Product not found in the register: Nativo.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2810,6 +3141,9 @@
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pesticide product are you asking about for wheat rust?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2830,6 +3164,9 @@
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pesticide product are you asking about for early blight on tomato?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2858,6 +3195,9 @@
    "message": "See the suggestions and options in the answer.",
    "headline": "Product not found in the register: Regent.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2884,6 +3224,9 @@
    "message": "The register does not have a record for the product **Takumi**; therefore no approved label claim for fruit‑borer on chilli is listed.",
    "headline": "Product not found in the register: Takumi.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "chilli",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2904,6 +3247,9 @@
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pesticide product are you asking about for diamond back moth on cabbage?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2924,6 +3270,9 @@
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pesticide product are you asking about for cotton whitefly?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2950,6 +3299,9 @@
    "message": "Could you provide the exact product name (including any percentage or formulation code) you want to check?",
    "headline": "Product not found in the register: Kavach.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "groundnut",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -2976,6 +3328,9 @@
    "message": "Could you please confirm the exact product name or the active ingredient you want to check?",
    "headline": "Product not found in the register: Saaf.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "chilli",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3002,6 +3357,9 @@
    "message": "The register does not have a record for the product **Admire** on okra for jassids.",
    "headline": "Product not found in the register: Admire.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "okra",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3028,6 +3386,9 @@
    "message": "Could you confirm the exact product name or provide the active ingredient it contains?",
    "headline": "Product not found in the register: Coragen 18.5 SC.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3056,6 +3417,9 @@
    "message": "Listed instead: Afidopyropen 50 g/L DC on Brinjal for Whitefly, Jassids: a.i. 50; formulation 1000; water 500 – 750; waiting period 01 (as printed, p. 3). Cyantraniliprole 10.26 % OD on Brinjal for Whitefly- Bemisia tabaci Shoot and fruit borer – Leucinodes orbonalis Aphids- Aphis gossypii Thrips- Thrips tabaci: a.i. 90; formulation 900; water 500; waiting period 3 (as printed, p. 19). Diafenthiuron 50 % WP on Brinjal for Whitefly: a.i. 300; formulation 600; water 500 – 750; waiting period 03 (as printed, p. 23).",
    "headline": "Not listed for this pest: Chlorantraniliprole 18.5% SC is registered on brinjal, but not for whitefly.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "brinjal",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3082,6 +3446,9 @@
    "message": "The register lists the label claim for **Imidacloprid 17.80 % SL on cotton against aphids** as:\n\n- Dose of active ingredient: **20 – 25 g ha⁻¹**  \n- Dose of product (formulation): **100 – 125 g ha⁻¹**  \n\nNo ban or restriction applies. (The register provides the dose per hectare; conversion to per‑acre units is not given.)",
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3108,6 +3475,9 @@
    "message": "The register shows **Mancozeb 75 % WP** is approved for potato against late blight, with a dose of **1.125‑1.5 kg AI / ha** (or **1.5‑2 kg product / ha**) and a dilution of **750 L / ha**. No ban or restriction applies to this use.",
    "headline": "Approved: Mancozeb 75% WP on Potato for late blight is listed in the register (p. 18).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "potato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3134,6 +3504,9 @@
    "message": "The label lists a use of **Chlorantraniliprole 18.50 % SC** on tomato for fruit borer with a dose of **150 ml per hectare**, to be diluted in **500 L of water per hectare**.",
    "headline": "Approved: Chlorantraniliprole 18.50 % SC on Tomato is listed in the register (p. 12).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3160,6 +3533,9 @@
    "oracle": null,
    "message": "Which pesticide product or ingredient are you interested in?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3180,6 +3556,9 @@
    "oracle": null,
    "message": "Which insecticide product are you interested in checking for cotton bollworm?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3206,6 +3585,9 @@
    "message": "The register shows **Carbofuran 03 % CG** is **APPROVED** for paddy (rice) against stem borer (along with other listed pests). No ban or restriction applies to this specific formulation and crop.",
    "headline": "Approved: Carbofuran 03 % CG on Paddy (Rice) for stem borer is listed in the register (p. 10).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "paddy",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3234,6 +3616,9 @@
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed: the register has no use of Dinotefuran 20% SG on tomato.",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3254,6 +3639,9 @@
    "oracle": null,
    "message": "For which crop are you asking about Coragen?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3274,6 +3662,9 @@
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3306,6 +3697,9 @@
    "message": "The register shows that **Imidacloprid 17.80 % SL** is approved for use on cotton against aphids (also whitefly, jassid, thrips) with a dose of 20 – 25 g ai / ha (100 – 125 g product / ha), diluted in 500 – 700 L water / ha and a pre‑harvest interval of 40 days.",
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3332,6 +3726,9 @@
    "oracle": "UNKNOWN_CROP",
    "message": "Which pest or disease are you targeting on groundnut?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3360,6 +3757,9 @@
    "message": "See the suggestions and options in the answer.",
    "headline": "Not listed for this pest: Chlorantraniliprole 18.5% SC is registered on tomato, but not for fruit fly.",
    "matches_structured": false,
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3385,6 +3785,9 @@
    "oracle": null,
    "message": "Chlorantraniliprole 18.50 % SC on Tomato for Fruit borer: a.i. 30; formulation 150; water 500; waiting period 03 (as printed, p. 12).",
    "headline": "Approved: Chlorantraniliprole 18.50 % SC on Tomato is listed in the register (p. 12).",
+   "crop_replaced": false,
+   "model_crop": "tomato",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3411,6 +3814,9 @@
    "message": "I’m sorry, I need a bit more information. Could you tell me which other pesticide products you’re interested in as alternatives?",
    "headline": "Warning: a ban or restriction applies; see restrictions. Approved: Chlorpyrifos 20 % EC on Citrus for aphids is listed in the register (p. 16).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "citrus",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3431,6 +3837,9 @@
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3459,6 +3868,9 @@
    "message": "Spinosad 45 % SC on Chilli for Fruit borer, Thrips: a.i. 73; formulation 160; water 500; waiting period 03 (as printed, p. 47).",
    "headline": "Approved: Spinosad 45 % SC on Chilli for thrips is listed in the register (p. 47).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "chilli",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3485,6 +3897,9 @@
    "message": "The register shows **Emamectin benzoate 5 % SG** is **approved** for use on cabbage against diamond‑back moth, with a label dose of 7.5 – 10 g ai / ha (150 – 200 g product / ha), diluted in 500 L water and a 3‑day pre‑harvest interval.  \n\nThe register does not contain price information.",
    "headline": "Approved: Emamectin benzoate 05 % SG on Cabbage for diamond back moth is listed in the register (p. 25).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "cabbage",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3513,6 +3928,9 @@
    "message": "Mancozeb 75% WP on Grapes for Angular leafspot, Downy mildew, Anthracnose: a.i. 1.125-1.5kg; formulation 1.5-2kg; water 750Ltr.; waiting period - (as printed, p. 19).",
    "headline": "Approved: Mancozeb 75% WP on Grapes is listed in the register (p. 19).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "grapes",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3539,6 +3957,9 @@
    "message": "The register shows **Thiamethoxam 25 % WG** approved for rice (paddy) with a dose of **100 g product per hectare** (dose_form = 100). The label rate of 100 g per acre is not the same unit as the register’s hectare‑based rate.",
    "headline": "Approved: Thiamethoxam 25 % WG on Rice (Paddy) is listed in the register (p. 52).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "rice",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3577,6 +3998,9 @@
    "message": "Hexaconazole 5 % EC is approved for mango against powdery mildew, with a pre‑harvest interval of 30 days. The register does not list a specific number of sprays per season.",
    "headline": "Approved: Hexaconazole 5% EC on Mango for powdery mildew is listed in the register (p. 14).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "mango",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3597,6 +4021,9 @@
    "oracle": "UNKNOWN_PRODUCT",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3617,6 +4044,9 @@
    "oracle": "APPROVED",
    "message": "Which pest or disease is it for?",
    "headline": "Need one more detail",
+   "crop_replaced": false,
+   "model_crop": null,
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3643,6 +4073,9 @@
    "message": "ಬ್ಯಾನಿಲ್ಲ. ಪ್ರೊಫೆನೋಫಾಸ್ 50 % EC ಅನ್ನು ಹತ್ತಿ ಬೆಳೆದಾಗ ಬೋಲ್ವಾರ್ಮ್‌ಗಾಗಿ ಅನುಮೋದಿಸಲಾಗಿದೆ; ಪ್ರಮಾಣ 750 – 1000 g AI/ಹೆಕ್ಟೇರ್, 1500 – 2000 g ಉತ್ಪನ್ನ/ಹೆಕ್ಟೇರ್, 500 – 1000 L ನೀರಿನಲ್ಲಿ, ಕಾಯುವ ಅವಧಿ 15 ದಿನಗಳು.",
    "headline": "Approved: Profenofos 50 % EC on Cotton for bollworm is listed in the register (p. 43).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
@@ -3673,6 +4106,9 @@
    "message": "Imidacloprid 17.80 % SL on Cotton for Aphid, Whitefly, Jassid, Thrips: a.i. 20 - 25; formulation 100 - 125; water 500 - 700; waiting period 40 (as printed, p. 36).",
    "headline": "Approved: Imidacloprid 17.80 % SL on Cotton for aphids is listed in the register (p. 36).",
    "matches_structured": true,
+   "crop_replaced": false,
+   "model_crop": "cotton",
+   "rejected_crop_in_prose": false,
    "approval_not_asked": false,
    "approval_for_other_rows": false,
    "prose_disagrees": false
