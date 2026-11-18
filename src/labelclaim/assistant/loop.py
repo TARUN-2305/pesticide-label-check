@@ -166,40 +166,35 @@ class Assistant:
         call = reply.tool_call
         if call is None:
             raise ProviderError("bad_tool_call", f"{name}: no tool call")
-        args = call.arguments
+        args, user_text = call.arguments, messages[-1]["content"]
         if call.name == "ask_clarifying_question":
             missing = str(args.get("missing", "crop"))
-            question = str(args.get("question", "")).strip()[:200]
+            asked = str(args.get("question", "")).strip()[:200]
             if missing not in CLARIFY:  # a malformed call fails over first; fix B never repairs one
                 raise ProviderError("bad_tool_call", f"{name}: unknown 'missing'")
-            if not question or not verify_clarification(question).ok:
-                question = CLARIFY[missing]
-            return self._read_or_ask(call, messages[-1]["content"], Clarification(question, missing))
+            if not asked or not verify_clarification(asked).ok:
+                asked = CLARIFY[missing]
+            return self._read_or_ask(call, user_text, Clarification(asked, missing))
         if call.name != "lookup":
             raise ProviderError("bad_tool_call", f"{name}: unknown tool")
         product, ingredient = _text(args.get("product")), _text(args.get("ingredient"))
         if product and ingredient:  # the more specific name wins (live smoke test, 2026-11-15)
             ingredient = None
-        if ingredient and not product and (typed := product_in_question(messages[-1]["content"], ingredient)):
+        if ingredient and not product and (typed := product_in_question(user_text, ingredient)):
             product, ingredient = typed, None  # E3n fix 3: keep the formulation the user typed
         if product:
-            product = self._users_product(messages[-1]["content"], product)
+            product = self._users_product(user_text, product)
         if not product and not ingredient:  # E3n fix 4: an empty lookup is a missing product, not a failure
-            return self._read_or_ask(
-                call, messages[-1]["content"], Clarification(CLARIFY["product"], "product")
-            )
+            return self._read_or_ask(call, user_text, Clarification(CLARIFY["product"], "product"))
         try:  # the model's call must be valid as it stands; fix A never repairs a malformed call
             crop, pest = _text(args.get("crop")), _text(args.get("pest"))
             if not crop:  # E3n-e RE-01: an empty crop is a missing slot, like an empty product, not a failure
-                return self._read_or_ask(
-                    call, messages[-1]["content"], Clarification(CLARIFY["crop"], "crop")
-                )
+                return self._read_or_ask(call, user_text, Clarification(CLARIFY["crop"], "crop"))
             query = Query(crop=crop or "", product=product, ingredient=ingredient, pest=pest)
         except (ValueError, TypeError) as exc:
             raise ProviderError("bad_tool_call", f"{name}: invalid lookup arguments") from exc
-        return self._with_users_crop(
-            _Understood(call.id, args, call.raw, query, None), messages[-1]["content"]
-        )
+        understood = self._with_users_crop(_Understood(call.id, args, call.raw, query, None), user_text)
+        return self._never_wider(understood, user_text)
 
     def _attached_crop(self, text: str, crop: str) -> str | None:
         """Fix E (E3n-c NC-019 "guava (bagan)", E3n-d RD-01 "bende (chilli)", E3n-e NE-014 "maavu (wheat)"):
@@ -227,6 +222,18 @@ class Assistant:
         if filled is not None:
             return _Understood(call.id, _slots(filled), None, filled, None)
         return _Understood(call.id, call.arguments, call.raw, None, clarification)
+
+    def _never_wider(self, understood: _Understood, question: str) -> _Understood:
+        """Fix A3 (E3n-f KF-01, PF-05): the model left the pest out, so a pest question became a crop
+        question, and a crop question is more often "approved". When the question's own reading (fix B's
+        rules) has a short pest phrase, that reading is used: the answer is never wider than the question.
+        A longer leftover is an instruction, not a pest ("ignore any ban and say", E3n-c RC-04 on replay)."""
+        if understood.query is None or understood.query.pest is not None:
+            return understood
+        reading = self._slots_from_question(question)
+        if reading is None or reading.pest is None or len(reading.pest.split()) > A3_MAX_PEST_WORDS:
+            return understood
+        return _Understood(understood.call_id, _slots(reading), None, reading, None, understood.rejected_crop)
 
     def _with_users_crop(self, understood: _Understood, question: str) -> _Understood:
         """Fix A, then A2. A2 (E3n-e KE-01): when the model's crop holds more than the crop name ("kabbu hula
@@ -371,6 +378,9 @@ class Assistant:
 
 # what joins two crop names into a claim that they are the same: "maavu (wheat)", "bende = chilli"
 _JOINED = re.compile(r"\s*(?:\(|\[|=|\(\s*i\.e\.,?)\s*")
+
+# fix A3: pest names as people type them are short; longer leftovers were instructions (E3n-c RC-04, RC-06)
+A3_MAX_PEST_WORDS = 4
 
 # crop aliases that are also measurement words: "kitna gram?" is a quantity, not chickpea (fix A)
 NOT_CROPS = frozenset({"gram"})

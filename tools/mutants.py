@@ -145,7 +145,7 @@ MUTANTS = [
      "call = understood.raw_call or {", "call = {",
      ["tests/test_assistant.py"], "killed"),
     ("A-M3 numbers allowed in a clarifying question", "assistant/loop.py",
-     "if not question or not verify_clarification(question).ok:", "if not question:",
+     "if not asked or not verify_clarification(asked).ok:", "if not asked:",
      ["tests/test_assistant.py"], "killed"),
     ("A-M4 rate-limit cool-down ignored", "assistant/providers.py",
      "if self._until.get(name, 0.0) > self._clock():", "if False:",
@@ -262,6 +262,15 @@ MUTANTS = [
     ("EC-M1 an empty crop fails over again", "assistant/loop.py",
      "            if not crop:  # E3n-e RE-01", "            if False:  # E3n-e RE-01", ["tests/test_assistant.py"],
      "killed"),
+    # fix A3 and the w/w strength (after E3n-f); predictions written before running, 2026-11-18
+    ("FA-M11 the model's dropped pest is not restored", "assistant/loop.py",
+     "        return self._never_wider(understood, user_text)", "        return understood",
+     ["tests/test_assistant.py"], "killed"),
+    ("FA-M12 a long instruction is taken as the pest", "assistant/loop.py",
+     "or len(reading.pest.split()) > A3_MAX_PEST_WORDS:", ":", ["tests/test_assistant.py"], "killed"),
+    ("L2-M9 w/w no longer ends a bare strength", "lookup/names.py",
+     "(?:\\+|$|w/[wv]\\b|(?:{FORMULATIONS})\\b)", "(?:\\+|$|(?:{FORMULATIONS})\\b)",
+     ["tests/test_lookup.py"], "killed"),
 ]  # fmt: skip
 
 

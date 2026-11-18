@@ -285,3 +285,12 @@ def test_a_prefix_shared_by_two_ingredients_does_not_fold() -> None:
     assert unique_prefix("copper", keys) is None  # three... two candidates: never guess
     assert unique_prefix("metala", keys) is None  # metalaxyl and metalaxylm
     assert unique_prefix("emame", keys) is None  # under 6 letters
+
+
+def test_a_bare_strength_before_w_w_is_read_as_a_percentage() -> None:
+    # E3n-e NE-004, E3n-f NF-004 and NF-010: "Hexythiazox 05.45 w/w EC" did not resolve
+    from labelclaim.lookup.names import with_percent  # noqa: PLC0415
+
+    assert with_percent("Hexythiazox 05.45 w/w EC") == "Hexythiazox 05.45% w/w EC"
+    assert with_percent("A 18.2 + B 11.4 w/v SC") == "A 18.2% + B 11.4% w/v SC"
+    assert with_percent("Fipronil 0.3 GR 10 kg") == "Fipronil 0.3% GR 10 kg"  # unchanged rules elsewhere

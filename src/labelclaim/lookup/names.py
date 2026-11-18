@@ -226,7 +226,7 @@ def _resolve(text: str, aliases: dict[str, set[str]], display: dict[str, str]) -
 
 
 _BARE_STRENGTH = re.compile(
-    rf"(?<![\d.])(\d+(?:\.\d+)?)(?!\s*(?:%|g\s*/|gm?\b|ml\b|kg\b|l\b))(?=\s*(?:\+|$|(?:{FORMULATIONS})\b))",
+    rf"(?<![\d.])(\d+(?:\.\d+)?)(?!\s*(?:%|g\s*/|gm?\b|ml\b|kg\b|l\b))(?=\s*(?:\+|$|w/[wv]\b|(?:{FORMULATIONS})\b))",
     re.IGNORECASE,
 )
 

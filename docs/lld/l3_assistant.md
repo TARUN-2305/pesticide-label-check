@@ -323,3 +323,29 @@ An unknown phrase stays the pest (UNKNOWN_PEST). The exception: when the product
 - Candidate E: prose that names a crop other than the one looked up. Seen three times: NC-019, RD-01, NE-014.
 - An empty crop from the model should become a clarification (RE-01).
 - "%"-less strengths with "w/w" (NE-004).
+
+## 18. E3n-f, fix E, the empty crop, and fix A3 (2026-11-18)
+
+**Fix E** (`6a89ba6`): a reply that joins the crop looked up and a different crop with a bracket or "=" falls back to the template (`_attached_crop`, `_JOINED`). On replay it flagged 4 of 218 delivered replies, all real errors, including NF-015, "jeerige (pigeon pea)".
+
+**The empty crop** (`6a89ba6`): the question's own reading is used, or "which crop?" is asked (`_read_or_ask`). It no longer fails over.
+
+**E3n-f live** ([report](../../reports/E3nf/first_run.md)):
+- fix B made 12/12 correct overrides;
+- g/l products 4/4;
+- 0 "unavailable".
+- The model dropped the pest twice (KF-01, PF-05), and both answers widened to crop-wide approvals.
+
+**Fix A3** (`_never_wider`): when the model's lookup has no pest and the question's own reading has a pest phrase of at most 4 words, the reading is used. The principle across A2, B and A3: **the answer is never wider than the question.** An unknown pest phrase gives UNKNOWN_PEST, never a crop-wide approval.
+
+**"w/w" strengths** (`with_percent`): "05.45 w/w EC" now reads as "05.45% w/w EC".
+
+**Evidence:**
+- a replay of six suites: 0 answers away from the asked answer, 45 toward it;
+- 76/76 mutants killed;
+- E3 offline unchanged.
+
+**Open:**
+- candidate F: a reply that says "approved" under a "not found" headline (RF-01);
+- lexicon gaps such as "yellow sigatoka" and "gulab";
+- crop names longer than 4 words.

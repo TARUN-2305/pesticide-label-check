@@ -101,9 +101,20 @@ A dealer at a busy counter, on a phone, asks "is this approved, at what dose, ho
 | Horizontal scroll | none (scroll width 375 = viewport width) |
 | Console | only the expected 503 from Ask with no model; no CSP violations |
 
+**Latency, measured** (this machine, over HTTP on localhost, `--no-model` server, 50 `POST /v1/lookup` across 5 queries, all 200):
+- p50 1.3 ms, p95 2.1 ms, max 2.7 ms;
+- the page: p50 2.0 ms.
+
+The prediction was Check p95 ≤ 200 ms: held, by a wide margin. A real phone network adds its own delay; this measures the server only.
+
+**Copyright gate checked** (2026-11-18, https://ppqs.gov.in/website-policy, "Copyright policy"):
+- PPQS material may be reproduced free of charge **after permission by email**, reproduced accurately, not in a misleading context, and with the source acknowledged;
+- linking needs no permission, but pages must open in a new window (the page does this).
+
+So a public link waits for the user's permission email. The policy names no address; the site's only printed contact is the Web Information Manager on https://ppqs.gov.in/contactus.
+
 **Not done yet:**
-- Ask with the model in the browser (after the E3n-f run, so the two do not share the rate limit);
-- the latency measurement;
+- Ask with the model in the browser;
 - the container;
 - the copyright check;
 - the Kannada label review by a native speaker.

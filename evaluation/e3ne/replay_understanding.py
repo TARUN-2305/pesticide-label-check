@@ -20,7 +20,7 @@ from labelclaim.lookup.engine import Engine
 from labelclaim.lookup.models import Query
 
 ROOT = Path(__file__).resolve().parents[2]
-SUITES = ("e3n", "e3nb", "e3nc", "e3nd", "e3ne")
+SUITES = ("e3n", "e3nb", "e3nc", "e3nd", "e3ne", "e3nf")
 
 
 class Recorded:
