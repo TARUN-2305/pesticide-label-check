@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Self
+from typing import Annotated, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
@@ -108,6 +108,7 @@ class LookupOut(AnswerOut):
 class AskRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
+    lang: Literal["en", "kn"] | None = None  # L4: the reply language; None follows the question
 
 
 class ClarificationOut(BaseModel):

@@ -147,6 +147,8 @@ def create_app(settings: Settings) -> FastAPI:
         response.headers["x-request-id"] = request_id
         if not request.url.path.startswith(UNSAFE_FOR_CSP):
             response.headers.update(SECURITY_HEADERS)
+        if not request.url.path.startswith(("/v1/", "/healthz")) and "cache-control" not in response.headers:
+            response.headers["cache-control"] = "no-cache"  # L4: revalidate the page's files after a deploy
         ACCESS.info(
             json.dumps(
                 {
@@ -249,7 +251,7 @@ def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines) -> None
             return _error(429, "daily_limit", "the assistant's daily limit is reached; use POST /v1/lookup",
                           request.state.request_id)  # fmt: skip
         try:
-            result = Assistant(engines.get(), settings.chat_clients, router).ask(body.question)
+            result = Assistant(engines.get(), settings.chat_clients, router).ask(body.question, body.lang)
         except ProviderError:
             return _error(503, "assistant_unavailable", "the models are unavailable; use POST /v1/lookup",
                           request.state.request_id)  # fmt: skip

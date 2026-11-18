@@ -27,7 +27,8 @@ input, textarea { font: inherit; width: 100%; padding: 10px; min-height: 44px; b
 .headline { font-size: 1.15rem; margin: 12px 0 6px; }
 .headline.yes { color: var(--yes); }
 .headline.no { color: var(--no); }
-.message { margin: 6px 0 12px; }
+.message { margin: 6px 0 12px; overflow-wrap: anywhere; }
+.headline, .notice { overflow-wrap: anywhere; }
 .warning, .notice.warn { background: var(--warn-bg); border-left: 4px solid var(--warn-line); padding: 8px 12px; border-radius: 6px; }
 .notice { padding: 8px 0; }
 .row { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin: 8px 0; }

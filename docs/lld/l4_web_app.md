@@ -113,8 +113,20 @@ The prediction was Check p95 ≤ 200 ms: held, by a wide margin. A real phone ne
 
 So a public link waits for the user's permission email. The policy names no address; the site's only printed contact is the Web Information Manager on https://ppqs.gov.in/contactus.
 
+**Ask with the model, in the browser** (375 px; Groq; 3 questions, all from the test suites):
+
+| Check | Result |
+|---|---|
+| "godhi ge Isopyrazam 11.5% + Difenoconazole 11.5% SC sari na?", with no language sent (the API default) | the right answer ("Not listed … on godhi"), but **the reply came in Marathi**; and the model's no-break spaces (U+202F) stopped the line wrapping, so it ran past the screen edge |
+| The same question, page in Kannada, after the fixes | a Kannada reply, wrapped. The model wrote the product name in Kannada script although told not to; the numbers stayed exact |
+| "bende ge white fly bandide, Oxydemeton-methyl 25 EC hodeyabahuda?", page in English | "Approved: Oxydemeton-methyl 25 % EC on Bhindi (Okra) for whitefly … (p. 41)"; an English reply; no overflow; no console errors |
+
+**Fixes from this check:**
+- `/v1/ask` takes `lang` ("en" or "kn"), and the page sends the language picker's value. Without `lang`, the reply follows the question, so earlier test runs stay comparable.
+- `overflow-wrap: anywhere` on the answer text.
+- The page's files are sent with `cache-control: no-cache`. A stale stylesheet hid the CSS fix until the browser revalidated.
+
 **Not done yet:**
-- Ask with the model in the browser;
 - the container;
 - the copyright check;
 - the Kannada label review by a native speaker.

@@ -124,9 +124,13 @@ class Assistant:
     def __init__(self, engine: Engine, clients: Mapping[str, Chat], router: Router) -> None:
         self.engine, self.clients, self.router = engine, clients, router
 
-    def ask(self, question: str) -> AskResult:
+    def ask(self, question: str, lang: str | None = None) -> AskResult:
+        """`lang` ("en" or "kn") sets the reply language. Without it, the reply follows the question's
+        language, which the model can misjudge for romanised text: it answered romanised Kannada in Marathi
+        (2026-11-18)."""
+        system = SYSTEM + REPLY_LANGUAGE.get(lang or "", "")
         messages: list[dict[str, Any]] = [
-            {"role": "system", "content": SYSTEM},
+            {"role": "system", "content": system},
             {"role": "user", "content": question},
         ]
         try:
@@ -378,6 +382,13 @@ class Assistant:
 
 # what joins two crop names into a claim that they are the same: "maavu (wheat)", "bende = chilli"
 _JOINED = re.compile(r"\s*(?:\(|\[|=|\(\s*i\.e\.,?)\s*")
+
+# L4: the page's language picker decides the reply language; the API default is unchanged (no `lang`)
+REPLY_LANGUAGE = {
+    "en": "\nWrite the reply in English, whatever the language of the question.",
+    "kn": "\nWrite the reply in Kannada, in Kannada script, whatever the language of the question. Keep "
+    "product names and numbers exactly as in the tool result.",
+}
 
 # fix A3: pest names as people type them are short; longer leftovers were instructions (E3n-c RC-04, RC-06)
 A3_MAX_PEST_WORDS = 4

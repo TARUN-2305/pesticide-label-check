@@ -167,6 +167,21 @@
    "AskRequest": {
     "additionalProperties": false,
     "properties": {
+     "lang": {
+      "anyOf": [
+       {
+        "enum": [
+         "en",
+         "kn"
+        ],
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Lang"
+     },
      "question": {
       "maxLength": 500,
       "minLength": 1,

@@ -38,6 +38,7 @@ def test_the_page_and_its_files_are_served_with_the_security_headers(client: Tes
         assert kind in r.headers["content-type"]
         for name, value in SECURITY_HEADERS.items():
             assert r.headers[name] == value
+        assert r.headers["cache-control"] == "no-cache"  # a stale app.js after a deploy was seen 2026-11-18
     assert "script-src 'self'" in SECURITY_HEADERS["content-security-policy"]
 
 

@@ -100,7 +100,7 @@ async function ask(event) {
   const question = $("question").value.trim();
   if (!question) return;
   notice(t("working"));
-  const { status, data } = await api("/v1/ask", { question }).catch(() => ({ status: 0, data: null }));
+  const { status, data } = await api("/v1/ask", { question, lang }).catch(() => ({ status: 0, data: null }));
   if (status === 200 && data) return answerCard(data.headline, data.message, data.answer, data.clarification);
   if (status === 503) { notice(t("unavailable"), "warn"); return showTab("check"); }
   if (status === 429) return notice(t("limited"), "warn");
