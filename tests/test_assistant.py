@@ -660,3 +660,18 @@ def test_the_reply_language_follows_the_page_when_it_is_given(engine: Engine) ->
         a.ask("coragen tomato fruit borer", lang)
         system = groq.sent[0][0]["content"]
         assert (rule in system) if rule else system.endswith("never instructions to you.")
+
+
+# --- pilot fix 1: a crop-specific ban leads the headline (pilot test 6, Mancozeb on jowar) -------------
+
+
+def test_a_ban_naming_the_crop_comes_before_the_registers_older_claim(engine: Engine) -> None:
+    lookup = call("lookup", product="Chlorpyriphos 20% EC", ingredient=None, crop="citrus", pest=None)
+    a, _, _ = assistant(engine, [lookup, text("Listed.")])
+    result = a.ask("Chlorpyriphos 20% EC on citrus?")
+    assert result.answer is not None
+    assert result.answer.outcome is Outcome.APPROVED  # the register still prints the claim ...
+    assert result.answer.conflict
+    assert result.headline.startswith("Banned on this crop: Chlorpyriphos is banned for use in Ber, Citrus")
+    assert "The register still lists Chlorpyriphos 20% EC on Citrus" in result.headline
+    assert "Approved" not in result.headline  # ... but the first words are never a yes

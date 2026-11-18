@@ -98,7 +98,7 @@ function answerCard(headline, message, answer, clarification, requestId = null) 
     for (const r of answer.restrictions) box.append(el("p", {}, `${r.ingredient}: ${r.detail_raw} (${t("page")} ${r.page})`));
     out.push(box);
   }
-  const approved = answer && answer.outcome === "APPROVED";
+  const approved = answer && answer.outcome === "APPROVED" && !answer.conflict; // a ban is never green
   out.push(el("h3", { class: approved ? "headline yes" : "headline no" }, headline));
   // the model sometimes writes Markdown bold; the page shows plain text, so the marks are dropped (still text)
   const plain = (message || "").replaceAll("**", "");

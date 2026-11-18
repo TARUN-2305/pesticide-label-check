@@ -271,6 +271,10 @@ MUTANTS = [
     ("L2-M9 w/w no longer ends a bare strength", "lookup/names.py",
      "(?:\\+|$|w/[wv]\\b|(?:{FORMULATIONS})\\b)", "(?:\\+|$|(?:{FORMULATIONS})\\b)",
      ["tests/test_lookup.py"], "killed"),
+    # pilot fixes (after the first private test); predictions written before running, 2026-11-19
+    ("PX-M1 a crop-specific ban no longer leads the headline", "assistant/templates.py",
+     "if answer.outcome is Outcome.APPROVED and answer.conflict and use is not None:", "if False:",
+     ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 
