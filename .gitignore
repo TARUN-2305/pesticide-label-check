@@ -12,4 +12,4 @@ dist/
 *.pdf
 
 # private-test logs (L4 §9): questions typed by testers, never committed
-pilot/
+/pilot/
