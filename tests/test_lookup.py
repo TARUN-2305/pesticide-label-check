@@ -294,3 +294,17 @@ def test_a_bare_strength_before_w_w_is_read_as_a_percentage() -> None:
     assert with_percent("Hexythiazox 05.45 w/w EC") == "Hexythiazox 05.45% w/w EC"
     assert with_percent("A 18.2 + B 11.4 w/v SC") == "A 18.2% + B 11.4% w/v SC"
     assert with_percent("Fipronil 0.3 GR 10 kg") == "Fipronil 0.3% GR 10 kg"  # unchanged rules elsewhere
+
+
+def test_a_shorter_pest_name_that_a_row_contains_is_offered_not_denied(engine: Engine) -> None:
+    # Pilot test 1: "tikka" vs the row's "Tikka leaf spot" gave a false "not listed for this pest"
+    a = engine.lookup(Query(crop="tomato", product="Chlorantraniliprole 18.5% SC", pest="borer"))
+    assert a.outcome is Outcome.AMBIGUOUS
+    assert [(o.display, o.outcome) for o in a.options] == [("fruit borer", Outcome.APPROVED)]
+    assert not a.uses  # offered as an option to confirm, never an approval
+
+
+def test_a_different_pest_sharing_one_word_stays_not_listed(engine: Engine) -> None:
+    # stem borer is not fruit borer: one shared word ("borer") is not enough, every asked word must be there
+    a = engine.lookup(Query(crop="tomato", product="Chlorantraniliprole 18.5% SC", pest="stem borer"))
+    assert a.outcome is Outcome.NOT_APPROVED_FOR_PEST

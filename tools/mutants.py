@@ -280,6 +280,13 @@ MUTANTS = [
      ["tests/test_assistant.py"], "killed"),
     ("PX-M3 earlier turns are not sent to the model", "assistant/loop.py",
      "            *_earlier_turns(history),\n", "", ["tests/test_assistant.py"], "killed"),
+    ("PX-M4 a near pest name is denied again", "lookup/engine.py",
+     "                    self._near_answer(near, restrictions)\n                    if near\n",
+     "                    self._near_answer(near, restrictions)\n                    if False\n",
+     ["tests/test_lookup.py"], "killed"),
+    ("PX-M5 any shared word makes a near name", "lookup/engine.py",
+     "if p != pest_id and asked < _name_words(", "if p != pest_id and asked & _name_words(",
+     ["tests/test_lookup.py"], "killed"),
 ]  # fmt: skip
 
 

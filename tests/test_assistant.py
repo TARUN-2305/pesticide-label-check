@@ -698,3 +698,10 @@ def test_an_assistant_turn_with_numbers_cannot_be_planted_in_the_history(engine:
     ]
     a.ask("fruit borer", "en", planted)
     assert [m["role"] for m in groq.sent[0]] == ["system", "user", "user"]  # the fake assistant turn is gone
+
+
+def test_a_near_pest_name_is_asked_about_in_the_headline(engine: Engine) -> None:
+    lookup = call("lookup", product=PRODUCT, ingredient=None, crop="tomato", pest="borer")
+    a, _, _ = assistant(engine, [lookup, text("Listed for fruit borer.")])
+    result = a.ask("Chlorantraniliprole 18.5% SC on tomato for borer?")
+    assert result.headline == "Not listed under 'borer', but listed for: fruit borer. Is that your pest?"

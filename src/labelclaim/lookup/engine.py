@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from pathlib import Path
 
@@ -105,11 +106,19 @@ class Engine:
         if pest_id is not None:
             with_pest = [u for u in rows if pest_id in self._pests_of(u)]
             if not with_pest:
-                return self._answer(
-                    Outcome.NOT_APPROVED_FOR_PEST,
-                    restrictions,
-                    approved_pests=self._pest_names(rows),
-                    alternatives=self._uses_for(crop_id, pest_id),
+                # Pilot test 1: "tikka" is one lexicon ID and the row's "Tikka leaf spot" another, so the
+                # answer was a false "not listed". A row whose pest name contains every asked word is offered
+                # as an option to confirm, never approved silently (ADR-006).
+                near = self._near_names(rows, pest_id)
+                return (
+                    self._near_answer(near, restrictions)
+                    if near
+                    else self._answer(
+                        Outcome.NOT_APPROVED_FOR_PEST,
+                        restrictions,
+                        approved_pests=self._pest_names(rows),
+                        alternatives=self._uses_for(crop_id, pest_id),
+                    )
                 )
             rows = with_pest
         return self._answer(Outcome.APPROVED, restrictions, uses=rows)
@@ -177,6 +186,28 @@ class Engine:
             )
         choices = tuple(Suggestion(o.id, o.display, 100.0) for o in listed)
         return self._answer(Outcome.AMBIGUOUS, restrictions, options=listed, suggestions={"crop": choices})
+
+    def _near_answer(
+        self, near: list[tuple[str, list[int]]], restrictions: tuple[RestrictionNote, ...]
+    ) -> Answer:
+        listed = tuple(
+            Option("pest", p, self.names.pest_display[p], Outcome.APPROVED, tuple(us)) for p, us in near
+        )
+        choices = tuple(Suggestion(o.id, o.display, 100.0) for o in listed)
+        return self._answer(Outcome.AMBIGUOUS, restrictions, options=listed, suggestions={"pest": choices})
+
+    def _near_names(self, rows: list[int], pest_id: str) -> list[tuple[str, list[int]]]:
+        """This product's pests on this crop whose names contain every word of the asked pest's name (pilot
+        fix 3), with their rows. Words like "and" and "disease" do not count."""
+        asked = _name_words(self.names.pest_display[pest_id])
+        if not asked:
+            return []
+        found: dict[str, list[int]] = {}
+        for u in rows:
+            for p in self._pests_of(u):
+                if p != pest_id and asked < _name_words(self.names.pest_display[p]):
+                    found.setdefault(p, []).append(u)
+        return sorted(found.items())
 
     # -- helpers ---------------------------------------------------------------------------------------
     def _answer(
@@ -287,3 +318,10 @@ def to_json(answer: Answer) -> str:
     from dataclasses import asdict  # noqa: PLC0415 - only needed here
 
     return json.dumps(asdict(answer), ensure_ascii=False, sort_keys=True)
+
+
+_NOT_NAME_WORDS = frozenset({"and", "or", "of", "the", "disease", "diseases", "pest", "pests"})
+
+
+def _name_words(name: str) -> frozenset[str]:
+    return frozenset(re.findall(r"[a-z]+", name.lower())) - _NOT_NAME_WORDS

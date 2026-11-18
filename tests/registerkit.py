@@ -102,7 +102,8 @@ def build_fixture(path: Path) -> str:
         ],
         "pest": [(p, p.replace("_", " ")) for p in (
             "aphid", "bacterial_blight", "blight", "brown_plant_hopper", "early_blight", "fruit_borer", "jassid",
-            "late_blight", "leaf_spot", "powdery_mildew", "red_leaf_spot", "stem_borer", "thrips", "whitefly")],
+            "late_blight", "leaf_spot", "powdery_mildew", "red_leaf_spot", "stem_borer", "thrips", "whitefly",
+            "borer")],
         "pest_alias": [
             ("aphid", "aphid", "t"), ("aphids", "aphid", "rule:plural"), ("brown plant hopper", "brown_plant_hopper", "t"),
             ("bph", "brown_plant_hopper", "t"), ("fruit borer", "fruit_borer", "t"), ("jassid", "jassid", "t"),
@@ -111,6 +112,7 @@ def build_fixture(path: Path) -> str:
             ("bacterial blight", "bacterial_blight", "t"), ("leafspot", "leaf_spot", "t"),
             ("red leaf spot", "red_leaf_spot", "t"), ("thrips", "thrips", "t"), ("whiteflies", "whitefly", "t"),
             ("powdery mildew", "powdery_mildew", "t"),
+            ("borer", "borer", "t"),  # pilot fix 3: a shorter name that rows on tomato contain ("fruit borer")
         ],
         "use_record": [
             (uid, pid, crop, pest, ai, form, dil, wait, Q, Q, Q, lo, hi, page, page, PROV, "[]",

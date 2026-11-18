@@ -47,9 +47,19 @@ def headline(
         Outcome.UNKNOWN_PRODUCT: f"Product not found in the register: {product}.",
         Outcome.UNKNOWN_CROP: f"Crop not found in the register: {crop}.",
         Outcome.UNKNOWN_PEST: f"Pest not found in the register: {pest}.",
-        Outcome.AMBIGUOUS: "More than one match; please choose one of the options.",
+        Outcome.AMBIGUOUS: _ambiguous(answer, pest),
     }[answer.outcome]
     return warn + text
+
+
+def _ambiguous(answer: Answer, pest: str | None) -> str:
+    """Pilot fix 3: when every option is an approved pest of this product (a near name such as "Tikka leaf
+    spot" for "tikka"), say so, and ask; otherwise the general wording."""
+    pests = [o for o in answer.options if o.kind == "pest"]
+    if pest and pests and all(o.outcome is Outcome.APPROVED for o in pests):
+        names = ", ".join(o.display for o in pests)
+        return f"Not listed under '{pest}', but listed for: {names}. Is that your pest?"
+    return "More than one match; please choose one of the options."
 
 
 TOTAL_BANS = ("banned", "banned_for_use", "withdrawn")
