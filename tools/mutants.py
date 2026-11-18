@@ -59,8 +59,11 @@ MUTANTS = [
      "        if not ingredient_keys:\n            return ()", "        if True:\n            return ()",
      ["tests/test_lookup.py"], "killed"),
     ("L2-M4 query text leaks into the access log", "api/app.py",
-     "        request.state.outcome = answer.outcome.value", "        request.state.outcome = body.model_dump_json()",
-     ["tests/test_api.py::test_access_log_never_contains_the_query_text"], "killed"),
+     "lookup(query)\n        request.state.outcome = answer.outcome.value\n",
+     "lookup(query)\n        request.state.outcome = body.model_dump_json()\n",
+     ["tests/test_api.py::test_access_log_never_contains_the_query_text"],
+     "killed (the pattern matched twice after /v1/ask was added in bd3a494, so it was NOT APPLIED until "
+     "2026-11-18; pinned to the lookup endpoint)"),
     ("L2-M5 pest phrases split on 'and' again", "normalize/pests.py",
      'parts = re.split(r"[,;/\\n]", plain)', 'parts = re.split(r"[,;/\\n]|\\band\\b", plain)',
      ["tests/test_pests_ingredients.py"], "killed"),
@@ -166,7 +169,9 @@ MUTANTS = [
      ["tests/test_assistant.py"], "killed"),
     ("F-M6 typed numbers allowed without exact strength matching", "assistant/loop.py",
      "return {v for _, v in numbers(query.product)} & canonical", "return {v for _, v in numbers(query.product)}",
-     ["tests/test_assistant.py"], "killed"),
+     ["tests/test_assistant.py"],
+     "killed; survived on 2026-11-18 (the polish-round guard had made its test skip the rule since eded4fe), "
+     "killed again after the test was rephrased"),
     ("F-M5 an ingredient-level approval reads like a product approval", "assistant/templates.py",
      'if by_ingredient else "Approved: "', 'if False else "Approved: "',
      ["tests/test_assistant.py"], "killed"),
@@ -192,7 +197,8 @@ MUTANTS = [
      'text = re.sub(re.escape(pest), " ", question, flags=re.IGNORECASE) if pest else question',
      "text = question", ["tests/test_assistant.py"], "killed"),
     ("FA-M4 the unit word 'gram' counts as a crop", "assistant/loop.py",
-     "if match_key(span) not in NOT_CROPS]", "if True]", ["tests/test_assistant.py"], "killed"),
+     "names.crop_mentions(text) if match_key(s) not in NOT_CROPS]", "names.crop_mentions(text) if True]",
+     ["tests/test_assistant.py"], "killed"),
     ("FA-M5 a different crop the user also wrote is replaced", "assistant/loop.py",
      "(set(model.ids) == typed or written_in(question, crop))", "set(model.ids) == typed",
      ["tests/test_assistant.py"], "killed"),
@@ -229,6 +235,16 @@ MUTANTS = [
      ["tests/test_assistant.py"], "killed"),
     ("FB-M9 an unread pest phrase is kept even when the crop has no uses", "assistant/loop.py",
      "                return bare\n", "                return query\n", ["tests/test_assistant.py"], "killed"),
+    # after E3n-e (fix A2, the g/l pattern); predictions written before running, 2026-11-18
+    ("FA-M9 extra words in the model's crop are dropped again", "assistant/loop.py",
+     "if written_in(crop, users) and _trim(", "if False and _trim(",
+     ["tests/test_assistant.py"], "killed"),
+    ("FA-M10 an ambiguous question still replaces the model's crop", "assistant/loop.py",
+     "            if filled is None:\n                return understood\n",
+     "            if filled is None:\n                return dataclasses.replace(understood, "
+     "query=dataclasses.replace(query, crop=users))\n", ["tests/test_assistant.py"], "killed"),
+    ("P-M4 a code followed by '/' ends a product name", "assistant/loop.py",
+     "(?:{FORMULATIONS})\\b(?!\\s*/)", "(?:{FORMULATIONS})\\b", ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 
@@ -259,7 +275,11 @@ def main() -> int:
     print("| Mutant | Predicted | Outcome |\n|---|---|---|")
     for mid, predicted, outcome in rows:
         print(f"| {mid} | {predicted} | {outcome} |")
-    return 0
+    # A mutant whose pattern no longer matches tests nothing; L2-M4 went unnoticed for two days (2026-11-18)
+    unapplied = [mid for mid, _, outcome in rows if outcome.startswith("NOT APPLIED")]
+    if unapplied:
+        print(f"ERROR: not applied: {', '.join(unapplied)}", file=sys.stderr)
+    return 1 if unapplied else 0
 
 
 if __name__ == "__main__":

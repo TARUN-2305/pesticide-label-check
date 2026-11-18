@@ -293,7 +293,12 @@ def test_fix5_only_typed_numbers_equal_to_the_registered_strength_are_allowed(en
     typed = f"{PRODUCT} (batch 77)"
     lookup = call("lookup", product=typed, ingredient=None, crop="tomato", pest="aphids")
     a, _, _ = assistant(engine, [lookup, text(f"{typed} is not listed for aphids on tomato.")])
-    result = a.ask(f"{typed} on tomato for aphids?")
+    # A brand in the question, so the model's product text is kept. With the formulation typed, the polish
+    # round's guard takes the user's text and drops "(batch 77)" before this rule is reached (found
+    # 2026-11-18 when mutant F-M6 survived; this test had stopped testing the rule since eded4fe).
+    result = a.ask("coragen (batch 77) on tomato for aphids?")
+    assert result.slots is not None
+    assert result.slots["product"] == typed
     assert result.answer is not None
     assert result.answer.outcome.value == "NOT_APPROVED_FOR_PEST"  # the product itself was recognised
     assert result.verifier_blocked
@@ -524,3 +529,40 @@ def test_fixB_the_verifier_still_checks_the_reply(engine: Engine) -> None:
     a, _, _ = assistant(engine, [ASKS_CROP, text("Approved: use 999 ml per acre.")])
     result = a.ask("bhatta stem borer Chlorantraniliprole 18.5% SC")
     assert (result.phrased_by, result.verifier_blocked) == ("template", True)
+
+
+# --- fix A2 and the g/l pattern (E3n-e KE-01, NE-017) ---------------------------------------------------
+
+
+def test_fixA2_a_pest_word_in_the_models_crop_is_not_dropped(engine: Engine) -> None:
+    # E3n-e KE-01: crop "kabbu hula ge", pest null. Keeping only "kabbu" widened the answer to a crop-wide
+    # approval; the question's own reading keeps "hula" as the pest.
+    a, _, _ = assistant(engine, [crop_call("tamatar hula ge", None), text("Not found.")])
+    result = a.ask("tamatar hula ge Chlorantraniliprole 18.5% SC")
+    assert result.slots is not None
+    assert (result.slots["crop"], result.slots["pest"]) == ("tamatar", "hula")
+    assert result.answer is not None
+    assert result.answer.outcome is Outcome.UNKNOWN_PEST
+
+
+def test_fixA2_part_of_the_pest_in_the_models_crop_is_rejoined(engine: Engine) -> None:
+    # E3n-e NE-016: crop "ele kosu downey", pest "mildew"
+    a, _, _ = assistant(engine, [crop_call("tamatar fruit", "borer"), text("Approved.")])
+    result = a.ask("tamatar fruit borer Chlorantraniliprole 18.5% SC")
+    assert result.slots is not None
+    assert (result.slots["crop"], result.slots["pest"]) == ("tamatar", "fruit borer")
+
+
+def test_fixA2_an_ambiguous_question_keeps_the_models_crop(engine: Engine) -> None:
+    a, _, _ = assistant(engine, [crop_call("tamatar hula", None), text("Not found.")])
+    result = a.ask("tamatar hula, Chlorantraniliprole 18.5% SC, also stem borer")
+    assert result.slots is not None
+    assert result.slots["crop"] == "tamatar hula"  # crop not found: unhelpful, never wider
+
+
+def test_a_g_per_litre_strength_is_not_read_as_a_granule_code() -> None:
+    from labelclaim.assistant.loop import product_in_question  # noqa: PLC0415
+
+    question = "angur mein powdery mildew ke liye Fluxapyroxad 75 g/l + Difenoconazole 50 g/l SC"
+    assert product_in_question(question, "Fluxapyroxad") == "Fluxapyroxad 75 g/l + Difenoconazole 50 g/l SC"
+    assert product_in_question("Carbofuran 3 G on rice", "Carbofuran") == "Carbofuran 3 G"  # a real G

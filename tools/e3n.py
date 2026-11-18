@@ -37,7 +37,10 @@ from labelclaim.lookup.models import Answer, Outcome, Query
 
 ROOT = Path(__file__).resolve().parents[1]
 SUITE = ROOT / "evaluation" / "e3n"  # --suite e3nb switches to evaluation/e3nb
-_ANY_DIGITS = re.compile(r"\d+(?:[.,]\d+)?")  # \d is Unicode-aware: Kannada and other digits count too
+# Unicode \d, so Kannada digits count too
+_ANY_DIGITS = re.compile(r"(?<![\d.,])\d+(?:[.,]\d+)?(?![\d¼½¾⅓⅔⅛⅜⅝⅞])")
+# (a digit run before a vulgar fraction is one number, "3½"; the verifier reads it whole. Fixed 2026-11-18
+# after E3n-e NE-008 was counted as "3"; every suite re-scored.)
 
 
 class Recorder(httpx.BaseTransport):

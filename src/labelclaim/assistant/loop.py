@@ -199,11 +199,29 @@ class Assistant:
             query = Query(crop=crop or "", product=product, ingredient=ingredient, pest=pest)
         except (ValueError, TypeError) as exc:
             raise ProviderError("bad_tool_call", f"{name}: invalid lookup arguments") from exc
-        users = self._users_crop(messages[-1]["content"], crop, pest)
-        if users == crop:
-            return _Understood(call.id, args, call.raw, query, None)
-        query = dataclasses.replace(query, crop=users or "")
-        return _Understood(call.id, args, call.raw, query, None, rejected_crop=crop)
+        return self._with_users_crop(
+            _Understood(call.id, args, call.raw, query, None), messages[-1]["content"]
+        )
+
+    def _with_users_crop(self, understood: _Understood, question: str) -> _Understood:
+        """Fix A, then A2. A2 (E3n-e KE-01): when the model's crop holds more than the crop name ("kabbu hula
+        ge", the pest in the crop slot), dropping those words widened the answer to the whole crop. So the
+        whole question is read instead (fix B's rules); if that is ambiguous, the model's crop stands."""
+        query = understood.query
+        assert query is not None  # noqa: S101 (only called for a lookup)
+        crop = query.crop
+        users = self._users_crop(question, crop, query.pest)
+        if users == crop or not users:
+            return understood
+        if written_in(crop, users) and _trim(re.sub(re.escape(users), " ", crop, flags=re.IGNORECASE)):
+            filled = self._slots_from_question(question)
+            if filled is None:
+                return understood
+            slots = {"product": filled.product, "ingredient": None, "crop": filled.crop, "pest": filled.pest}
+            return _Understood(understood.call_id, slots, None, filled, None, rejected_crop=crop)
+        return dataclasses.replace(
+            understood, query=dataclasses.replace(query, crop=users), rejected_crop=crop
+        )
 
     def _phrase(
         self,
@@ -333,7 +351,9 @@ OUT_OF_SCOPE = (
     "register. Please ask about a product and a crop."
 )
 _TYPED_PRODUCT = re.compile(
-    rf"[^?!,;]{{0,80}}?\d+(?:\.\d+)?\s*(?:%|g\s*/\s*l)?\s*(?:w/[wv]\s*)?(?:{FORMULATIONS})\b", re.IGNORECASE
+    # a code followed by "/" is a unit, not the formulation: "75 g/l" is not "75 G" (E3n-e NE-017)
+    rf"[^?!,;]{{0,80}}?\d+(?:\.\d+)?\s*(?:%|g\s*/\s*l)?\s*(?:w/[wv]\s*)?(?:{FORMULATIONS})\b(?!\s*/)",
+    re.IGNORECASE,
 )
 
 

@@ -5,9 +5,6 @@
    "RE-01"
   ],
   "delivered_numbers_outside_cited_rows_strict": {
-   "NE-008": [
-    "3"
-   ],
    "NE-011": [
     "5"
    ],
@@ -27,11 +24,7 @@
     "4"
    ]
   },
-  "delivered_numbers_outside_cited_rows_and_product_name": {
-   "NE-008": [
-    "3"
-   ]
-  },
+  "delivered_numbers_outside_cited_rows_and_product_name": {},
   "N_matches_structured_all": "26/30 (86.7%)",
   "N_matches_structured_plain": "8/8 (100.0%)",
   "N_matches_structured_variant": "18/20 (90.0%)",
@@ -316,12 +309,8 @@
     "crop": "suryakanti",
     "pest": "downy mildew"
    },
-   "leaked": [
-    "3"
-   ],
-   "leaked_beyond_product_name": [
-    "3"
-   ],
+   "leaked": [],
+   "leaked_beyond_product_name": [],
    "oracle": "APPROVED",
    "message": "The register shows **Metalaxyl 35 WS** is approved for sunflower against downy mildew, with a seed‑treatment dose of 200 g AI / 100 kg seed (product dose 600 g / 100 kg seed) and a dilution of 0.75‑1.0 L / 100 kg seed; the waiting period is 3½‑4 months. No ban or restriction applies.",
    "headline": "Approved: Metalaxyl 35% WS on Sunflower for downy mildew is listed in the register (p. 20).",

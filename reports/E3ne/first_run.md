@@ -76,3 +76,35 @@ Fix A2 and the pattern fix, each with tests and mutants, checked by offline repl
 - nothing else changes in any suite.
 
 A fresh live suite (E3n-f) is the measure after that.
+
+## After the run: fix A2, the g/l pattern, and the scorer (same day, offline evidence)
+
+**Built:**
+- **Fix A2:** extra words in the model's crop send the whole question through fix B's reading. An ambiguous reading keeps the model's crop.
+- **The pattern fix:** a formulation code followed by "/" does not end a product name.
+- **The scorer:** a digit run before a vulgar fraction is one number.
+
+There are 4 new tests and 3 new mutants (FA-M9, FA-M10, P-M4), all killed.
+
+**Replay against the prediction above.** I replayed every recorded first model call of all five suites through today's code (`evaluation/e3ne/replay_understanding.py`), and also through the fix B commit (`6764725`, in a git worktree). The difference between the two runs is exactly A2 plus the pattern fix:
+
+| Item | At fix B | Now | Predicted |
+|---|---|---|---|
+| E3n-e KE-01 | APPROVED (wrong rows) | UNKNOWN_PEST (as asked) | yes |
+| E3n-e KE-02 | CLARIFY | UNKNOWN_PEST (as asked) | yes |
+| E3n-e NE-017 | UNKNOWN_PRODUCT | APPROVED (as asked) | yes |
+| **E3n N-037** | **UNKNOWN_PRODUCT** | APPROVED (as asked) | **no** |
+
+The prediction "nothing else changes" was **wrong by one item, in the good direction**. N-037 is a g/l product. Since the polish round (`eded4fe`), its correct product had been replaced by a truncated "… 75 g"-style copy. So the pattern bug cost a correct answer in replay before E3n-e found it live. NE-016's slots now read crop "ele kosu", pest "downey mildew"; its outcome is unchanged, as predicted.
+
+**Across all 352 recorded calls,** today's code changes 46 outcomes compared with what each run recorded. That count includes every fix since each suite was recorded. **41 move to the structured answer, and 0 move away from it.**
+
+**The scorer fix** changed only NE-008: "3" is no longer counted. All suites were re-scored.
+
+**Two test gaps found while re-running every mutant:**
+- **F-M6** (FR-7 exact strength matching) survived. Since the polish round, its test's typed formulation let the product guard drop "(batch 77)" before the rule was reached, so the test had stopped testing the rule. Rephrased with a brand name; killed again.
+- **L2-M4** (query text in the access log) had not been applied since `/v1/ask` was added (`bd3a494`), because its pattern matched twice. Pinned to the lookup endpoint; killed. `tools/mutants.py` now exits non-zero on any unapplied mutant.
+
+The full table is in [reports/M3/mutants_2026-11-18.md](../M3/mutants_2026-11-18.md): 68 mutants, all killed.
+
+**Not yet measured live:** A2 and the pattern fix have offline evidence only. A fresh suite (E3n-f) is the live measure.
