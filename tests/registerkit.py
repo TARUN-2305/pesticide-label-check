@@ -89,7 +89,7 @@ def build_fixture(path: Path) -> str:
         ],
         "crop": [(c, c.replace("_", " "), "crop") for c in (
             "bitter_gourd", "bottle_gourd", "brinjal", "chickpea", "chilli", "citrus", "cotton", "grape", "potato",
-            "rice", "ridgegourd", "sorghum", "tomato")],
+            "rice", "ridgegourd", "sorghum", "sugarcane", "tomato")],
         "crop_alias": [
             ("brinjal", "en", "brinjal", "t"), ("egg plant", "en", "brinjal", "t"), ("chilli", "en", "chilli", "t"),
             ("chillies", "en", "chilli", "t"), ("cotton", "en", "cotton", "t"), ("rice", "en", "rice", "t"),
@@ -101,6 +101,7 @@ def build_fixture(path: Path) -> str:
             # fix A: local names, and a crop alias that is also a unit word
             ("tamatar", "hi", "tomato", "t"), ("bhatta", "kn", "rice", "t"), ("hari mirch", "hi", "chilli", "t"),
             ("gram", "en", "chickpea", "t"),
+            ("kabbu", "kn", "sugarcane", "t"),  # pilot fix 5: a noun ending in -u ("kabbige" = to sugarcane)
         ],
         "pest": [(p, p.replace("_", " ")) for p in (
             "aphid", "bacterial_blight", "blight", "brown_plant_hopper", "early_blight", "fruit_borer", "jassid",

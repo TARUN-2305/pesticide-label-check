@@ -295,6 +295,14 @@ MUTANTS = [
     ("PX-M8 the model is told about bans on other crops", "assistant/loop.py",
      "asdict(r) for r in answer.restrictions if r.names_the_crop or r.status in TOTAL_BANS",
      "asdict(r) for r in answer.restrictions", ["tests/test_assistant.py"], "killed"),
+    ("PX-M9 Kannada endings are not folded", "lookup/names.py",
+     'if resolved.status == "unknown" and (ids := self.kannada_stem(match_key(text))):',
+     'if False and (ids := self.kannada_stem(match_key(text))):', ["tests/test_lookup.py"], "killed"),
+    ("PX-M10 the dropped -u is not restored", "lookup/names.py",
+     'self.crop_match.get(stem + restore)', "self.crop_match.get(stem)", ["tests/test_lookup.py"], "killed"),
+    ("PX-M11 the scan ignores Kannada endings", "lookup/names.py",
+     "ids = self.crop_match.get(k) or (set(self.kannada_stem(k)) if n == 1 else None)",
+     "ids = self.crop_match.get(k)", ["tests/test_lookup.py"], "killed"),
 ]  # fmt: skip
 
 

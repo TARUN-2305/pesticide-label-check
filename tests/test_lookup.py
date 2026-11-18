@@ -317,3 +317,24 @@ def test_alternatives_with_the_asked_products_ingredient_come_first(engine: Engi
     a = engine.lookup(Query(crop="potato", product="Sulfur 85% DP", pest="early blight"))
     assert a.outcome is Outcome.NOT_APPROVED_FOR_CROP
     assert [u.use_id for u in a.alternatives] == [24, 10]
+
+
+@pytest.mark.parametrize(
+    ("typed", "crop"),
+    [
+        ("bhattakke", "rice"),  # to paddy
+        ("bhattadalli", "rice"),  # in paddy
+        ("tamatarge", "tomato"),
+        ("kabbige", "sugarcane"),  # the -u of "kabbu" is dropped before -ige
+        ("kabbinalli", "sugarcane"),  # ... and before -inalli
+    ],
+)
+def test_a_kannada_case_ending_on_a_crop_name_is_read(engine: Engine, typed: str, crop: str) -> None:
+    # Pilot test 8: "aalugaddeyalli" (in potato) was "crop not found"
+    assert engine.names.crop(typed).ids == (crop,)
+    assert engine.names.crop_mentions(f"{typed} stem borer") == [(typed, (crop,))]
+
+
+@pytest.mark.parametrize("typed", ["bhattax", "ge", "tamatarr", "xyzge"])
+def test_only_a_known_ending_on_an_exact_crop_name_is_folded(engine: Engine, typed: str) -> None:
+    assert engine.names.crop(typed).status == "unknown"

@@ -79,7 +79,21 @@ class Names:
         members = self.generic.get(("crop", match_key(text)))
         if members:
             return Resolution("generic", members)
-        return _resolve(text, self.crop_match, self.crop_display)
+        resolved = _resolve(text, self.crop_match, self.crop_display)
+        if resolved.status == "unknown" and (ids := self.kannada_stem(match_key(text))):
+            return Resolution("exact", ids) if len(ids) == 1 else resolved
+        return resolved
+
+    def kannada_stem(self, k: str) -> tuple[str, ...]:
+        """Pilot fix 5 ("aalugaddeyalli", in potato): a Kannada case ending joined to a crop name. The ending
+        is dropped only if what is left is an exact crop name (with -u restored for "maavige" -> "maavu");
+        never fuzzy (ADR-006). The endings were listed by the assistant; the user, a Kannada speaker, may
+        correct them."""
+        for ending, restore in KANNADA_ENDINGS:
+            stem = k.removesuffix(ending)
+            if stem != k and len(stem) >= MIN_STEM and (ids := self.crop_match.get(stem + restore)):
+                return tuple(sorted(ids))
+        return ()
 
     def crop_mentions(self, text: str) -> list[tuple[str, tuple[str, ...]]]:
         """Crop names written in free text, as (the words as written, crop IDs): exact aliases only, matched
@@ -95,7 +109,8 @@ class Names:
         while i < len(words):
             for n in range(min(MAX_ALIAS_WORDS, len(words) - i), 0, -1):
                 start, end = words[i].start(), words[i + n - 1].end()
-                ids = self.crop_match.get(match_key(text[start:end]))
+                k = match_key(text[start:end])
+                ids = self.crop_match.get(k) or (set(self.kannada_stem(k)) if n == 1 else None)
                 if ids:
                     found.append((start, end, tuple(sorted(ids))))
                     i += n
@@ -232,6 +247,12 @@ _BARE_STRENGTH = re.compile(
 
 
 MIN_PREFIX = 6
+# pilot fix 5: Kannada case endings, longest first, with the -u a noun drops before some of them
+KANNADA_ENDINGS = (
+    ("inalli", "u"), ("yalli", ""), ("nalli", ""), ("dalli", ""), ("alli", ""),
+    ("kke", ""), ("ige", "u"), ("ige", ""), ("ge", ""),
+)  # fmt: skip
+MIN_STEM = 4
 MAX_ALIAS_WORDS = 4  # the longest crop alias a question would contain ("musukina jola", "rice (paddy)")
 # a run of letters; Indic blocks are listed because their vowel signs are not letters to `re`
 _WORD = re.compile(r"(?:[^\W\d_]|[ऀ-෿])+")

@@ -375,7 +375,8 @@ def test_fixA_a_crop_the_model_translated_wrongly_is_replaced_by_the_users(engin
     ("question", "model_crop", "pest", "used"),
     [
         ("Chlorantraniliprole 18.5% SC hari mirch jassids", "mirch", "jassids", "hari mirch"),  # cut short
-        ("Chlorantraniliprole 18.5% SC bhatta ge stem borer", "bhatta ge", "stem borer", "bhatta"),  # suffix
+        # a case ending: since pilot fix 5 the lookup reads "bhatta ge" itself (rice), so nothing is replaced
+        ("Chlorantraniliprole 18.5% SC bhatta ge stem borer", "bhatta ge", "stem borer", "bhatta ge"),
     ],
 )
 def test_fixA_a_crop_name_the_model_altered_takes_the_users_words(
