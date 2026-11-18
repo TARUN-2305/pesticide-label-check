@@ -566,3 +566,50 @@ def test_a_g_per_litre_strength_is_not_read_as_a_granule_code() -> None:
     question = "angur mein powdery mildew ke liye Fluxapyroxad 75 g/l + Difenoconazole 50 g/l SC"
     assert product_in_question(question, "Fluxapyroxad") == "Fluxapyroxad 75 g/l + Difenoconazole 50 g/l SC"
     assert product_in_question("Carbofuran 3 G on rice", "Carbofuran") == "Carbofuran 3 G"  # a real G
+
+
+# --- fix E (a reply that equates the user's crop with another) and the empty crop (E3n-e RE-01) ----------
+
+
+@pytest.mark.parametrize(
+    ("reply", "blocked"),
+    [
+        ("Not listed for stem borer on tamatar (rice).", True),  # E3n-e NE-014: "maavu (wheat)"
+        ("Not listed for stem borer on rice (tamatar).", True),  # the other order: "guava (bagan)"
+        ("Not listed for stem borer on tamatar = rice.", True),
+        ("Not listed for stem borer on tamatar (tomato).", False),  # the same crop, in another language
+        ("Not listed on tamatar; the register lists it for rice, cotton and chilli.", False),  # a list
+        ("Restricted: banned on tamatar, rice and cotton.", False),  # a list that includes the user's crop
+        ("Listed for tamatar (Tomato/Chilli).", False),  # a combined register crop that includes it
+    ],
+)
+def test_fixE_a_reply_may_not_equate_the_users_crop_with_another(
+    engine: Engine, reply: str, blocked: bool
+) -> None:
+    lookup = call("lookup", product=PRODUCT, ingredient=None, crop="tamatar", pest="stem borer")
+    a, _, _ = assistant(engine, [lookup, text(reply)])
+    result = a.ask("Chlorantraniliprole 18.5% SC tamatar stem borer")
+    assert result.verifier_blocked is blocked
+    if blocked:
+        assert result.unverified == ("crop:rice",)
+
+
+def test_fixE_an_unknown_crop_word_in_brackets_after_a_crop_is_blocked(engine: Engine) -> None:
+    # E3n-c NC-019: the lookup said "crop not found: bagan"; the reply said "guava (bagan)"
+    lookup = call("lookup", product=PRODUCT, ingredient=None, crop="bagan", pest=None)
+    a, _, _ = assistant(engine, [lookup, text("It is restricted on tomato (bagan).")])
+    result = a.ask("Chlorantraniliprole 18.5% SC bagan?")
+    assert result.verifier_blocked
+    assert result.unverified == ("crop:tomato",)
+
+
+def test_an_empty_crop_is_read_from_the_question_or_asked_for(engine: Engine) -> None:
+    empty = call("lookup", product=PRODUCT, ingredient=None, crop="", pest=None)
+    a, _, _ = assistant(engine, [empty, text("Approved; wait 15 days.")])
+    result = a.ask("bhatta stem borer Chlorantraniliprole 18.5% SC")
+    assert result.slots is not None
+    assert result.slots["crop"] == "bhatta"  # fix B read it from the question
+    a, _, _ = assistant(engine, [empty])
+    result = a.ask("Chlorantraniliprole 18.5% SC, is it okay?")
+    assert result.clarification is not None
+    assert result.clarification.missing == "crop"  # not a failure, not "unavailable"

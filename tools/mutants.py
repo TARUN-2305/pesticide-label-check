@@ -212,7 +212,8 @@ MUTANTS = [
      "for n in range(1, min(MAX_ALIAS_WORDS, len(words) - i) + 1):", ["tests/test_assistant.py"], "killed"),
     # fix B (E3n-d "which crop?"); predictions written before running, 2026-11-18
     ("FB-M1 the clarifying question always stands", "assistant/loop.py",
-     "if filled is not None:  # fix B", "if False:  # fix B", ["tests/test_assistant.py"], "killed"),
+     "        if filled is not None:\n            return _Understood(call.id, _slots(filled)",
+     "        if False:\n            return _Understood(call.id, _slots(filled)", ["tests/test_assistant.py"], "killed"),
     ("FB-M2 two different products in the question are accepted", "assistant/loop.py",
      "if len({ids for _, _, ids in found}) != 1:", "if not found:", ["tests/test_assistant.py"], "killed"),
     ("FB-M3 two crops in the question are accepted", "assistant/loop.py",
@@ -245,6 +246,22 @@ MUTANTS = [
      "query=dataclasses.replace(query, crop=users))\n", ["tests/test_assistant.py"], "killed"),
     ("P-M4 a code followed by '/' ends a product name", "assistant/loop.py",
      "(?:{FORMULATIONS})\\b(?!\\s*/)", "(?:{FORMULATIONS})\\b", ["tests/test_assistant.py"], "killed"),
+    # fix E and the empty crop (after E3n-e); predictions written before running, 2026-11-18
+    ("FE-M1 a reply equating two crops is delivered", "assistant/loop.py",
+     "if (other := self._attached_crop(text, query.crop)) is not None:", "if (other := None) is not None:",
+     ["tests/test_assistant.py"], "killed"),
+    ("FE-M2 a comma joins two crop names into a claim", "assistant/loop.py",
+     'r"\\s*(?:\\(|\\[|=|\\(\\s*i\\.e\\.,?)\\s*"', 'r"\\s*(?:\\(|\\[|=|,|\\(\\s*i\\.e\\.,?)\\s*"',
+     ["tests/test_assistant.py"], "killed"),
+    ("FE-M3 a bracket naming a crop that overlaps the user's is blocked", "assistant/loop.py",
+     "if ours[0] != ours[1] and not (ids1 & ids2):", "if ours[0] != ours[1]:", ["tests/test_assistant.py"],
+     "killed"),
+    ("FE-M4 the user's own unrecognised crop word is not paired", "assistant/loop.py",
+     "            if not any(s <= m.start() < e for s, e, _ in spans):", "            if False:",
+     ["tests/test_assistant.py"], "killed"),
+    ("EC-M1 an empty crop fails over again", "assistant/loop.py",
+     "            if not crop:  # E3n-e RE-01", "            if False:  # E3n-e RE-01", ["tests/test_assistant.py"],
+     "killed"),
 ]  # fmt: skip
 
 
@@ -258,8 +275,14 @@ def run(tests: list[str]) -> bool:
 def main() -> int:
     only = sys.argv[1] if len(sys.argv) > 1 else ""
     rows = []
+    baseline: dict[tuple[str, ...], bool] = {}  # a red suite "kills" every mutant, so it must pass unmutated
     for mid, rel, original, mutant, tests, predicted in MUTANTS:
         if only and not mid.startswith(only):
+            continue
+        if tuple(tests) not in baseline:
+            baseline[tuple(tests)] = run(tests)
+        if not baseline[tuple(tests)]:
+            rows.append((mid, predicted, "BASELINE FAILS (the tests are red without the mutant)"))
             continue
         path = SRC / rel
         source = path.read_text(encoding="utf-8")
@@ -276,7 +299,8 @@ def main() -> int:
     for mid, predicted, outcome in rows:
         print(f"| {mid} | {predicted} | {outcome} |")
     # A mutant whose pattern no longer matches tests nothing; L2-M4 went unnoticed for two days (2026-11-18)
-    unapplied = [mid for mid, _, outcome in rows if outcome.startswith("NOT APPLIED")]
+    # (2026-11-18: a failing test once made five new mutants look killed; the baseline now catches that)
+    unapplied = [mid for mid, _, outcome in rows if outcome.startswith(("NOT APPLIED", "BASELINE FAILS"))]
     if unapplied:
         print(f"ERROR: not applied: {', '.join(unapplied)}", file=sys.stderr)
     return 1 if unapplied else 0

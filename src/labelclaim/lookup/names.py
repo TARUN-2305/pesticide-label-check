@@ -85,15 +85,19 @@ class Names:
         """Crop names written in free text, as (the words as written, crop IDs): exact aliases only, matched
         on whole words, longest first, never overlapping ("chai bagan" wins over "chai"). Fix A (E3n-c NC-034)
         uses it to see which crop the user typed. Deterministic, never fuzzy (ADR-006)."""
+        return [(text[start:end], ids) for start, end, ids in self.crop_spans(text)]
+
+    def crop_spans(self, text: str) -> list[tuple[int, int, tuple[str, ...]]]:
+        """`crop_mentions` with positions, as (start, end, crop IDs)."""
         words = list(_WORD.finditer(text))
-        found: list[tuple[str, tuple[str, ...]]] = []
+        found: list[tuple[int, int, tuple[str, ...]]] = []
         i = 0
         while i < len(words):
             for n in range(min(MAX_ALIAS_WORDS, len(words) - i), 0, -1):
-                span = text[words[i].start() : words[i + n - 1].end()]
-                ids = self.crop_match.get(match_key(span))
+                start, end = words[i].start(), words[i + n - 1].end()
+                ids = self.crop_match.get(match_key(text[start:end]))
                 if ids:
-                    found.append((span, tuple(sorted(ids))))
+                    found.append((start, end, tuple(sorted(ids))))
                     i += n
                     break
             else:

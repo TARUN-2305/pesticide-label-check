@@ -4,6 +4,7 @@ engine's answer; the headline is a template and every number in the message is v
 from __future__ import annotations
 
 import dataclasses
+import itertools
 import json
 import logging
 import re
@@ -12,7 +13,7 @@ from dataclasses import asdict, dataclass
 from decimal import Decimal
 from typing import Any, Literal, Protocol
 
-from labelclaim.assistant.providers import ChatReply, ProviderError, Router
+from labelclaim.assistant.providers import ChatReply, ProviderError, Router, ToolCall
 from labelclaim.assistant.templates import CLARIFY, COLUMN_UNITS, details, headline
 from labelclaim.assistant.verify import allowed_numbers, numbers, verify, verify_clarification, wording
 from labelclaim.extract.classify import FORMULATIONS
@@ -171,18 +172,9 @@ class Assistant:
             question = str(args.get("question", "")).strip()[:200]
             if missing not in CLARIFY:  # a malformed call fails over first; fix B never repairs one
                 raise ProviderError("bad_tool_call", f"{name}: unknown 'missing'")
-            filled = self._slots_from_question(messages[-1]["content"])
-            if filled is not None:  # fix B: the question itself names everything the lookup needs
-                slots = {
-                    "product": filled.product,
-                    "ingredient": None,
-                    "crop": filled.crop,
-                    "pest": filled.pest,
-                }
-                return _Understood(call.id, slots, None, filled, None)
             if not question or not verify_clarification(question).ok:
                 question = CLARIFY[missing]
-            return _Understood(call.id, args, call.raw, None, Clarification(question, missing))
+            return self._read_or_ask(call, messages[-1]["content"], Clarification(question, missing))
         if call.name != "lookup":
             raise ProviderError("bad_tool_call", f"{name}: unknown tool")
         product, ingredient = _text(args.get("product")), _text(args.get("ingredient"))
@@ -193,15 +185,48 @@ class Assistant:
         if product:
             product = self._users_product(messages[-1]["content"], product)
         if not product and not ingredient:  # E3n fix 4: an empty lookup is a missing product, not a failure
-            return _Understood(call.id, args, call.raw, None, Clarification(CLARIFY["product"], "product"))
+            return self._read_or_ask(
+                call, messages[-1]["content"], Clarification(CLARIFY["product"], "product")
+            )
         try:  # the model's call must be valid as it stands; fix A never repairs a malformed call
             crop, pest = _text(args.get("crop")), _text(args.get("pest"))
+            if not crop:  # E3n-e RE-01: an empty crop is a missing slot, like an empty product, not a failure
+                return self._read_or_ask(
+                    call, messages[-1]["content"], Clarification(CLARIFY["crop"], "crop")
+                )
             query = Query(crop=crop or "", product=product, ingredient=ingredient, pest=pest)
         except (ValueError, TypeError) as exc:
             raise ProviderError("bad_tool_call", f"{name}: invalid lookup arguments") from exc
         return self._with_users_crop(
             _Understood(call.id, args, call.raw, query, None), messages[-1]["content"]
         )
+
+    def _attached_crop(self, text: str, crop: str) -> str | None:
+        """Fix E (E3n-c NC-019 "guava (bagan)", E3n-d RD-01 "bende (chilli)", E3n-e NE-014 "maavu (wheat)"):
+        the reply puts a different crop in brackets or after "=" next to the crop that was looked up, so it
+        tells the user the two are the same. Returns the other crop's words, or None. Lists ("guava, jowar and
+        tapioca") are not pairs: only a bracket or "=" joins two names."""
+        names = self.engine.names
+        looked_up = set(names.crop(crop).ids)
+        spans = [(s, e, set(ids)) for s, e, ids in names.crop_spans(text)]
+        for m in re.finditer(rf"(?<!\w){re.escape(crop)}(?!\w)", text, re.IGNORECASE):  # the user's own word
+            if not any(s <= m.start() < e for s, e, _ in spans):
+                spans.append((m.start(), m.end(), looked_up))
+        spans.sort()
+        for (s1, e1, ids1), (s2, e2, ids2) in itertools.pairwise(spans):
+            if not _JOINED.fullmatch(text[e1:s2]):
+                continue
+            ours = (ids1 == looked_up, ids2 == looked_up)
+            if ours[0] != ours[1] and not (ids1 & ids2):  # one is the crop looked up, the other is not
+                return text[s2:e2] if ours[0] else text[s1:e1]
+        return None
+
+    def _read_or_ask(self, call: ToolCall, question: str, clarification: Clarification) -> _Understood:
+        """Fix B: before a question goes back to the user, try the question's own words."""
+        filled = self._slots_from_question(question)
+        if filled is not None:
+            return _Understood(call.id, _slots(filled), None, filled, None)
+        return _Understood(call.id, call.arguments, call.raw, None, clarification)
 
     def _with_users_crop(self, understood: _Understood, question: str) -> _Understood:
         """Fix A, then A2. A2 (E3n-e KE-01): when the model's crop holds more than the crop name ("kabbu hula
@@ -217,8 +242,7 @@ class Assistant:
             filled = self._slots_from_question(question)
             if filled is None:
                 return understood
-            slots = {"product": filled.product, "ingredient": None, "crop": filled.crop, "pest": filled.pest}
-            return _Understood(understood.call_id, slots, None, filled, None, rejected_crop=crop)
+            return _Understood(understood.call_id, _slots(filled), None, filled, None, rejected_crop=crop)
         return dataclasses.replace(
             understood, query=dataclasses.replace(query, crop=users), rejected_crop=crop
         )
@@ -254,6 +278,8 @@ class Assistant:
         flagged = verdict.unverified + wording(text)  # numbers not cited (FR-7), advice wording (NFR-4)
         if rejected and written_in(text, rejected):  # fix A: a reply about the crop that was not looked up
             flagged += (f"crop:{rejected}",)
+        if (other := self._attached_crop(text, query.crop)) is not None:  # fix E: "maavu (wheat)"
+            flagged += (f"crop:{other}",)
         if flagged:
             return details(answer), "template", True, flagged
         return text[:1200], "model", False, ()
@@ -343,6 +369,9 @@ class Assistant:
                              "phrased_by": phrased_by, "verifier_blocked": blocked}))  # fmt: skip
 
 
+# what joins two crop names into a claim that they are the same: "maavu (wheat)", "bende = chilli"
+_JOINED = re.compile(r"\s*(?:\(|\[|=|\(\s*i\.e\.,?)\s*")
+
 # crop aliases that are also measurement words: "kitna gram?" is a quantity, not chickpea (fix A)
 NOT_CROPS = frozenset({"gram"})
 
@@ -401,6 +430,10 @@ def _trim(phrase: str) -> str:
     while words and words[-1].lower() in _EDGE_WORDS:
         words.pop()
     return " ".join(words)
+
+
+def _slots(query: Query) -> dict[str, str | None]:
+    return {"product": query.product, "ingredient": query.ingredient, "crop": query.crop, "pest": query.pest}
 
 
 def _squash(text: str) -> str:
