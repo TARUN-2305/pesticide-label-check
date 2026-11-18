@@ -349,3 +349,15 @@ An unknown phrase stays the pest (UNKNOWN_PEST). The exception: when the product
 - candidate F: a reply that says "approved" under a "not found" headline (RF-01);
 - lexicon gaps such as "yellow sigatoka" and "gulab";
 - crop names longer than 4 words.
+
+## 19. Fixes from the first private test (2026-11-19)
+
+See [the pilot report](../../reports/pilot/2026-11-18_private_test.md):
+1. a crop-specific ban leads the headline;
+2. follow-ups are chat turns (`history`, with assistant turns filtered);
+3. near pest names become options (engine `_near_names`);
+4. only relevant restrictions; same-ingredient alternatives first;
+5. Kannada case endings (`Names.kannada_stem`);
+6. messages for herbicides, brands and symptoms.
+
+**Principle kept:** the model reads the language, the register decides the facts, and every repair asks or narrows; it never widens to a yes.

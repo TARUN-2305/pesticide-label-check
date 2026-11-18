@@ -34,3 +34,29 @@
 6. **Messages:** herbicides, brand names, symptoms (with an options query), the unknown-product fallback, and the waiting-period label.
 
 Each fix gets tests and mutants, and a replay on the recorded suites and this log, before a fresh private test.
+
+## Fixed (2026-11-19), in the order above
+
+| Fix | Commit | What changed | Evidence |
+|---|---|---|---|
+| 1. A crop-specific ban leads | `cfb809f` | An APPROVED answer whose restriction names the crop (or bans the ingredient) now starts "Banned on this crop: <order> … The register still lists <claim>, but the order above applies"; the page never shows it green | test; mutant PX-M1. Log #12 now reads "Banned on this crop: Mancozeb is banned for use on Guava, Jowar and Tapioca …" |
+| 2. Follow-ups as a conversation | `28718e3` | `/v1/ask` takes up to 4 earlier turns as chat turns, instead of joined text. An "assistant" turn is kept only if it could be the app's own clarifying question (short, no numbers). The deterministic checks still read only the latest message | 3 tests; mutants PX-M2, M3. **Live (Groq), prediction first:** test 18 now reads crop "badnekayi" (not tomato); "Mancozeb 75% WP sari na?" → which crop? → "aalugadde late blight" → Approved on potato |
+| 3. Near pest names | `d93dc1f` | If the product's rows on the crop name a pest containing every asked word, the answer is AMBIGUOUS with those options. The headline asks: "Not listed under 'tikka', but listed for: tikka leaf spot. Is that your pest?" | 3 tests; mutants PX-M4, M5. Log #1 and #3 now ask about tikka leaf spot. **E3 offline: 1 change, E3b-28,** the long-standing miss of the same class, from a false "not listed" to the option |
+| 4. Restrictions and alternatives | `72b8287` | Alternatives ranked before the cap: same ingredients first (by spelling family). The model gets only restrictions on this crop or outright bans; the page shows all alternatives | 2 tests; mutants PX-M6–M8. Mancozeb 75% WG, tomato, late blight: Mancozeb 35% SC and 75% WP now come first; before, neither was among the 20 |
+| 5. Kannada case endings | `099e429` | -inalli, -yalli, -nalli, -dalli, -alli, -kke, -ige, -ge are dropped when the stem (with -u restored) is an exact crop name | 7 tests; mutants PX-M9–M11. 13 of 14 natural forms resolve on the release register; log #16 is now Approved |
+| 6. Messages | `565a954` | Herbicides: "Not covered … weed killer". A name with no strength is treated as a brand. The product question says the app cannot recommend or diagnose. No filler text when there are no rows. "Waiting period (as printed)" | 5 tests; mutants PX-M12, M13. Log #30, #32 and #34 now say "Not covered: … herbicide" |
+
+**All checks after the fixes:**
+- 379 tests pass; 89/89 mutants killed ([table](../M3/mutants_2026-11-19.md));
+- E3 offline 150/150, 31/31, 59/60 (E3b-28 now an option, not a false no);
+- a replay of all recorded first calls of E3n–E3n-f: **0 away from the asked answer, 49 toward it** (up from 45).
+
+**Process lesson:** one commit message briefly claimed a mutant was killed when it had not been applied. A shell chain ended in `| tail -1`, whose exit code is 0. The message was corrected before pushing, and the evidence is now checked in the output itself.
+
+## Still open
+
+- **A lexicon release** (rebuild, a new hash): merge the three tikka IDs; add spellings such as "badnekayi"; add "gulab" (rose) and "yellow sigatoka". These need a reviewed rebuild, so they are batched.
+- **An "options" query:** list what the register approves for a crop and disease when no product is named (the extension-worker story; pilot test 17).
+- **"X and Y" pests** (log #8): split them into two checks rather than a crop-wide answer.
+- **A Kannada wording guard** (the English-only advice check; "mix in 750 L of water").
+- **A second private test** on these fixes.
