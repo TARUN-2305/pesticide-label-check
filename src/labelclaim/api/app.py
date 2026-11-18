@@ -23,15 +23,16 @@ from fastapi import FastAPI, Query, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException
 
-from labelclaim.api.ratelimit import TokenBucket
+from labelclaim.api.ratelimit import DailyCap, TokenBucket
 from labelclaim.api.schemas import (
-    AnswerOut,
     AskOut,
     AskRequest,
     ErrorOut,
     HealthOut,
+    LookupOut,
     LookupRequest,
     NameOut,
     ProductOut,
@@ -39,6 +40,7 @@ from labelclaim.api.schemas import (
 )
 from labelclaim.assistant.loop import Assistant, Chat
 from labelclaim.assistant.providers import ProviderError, Router
+from labelclaim.assistant.templates import headline
 from labelclaim.lookup.engine import Engine
 from labelclaim.lookup.models import Query as LookupQuery
 from labelclaim.normalize.lexicon import key
@@ -55,6 +57,20 @@ class Settings:
     cors_origins: tuple[str, ...] = ()
     clock: Callable[[], float] = field(default=time.monotonic, compare=False)
     chat_clients: dict[str, Chat] = field(default_factory=dict, compare=False)  # in fallback order (L3 §6)
+    web_dir: Path | None = None  # L4: the static web app, served at /
+    ask_per_day: int = 800  # L4 §3: below Groq's free 1,000 requests a day
+    wall_clock: Callable[[], float] = field(default=time.time, compare=False)
+
+
+# L4 §3, threat T-W1: no inline script, nothing from other origins. /docs loads Swagger UI from a CDN, so the
+# policy is not applied there.
+SECURITY_HEADERS = {
+    "content-security-policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; "
+    "connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+    "x-content-type-options": "nosniff",
+    "referrer-policy": "no-referrer",
+}
+UNSAFE_FOR_CSP = ("/docs", "/redoc")
 
 
 class Engines:
@@ -129,6 +145,8 @@ def create_app(settings: Settings) -> FastAPI:
                 logging.getLogger("labelclaim.api").exception("unhandled error (request %s)", request_id)
                 response = _error(500, "internal_error", "internal error", request_id)
         response.headers["x-request-id"] = request_id
+        if not request.url.path.startswith(UNSAFE_FOR_CSP):
+            response.headers.update(SECURITY_HEADERS)
         ACCESS.info(
             json.dumps(
                 {
@@ -166,15 +184,28 @@ def create_app(settings: Settings) -> FastAPI:
         return RegisterOut.model_validate(engines.get().register_info())
 
     @app.post(
-        "/v1/lookup", response_model=AnswerOut, responses={422: {"model": ErrorOut}, 429: {"model": ErrorOut}}
+        "/v1/lookup", response_model=LookupOut, responses={422: {"model": ErrorOut}, 429: {"model": ErrorOut}}
     )
-    def lookup(body: LookupRequest, request: Request) -> AnswerOut:
+    def lookup(body: LookupRequest, request: Request) -> LookupOut:
         query = LookupQuery(crop=body.crop, product=body.product, ingredient=body.ingredient, pest=body.pest)
         answer = engines.get().lookup(query)
         request.state.outcome = answer.outcome.value
-        return AnswerOut.model_validate({**_plain(asdict(answer)), "conflict": answer.conflict})
+        head = headline(answer, query.product or query.ingredient or "", query.crop, query.pest,
+                        by_ingredient=query.product is None)  # fmt: skip
+        fields = {**_plain(asdict(answer)), "conflict": answer.conflict, "headline": head}
+        return LookupOut.model_validate(fields)
 
     _mount_assistant(app, settings, engines)
+
+    _mount_names(app, engines)
+
+    if settings.web_dir is not None:  # last, so every API route above wins over a file of the same name
+        app.mount("/", StaticFiles(directory=settings.web_dir, html=True), name="web")
+    return app
+
+
+def _mount_names(app: FastAPI, engines: Engines) -> None:
+    """Name suggestions for the Check form (L2 §6)."""
 
     @app.get("/v1/crops", response_model=list[NameOut])
     def crops(q: QueryText) -> list[NameOut]:
@@ -198,12 +229,11 @@ def create_app(settings: Settings) -> FastAPI:
         hits = sorted((h, pid) for pid, h in headings.items() if needle in h.casefold())
         return [ProductOut(id=pid, heading=h) for h, pid in hits[:MAX_RESULTS]]
 
-    return app
-
 
 def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines) -> None:
     """POST /v1/ask (L3): the model interprets and phrases; the engine decides."""
     router = Router(list(settings.chat_clients))
+    cap = DailyCap(settings.ask_per_day, settings.wall_clock)
 
     @app.post(
         "/v1/ask",
@@ -214,6 +244,9 @@ def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines) -> None
         """A plain-words question (L3). The model only interprets and phrases; the engine decides."""
         if not settings.chat_clients:
             return _error(503, "assistant_unavailable", "no model is configured; use POST /v1/lookup",
+                          request.state.request_id)  # fmt: skip
+        if not cap.allow():  # L4 §3: the shared daily quota of the free model tier
+            return _error(429, "daily_limit", "the assistant's daily limit is reached; use POST /v1/lookup",
                           request.state.request_id)  # fmt: skip
         try:
             result = Assistant(engines.get(), settings.chat_clients, router).ask(body.question)

@@ -23,6 +23,9 @@ def main() -> None:
     parser.add_argument("--rate", type=int, default=60, help="requests per minute per client")
     parser.add_argument("--export-openapi", type=Path)
     parser.add_argument("--no-model", action="store_true", help="serve without /v1/ask models (L3)")
+    parser.add_argument("--web", type=Path, default=REPO / "web", help="static web app (L4); 'none' to omit")
+    parser.add_argument("--ask-per-day", type=int, default=800, help="daily cap on /v1/ask (L4 §3)")
+    parser.add_argument("--behind-proxy", action="store_true", help="trust X-Forwarded-For (behind a proxy)")
     args = parser.parse_args()
     if args.export_openapi:
         settings = Settings(register=args.register, rate_per_minute=args.rate)
@@ -32,8 +35,14 @@ def main() -> None:
         )
         return
     clients = {} if args.no_model else build_clients(load_keys())  # L3 §6-7: keys never printed
-    settings = Settings(register=args.register, rate_per_minute=args.rate, chat_clients=dict(clients))
-    uvicorn.run(create_app(settings), host=args.host, port=args.port, workers=1, log_level="info")
+    web = None if str(args.web) == "none" or not args.web.is_dir() else args.web
+    settings = Settings(register=args.register, rate_per_minute=args.rate, chat_clients=dict(clients),
+                        web_dir=web, ask_per_day=args.ask_per_day)  # fmt: skip
+    # Behind a hosting proxy the client address is in X-Forwarded-For; trusted only when asked, since a direct
+    # client could forge it to dodge the per-client bucket (the daily cap on /v1/ask is global either way).
+    trusted = "*" if args.behind_proxy else None
+    uvicorn.run(create_app(settings), host=args.host, port=args.port, workers=1, log_level="info",
+                proxy_headers=args.behind_proxy, forwarded_allow_ips=trusted)  # fmt: skip
 
 
 if __name__ == "__main__":

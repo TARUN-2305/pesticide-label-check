@@ -25,3 +25,24 @@ class TokenBucket:
                 return False
             self._state[client] = (tokens - 1.0, now)
             return True
+
+
+class DailyCap:
+    """At most `per_day` calls per UTC day, across all clients (L4 §3, threat T-W2): a public link must not
+    use up the model provider's free daily quota. The clock is wall time, injected for tests."""
+
+    def __init__(self, per_day: int, clock: Callable[[], float] = time.time) -> None:
+        self.per_day = per_day
+        self.clock = clock
+        self._lock = threading.Lock()
+        self._day, self._used = -1, 0
+
+    def allow(self) -> bool:
+        with self._lock:
+            day = int(self.clock() // 86400)
+            if day != self._day:
+                self._day, self._used = day, 0
+            if self._used >= self.per_day:
+                return False
+            self._used += 1
+            return True

@@ -297,6 +297,97 @@
     "title": "HealthOut",
     "type": "object"
    },
+   "LookupOut": {
+    "description": "L4: /v1/lookup's answer plus the same template headline /v1/ask shows (one source of wording).",
+    "properties": {
+     "alternatives": {
+      "items": {
+       "$ref": "#/components/schemas/UseOut"
+      },
+      "title": "Alternatives",
+      "type": "array"
+     },
+     "approved_crops": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Approved Crops",
+      "type": "array"
+     },
+     "approved_pests": {
+      "items": {
+       "type": "string"
+      },
+      "title": "Approved Pests",
+      "type": "array"
+     },
+     "conflict": {
+      "title": "Conflict",
+      "type": "boolean"
+     },
+     "disclaimer": {
+      "title": "Disclaimer",
+      "type": "string"
+     },
+     "headline": {
+      "title": "Headline",
+      "type": "string"
+     },
+     "options": {
+      "items": {
+       "$ref": "#/components/schemas/OptionOut"
+      },
+      "title": "Options",
+      "type": "array"
+     },
+     "outcome": {
+      "$ref": "#/components/schemas/Outcome"
+     },
+     "register": {
+      "$ref": "#/components/schemas/RegisterOut"
+     },
+     "restrictions": {
+      "items": {
+       "$ref": "#/components/schemas/RestrictionOut"
+      },
+      "title": "Restrictions",
+      "type": "array"
+     },
+     "suggestions": {
+      "additionalProperties": {
+       "items": {
+        "$ref": "#/components/schemas/SuggestionOut"
+       },
+       "type": "array"
+      },
+      "title": "Suggestions",
+      "type": "object"
+     },
+     "uses": {
+      "items": {
+       "$ref": "#/components/schemas/UseOut"
+      },
+      "title": "Uses",
+      "type": "array"
+     }
+    },
+    "required": [
+     "outcome",
+     "conflict",
+     "uses",
+     "alternatives",
+     "approved_crops",
+     "approved_pests",
+     "suggestions",
+     "restrictions",
+     "options",
+     "register",
+     "disclaimer",
+     "headline"
+    ],
+    "title": "LookupOut",
+    "type": "object"
+   },
    "LookupRequest": {
     "additionalProperties": false,
     "properties": {
@@ -790,7 +881,7 @@
       "content": {
        "application/json": {
         "schema": {
-         "$ref": "#/components/schemas/AnswerOut"
+         "$ref": "#/components/schemas/LookupOut"
         }
        }
       },

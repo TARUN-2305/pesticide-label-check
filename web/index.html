@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pesticide label-claim check</title>
+  <meta name="description" content="Is this pesticide approved for this crop and pest? Answers from India's official CIB&amp;RC register, with the page.">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header>
+    <h1 data-t="title">Pesticide label-claim check</h1>
+    <p class="sub" data-t="subtitle">Answers from India's official register, with the page it is printed on.</p>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="kn" lang="kn" aria-pressed="false">ಕನ್ನಡ</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="tab-ask" aria-controls="panel-ask" aria-selected="true" data-t="tab_ask">Ask</button>
+      <button type="button" role="tab" id="tab-check" aria-controls="panel-check" aria-selected="false" data-t="tab_check">Check</button>
+    </div>
+
+    <section id="panel-ask" role="tabpanel" aria-labelledby="tab-ask">
+      <form id="ask-form" autocomplete="off">
+        <label for="question" data-t="ask_label">Your question</label>
+        <textarea id="question" name="question" rows="3" maxlength="500" required
+          data-tp="ask_placeholder" placeholder="e.g. Is Emamectin benzoate 5% SG approved for fruit borer on bende?"></textarea>
+        <button type="submit" class="primary" data-t="ask_button">Ask</button>
+      </form>
+    </section>
+
+    <section id="panel-check" role="tabpanel" aria-labelledby="tab-check" hidden>
+      <form id="check-form" autocomplete="off">
+        <label for="product" data-t="product_label">Product (as printed on the label)</label>
+        <input id="product" name="product" list="product-list" maxlength="160" required>
+        <datalist id="product-list"></datalist>
+        <label for="crop" data-t="crop_label">Crop</label>
+        <input id="crop" name="crop" list="crop-list" maxlength="120" required>
+        <datalist id="crop-list"></datalist>
+        <label for="pest" data-t="pest_label">Pest or disease (optional)</label>
+        <input id="pest" name="pest" list="pest-list" maxlength="120">
+        <datalist id="pest-list"></datalist>
+        <button type="submit" class="primary" data-t="check_button">Check</button>
+      </form>
+    </section>
+
+    <section id="result" aria-live="polite"></section>
+  </main>
+
+  <footer>
+    <p id="register-date"></p>
+    <p data-t="footer">This lists registered label claims. It is not advice. Always read the product label.</p>
+  </footer>
+</body>
+</html>

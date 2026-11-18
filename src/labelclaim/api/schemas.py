@@ -99,6 +99,12 @@ class AnswerOut(Out):
     disclaimer: str
 
 
+class LookupOut(AnswerOut):
+    """L4: /v1/lookup's answer plus the same template headline /v1/ask shows (one source of wording)."""
+
+    headline: str
+
+
 class AskRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]

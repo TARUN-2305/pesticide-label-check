@@ -23,6 +23,7 @@
 - [L1: register extraction](docs/lld/l1_register_extraction.md)
 - [L2: lookup engine and API](docs/lld/l2_lookup_api.md)
 - [L3: assistant](docs/lld/l3_assistant.md)
+- [L4: web app](docs/lld/l4_web_app.md)
 - [Evaluation plan](docs/evaluation_plan.md), [test strategy](docs/test_strategy.md), [threat model](docs/threat_model.md)
 - Interview notes: [M0 design](docs/interview_notes/m0_design.md), [M1 extraction](docs/interview_notes/m1_extraction.md), [M3 assistant](docs/interview_notes/m3_assistant.md)
 - M1 results: [L1 §15](docs/lld/l1_register_extraction.md), [mutation checks](reports/M1/mutants.md), [build runs](reports/M1/build_runs.csv)
