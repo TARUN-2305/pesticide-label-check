@@ -6,7 +6,9 @@ from __future__ import annotations
 from labelclaim.lookup.models import Answer, ApprovedUse, Outcome
 
 CLARIFY = {
-    "product": "Which product or active ingredient is it? Please type the name as printed on the label.",
+    # pilot test 17: a symptom ("brown spots on the leaves") is not a pest name; choosing a product is advice
+    "product": "Which product is it? Please type the name printed on the label, with its % and code. "
+    "I can't recommend a product or name a disease from its symptoms.",
     "crop": "Which crop is it for?",
     "pest": "Which pest or disease is it for?",
     "which_product": "Which product exactly? Please type the name as printed on the label.",
@@ -44,12 +46,42 @@ def headline(
         Outcome.NOT_APPROVED_FOR_PEST: (
             f"Not listed for this pest: {product} is registered on {crop}, but not{for_pest}."
         ),
-        Outcome.UNKNOWN_PRODUCT: f"Product not found in the register: {product}.",
+        Outcome.UNKNOWN_PRODUCT: _unknown_product(product, pest),
         Outcome.UNKNOWN_CROP: f"Crop not found in the register: {crop}.",
         Outcome.UNKNOWN_PEST: f"Pest not found in the register: {pest}.",
         Outcome.AMBIGUOUS: _ambiguous(answer, pest),
     }[answer.outcome]
     return warn + text
+
+
+# pilot tests 15-16: a herbicide is not "missing" from the register, it is outside it. A reviewed list of
+# common herbicide ingredients, and weed words in the pest slot, say so plainly.
+HERBICIDES = frozenset({
+    "glyphosate", "glufosinate", "paraquat", "atrazine", "pendimethalin", "butachlor", "pretilachlor",
+    "oxyfluorfen", "metribuzin", "imazethapyr", "quizalofop", "fenoxaprop", "metsulfuron", "bispyribac",
+    "bensulfuron", "trifluralin", "diuron", "propanil", "clodinafop", "sulfosulfuron", "cyhalofop",
+    "halosulfuron", "topramezone", "tembotrione", "2,4-d", "2,4 d", "2-4-d", "anilofos", "oxadiargyl",
+})  # fmt: skip
+WEED_WORDS = frozenset({"weed", "weeds", "kale", "kalegalu", "grass", "herbicide", "kharpatwar"})
+
+
+def _unknown_product(product: str, pest: str | None) -> str:
+    words = product.lower().split()
+    if (
+        (words and words[0] in HERBICIDES)
+        or product.lower() in HERBICIDES
+        or (pest and set(pest.lower().split()) & WEED_WORDS)
+    ):
+        return (
+            f"Not covered: {product} is a weed killer (herbicide) question. This checker covers the "
+            "insecticide and fungicide registers only, so it cannot say whether this use is approved."
+        )
+    if not any(ch.isdigit() for ch in product):
+        return (
+            f"'{product}' looks like a brand or a short name. The register lists products by the name "
+            "printed under the brand, with its % and code (for example 'Mancozeb 75% WP'): please type that."
+        )
+    return f"Product not found in the register: {product}. Please check the name, % and code on the label."
 
 
 def _ambiguous(answer: Answer, pest: str | None) -> str:
@@ -96,4 +128,6 @@ def details(answer: Answer) -> str:
         return " ".join(_row(u) for u in answer.uses[:3])
     if answer.alternatives:
         return "Listed instead: " + " ".join(_row(u) for u in answer.alternatives[:3])
-    return "See the suggestions and options in the answer."
+    return (
+        ""  # pilot tests 15-16: no rows, so the headline says it all ("See the suggestions ..." said nothing)
+    )

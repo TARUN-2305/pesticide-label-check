@@ -716,3 +716,33 @@ def test_the_model_is_not_given_a_ban_on_other_crops(engine: Engine) -> None:
     assert result.answer is not None
     assert result.answer.restrictions  # the engine still reports it (ber, citrus, tobacco) ...
     assert '"restrictions": []' in groq.sent[1][-1]["content"]  # ... but the model is not told about it
+
+
+# --- pilot fix 6: messages (pilot tests 7, 15, 16, 17) --------------------------------------------------
+
+
+@pytest.mark.parametrize(
+    ("product", "pest", "start"),
+    [
+        ("Glyphosate 41% SL", None, "Not covered: Glyphosate 41% SL is a weed killer (herbicide) question."),
+        ("Weedout 20 SL", "weeds", "Not covered: Weedout 20 SL is a weed killer"),
+        ("Roundup", None, "'Roundup' looks like a brand or a short name."),
+        ("Coragen 99% SC", None, "Product not found in the register: Coragen 99% SC. Please check the name"),
+    ],
+)
+def test_an_unknown_product_gets_a_message_that_helps(
+    engine: Engine, product: str, pest: str | None, start: str
+) -> None:
+    lookup = call("lookup", product=product, ingredient=None, crop="tomato", pest=pest)
+    a, _, _ = assistant(engine, [lookup, text("Please give 41 more details.")])  # a number: blocked
+    result = a.ask(f"{product} on tomato?")
+    assert result.answer is not None
+    assert result.answer.outcome is Outcome.UNKNOWN_PRODUCT
+    assert result.headline.startswith(start)
+    assert result.message == ""  # no "See the suggestions and options" filler when the reply is blocked
+
+
+def test_the_product_question_says_it_cannot_recommend_or_diagnose() -> None:
+    from labelclaim.assistant.templates import CLARIFY  # noqa: PLC0415
+
+    assert "can't recommend a product or name a disease from its symptoms" in CLARIFY["product"]

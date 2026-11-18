@@ -303,6 +303,11 @@ MUTANTS = [
     ("PX-M11 the scan ignores Kannada endings", "lookup/names.py",
      "ids = self.crop_match.get(k) or (set(self.kannada_stem(k)) if n == 1 else None)",
      "ids = self.crop_match.get(k)", ["tests/test_lookup.py"], "killed"),
+    ("PX-M12 a herbicide is reported as merely not found", "assistant/templates.py",
+     "        (words and words[0] in HERBICIDES)\n", "        False\n",
+     ["tests/test_assistant.py"], "killed"),
+    ("PX-M13 a brand name is reported as merely not found", "assistant/templates.py",
+     "if not any(ch.isdigit() for ch in product):", "if False:", ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 
