@@ -3,9 +3,9 @@
 import { LABELS } from "./i18n.js";
 
 let lang = "en";
-// When the assistant asks for one more detail, the reply continues that question instead of starting a new
-// one (/v1/ask is stateless, so the page joins the two). Found 2026-11-18: "Tomato" alone lost the product.
-let pending = null;
+// When the assistant asks for one more detail, the next question is sent with the earlier turns, so the model
+// can tell an answer from a new question (pilot fix 2). Joining the texts had mixed two questions (test 18).
+let history = [];
 let pilotOn = false; // L4 §9: a private test that saves questions, answers and ratings (the page says so)
 const $ = (id) => document.getElementById(id);
 const t = (k) => LABELS[lang][k] ?? LABELS.en[k];
@@ -87,7 +87,11 @@ function answerCard(headline, message, answer, clarification, requestId = null) 
   const out = [];
   if (clarification) {
     out.push(el("h3", {}, t("clarify")), el("p", { class: "message" }, clarification.question));
-    if (pending) out.push(el("p", { class: "earlier" }, `${t("earlier")}: ${pending}`));
+    const first = history.find((turn) => turn.role === "user");
+    if (first) out.push(el("p", { class: "earlier" }, `${t("earlier")}: ${first.content}`));
+    const fresh = el("button", { type: "button" }, t("new_question"));
+    fresh.addEventListener("click", () => { history = []; $("result").replaceChildren(); $("question").focus(); });
+    out.push(fresh);
     $("result").replaceChildren(...out);
     $("question").value = "";
     $("question").focus();
@@ -122,14 +126,17 @@ function answerCard(headline, message, answer, clarification, requestId = null) 
 
 async function ask(event) {
   event.preventDefault();
-  const typed = $("question").value.trim();
-  if (!typed) return;
-  const question = pending ? `${pending} ${typed}`.slice(0, 500) : typed;
-  pending = null;
+  const question = $("question").value.trim().slice(0, 500);
+  if (!question) return;
+  // a repeat of the last question is not a new turn (pilot test 17: the same text was sent twice)
+  const earlier = history.filter((turn, i) => !(i === history.length - 2 && turn.content === question));
   notice(t("working"));
-  const { status, data, requestId } = await api("/v1/ask", { question, lang }).catch(() => ({ status: 0, data: null }));
+  const { status, data, requestId } = await api("/v1/ask", { question, lang, history: earlier })
+    .catch(() => ({ status: 0, data: null }));
   if (status === 200 && data) {
-    if (data.clarification) pending = question;
+    history = data.clarification
+      ? [...earlier, { role: "user", content: question }, { role: "assistant", content: data.clarification.question }].slice(-4)
+      : [];
     return answerCard(data.headline, data.message, data.answer, data.clarification, requestId);
   }
   if (status === 503) { notice(t("unavailable"), "warn"); return showTab("check"); }

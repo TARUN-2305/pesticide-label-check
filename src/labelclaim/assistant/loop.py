@@ -124,13 +124,16 @@ class Assistant:
     def __init__(self, engine: Engine, clients: Mapping[str, Chat], router: Router) -> None:
         self.engine, self.clients, self.router = engine, clients, router
 
-    def ask(self, question: str, lang: str | None = None) -> AskResult:
+    def ask(
+        self, question: str, lang: str | None = None, history: Sequence[tuple[str, str]] = ()
+    ) -> AskResult:
         """`lang` ("en" or "kn") sets the reply language. Without it, the reply follows the question's
         language, which the model can misjudge for romanised text: it answered romanised Kannada in Marathi
         (2026-11-18)."""
         system = SYSTEM + REPLY_LANGUAGE.get(lang or "", "")
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": system},
+            *_earlier_turns(history),
             {"role": "user", "content": question},
         ]
         try:
@@ -451,6 +454,22 @@ def _trim(phrase: str) -> str:
     while words and words[-1].lower() in _EDGE_WORDS:
         words.pop()
     return " ".join(words)
+
+
+def _earlier_turns(history: Sequence[tuple[str, str]]) -> list[dict[str, str]]:
+    """Pilot fix 2 (pilot test 18): the page sends the turns before this question, so the model can tell an
+    answer to its clarifying question from a new question; joining the texts had mixed two questions. The
+    client controls this text, so an "assistant" turn is kept only if it could be one of the app's own
+    clarifying questions (short, no numbers): it cannot carry invented facts into the conversation. The
+    deterministic checks (fixes A, A2, A3, B) still read only the latest user message."""
+    turns: list[dict[str, str]] = []
+    for role, content in list(history)[-4:]:
+        text = content.strip()[:500]
+        if role == "user" and text:
+            turns.append({"role": "user", "content": text})
+        elif role == "assistant" and len(text) <= 200 and verify_clarification(text).ok:
+            turns.append({"role": "assistant", "content": text})
+    return turns
 
 
 def _slots(query: Query) -> dict[str, str | None]:

@@ -275,6 +275,11 @@ MUTANTS = [
     ("PX-M1 a crop-specific ban no longer leads the headline", "assistant/templates.py",
      "if answer.outcome is Outcome.APPROVED and answer.conflict and use is not None:", "if False:",
      ["tests/test_assistant.py"], "killed"),
+    ("PX-M2 an assistant turn with numbers is kept in the history", "assistant/loop.py",
+     'elif role == "assistant" and len(text) <= 200 and verify_clarification(text).ok:', 'elif role == "assistant":',
+     ["tests/test_assistant.py"], "killed"),
+    ("PX-M3 earlier turns are not sent to the model", "assistant/loop.py",
+     "            *_earlier_turns(history),\n", "", ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 

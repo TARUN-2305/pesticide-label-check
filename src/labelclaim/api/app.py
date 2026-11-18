@@ -275,7 +275,9 @@ def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines, pilot: 
             return _error(429, "daily_limit", "the assistant's daily limit is reached; use POST /v1/lookup",
                           request.state.request_id)  # fmt: skip
         try:
-            result = Assistant(engines.get(), settings.chat_clients, router).ask(body.question, body.lang)
+            history = [(t.role, t.content) for t in body.history]
+            assistant = Assistant(engines.get(), settings.chat_clients, router)
+            result = assistant.ask(body.question, body.lang, history)
         except ProviderError:
             if pilot:
                 pilot.write("ask", request.state.request_id, question=body.question, lang=body.lang,
@@ -286,8 +288,9 @@ def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines, pilot: 
         request.state.outcome = answer.outcome.value if answer else "CLARIFY"
         if pilot:
             pilot.write("ask", request.state.request_id, question=body.question, lang=body.lang,
-                        outcome=request.state.outcome, headline=result.headline, message=result.message,
-                        slots=result.slots, provider=result.provider, phrased_by=result.phrased_by,
+                        turns_before=len(body.history), outcome=request.state.outcome,
+                        headline=result.headline, message=result.message, slots=result.slots,
+                        provider=result.provider, phrased_by=result.phrased_by,
                         verifier_blocked=result.verifier_blocked)  # fmt: skip
         return AskOut.model_validate({
             **_plain(asdict(result)),

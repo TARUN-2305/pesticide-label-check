@@ -167,6 +167,15 @@
    "AskRequest": {
     "additionalProperties": false,
     "properties": {
+     "history": {
+      "default": [],
+      "items": {
+       "$ref": "#/components/schemas/Turn"
+      },
+      "maxItems": 4,
+      "title": "History",
+      "type": "array"
+     },
      "lang": {
       "anyOf": [
        {
@@ -667,6 +676,32 @@
      "score"
     ],
     "title": "SuggestionOut",
+    "type": "object"
+   },
+   "Turn": {
+    "additionalProperties": false,
+    "description": "One earlier turn of a short conversation (pilot fix 2): the user's question and the app's clarifying\nquestion. The assistant drops an \"assistant\" turn that is not a short question without numbers.",
+    "properties": {
+     "content": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Content",
+      "type": "string"
+     },
+     "role": {
+      "enum": [
+       "user",
+       "assistant"
+      ],
+      "title": "Role",
+      "type": "string"
+     }
+    },
+    "required": [
+     "role",
+     "content"
+    ],
+    "title": "Turn",
     "type": "object"
    },
    "UseOut": {

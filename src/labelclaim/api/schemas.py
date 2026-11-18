@@ -118,10 +118,20 @@ class PilotOut(BaseModel):
     logging: bool
 
 
+class Turn(BaseModel):
+    """One earlier turn of a short conversation (pilot fix 2): the user's question and the app's clarifying
+    question. The assistant drops an "assistant" turn that is not a short question without numbers."""
+
+    model_config = ConfigDict(extra="forbid")
+    role: Literal["user", "assistant"]
+    content: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
+
+
 class AskRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
     lang: Literal["en", "kn"] | None = None  # L4: the reply language; None follows the question
+    history: Annotated[list[Turn], Field(max_length=4)] = []  # pilot fix 2: the turns before this question
 
 
 class ClarificationOut(BaseModel):
