@@ -18,7 +18,7 @@ from labelclaim.assistant.verify import allowed_numbers, numbers, verify, verify
 from labelclaim.extract.classify import FORMULATIONS
 from labelclaim.lookup.engine import Engine
 from labelclaim.lookup.models import Answer, Outcome, Query
-from labelclaim.lookup.names import written_in
+from labelclaim.lookup.names import Names, written_in
 from labelclaim.normalize.lexicon import match_key
 
 LOG = logging.getLogger("labelclaim.assistant")
@@ -169,8 +169,17 @@ class Assistant:
         if call.name == "ask_clarifying_question":
             missing = str(args.get("missing", "crop"))
             question = str(args.get("question", "")).strip()[:200]
-            if missing not in CLARIFY:
+            if missing not in CLARIFY:  # a malformed call fails over first; fix B never repairs one
                 raise ProviderError("bad_tool_call", f"{name}: unknown 'missing'")
+            filled = self._slots_from_question(messages[-1]["content"])
+            if filled is not None:  # fix B: the question itself names everything the lookup needs
+                slots = {
+                    "product": filled.product,
+                    "ingredient": None,
+                    "crop": filled.crop,
+                    "pest": filled.pest,
+                }
+                return _Understood(call.id, slots, None, filled, None)
             if not question or not verify_clarification(question).ok:
                 question = CLARIFY[missing]
             return _Understood(call.id, args, call.raw, None, Clarification(question, missing))
@@ -265,6 +274,40 @@ class Assistant:
             return crop
         return mentions[0][0]
 
+    def _slots_from_question(self, question: str) -> Query | None:
+        """Fix B (E3n-d: "which crop?" on 11 of 24 questions that named both the crop and the product).
+        The question's own words, when they are unambiguous: exactly one registered product as typed, exactly
+        one crop (fix A's rules), and at most one remaining phrase, which becomes the pest. A pest the lexicon
+        does not know stays the user's words, so the engine answers UNKNOWN_PEST, never a broader approval.
+        None means the model's clarifying question stands."""
+        names = self.engine.names
+        found = _typed_products(question, names)
+        if len({ids for _, _, ids in found}) != 1:  # no product, or two different products
+            return None
+        start, end, _ = found[0]
+        product = " ".join(question[start:end].split())
+        rest = question[:start] + " | " + question[end:]
+        mentions = [(s, ids) for s, ids in names.crop_mentions(rest) if match_key(s) not in NOT_CROPS]
+        if len({i for _, ids in mentions for i in ids}) != 1:  # no crop, or two crops
+            return None
+        for span, _ in mentions:
+            rest = re.sub(re.escape(span), " | ", rest, count=1, flags=re.IGNORECASE)
+        phrases = [p for p in (_trim(part) for part in re.split(r"[|,;:?!.]+", rest)) if p]
+        if len(phrases) > 1:  # two leftover phrases: which one is the pest is a guess
+            return None
+        try:
+            query = Query(crop=mentions[0][0], product=product, pest=phrases[0] if phrases else None)
+        except ValueError:
+            return None
+        if query.pest and names.pest(query.pest).status == "unknown":
+            # An unread phrase ("lagta", E3n N-074 on replay) only matters if the product has uses on this
+            # crop. With none at all, "not registered on this crop" is true whatever the phrase means; with
+            # some, the phrase stays, and the answer is UNKNOWN_PEST rather than a crop-wide approval.
+            bare = dataclasses.replace(query, pest=None)
+            if self.engine.lookup(bare).outcome is Outcome.NOT_APPROVED_FOR_CROP:
+                return bare
+        return query
+
     def _typed_strengths(self, query: Query, answer: Answer) -> set[Decimal]:
         """FR-7 amendment (E3n fix 5; user decision 2026-11-17: keep, with exact strength matching). A number
         in the product name the user typed may be echoed only if it equals a strength printed in the canonical
@@ -302,6 +345,42 @@ def product_in_question(question: str, ingredient: str) -> str | None:
         return None
     m = _TYPED_PRODUCT.match(question[start:])
     return " ".join(m.group(0).split()) if m else None
+
+
+def _typed_products(question: str, names: Names) -> list[tuple[int, int, tuple[int, ...]]]:
+    """Fix B: every span of the question that reads as a registered product, as (start, end, product IDs),
+    earliest start first. A span is tried from each word start; only exact resolutions count."""
+    found = []
+    for word in re.finditer(r"\b\w", question):
+        m = _TYPED_PRODUCT.match(question, word.start())
+        if m is None:
+            continue
+        resolved = names.product(" ".join(m.group(0).split()), ingredient_level=False)
+        if resolved.status == "exact":
+            found.append((m.start(), m.end(), resolved.product_ids))
+    return found
+
+
+# Linking words trimmed from the edges of the phrase fix B keeps as the pest (romanised Kannada and Hindi,
+# English, and quantity words). Only edges: "shoot and fruit borer" keeps its "and".
+_EDGE_WORDS = frozenset(
+    "a an the is it are can i we use used spray for on in of to with and or ok okay please tell me about "  # noqa: SIM905 (reads better as text)
+    "what which how much many dose approved registered allowed safe also "
+    "ke ki ka ko liye lie mein me mai pe par se hai hain kya chalega chalegi sakte sakta kar karna dalna "
+    "dalu daal kitna kitni kitne ya aur bhi toh na nahi "
+    "ge kke alli nalli sari aa ide ideya bandide banthu hodeyabahuda hodeyabahude hodeyali balasabahuda "
+    "balasabahude upayogisabahuda beku yaavudu enu athava "
+    "gram grams g kg ml litre liter l acre acres hectare ha per".split()
+)
+
+
+def _trim(phrase: str) -> str:
+    words = re.findall(r"[^\W\d_]+(?:[-'][^\W\d_]+)*", phrase)
+    while words and words[0].lower() in _EDGE_WORDS:
+        words.pop(0)
+    while words and words[-1].lower() in _EDGE_WORDS:
+        words.pop()
+    return " ".join(words)
 
 
 def _squash(text: str) -> str:

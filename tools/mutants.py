@@ -204,6 +204,31 @@ MUTANTS = [
     ("FA-M8 shortest alias first", "lookup/names.py",
      "for n in range(min(MAX_ALIAS_WORDS, len(words) - i), 0, -1):",
      "for n in range(1, min(MAX_ALIAS_WORDS, len(words) - i) + 1):", ["tests/test_assistant.py"], "killed"),
+    # fix B (E3n-d "which crop?"); predictions written before running, 2026-11-18
+    ("FB-M1 the clarifying question always stands", "assistant/loop.py",
+     "if filled is not None:  # fix B", "if False:  # fix B", ["tests/test_assistant.py"], "killed"),
+    ("FB-M2 two different products in the question are accepted", "assistant/loop.py",
+     "if len({ids for _, _, ids in found}) != 1:", "if not found:", ["tests/test_assistant.py"], "killed"),
+    ("FB-M3 two crops in the question are accepted", "assistant/loop.py",
+     "if len({i for _, ids in mentions for i in ids}) != 1:  # no crop, or two crops",
+     "if not mentions:  # no crop, or two crops", ["tests/test_assistant.py"],
+     "survived on the first run (the leftover 'athava' made a second phrase, so the phrase rule caught it); "
+     "killed after 'athava' became a linking word and the 'tamatar ya bhatta' case was added"),
+    ("FB-M4 the first of two leftover phrases is taken as the pest", "assistant/loop.py",
+     "if len(phrases) > 1:", "if False:", ["tests/test_assistant.py"], "killed"),
+    ("FB-M5 linking words are not trimmed", "assistant/loop.py",
+     "    while words and words[0].lower() in _EDGE_WORDS:\n        words.pop(0)\n",
+     "", ["tests/test_assistant.py"], "killed"),
+    ("FB-M6 an unknown pest is dropped, widening the answer to the whole crop", "assistant/loop.py",
+     "pest=phrases[0] if phrases else None)", "pest=None)", ["tests/test_assistant.py"], "killed"),
+    ("FB-M7 a malformed clarifying call is accepted", "assistant/loop.py",
+     "if missing not in CLARIFY:  # a malformed call", "if False:  # a malformed call",
+     ["tests/test_assistant.py"], "killed"),
+    ("FB-M8 an unread pest phrase is dropped even when the crop has uses", "assistant/loop.py",
+     "if self.engine.lookup(bare).outcome is Outcome.NOT_APPROVED_FOR_CROP:", "if True:",
+     ["tests/test_assistant.py"], "killed"),
+    ("FB-M9 an unread pest phrase is kept even when the crop has no uses", "assistant/loop.py",
+     "                return bare\n", "                return query\n", ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 

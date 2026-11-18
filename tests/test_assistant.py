@@ -447,3 +447,80 @@ def test_fixA_written_in_compares_whole_words() -> None:
     assert written_in("rice (paddy) mein", "Rice (Paddy)")
     assert not written_in("it may appear", "pea")
     assert not written_in("anything", "")
+
+
+# --- fix B (E3n-d: "which crop?" when the question named the crop and the product; E3n-e measures it) -------
+
+
+ASKS_CROP = call("ask_clarifying_question", missing="crop", question="Which crop are you asking about?")
+
+
+def test_fixB_a_needless_crop_question_becomes_a_lookup(engine: Engine) -> None:
+    a, groq, _ = assistant(engine, [ASKS_CROP, text("Approved; wait 15 days.")])
+    result = a.ask("bhatta stem borer Chlorantraniliprole 18.5% SC")
+    assert result.clarification is None
+    assert result.slots == {"product": PRODUCT, "ingredient": None, "crop": "bhatta", "pest": "stem borer"}
+    assert result.answer is not None
+    assert result.answer.outcome is Outcome.APPROVED
+    sent = groq.sent[1][-2]["tool_calls"][0]["function"]  # the phrasing call sees a lookup with these slots
+    assert sent["name"] == "lookup"
+    assert '"crop": "bhatta"' in sent["arguments"]
+
+
+@pytest.mark.parametrize(
+    ("question", "pest", "outcome"),
+    [
+        ("tamatar ge fruit borer bandide, Chlorantraniliprole 18.5 SC hodeyabahuda?", "fruit borer",
+         "APPROVED"),
+        ("Chlorantraniliprole 18.5% SC tamatar ge registered aa?", None, "APPROVED"),  # no pest asked
+        ("tamatar mein fruit borer ke liye Chlorantraniliprole 18.5% SC, kitna gram per acre?", "fruit borer",
+         "APPROVED"),
+        # a pest word the lexicon does not know stays the user's words: "not found", never a wider approval
+        ("tamatar hula ge Chlorantraniliprole 18.5% SC", "hula", "UNKNOWN_PEST"),
+        # ... unless the product has no use on the crop at all, which no pest word can change (E3n N-074)
+        ("cotton pe Chlorantraniliprole 18.5% SC lagta hai kya?", None, "NOT_APPROVED_FOR_CROP"),
+    ],
+)  # fmt: skip
+def test_fixB_the_pest_is_what_remains_after_linking_words(
+    engine: Engine, question: str, pest: str | None, outcome: str
+) -> None:
+    a, _, _ = assistant(engine, [ASKS_CROP, text("Listed.")])
+    result = a.ask(question)
+    assert result.slots is not None
+    assert result.slots["pest"] == pest
+    assert result.answer is not None
+    assert result.answer.outcome.value == outcome
+
+
+@pytest.mark.parametrize(
+    ("question", "why"),
+    [
+        ("tamatar fruit borer ge yaavudu aushadhi?", "no product"),
+        ("Chlorantraniliprole 18.5% SC fruit borer ge sari na?", "no crop"),
+        ("Chlorantraniliprole 18.5% SC tamatar athava bhatta stem borer", "two crops"),
+        ("Chlorantraniliprole 18.5% SC tamatar ya bhatta? stem borer", "two crops, joined by a linking word"),
+        ("Chlorantraniliprole 18.5% SC or Chlorpyriphos 20% EC on tamatar?", "two products"),
+        ("tamatar fruit borer, Chlorantraniliprole 18.5% SC, also stem borer", "two leftover phrases"),
+        ("tamatar fruit borer Chlorantraniliprole 99% SC", "a product the register does not list"),
+    ],
+)
+def test_fixB_the_clarifying_question_stands(engine: Engine, question: str, why: str) -> None:
+    a, groq, _ = assistant(engine, [ASKS_CROP])
+    result = a.ask(question)
+    assert result.clarification is not None, why
+    assert result.answer is None
+    assert len(groq.sent) == 1  # no lookup, no phrasing call
+
+
+def test_fixB_never_repairs_a_malformed_clarifying_call(engine: Engine) -> None:
+    bad = call("ask_clarifying_question", missing="dose", question="Which dose?")  # not an allowed slot
+    a, _, gemini = assistant(engine, [bad], [LOOKUP, text("Approved, 3 days.")])
+    result = a.ask("bhatta stem borer Chlorantraniliprole 18.5% SC")
+    assert result.provider == "gemini"
+    assert len(gemini.sent) == 2
+
+
+def test_fixB_the_verifier_still_checks_the_reply(engine: Engine) -> None:
+    a, _, _ = assistant(engine, [ASKS_CROP, text("Approved: use 999 ml per acre.")])
+    result = a.ask("bhatta stem borer Chlorantraniliprole 18.5% SC")
+    assert (result.phrased_by, result.verifier_blocked) == ("template", True)
