@@ -705,3 +705,13 @@ def test_a_near_pest_name_is_asked_about_in_the_headline(engine: Engine) -> None
     a, _, _ = assistant(engine, [lookup, text("Listed for fruit borer.")])
     result = a.ask("Chlorantraniliprole 18.5% SC on tomato for borer?")
     assert result.headline == "Not listed under 'borer', but listed for: fruit borer. Is that your pest?"
+
+
+def test_the_model_is_not_given_a_ban_on_other_crops(engine: Engine) -> None:
+    # Pilot test 13: the Mancozeb ban on guava, jowar and tapioca kept appearing in tomato answers
+    lookup = call("lookup", product="Chlorpyriphos 20% EC", ingredient=None, crop="cotton", pest=None)
+    a, groq, _ = assistant(engine, [lookup, text("Listed.")])
+    result = a.ask("Chlorpyriphos 20% EC on cotton?")
+    assert result.answer is not None
+    assert result.answer.restrictions  # the engine still reports it (ber, citrus, tobacco) ...
+    assert '"restrictions": []' in groq.sent[1][-1]["content"]  # ... but the model is not told about it

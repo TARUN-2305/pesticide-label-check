@@ -97,9 +97,12 @@ function answerCard(headline, message, answer, clarification, requestId = null) 
     $("question").focus();
     return;
   }
-  if (answer && answer.restrictions && answer.restrictions.length) {
+  // pilot fix 4: only restrictions on this crop (or outright bans) are a warning; the rest is a quiet note
+  const applies = (r) => r.names_the_crop || ["banned", "banned_for_use", "withdrawn"].includes(r.status);
+  const restrictions = (answer && answer.restrictions) || [];
+  if (restrictions.some(applies)) {
     const box = el("div", { class: "warning", role: "alert" }, el("strong", {}, t("restriction")));
-    for (const r of answer.restrictions) box.append(el("p", {}, `${r.ingredient}: ${r.detail_raw} (${t("page")} ${r.page})`));
+    for (const r of restrictions.filter(applies)) box.append(el("p", {}, `${r.ingredient}: ${r.detail_raw} (${t("page")} ${r.page})`));
     out.push(box);
   }
   const approved = answer && answer.outcome === "APPROVED" && !answer.conflict; // a ban is never green
@@ -113,11 +116,21 @@ function answerCard(headline, message, answer, clarification, requestId = null) 
       for (const use of answer.uses.slice(0, 10)) out.push(rowCard(use));
     }
     if (answer.alternatives.length) {
+      // the asked product's own ingredients come first (pilot fix 4); the rest stay one tap away
       out.push(el("h4", {}, t("instead")));
       for (const use of answer.alternatives.slice(0, 5)) out.push(rowCard(use));
+      if (answer.alternatives.length > 5) {
+        const more = el("details", {}, el("summary", {}, `${t("show_more")} (${answer.alternatives.length - 5})`));
+        for (const use of answer.alternatives.slice(5)) more.append(rowCard(use));
+        out.push(more);
+      }
     }
     const suggestions = Object.values(answer.suggestions || {}).flat();
     if (suggestions.length) out.push(el("p", {}, `${t("suggest")}: ${suggestions.map((s) => s.display).join(", ")}`));
+    const others = restrictions.filter((r) => !applies(r));
+    if (others.length) {
+      out.push(el("p", { class: "earlier" }, `${t("other_restrictions")}: ${others.map((r) => r.detail_raw).join(" ")}`));
+    }
     out.push(el("p", { class: "disclaimer" }, answer.disclaimer));
   }
   if (pilotOn && requestId) out.push(feedbackRow(requestId));

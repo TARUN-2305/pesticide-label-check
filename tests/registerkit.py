@@ -40,6 +40,8 @@ USES_G = [
     (21, 13, "Grape", "Powdery mildew", "2000", "2500", "750", "-", None, None, 35),
     (22, 14, "Grape", "Powdery mildew", "2000", "2500", "-", "-", None, None, 35),
     (23, 7, "Cotton", "Bacterial blight", "1500", "2000", "750", "-", None, None, 41),
+    # pilot fix 4: a potato early-blight row for Sulphur 80% WP, after Mancozeb 75% WP's row 10 by number
+    (24, 13, "Potato", "Early blight", "2000", "2500", "750", "-", None, None, 35),
 ]
 
 
@@ -123,7 +125,8 @@ def build_fixture(path: Path) -> str:
                             (6, "tomato"), (7, "rice"), (8, "citrus"), (9, "potato"), (10, "potato"),
                             (11, "sorghum"), (12, "sorghum"), (13, "bitter_gourd"), (14, "ridgegourd"),
                             (15, "bitter_gourd"), (16, "ridgegourd"), (17, "bottle_gourd"), (18, "potato"),
-                            (19, "rice"), (20, "grape"), (21, "grape"), (22, "grape"), (23, "cotton")],
+                            (19, "rice"), (20, "grape"), (21, "grape"), (22, "grape"), (23, "cotton"),
+                            (24, "potato")],
         "use_record_pest": [(1, "fruit_borer", "fruit borer"), (2, "stem_borer", "stem borer"), (3, "aphid", "aphids"),
                             (4, "brown_plant_hopper", "brown plant hopper"), (5, "jassid", "jassids"),
                             (6, "jassid", "jassids"), (7, "stem_borer", "stem borer"),
@@ -133,7 +136,8 @@ def build_fixture(path: Path) -> str:
                             (15, "thrips", "thrips"), (16, "thrips", "thrips"), (17, "thrips", "thrips"),
                             (18, "aphid", "aphids"), (19, "whitefly", "whiteflies"),
                             (20, "powdery_mildew", "powdery mildew"), (21, "powdery_mildew", "powdery mildew"),
-                            (22, "powdery_mildew", "powdery mildew"), (23, "bacterial_blight", "bacterial blight")],
+                            (22, "powdery_mildew", "powdery mildew"), (23, "bacterial_blight", "bacterial blight"),
+                            (24, "early_blight", "early blight")],
         "generic_member": [
             ("blight", "pest", "bacterial_blight"), ("blight", "pest", "blight"), ("blight", "pest", "early_blight"),
             ("blight", "pest", "late_blight"), ("leafspot", "pest", "leaf_spot"), ("leafspot", "pest", "red_leaf_spot"),

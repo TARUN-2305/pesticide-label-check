@@ -19,6 +19,7 @@ from labelclaim.lookup.models import (
     Suggestion,
 )
 from labelclaim.lookup.names import Names, ProductResolution, Resolution
+from labelclaim.normalize.ingredients import spelling_family
 from labelclaim.normalize.lexicon import key, match_key
 from labelclaim.register.writer import open_readonly
 
@@ -41,6 +42,7 @@ class Engine:
         # one Engine per thread (api.app.Engines); only shutdown closes it from another thread
         self._conn: sqlite3.Connection = open_readonly(register, same_thread=False)
         self.names = Names(self._conn)
+        self._family_of = {i: spelling_family(k) for k, (i, _) in self.names.ingredient.items()}
         info = dict(self._conn.execute("SELECT key, value FROM build_info").fetchall())
         dates = dict(
             self._conn.execute("SELECT id, register_date FROM source_document WHERE kind != 'restrictions'")
@@ -98,7 +100,7 @@ class Engine:
                 Outcome.NOT_APPROVED_FOR_CROP,
                 restrictions,
                 approved_crops=self._crops_of(product.product_ids),
-                alternatives=self._uses_for(crop_id, pest_id) if pest_id else [],
+                alternatives=self._uses_for(crop_id, pest_id, product.product_ids) if pest_id else [],
             )
         if pest is not None and pest.status == "generic":
             assert pest_text is not None  # noqa: S101 - set together with pest
@@ -117,7 +119,7 @@ class Engine:
                         Outcome.NOT_APPROVED_FOR_PEST,
                         restrictions,
                         approved_pests=self._pest_names(rows),
-                        alternatives=self._uses_for(crop_id, pest_id),
+                        alternatives=self._uses_for(crop_id, pest_id, product.product_ids),
                     )
                 )
             rows = with_pest
@@ -242,15 +244,30 @@ class Engine:
         )
         return [r[0] for r in self._conn.execute(sql, (crop_id, *product_ids))]
 
-    def _uses_for(self, crop_id: str, pest_id: str | None) -> list[int]:
+    def _uses_for(self, crop_id: str, pest_id: str | None, asked: tuple[int, ...] = ()) -> list[int]:
+        """Approved uses for this crop and pest, the asked product's own ingredients first (pilot fix 4: for
+        Mancozeb 75% WG on tomato, Mancozeb 75% WP is the most useful alternative, and it had been cut off by
+        the cap of 20 after an order by row number)."""
         if pest_id is None:
             return []
         sql = (
-            "SELECT DISTINCT u.id FROM use_record u JOIN use_record_crop c ON c.use_record_id = u.id "
+            "SELECT DISTINCT u.id, u.product_id FROM use_record u "
+            "JOIN use_record_crop c ON c.use_record_id = u.id "
             "JOIN use_record_pest p ON p.use_record_id = u.id "
             "WHERE c.crop_id = ? AND p.pest_id = ? ORDER BY u.id"
         )
-        return [r[0] for r in self._conn.execute(sql, (crop_id, pest_id))]
+        rows = self._conn.execute(sql, (crop_id, pest_id)).fetchall()
+        wanted = {f for pid in asked for f in self._families(pid)}
+
+        def rank(row: tuple[int, int]) -> tuple[int, int]:
+            have = self._families(row[1])
+            return (0 if have == wanted else 1 if have & wanted else 2, row[0])
+
+        return [uid for uid, _ in sorted(rows, key=rank)]
+
+    def _families(self, product_id: int) -> set[str]:
+        """The product's ingredients by spelling family ("sulphur" = "sulfur", L2 §13.4)."""
+        return {self._family_of[i] for i, _ in self.names.product_ingredients.get(product_id, ())}
 
     def pest_ids_on(self, crop_ids: tuple[str, ...]) -> set[str]:
         """Pests with at least one registered use on any of these crops (for the pest autocomplete)."""
@@ -304,6 +321,8 @@ class Engine:
         if not use_ids:
             return ()
         rows = self._conn.execute(_USE_SQL.format(ids=",".join("?" * len(use_ids))), use_ids).fetchall()
+        order = {uid: n for n, uid in enumerate(use_ids)}  # keep the caller's order (pilot fix 4)
+        rows.sort(key=lambda r: order[r[0]])
         out = []
         for uid, heading, crop, pest, ai, form, dil, wait, lo, hi, first, last, doc, date, url, fixed in rows:
             citation = Citation(doc, date, first, last, f"{url}#page={first}")

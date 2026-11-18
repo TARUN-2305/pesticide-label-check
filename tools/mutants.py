@@ -287,6 +287,14 @@ MUTANTS = [
     ("PX-M5 any shared word makes a near name", "lookup/engine.py",
      "if p != pest_id and asked < _name_words(", "if p != pest_id and asked & _name_words(",
      ["tests/test_lookup.py"], "killed"),
+    ("PX-M6 alternatives back in row order", "lookup/engine.py",
+     "return [uid for uid, _ in sorted(rows, key=rank)]", "return [uid for uid, _ in rows]",
+     ["tests/test_lookup.py"], "killed"),
+    ("PX-M7 rows lose the caller's order", "lookup/engine.py",
+     "        rows.sort(key=lambda r: order[r[0]])\n", "", ["tests/test_lookup.py"], "killed"),
+    ("PX-M8 the model is told about bans on other crops", "assistant/loop.py",
+     "asdict(r) for r in answer.restrictions if r.names_the_crop or r.status in TOTAL_BANS",
+     "asdict(r) for r in answer.restrictions", ["tests/test_assistant.py"], "killed"),
 ]  # fmt: skip
 
 

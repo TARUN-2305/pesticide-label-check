@@ -308,3 +308,12 @@ def test_a_different_pest_sharing_one_word_stays_not_listed(engine: Engine) -> N
     # stem borer is not fruit borer: one shared word ("borer") is not enough, every asked word must be there
     a = engine.lookup(Query(crop="tomato", product="Chlorantraniliprole 18.5% SC", pest="stem borer"))
     assert a.outcome is Outcome.NOT_APPROVED_FOR_PEST
+
+
+def test_alternatives_with_the_asked_products_ingredient_come_first(engine: Engine) -> None:
+    # Pilot test 13: Mancozeb 75% WP, the most useful alternative to Mancozeb 75% WG, was cut off. Row 10
+    # (Mancozeb 75% WP) comes before row 24 (Sulphur 80% WP) by number; the asked product is sulphur, so row
+    # 24 must come first.
+    a = engine.lookup(Query(crop="potato", product="Sulfur 85% DP", pest="early blight"))
+    assert a.outcome is Outcome.NOT_APPROVED_FOR_CROP
+    assert [u.use_id for u in a.alternatives] == [24, 10]

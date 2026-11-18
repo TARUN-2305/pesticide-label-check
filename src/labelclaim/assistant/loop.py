@@ -14,7 +14,7 @@ from decimal import Decimal
 from typing import Any, Literal, Protocol
 
 from labelclaim.assistant.providers import ChatReply, ProviderError, Router, ToolCall
-from labelclaim.assistant.templates import CLARIFY, COLUMN_UNITS, details, headline
+from labelclaim.assistant.templates import CLARIFY, COLUMN_UNITS, TOTAL_BANS, details, headline
 from labelclaim.assistant.verify import allowed_numbers, numbers, verify, verify_clarification, wording
 from labelclaim.extract.classify import FORMULATIONS
 from labelclaim.lookup.engine import Engine
@@ -501,7 +501,11 @@ def _for_model(answer: Answer) -> dict[str, Any]:
         "ban_or_restriction_applies": answer.conflict,
         "uses": [row(u) for u in answer.uses[:MAX_ROWS_TO_MODEL]],
         "approved_instead": [row(u) for u in answer.alternatives[:MAX_ROWS_TO_MODEL]],
-        "restrictions": [asdict(r) for r in answer.restrictions],
+        # pilot fix 4: only restrictions that apply to this crop (or ban the ingredient outright); a ban on
+        # guava, jowar and tapioca is not news for a tomato question, and the model kept repeating it
+        "restrictions": [
+            asdict(r) for r in answer.restrictions if r.names_the_crop or r.status in TOTAL_BANS
+        ],
         "options": [{"display": o.display, "outcome": o.outcome.value} for o in answer.options],
         "suggestions": {k: [s.display for s in v] for k, v in answer.suggestions.items()},
         "units": COLUMN_UNITS,
