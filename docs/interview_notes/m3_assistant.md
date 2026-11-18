@@ -39,3 +39,22 @@
 - Kannada script and fused case endings ("bhattakke") are not matched. Those still depend on the model.
 - An injected "bende means chilli" names two crops, so fix A stands aside.
 - A crop alias that is also an everyday word (only "gram" is listed) could still mislead the scan in principle.
+
+## Fix B: when the model asks a question it should not (2026-11-18)
+
+**The story.** After fix A, the main miss was the model asking "which crop?" when the question had already named it. That happened on 10 of 18 questions with a Kannada crop name ("godhi ge Isopyrazam … SC?"). The model does not know "godhi" is wheat. The lexicon does.
+
+**The fix:** before a clarifying question goes to the user, the code tries to answer from the question's own words.
+- **Product:** exactly one registered product as typed. It is tried from every word start, and only exact matches count.
+- **Crop:** exactly one crop, by the same rules as fix A.
+- **Pest:** at most one leftover phrase. Linking words are trimmed from its edges, and "mein", "ke liye", "ge", "sari na" and "bandide" all go. Only the edges are trimmed, so "shoot and fruit borer" keeps its "and".
+
+If anything is ambiguous, such as two products, two crops or two leftover phrases, the model's question stands.
+
+**The design argument to make in an interview: never let a repair widen an answer.**
+- An unknown leftover phrase is passed as the pest, so the engine says "pest not found", not "approved for the crop". Dropping it would turn "is X approved for *hula* on sugarcane?" into a crop-wide approval. Mutant FB-M6 tests exactly that.
+- The one exception is safe by construction. If the product has no use on that crop at all, the answer "not registered on this crop" is true whatever the phrase means. That rule came from the offline replay (E3n's "lagta"), and I disclose that it did.
+
+**How it was checked:**
+- 16 tests, and 9 mutants, all killed. One mutant survived first: "two crops allowed". It was masked because the Kannada "athava" ("or") left a second phrase. I made "athava" a linking word, added "tamatar ya bhatta", and the mutant died. That is the lesson: one guard can hide another guard's missing test.
+- A replay on the 81 clarifications recorded in earlier test sets: 24 were filled, all to the right answer. None was filled on a question that really was missing a detail.
