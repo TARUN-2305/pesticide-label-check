@@ -26,15 +26,18 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException
 
+from labelclaim.api.pilot import PilotLog
 from labelclaim.api.ratelimit import DailyCap, TokenBucket
 from labelclaim.api.schemas import (
     AskOut,
     AskRequest,
     ErrorOut,
+    FeedbackRequest,
     HealthOut,
     LookupOut,
     LookupRequest,
     NameOut,
+    PilotOut,
     ProductOut,
     RegisterOut,
 )
@@ -59,6 +62,7 @@ class Settings:
     chat_clients: dict[str, Chat] = field(default_factory=dict, compare=False)  # in fallback order (L3 §6)
     web_dir: Path | None = None  # L4: the static web app, served at /
     ask_per_day: int = 800  # L4 §3: below Groq's free 1,000 requests a day
+    pilot_log: Path | None = None  # L4 §9: private tests only; questions are saved, so testers are told
     wall_clock: Callable[[], float] = field(default=time.time, compare=False)
 
 
@@ -105,6 +109,7 @@ def _error(status: int, code: str, message: str, request_id: str) -> JSONRespons
 
 def create_app(settings: Settings) -> FastAPI:
     engines = Engines(settings.register)
+    pilot = PilotLog(settings.pilot_log, settings.wall_clock) if settings.pilot_log else None
     bucket = TokenBucket(settings.rate_per_minute, settings.clock)
 
     @asynccontextmanager
@@ -195,9 +200,13 @@ def create_app(settings: Settings) -> FastAPI:
         head = headline(answer, query.product or query.ingredient or "", query.crop, query.pest,
                         by_ingredient=query.product is None)  # fmt: skip
         fields = {**_plain(asdict(answer)), "conflict": answer.conflict, "headline": head}
+        if pilot:
+            pilot.write("lookup", request.state.request_id, query=body.model_dump(),
+                        outcome=answer.outcome.value, headline=head)  # fmt: skip
         return LookupOut.model_validate(fields)
 
-    _mount_assistant(app, settings, engines)
+    _mount_assistant(app, settings, engines, pilot)
+    _mount_pilot(app, pilot)
 
     _mount_names(app, engines)
 
@@ -232,7 +241,22 @@ def _mount_names(app: FastAPI, engines: Engines) -> None:
         return [ProductOut(id=pid, heading=h) for h, pid in hits[:MAX_RESULTS]]
 
 
-def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines) -> None:
+def _mount_pilot(app: FastAPI, pilot: PilotLog | None) -> None:
+    """L4 §9: whether this server records a private test, and a tester's rating of one answer."""
+
+    @app.get("/v1/pilot", response_model=PilotOut)
+    def pilot_state() -> PilotOut:
+        return PilotOut(logging=pilot is not None)
+
+    @app.post("/v1/feedback", status_code=204, responses={404: {"model": ErrorOut}, 422: {"model": ErrorOut}})
+    def feedback(body: FeedbackRequest, request: Request) -> Response:
+        if pilot is None:
+            return _error(404, "not_found", "this server is not recording a test", request.state.request_id)
+        pilot.write("feedback", body.request_id, rating=body.rating, note=body.note)
+        return Response(status_code=204)
+
+
+def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines, pilot: PilotLog | None) -> None:
     """POST /v1/ask (L3): the model interprets and phrases; the engine decides."""
     router = Router(list(settings.chat_clients))
     cap = DailyCap(settings.ask_per_day, settings.wall_clock)
@@ -253,10 +277,18 @@ def _mount_assistant(app: FastAPI, settings: Settings, engines: Engines) -> None
         try:
             result = Assistant(engines.get(), settings.chat_clients, router).ask(body.question, body.lang)
         except ProviderError:
+            if pilot:
+                pilot.write("ask", request.state.request_id, question=body.question, lang=body.lang,
+                            status=503)  # fmt: skip
             return _error(503, "assistant_unavailable", "the models are unavailable; use POST /v1/lookup",
                           request.state.request_id)  # fmt: skip
         answer = result.answer
         request.state.outcome = answer.outcome.value if answer else "CLARIFY"
+        if pilot:
+            pilot.write("ask", request.state.request_id, question=body.question, lang=body.lang,
+                        outcome=request.state.outcome, headline=result.headline, message=result.message,
+                        slots=result.slots, provider=result.provider, phrased_by=result.phrased_by,
+                        verifier_blocked=result.verifier_blocked)  # fmt: skip
         return AskOut.model_validate({
             **_plain(asdict(result)),
             "answer": {**_plain(asdict(answer)), "conflict": answer.conflict} if answer else None,

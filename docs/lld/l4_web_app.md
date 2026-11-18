@@ -56,7 +56,7 @@ A dealer at a busy counter, on a phone, asks "is this approved, at what dose, ho
 - read-only, port from `$PORT`;
 - the keys come from the host's secret settings (`load_keys` already prefers environment variables), never the image.
 
-**Host:** a free tier that runs a container, for example Hugging Face Spaces (Docker). You create the account and add the two secrets; I never see the keys.
+**Host:** a free tier that runs a container. **Correction, 2026-11-18:** the first choice here, Hugging Face Spaces (Docker), now needs a paid plan to create a Docker Space (huggingface.co/docs/hub/spaces-overview, "Creating a new Space"). The user pointed this out, and the docs confirm it. **For private tests no host is needed:** the app runs on the laptop, and testers reach it through a temporary link. An always-on free host is chosen later, after PPQS replies.
 
 **Gate before a public link:** check the PPQS website's copyright or reuse policy for the register PDFs and the data derived from them, and record it. Until then, the link is shared privately.
 
@@ -141,3 +141,24 @@ Markdown bold marks (`**`) in model text are now dropped on the page.
 - the container;
 - the copyright check;
 - (done 2026-11-18) the Kannada labels were reviewed by the user, a Kannada speaker: "Yes Kannada is fine".
+
+## 9. Private tests that record what happens (2026-11-18)
+
+**The user's decisions:**
+- M4 is on hold, because data.gov.in is down.
+- M5 (voice) is on hold. Chemical product names are far harder for speech-to-text than for typing.
+- English private tests come first, and the application should "record things".
+
+**Built:** pilot logging, off by default. `python -m labelclaim.api --pilot-log pilot/pilot.jsonl` turns it on. Then:
+- each Ask and Check, and each rating, is appended as one JSON line: the time to the minute (UTC), the question or the slots, the outcome, the headline, the message, the provider, and whether the verifier blocked it;
+- no IP address or request header is recorded;
+- the file is created with mode 600, and `pilot/` is gitignored;
+- the page shows a notice ("Test version: your questions, the answers and your ratings are saved … Please don't type personal details.");
+- the page shows 👍 / 👎 with an optional note under every answer (`POST /v1/feedback`, tied to the answer's `x-request-id`);
+- `GET /v1/pilot` tells the page whether recording is on.
+
+This is the consent mechanism NFR-5 asks for: logging happens only in a test the operator starts, and it is visible to the tester.
+
+**Checked:** 2 tests (off by default; on, it records ask, lookup and feedback, with no address and mode 600). In the browser at 375 px: the notice shows; Check "Mancozeb 75% WP / potato / late blight" gave Approved; a 👎 with a note was saved ("Thanks, saved."); the log file had mode 600 with the 2 expected lines. Those test lines were then deleted.
+
+**How testers reach it:** a temporary link from the laptop (`docs/deploy.md`), started only with the user's go-ahead.

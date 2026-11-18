@@ -10,3 +10,6 @@ build/
 dist/
 # Source PDFs are fetched by hash into ~/.cache/labelclaim, never committed.
 *.pdf
+
+# private-test logs (L4 §9): questions typed by testers, never committed
+pilot/

@@ -5,10 +5,14 @@
 ## Gates, in order
 
 1. **PPQS permission (copyright gate, L4 §8).** The PPQS website policy allows reproduction free of charge **after permission by email**. Until it is granted, the link stays private (shared only with testers).
-2. **A host account** (yours). Hugging Face Spaces (Docker) is the free option in L4 §5.
+2. **A host account** (yours). **Not Hugging Face:** since its docs now say Docker Spaces need a paid plan to create (checked 2026-11-18), the free host is still to be chosen. Private tests need no host (see below).
 3. **Secrets:** add `GROQ_API_KEY` (and optionally `GEMINI_API_KEY`) in the host's secret settings. They are never put in the image or the repository.
 
-## Steps (Hugging Face Spaces, Docker)
+## Private tests now: from the laptop
+
+The app runs here with `--behind-proxy`. A temporary tunnel gives testers a random HTTPS link. The keys stay in `~/.config/labelclaim/env` on this machine, so no host and no secrets settings are needed. The link works only while the laptop runs it. The per-minute bucket and the daily cap on `/v1/ask` still apply.
+
+## Steps (a container host: kept for reference, written for Hugging Face before its Docker Spaces became paid)
 
 1. Create a Space with the **Docker** SDK, set to **private**.
 2. In the Space settings, add the secrets above.

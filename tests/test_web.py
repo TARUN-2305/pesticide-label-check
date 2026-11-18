@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+import stat
 from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
@@ -117,3 +119,46 @@ def test_the_daily_cap_counts_per_utc_day() -> None:
     assert not cap.allow()
     now[0] = 86400.0
     assert cap.allow()
+
+
+# --- pilot logging for private tests (L4 §9) ----------------------------------------------------------
+
+
+def test_pilot_logging_is_off_by_default(client: TestClient) -> None:
+    assert client.get("/v1/pilot").json() == {"logging": False}
+    r = client.post("/v1/feedback", json={"request_id": "a" * 32, "rating": "up"})
+    assert r.status_code == 404
+
+
+def test_a_private_test_saves_questions_answers_and_ratings_for_the_owner_only(
+    register: Path, tmp_path: Path
+) -> None:
+    log = tmp_path / "pilot.jsonl"
+    settings = Settings(register=register, rate_per_minute=1000, chat_clients={"groq": _Fake()},
+                        pilot_log=log, wall_clock=lambda: 1_795_000_000.0)  # fmt: skip
+    with TestClient(create_app(settings)) as c:
+        assert c.get("/v1/pilot").json() == {"logging": True}
+        r = c.post("/v1/ask", json={"question": "coragen on tomato?", "lang": "en"})
+        rid = r.headers["x-request-id"]
+        c.post("/v1/lookup", json={"product": "Chlorantraniliprole 18.5% SC", "crop": "tomato"})
+        assert (
+            c.post(
+                "/v1/feedback", json={"request_id": rid, "rating": "down", "note": "wrong crop"}
+            ).status_code
+            == 204
+        )
+        assert c.post("/v1/feedback", json={"request_id": rid, "rating": "meh"}).status_code == 422
+        assert c.post("/v1/feedback", json={"request_id": "x", "rating": "up"}).status_code == 422
+        assert (
+            c.post("/v1/feedback", json={"request_id": rid, "rating": "up", "note": "n" * 301}).status_code
+            == 422
+        )
+    records = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines()]
+    assert [r["kind"] for r in records] == ["ask", "lookup", "feedback"]
+    assert records[0]["question"] == "coragen on tomato?"
+    assert records[0]["outcome"] == "APPROVED"
+    assert records[0]["request_id"] == rid == records[2]["request_id"]
+    assert records[2]["note"] == "wrong crop"
+    assert records[0]["at"].endswith("Z")
+    assert all("client" not in r and "ip" not in r for r in records)  # no address is recorded
+    assert stat.S_IMODE(log.stat().st_mode) == 0o600

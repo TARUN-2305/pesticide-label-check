@@ -6,6 +6,7 @@ let lang = "en";
 // When the assistant asks for one more detail, the reply continues that question instead of starting a new
 // one (/v1/ask is stateless, so the page joins the two). Found 2026-11-18: "Tomato" alone lost the product.
 let pending = null;
+let pilotOn = false; // L4 §9: a private test that saves questions, answers and ratings (the page says so)
 const $ = (id) => document.getElementById(id);
 const t = (k) => LABELS[lang][k] ?? LABELS.en[k];
 
@@ -45,7 +46,7 @@ async function api(path, body) {
   const response = await fetch(path, init);
   let data = null;
   try { data = await response.json(); } catch { /* not JSON */ }
-  return { status: response.status, data };
+  return { status: response.status, data, requestId: response.headers.get("x-request-id") };
 }
 
 function notice(text, kind = "info") {
@@ -66,7 +67,23 @@ function rowCard(use) {
     el("p", { class: "cite" }, `${t("page")} ${pages} · ${c.document_id} · `, link));
 }
 
-function answerCard(headline, message, answer, clarification) {
+function feedbackRow(requestId) {
+  const note = el("input", { type: "text", maxlength: "300", placeholder: t("note_placeholder"), "aria-label": t("note_placeholder") });
+  const row = el("div", { class: "feedback" });
+  const send = async (rating) => {
+    const { status } = await api("/v1/feedback", { request_id: requestId, rating, note: note.value.trim() })
+      .catch(() => ({ status: 0 }));
+    row.replaceChildren(el("p", { class: "earlier" }, status === 204 ? t("thanks") : t("error")));
+  };
+  const up = el("button", { type: "button" }, `👍 ${t("helpful")}`);
+  const down = el("button", { type: "button" }, `👎 ${t("wrong")}`);
+  up.addEventListener("click", () => send("up"));
+  down.addEventListener("click", () => send("down"));
+  row.append(note, el("div", { class: "buttons" }, up, down));
+  return row;
+}
+
+function answerCard(headline, message, answer, clarification, requestId = null) {
   const out = [];
   if (clarification) {
     out.push(el("h3", {}, t("clarify")), el("p", { class: "message" }, clarification.question));
@@ -99,6 +116,7 @@ function answerCard(headline, message, answer, clarification) {
     if (suggestions.length) out.push(el("p", {}, `${t("suggest")}: ${suggestions.map((s) => s.display).join(", ")}`));
     out.push(el("p", { class: "disclaimer" }, answer.disclaimer));
   }
+  if (pilotOn && requestId) out.push(feedbackRow(requestId));
   $("result").replaceChildren(...out);
 }
 
@@ -109,10 +127,10 @@ async function ask(event) {
   const question = pending ? `${pending} ${typed}`.slice(0, 500) : typed;
   pending = null;
   notice(t("working"));
-  const { status, data } = await api("/v1/ask", { question, lang }).catch(() => ({ status: 0, data: null }));
+  const { status, data, requestId } = await api("/v1/ask", { question, lang }).catch(() => ({ status: 0, data: null }));
   if (status === 200 && data) {
     if (data.clarification) pending = question;
-    return answerCard(data.headline, data.message, data.answer, data.clarification);
+    return answerCard(data.headline, data.message, data.answer, data.clarification, requestId);
   }
   if (status === 503) { notice(t("unavailable"), "warn"); return showTab("check"); }
   if (status === 429) return notice(t("limited"), "warn");
@@ -125,8 +143,8 @@ async function check(event) {
   const pest = $("pest").value.trim();
   if (pest) body.pest = pest;
   notice(t("working"));
-  const { status, data } = await api("/v1/lookup", body).catch(() => ({ status: 0, data: null }));
-  if (status === 200 && data) return answerCard(data.headline, "", data, null);
+  const { status, data, requestId } = await api("/v1/lookup", body).catch(() => ({ status: 0, data: null }));
+  if (status === 200 && data) return answerCard(data.headline, "", data, null, requestId);
   if (status === 429) return notice(t("limited"), "warn");
   notice(t("error"), "warn");
 }
@@ -166,4 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
   suggest($("crop"), "crop-list", "/v1/crops", "display");
   suggest($("pest"), "pest-list", "/v1/pests", "display");
   registerDate();
+  api("/v1/pilot").then(({ status, data }) => {
+    pilotOn = status === 200 && Boolean(data && data.logging);
+    $("pilot").hidden = !pilotOn;
+  }).catch(() => {});
 });

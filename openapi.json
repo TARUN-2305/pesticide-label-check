@@ -281,6 +281,37 @@
     "title": "ErrorOut",
     "type": "object"
    },
+   "FeedbackRequest": {
+    "additionalProperties": false,
+    "description": "L4 \u00a79: a tester's rating of one answer, tied to it by the answer's x-request-id.",
+    "properties": {
+     "note": {
+      "default": "",
+      "maxLength": 300,
+      "title": "Note",
+      "type": "string"
+     },
+     "rating": {
+      "enum": [
+       "up",
+       "down"
+      ],
+      "title": "Rating",
+      "type": "string"
+     },
+     "request_id": {
+      "pattern": "^[0-9a-f]{32}$",
+      "title": "Request Id",
+      "type": "string"
+     }
+    },
+    "required": [
+     "request_id",
+     "rating"
+    ],
+    "title": "FeedbackRequest",
+    "type": "object"
+   },
    "HTTPValidationError": {
     "properties": {
      "detail": {
@@ -524,6 +555,19 @@
     ],
     "title": "Outcome",
     "type": "string"
+   },
+   "PilotOut": {
+    "properties": {
+     "logging": {
+      "title": "Logging",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "logging"
+    ],
+    "title": "PilotOut",
+    "type": "object"
    },
    "ProductOut": {
     "properties": {
@@ -878,6 +922,47 @@
     "summary": "Crops"
    }
   },
+  "/v1/feedback": {
+   "post": {
+    "operationId": "feedback_v1_feedback_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FeedbackRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "204": {
+      "description": "Successful Response"
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorOut"
+        }
+       }
+      },
+      "description": "Not Found"
+     },
+     "422": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ErrorOut"
+        }
+       }
+      },
+      "description": "Unprocessable Entity"
+     }
+    },
+    "summary": "Feedback"
+   }
+  },
   "/v1/lookup": {
    "post": {
     "operationId": "lookup_v1_lookup_post",
@@ -986,6 +1071,24 @@
      }
     },
     "summary": "Pests"
+   }
+  },
+  "/v1/pilot": {
+   "get": {
+    "operationId": "pilot_state_v1_pilot_get",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PilotOut"
+        }
+       }
+      },
+      "description": "Successful Response"
+     }
+    },
+    "summary": "Pilot State"
    }
   },
   "/v1/products": {

@@ -105,6 +105,19 @@ class LookupOut(AnswerOut):
     headline: str
 
 
+class FeedbackRequest(BaseModel):
+    """L4 §9: a tester's rating of one answer, tied to it by the answer's x-request-id."""
+
+    model_config = ConfigDict(extra="forbid")
+    request_id: Annotated[str, StringConstraints(pattern=r"^[0-9a-f]{32}$")]
+    rating: Literal["up", "down"]
+    note: Annotated[str, StringConstraints(strip_whitespace=True, max_length=300)] = ""
+
+
+class PilotOut(BaseModel):
+    logging: bool
+
+
 class AskRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]

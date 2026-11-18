@@ -12,9 +12,9 @@
 | M1 | Register extraction (L1) | implemented, tested; edge defects detected and corrected ([audit](reports/E1/edge_audit.md)); corrections reviewed, release verified; E1 golden set partly done |
 | M2 | Lookup engine and HTTP API (L2) | implemented, tested, measured; release build verified ([L2 §12.5](docs/lld/l2_lookup_api.md)). E3: 122/150 on the first run (target 98 % **not met**); after the reviewed L2 §13 fixes, **58/60 on a fresh suite** with 0 false approvals ([report](reports/E3/report.md)) |
 | M3 | Tool-calling layer + number verifier | implemented, tested; evaluated live on three suites ([E3n](reports/E3n/first_run.md), [E3n-b](reports/E3nb/first_run.md), [E3n-c](reports/E3nc/first_run.md)). On the fresh E3n-b, **80.4 %** of answerable questions reach the same answer as a structured lookup (90 % when typed plainly). No dose or waiting period outside the cited rows has been delivered in any suite. Fixes A and B use the crop and product the user typed, not the model's reading. On [E3n-e](reports/E3ne/first_run.md), fix B turned 5 needless "which crop?" questions into correct answers. That run found one more wrong-rows approval (KE-01), now fixed (A2), with offline evidence: 0 of 352 recorded calls move away from the right answer. Mutation checks: 68/68 killed |
-| M4 | Evaluation on Kisan Call Centre questions | planned |
-| M5 | Kannada, speech in and out | planned |
-| M6 | Web app and pilot | planned |
+| M4 | Evaluation on Kisan Call Centre questions | **on hold** (2026-11-18): the data.gov.in API returned 502 after 60 s on every try; retried later |
+| M5 | Kannada, speech in and out | **on hold** (2026-11-18, the user's decision): product names are long chemical names, which speech-to-text handles far worse than typed text; English text tests first. A recording script is ready if it resumes (`evaluation/e5/`) |
+| M6 | Web app and pilot | web app built and browser-tested ([L4](docs/lld/l4_web_app.md)); private English tests next, run from the laptop |
 
 ## Design documents
 

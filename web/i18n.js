@@ -34,6 +34,11 @@ export const LABELS = {
     error: "Something went wrong. Please try again.",
     suggest: "Did you mean",
     earlier: "Your question so far",
+    pilot_notice: "Test version: your questions, the answers and your ratings are saved to improve the app. Please don't type personal details.",
+    helpful: "Helpful",
+    wrong: "Wrong",
+    note_placeholder: "What was wrong? (optional)",
+    thanks: "Thanks, saved.",
   },
   kn: {
     title: "ಕೀಟನಾಶಕ ಲೇಬಲ್ ಪರಿಶೀಲನೆ",
@@ -68,5 +73,10 @@ export const LABELS = {
     error: "ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     suggest: "ನೀವು ಹೇಳಿದ್ದು ಇದೇ?",
     earlier: "ಇಲ್ಲಿಯವರೆಗಿನ ನಿಮ್ಮ ಪ್ರಶ್ನೆ",
+    pilot_notice: "ಪರೀಕ್ಷಾ ಆವೃತ್ತಿ: ಆ್ಯಪ್ ಸುಧಾರಿಸಲು ನಿಮ್ಮ ಪ್ರಶ್ನೆಗಳು, ಉತ್ತರಗಳು ಮತ್ತು ರೇಟಿಂಗ್ ಉಳಿಸಲಾಗುತ್ತದೆ. ದಯವಿಟ್ಟು ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಬರೆಯಬೇಡಿ.",
+    helpful: "ಸಹಾಯಕವಾಯಿತು",
+    wrong: "ತಪ್ಪು",
+    note_placeholder: "ಏನು ತಪ್ಪಾಗಿತ್ತು? (ಐಚ್ಛಿಕ)",
+    thanks: "ಧನ್ಯವಾದ, ಉಳಿಸಲಾಗಿದೆ.",
   },
 };

@@ -38,5 +38,9 @@ dt { color: var(--muted); }
 dd { margin: 0; overflow-wrap: anywhere; }
 .cite { font-size: 0.9rem; color: var(--muted); margin: 6px 0 0; overflow-wrap: anywhere; }
 a { color: var(--accent); }
+.pilot { background: var(--warn-bg); border-left: 4px solid var(--warn-line); padding: 6px 10px; border-radius: 6px; font-size: 0.9rem; }
+.feedback { display: grid; gap: 6px; margin-top: 12px; }
+.feedback .buttons { display: flex; gap: 8px; }
+.feedback .buttons button { flex: 1; }
 .disclaimer, .earlier { font-size: 0.9rem; color: var(--muted); overflow-wrap: anywhere; }
 @media (max-width: 380px) { dl { grid-template-columns: 1fr; } dt { margin-top: 4px; } }
