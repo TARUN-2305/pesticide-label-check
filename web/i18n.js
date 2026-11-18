@@ -1,5 +1,5 @@
 // UI labels only; answers are never translated here (L4 §3). The Kannada labels were drafted by the assistant
-// and need a native speaker's review before the pilot.
+// and reviewed by the user, a Kannada speaker, on 2026-11-18 ("Yes Kannada is fine").
 export const LABELS = {
   en: {
     title: "Pesticide label-claim check",
@@ -33,6 +33,7 @@ export const LABELS = {
     limited: "Too many questions right now. Please wait a minute, or use Check.",
     error: "Something went wrong. Please try again.",
     suggest: "Did you mean",
+    earlier: "Your question so far",
   },
   kn: {
     title: "ಕೀಟನಾಶಕ ಲೇಬಲ್ ಪರಿಶೀಲನೆ",
@@ -66,5 +67,6 @@ export const LABELS = {
     limited: "ಈಗ ಹೆಚ್ಚು ಪ್ರಶ್ನೆಗಳು ಬಂದಿವೆ. ಒಂದು ನಿಮಿಷ ಕಾಯಿರಿ, ಅಥವಾ 'ಪರಿಶೀಲಿಸಿ' ಬಳಸಿ.",
     error: "ಏನೋ ತಪ್ಪಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     suggest: "ನೀವು ಹೇಳಿದ್ದು ಇದೇ?",
+    earlier: "ಇಲ್ಲಿಯವರೆಗಿನ ನಿಮ್ಮ ಪ್ರಶ್ನೆ",
   },
 };

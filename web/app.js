@@ -3,6 +3,9 @@
 import { LABELS } from "./i18n.js";
 
 let lang = "en";
+// When the assistant asks for one more detail, the reply continues that question instead of starting a new
+// one (/v1/ask is stateless, so the page joins the two). Found 2026-11-18: "Tomato" alone lost the product.
+let pending = null;
 const $ = (id) => document.getElementById(id);
 const t = (k) => LABELS[lang][k] ?? LABELS.en[k];
 
@@ -67,7 +70,9 @@ function answerCard(headline, message, answer, clarification) {
   const out = [];
   if (clarification) {
     out.push(el("h3", {}, t("clarify")), el("p", { class: "message" }, clarification.question));
+    if (pending) out.push(el("p", { class: "earlier" }, `${t("earlier")}: ${pending}`));
     $("result").replaceChildren(...out);
+    $("question").value = "";
     $("question").focus();
     return;
   }
@@ -78,7 +83,9 @@ function answerCard(headline, message, answer, clarification) {
   }
   const approved = answer && answer.outcome === "APPROVED";
   out.push(el("h3", { class: approved ? "headline yes" : "headline no" }, headline));
-  if (message && message !== headline) out.push(el("p", { class: "message" }, message));
+  // the model sometimes writes Markdown bold; the page shows plain text, so the marks are dropped (still text)
+  const plain = (message || "").replaceAll("**", "");
+  if (plain && plain !== headline) out.push(el("p", { class: "message" }, plain));
   if (answer) {
     if (answer.uses.length) {
       out.push(el("h4", {}, `${t("rows")} (${t("as_printed")})`));
@@ -97,11 +104,16 @@ function answerCard(headline, message, answer, clarification) {
 
 async function ask(event) {
   event.preventDefault();
-  const question = $("question").value.trim();
-  if (!question) return;
+  const typed = $("question").value.trim();
+  if (!typed) return;
+  const question = pending ? `${pending} ${typed}`.slice(0, 500) : typed;
+  pending = null;
   notice(t("working"));
   const { status, data } = await api("/v1/ask", { question, lang }).catch(() => ({ status: 0, data: null }));
-  if (status === 200 && data) return answerCard(data.headline, data.message, data.answer, data.clarification);
+  if (status === 200 && data) {
+    if (data.clarification) pending = question;
+    return answerCard(data.headline, data.message, data.answer, data.clarification);
+  }
   if (status === 503) { notice(t("unavailable"), "warn"); return showTab("check"); }
   if (status === 429) return notice(t("limited"), "warn");
   notice(t("error"), "warn");

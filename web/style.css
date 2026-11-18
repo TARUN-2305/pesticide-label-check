@@ -38,5 +38,5 @@ dt { color: var(--muted); }
 dd { margin: 0; overflow-wrap: anywhere; }
 .cite { font-size: 0.9rem; color: var(--muted); margin: 6px 0 0; overflow-wrap: anywhere; }
 a { color: var(--accent); }
-.disclaimer { font-size: 0.9rem; color: var(--muted); }
+.disclaimer, .earlier { font-size: 0.9rem; color: var(--muted); overflow-wrap: anywhere; }
 @media (max-width: 380px) { dl { grid-template-columns: 1fr; } dt { margin-top: 4px; } }

@@ -111,7 +111,7 @@ The prediction was Check p95 ≤ 200 ms: held, by a wide margin. A real phone ne
 - PPQS material may be reproduced free of charge **after permission by email**, reproduced accurately, not in a misleading context, and with the source acknowledged;
 - linking needs no permission, but pages must open in a new window (the page does this).
 
-So a public link waits for the user's permission email. The policy names no address; the site's only printed contact is the Web Information Manager on https://ppqs.gov.in/contactus.
+So a public link waits on PPQS's reply. **The user sent the permission email on 2026-11-18** (to the Web Information Manager listed on the contact page); there is no reply yet. The policy names no address; the site's only printed contact is the Web Information Manager on https://ppqs.gov.in/contactus.
 
 **Ask with the model, in the browser** (375 px; Groq; 3 questions, all from the test suites):
 
@@ -126,7 +126,18 @@ So a public link waits for the user's permission email. The policy names no addr
 - `overflow-wrap: anywhere` on the answer text.
 - The page's files are sent with `cache-control: no-cache`. A stale stylesheet hid the CSS fix until the browser revalidated.
 
+**A clarifying question now continues the conversation** (found 2026-11-18). `/v1/ask` is stateless, so the reply "Tomato" used to arrive without the product. The page now joins the reply to the question that drew the clarification, and shows "Your question so far".
+
+Checked in the browser:
+- "Mancozeb 75% WP sari na?" drew "which crop?" (in Kannada);
+- the reply "aalugadde late blight" was joined to it;
+- the answer was "Approved: Mancozeb 75% WP on Potato for late blight … (p. 18)".
+
+Markdown bold marks (`**`) in model text are now dropped on the page.
+
+**Found in that Kannada reply** ("750 L ಜಲದಲ್ಲಿ ಕಲೆಹಾಕಿ", "mix in 750 L of water"): **the advice-wording guard knows only English words**, so an instruction in Kannada passes. This goes to M5, together with the Kannada-script lexicon.
+
 **Not done yet:**
 - the container;
 - the copyright check;
-- the Kannada label review by a native speaker.
+- (done 2026-11-18) the Kannada labels were reviewed by the user, a Kannada speaker: "Yes Kannada is fine".
