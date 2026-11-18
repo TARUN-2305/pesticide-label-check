@@ -171,6 +171,36 @@ def _canonical_strengths(engine: Engine, typed: str) -> set[Decimal]:
     return {v for _, v in numbers(typed)} & canonical
 
 
+def _slot_repairs(rec: dict[str, Any], res: dict[str, Any]) -> dict[str, Any]:
+    """Where the code overrode the model's reading: fix A (E3n-d) replaced the crop the model first passed;
+    fix B (E3n-e) answered although the model asked a question."""
+    model_crop = _model_crop(rec)
+    used_crop = (res["slots"] or {}).get("crop")
+    replaced = bool(model_crop and used_crop and model_crop != used_crop)
+    return {
+        "crop_replaced": replaced,
+        "model_crop": model_crop,
+        "clarification_overridden": (
+            _first_tool(rec) == "ask_clarifying_question" and res["answer"] is not None
+        ),
+        "rejected_crop_in_prose": bool(
+            replaced and res["phrased_by"] == "model" and _squash(str(model_crop)) in _squash(res["message"])
+        ),
+    }
+
+
+def _first_tool(rec: dict[str, Any]) -> str | None:
+    """The name of the first tool the model called, from the recorded response bodies."""
+    for ex in rec.get("exchanges", []):
+        try:
+            calls = ex["response"]["choices"][0]["message"].get("tool_calls") or []
+        except (KeyError, IndexError, TypeError):
+            continue
+        if calls:
+            return str(calls[0].get("function", {}).get("name"))
+    return None
+
+
 def _model_crop(rec: dict[str, Any]) -> str | None:
     """The crop in the model's first lookup call, from the recorded response body."""
     for ex in rec.get("exchanges", []):
@@ -265,16 +295,7 @@ def score(register: Path, label: str) -> None:
                 row["matches_structured"] = shown["outcome"] == oracle.outcome.value and same_uses
             if item["part"] in ("plain", "variant", "control", "probe"):
                 row["matches_label"] = outcome == item["labelled_outcome"]
-            # E3n-d (fix A): the crop the model first passed, against the crop the lookup used
-            model_crop = _model_crop(rec)
-            used_crop = (res["slots"] or {}).get("crop")
-            row["crop_replaced"] = bool(model_crop and used_crop and model_crop != used_crop)
-            row["model_crop"] = model_crop
-            row["rejected_crop_in_prose"] = bool(
-                row["crop_replaced"]
-                and res["phrased_by"] == "model"
-                and _squash(str(model_crop)) in _squash(res["message"])
-            )
+            row |= _slot_repairs(rec, res)
             approved_headline = res["headline"].removeprefix(BAN_PREFIX).startswith("Approved")
             row["approval_not_asked"] = bool(
                 approved_headline and oracle is not None and oracle.outcome is not Outcome.APPROVED
@@ -311,7 +332,7 @@ def score(register: Path, label: str) -> None:
 
     part = {
         p: [r for r in rows if r["part"] == p]
-        for p in ("plain", "variant", "control", "probe", "missing", "brand", "redteam")
+        for p in ("plain", "variant", "control", "probe", "twocrop", "missing", "brand", "redteam")
     }
     n_items = part["plain"] + part["variant"] + part["control"]  # control: E3n-d only
     answered = [r for r in rows if r.get("outcome") not in (None, "CLARIFY")]
@@ -332,6 +353,8 @@ def score(register: Path, label: str) -> None:
         "probe_matches_structured": rate(part["probe"], "matches_structured"),
         "crop_replaced": {r["id"]: r["model_crop"] for r in rows if r.get("crop_replaced")},
         "rejected_crop_in_prose": [r["id"] for r in rows if r.get("rejected_crop_in_prose")],
+        "clarification_overridden": [r["id"] for r in rows if r.get("clarification_overridden")],
+        "twocrop": {r["id"]: r.get("outcome") for r in part["twocrop"]},
         "N_matches_label_all": rate(n_items, "matches_label"),
         "N_clarified_instead": [r["id"] for r in n_items if r.get("outcome") == "CLARIFY"],
         "missing_slot_clarified": rate(
