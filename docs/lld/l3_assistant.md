@@ -300,3 +300,26 @@ The verifier ignores number words; the allowed set includes the user's numbers; 
 - E3n-d live: 0 approvals for rows not asked, but 0 live triggers ([report](../../reports/E3nd/first_run.md)).
 
 **Next:** fix B. "Which crop?" was asked on 10 of 18 Kannada-name items, and the lexicon resolves all of them.
+
+## 17. Fix B, E3n-e and fix A2 (2026-11-18)
+
+**Fix B** (`6764725`; E3n-e committed before it in `7ef0b79`). `Assistant._slots_from_question` runs before a clarifying question is accepted. It takes:
+- exactly one registered product as typed (`_typed_products`, tried from every word start, exact resolutions only);
+- exactly one crop (fix A's rules);
+- at most one leftover phrase, with linking words trimmed from its edges (`_EDGE_WORDS`, `_trim`), as the pest.
+
+An unknown phrase stays the pest (UNKNOWN_PEST). The exception: when the product has no use on the crop at all, the answer is "not registered on this crop" without the phrase. A malformed clarifying call still fails over first.
+
+**Fix A2** (`c1b831f`). When the model's crop holds more than the typed crop name, the whole question goes through fix B's reading, and an ambiguous reading keeps the model's crop (`_with_users_crop`). Also in `c1b831f`, `_TYPED_PRODUCT` no longer ends a name at a code followed by "/" ("75 g/l").
+
+**Evidence:**
+- E3n-e live ([report](../../reports/E3ne/first_run.md)): fix B made 5 overrides, all correct; variants 18/20; missing slot 5/5. Fix A's first live trigger was correct ("togari", mistranslated to sorghum).
+- One wrong-row approval (KE-01), caused by fix A dropping a pest word. It is fixed by A2, with offline evidence only so far.
+- A replay of 352 recorded calls: 41 outcomes move to the structured answer, 0 away from it.
+- 68/68 mutants killed.
+
+**Open:**
+- E3n-f, the live measure of A2 and the pattern fix.
+- Candidate E: prose that names a crop other than the one looked up. Seen three times: NC-019, RD-01, NE-014.
+- An empty crop from the model should become a clarification (RE-01).
+- "%"-less strengths with "w/w" (NE-004).
